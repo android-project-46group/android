@@ -22,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.kokoichi.sample.sakamichiapp.ui.GroupList
+import io.kokoichi.sample.sakamichiapp.ui.SortBar
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,10 +33,18 @@ class MainActivity : ComponentActivity() {
             SakamichiAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MembersList("nogi")
+                    MainView()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MainView() {
+    Column {
+        GroupList()
+        MembersList("nogi")
     }
 }
 
@@ -48,7 +58,10 @@ data class Member(
 @Composable
 fun HomePreview() {
     SakamichiAppTheme {
-        MembersList("Android")
+        Column {
+            GroupList()
+            MembersList("Android")
+        }
     }
 }
 
