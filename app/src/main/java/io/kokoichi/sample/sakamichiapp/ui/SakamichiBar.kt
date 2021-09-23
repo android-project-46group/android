@@ -31,31 +31,21 @@ fun GroupList() {
         }
         Box(
             modifier = Modifier
-                .weight(2f)
+                .weight(1f)
                 .border(BorderStroke(BORDER_RADIUS, BORDER_COLOR))
-                .padding(4.dp),
+                .padding (4.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(text = "櫻坂")
         }
-
         Box(
             modifier = Modifier
                 .weight(1f)
                 .border(BorderStroke(BORDER_RADIUS, BORDER_COLOR))
-                .padding(4.dp),
+                .padding (4.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "乃木坂")
-        }
-        Box(
-            modifier = Modifier
-                .weight(2f)
-                .border(BorderStroke(BORDER_RADIUS, BORDER_COLOR))
-                .padding(4.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text = "櫻坂")
+            Text(text = "日向坂")
         }
     }
 }
