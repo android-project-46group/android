@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             SakamichiAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MainView()
+                    App()
                 }
             }
         }
@@ -197,5 +197,37 @@ fun OnePerson(person: Member) {
             modifier = Modifier.padding(all = 4.dp),
             style = MaterialTheme.typography.subtitle2,
         )
+@Composable
+fun App() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "main") {
+
+        composable("main") { MainView(navController) }
+
+        // userData は Member クラスを Json オブジェクトにして渡してあげる
+        composable(
+            route = "detailed/userData={userData}",
+            arguments = listOf(navArgument("userData") { type = NavType.StringType })
+        ) { backStackEntry ->
+            // 受け取った時の処理を記述、
+            // Json が渡ってくるので、それをオブジェクトに変換する
+            Log.d(TAG, "Received: " + backStackEntry)
+            Log.d(TAG, "Received: " + backStackEntry.arguments.toString())
+
+
+            val userJson = backStackEntry.arguments?.getString("userData")
+
+            Log.d(TAG, userJson.toString())
+            val MemberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
+            DetailedView(MemberProps)
+        }
     }
 }
+
+data class MemberProps(
+    val name: String = "name",
+    val name_ja: String? = "メンバー名",
+    val birthday: String? = null,
+    val group: String? = "nogizaka",
+    val heigt: String? = "159cm"
+)
