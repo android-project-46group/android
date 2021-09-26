@@ -25,6 +25,8 @@ import io.kokoichi.sample.sakamichiapp.ui.SortBar
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
 
+val TAG = "MainActivity"
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
     }
 }
 
@@ -83,16 +84,17 @@ fun MembersList(
     // 横に並ぶ人の情報をまとめるデータクラス
     data class _persons(val person1: Member, val person2: Member? = null)
 
-
+    // 通信が終わったことを通知するための変数
     var isDownloaded by remember { mutableStateOf(false) }
 
 
     val db = Firebase.firestore
 
     if (!isDownloaded) {
+        // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
+        // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
         db.collection(groupName).get().addOnSuccessListener { querySnapshot ->
             for (document in querySnapshot) {
-//            Log.d("checker3", document.id + " => " + document.data)
                 // TODO: メンバーリストに追加する
                 val userInfo = document.toObject(MemberPayload::class.java)
 
@@ -104,17 +106,14 @@ fun MembersList(
                     birthday = userInfo?.birthday,
                     imgUrl = userInfo.img_url,
                 )
-//            Log.d("MainActivity", userInfo.toString())
 
                 members.add(member)
-                Log.d("checker3", member.toString())
             }
-            Log.d("checker3", "Number of members: " + members.size)
-            Log.d("checker3", "downloader finished")
+            Log.d(TAG, "downloader finished")
             isDownloaded = true
 
         }.addOnFailureListener { exception ->
-            Log.e("hoge", "Exception when retrieving game", exception)
+            Log.e(TAG, "Exception when retrieving game", exception)
         }
     }
 
@@ -126,9 +125,7 @@ fun MembersList(
         // LazyColumn で items ないでループを回すための準備
         val numPerson: Int = members.size
         val numPair: Int = members.size / 2 + members.size % 2
-//    Log.d("MainActivity", members.toString())
-        Log.d("checker3", "Number of pairs: $numPair")
-        Log.d("MainActivity", "Number of pairs: $numPair")
+        Log.d(TAG, "Number of pairs: $numPair")
         for (i in 0 until numPair) {
             // 最後の列では、偶数人の時のみ表示させる
             pairs.add(
@@ -186,7 +183,7 @@ fun OnePerson(person: Member) {
             )
         } else {
             Image(
-                painter = rememberImagePainter(person.imgUrl),
+                painter = rememberImagePainter(person.imgUrl),  // これには size が必要！
                 contentDescription = null,
                 // TODO.size が必要だったから設定した値であり、ハードコーディングを避ける！ -----
                 modifier = Modifier
