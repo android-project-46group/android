@@ -191,10 +191,31 @@ fun OneRow(
 }
 
 
+// imgUrl = IMG_URL_PREFIFX/{groupName}/{memberName}.jpeg?alt=media
+val IMG_URL_PREFIFX = "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka"
+val IMG_URL_SUFFIX = ".jpeg?alt=media"
+val SLASH_ENCODED = "%2F"
+
 @Composable
 fun OnePerson(person: Member, navController: NavHostController, groupName: String) {
     Column(
         modifier = Modifier.clickable {
+            Log.d(TAG, person.name_ja + " clicked")
+
+            // FIXME: 以下の理由で、MemberProps を作っている。URL に注意
+            // Props で渡すときに、URL は JSON デコードがなんか上手くできなかった
+            val userProps = MemberProps(
+                name = person.name,
+                name_ja = person.name_ja,
+                birthday = person.birthday,
+                group = groupName,
+                heigt = person.heigt
+            )
+
+            val jsonUser = Gson().toJson(userProps)
+            val ROUTE_MEMBER_DETAILS = "detailed" + "/userData=" + jsonUser
+            Log.d(TAG, ROUTE_MEMBER_DETAILS)
+            navController.navigate(ROUTE_MEMBER_DETAILS)
         }
     ) {
         if (person.imgUrl == null) {
@@ -214,11 +235,16 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
             )
         }
 
-        Text(
-            text = person.name_ja!!,
-            modifier = Modifier.padding(all = 4.dp),
-            style = MaterialTheme.typography.subtitle2,
-        )
+        Row {
+            Text(
+                text = person.name_ja!!,
+                modifier = Modifier.padding(all = 4.dp),
+                style = MaterialTheme.typography.subtitle2,
+            )
+        }
+    }
+}
+
 @Composable
 fun App() {
     val navController = rememberNavController()
