@@ -5,20 +5,26 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyScopeMarker
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import coil.compose.rememberImagePainter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.squareup.picasso.Picasso
+import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
 import io.kokoichi.sample.sakamichiapp.ui.GroupList
 import io.kokoichi.sample.sakamichiapp.ui.SortBar
@@ -37,19 +43,20 @@ class MainActivity : ComponentActivity() {
             SakamichiAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MainView()
+                    App()
                 }
             }
         }
     }
 }
 
+
 @Composable
-fun MainView() {
+fun MainView(navController: NavHostController) {
     Column {
         GroupList()
         SortBar()
-        MembersList("nogizaka")
+        MembersList("nogizaka", navController)
     }
 }
 
@@ -58,6 +65,7 @@ data class Member(
     val name_ja: String? = "メンバー名",
     val birthday: String? = null,
     val imgUrl: String? = null,
+    val heigt: String? = "159cm"
 )
 
 //@Preview
@@ -66,7 +74,7 @@ data class Member(
 //    SakamichiAppTheme {
 //        Column {
 //            GroupList()
-//            MembersList("Android", membersFromStorage)
+//            MembersList("Android")
 //        }
 //    }
 //}
@@ -79,6 +87,7 @@ var members = mutableListOf<Member>()
 @Composable
 fun MembersList(
     groupName: String,
+    navController: NavHostController,
 ) {
     // TODO: 本当に必要か考える
     // 横に並ぶ人の情報をまとめるデータクラス
@@ -142,14 +151,24 @@ fun MembersList(
 
         LazyColumn {
             items(pairs) { pair ->
-                OneRow(person1 = pair.person1, person2 = pair.person2)
+                OneRow(
+                    person1 = pair.person1,
+                    person2 = pair.person2,
+                    navController = navController,
+                    groupName = groupName
+                )
             }
         }
     }
 }
 
 @Composable
-fun OneRow(person1: Member, person2: Member? = null) {
+fun OneRow(
+    person1: Member,
+    person2: Member? = null,
+    navController: NavHostController,
+    groupName: String
+) {
     Row(
         modifier = Modifier
             .padding(all = 8.dp)
@@ -157,7 +176,7 @@ fun OneRow(person1: Member, person2: Member? = null) {
     ) {
         // weight で分割する割合を指定
         Box(modifier = Modifier.weight(1f)) {
-            OnePerson(person = person1)
+            OnePerson(person = person1, navController = navController, groupName = groupName)
         }
         // 横並びのカードの距離
         Spacer(modifier = Modifier.width(8.dp))
@@ -165,16 +184,40 @@ fun OneRow(person1: Member, person2: Member? = null) {
         Box(modifier = Modifier.weight(1f)) {
             // 2人目が存在する時のみ描画
             if (person2 != null) {
-                OnePerson(person = person2)
+                OnePerson(person = person2, navController = navController, groupName = groupName)
             }
         }
     }
 }
 
 
+// imgUrl = IMG_URL_PREFIFX/{groupName}/{memberName}.jpeg?alt=media
+val IMG_URL_PREFIFX = "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka"
+val IMG_URL_SUFFIX = ".jpeg?alt=media"
+val SLASH_ENCODED = "%2F"
+
 @Composable
-fun OnePerson(person: Member) {
-    Column() {
+fun OnePerson(person: Member, navController: NavHostController, groupName: String) {
+    Column(
+        modifier = Modifier.clickable {
+            Log.d(TAG, person.name_ja + " clicked")
+
+            // FIXME: 以下の理由で、MemberProps を作っている。URL に注意
+            // Props で渡すときに、URL は JSON デコードがなんか上手くできなかった
+            val userProps = MemberProps(
+                name = person.name,
+                name_ja = person.name_ja,
+                birthday = person.birthday,
+                group = groupName,
+                heigt = person.heigt
+            )
+
+            val jsonUser = Gson().toJson(userProps)
+            val ROUTE_MEMBER_DETAILS = "detailed" + "/userData=" + jsonUser
+            Log.d(TAG, ROUTE_MEMBER_DETAILS)
+            navController.navigate(ROUTE_MEMBER_DETAILS)
+        }
+    ) {
         if (person.imgUrl == null) {
             Image(
                 painter = painterResource(id = R.drawable.profile_picture),
@@ -192,10 +235,46 @@ fun OnePerson(person: Member) {
             )
         }
 
-        Text(
-            text = person.name_ja!!,
-            modifier = Modifier.padding(all = 4.dp),
-            style = MaterialTheme.typography.subtitle2,
-        )
+        Row {
+            Text(
+                text = person.name_ja!!,
+                modifier = Modifier.padding(all = 4.dp),
+                style = MaterialTheme.typography.subtitle2,
+            )
+        }
     }
 }
+
+@Composable
+fun App() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "main") {
+
+        composable("main") { MainView(navController) }
+
+        // userData は Member クラスを Json オブジェクトにして渡してあげる
+        composable(
+            route = "detailed/userData={userData}",
+            arguments = listOf(navArgument("userData") { type = NavType.StringType })
+        ) { backStackEntry ->
+            // 受け取った時の処理を記述、
+            // Json が渡ってくるので、それをオブジェクトに変換する
+            Log.d(TAG, "Received: " + backStackEntry)
+            Log.d(TAG, "Received: " + backStackEntry.arguments.toString())
+
+
+            val userJson = backStackEntry.arguments?.getString("userData")
+
+            Log.d(TAG, userJson.toString())
+            val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
+            DetailedView(memberProps, navController)
+        }
+}
+
+data class MemberProps(
+    val name: String = "name",
+    val name_ja: String? = "メンバー名",
+    val birthday: String? = null,
+    val group: String? = "nogizaka",
+    val heigt: String? = "159cm"
+)
