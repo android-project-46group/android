@@ -65,7 +65,8 @@ data class Member(
     val name_ja: String? = "メンバー名",
     val birthday: String? = null,
     val imgUrl: String? = null,
-    val heigt: String? = "159cm"
+    val height: String? = "159cm",
+    val bloodType: String = "不明",
 )
 
 //@Preview
@@ -114,6 +115,7 @@ fun MembersList(
                     name_ja = userInfo.name_ja,
                     birthday = userInfo?.birthday,
                     imgUrl = userInfo.img_url,
+                    bloodType = userInfo.blood_type!!,
                 )
 
                 members.add(member)
@@ -192,7 +194,8 @@ fun OneRow(
 
 
 // imgUrl = IMG_URL_PREFIFX/{groupName}/{memberName}.jpeg?alt=media
-val IMG_URL_PREFIFX = "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka"
+val IMG_URL_PREFIFX =
+    "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka"
 val IMG_URL_SUFFIX = ".jpeg?alt=media"
 val SLASH_ENCODED = "%2F"
 
@@ -209,7 +212,8 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
                 name_ja = person.name_ja,
                 birthday = person.birthday,
                 group = groupName,
-                heigt = person.heigt
+                heigt = person.height,
+                bloodType = person.bloodType,
             )
 
             val jsonUser = Gson().toJson(userProps)
@@ -269,6 +273,7 @@ fun App() {
             val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
             DetailedView(memberProps, navController)
         }
+    }
 }
 
 data class MemberProps(
@@ -276,5 +281,6 @@ data class MemberProps(
     val name_ja: String? = "メンバー名",
     val birthday: String? = null,
     val group: String? = "nogizaka",
-    val heigt: String? = "159cm"
+    val heigt: String? = "159cm",
+    val bloodType: String = "不明"
 )
