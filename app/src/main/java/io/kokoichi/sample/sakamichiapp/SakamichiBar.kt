@@ -15,12 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.kokoichi.sample.sakamichiapp.MainView
-import io.kokoichi.sample.sakamichiapp.selectedGroupName
+import io.kokoichi.sample.sakamichiapp.Member
+import io.kokoichi.sample.sakamichiapp.gSelectedGroupName
+import io.kokoichi.sample.sakamichiapp.members
 
-@Preview
+
 @Composable
-fun GroupList() {
+fun GroupList(selectedGroupName: MutableState<String>) {
     val TAG = "SakamichiBar"
 
     val groups = mockGroups
@@ -44,19 +45,20 @@ fun GroupList() {
                 .height(IntrinsicSize.Min)
         ) {
             // グループ名によって色を管理するための変数
-            var selectedGroupNames by remember { mutableStateOf(selectedGroupName) }
+            var selectedGroupNames by remember { mutableStateOf(gSelectedGroupName) }
             Log.d(TAG, selectedGroupNames.toString())
             for (pre in GroupName.values()) {
                 // 選ばれた値であれば、背景色グレーの値を設定する
-                if (pre.name == selectedGroupName) {
+                if (pre.name == gSelectedGroupName) {
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .padding(4.dp)
                             .clickable {
                                 selectedGroupNames = pre.name
-                                selectedGroupName = pre.name
-                                Log.d(TAG, "select group $selectedGroupName")
+                                selectedGroupName.apply { pre.name }
+                                members = mutableListOf<Member>()
+                                Log.d("TAG", "select group $gSelectedGroupName")
                             }
                             .background(SELECTED_BG_COLOR),
                         contentAlignment = Alignment.Center,
@@ -70,14 +72,17 @@ fun GroupList() {
                             .padding(4.dp)
                             .clickable {
                                 selectedGroupNames = pre.name
-                                selectedGroupName = pre.name
-                                Log.d(TAG, "select group $selectedGroupName")
+                                gSelectedGroupName = pre.name
+                                selectedGroupName.apply { pre.name }
+                                members = mutableListOf<Member>()
+                                Log.d("TAG", "select group $gSelectedGroupName")
                             },
                         contentAlignment = Alignment.Center
                     ) {
                         Text(text = pre.group, fontSize = FONT_SIZE)
                     }
                 }
+                gSelectedGroupName = selectedGroupNames
                 // 最終 Box 以外には区切りとして縦線をひく
                 if (pre.name !== "hinatazaka") {
                     Divider(

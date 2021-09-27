@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -50,13 +51,23 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//var selectedGroupName = "nogizaka"
+// globally selected group name
+var gSelectedGroupName = "sakurazaka"
 
 @Composable
-fun MainView(navController: NavHostController) {
+fun MainView(groupName: String, navController: NavHostController) {
+
+//    var selectedGroupName = rememberSaveable{ String }
+    var selectedGroupName = remember{ mutableStateOf(gSelectedGroupName) }
+    selectedGroupName.value = gSelectedGroupName
+    Log.d("yoshi", selectedGroupName.toString())
+
     Column {
-        GroupList()
+        GroupList(selectedGroupName)
         SortBar()
-        MembersList("nogizaka", navController)
+//        MembersList(selectedGroupName.toString(), navController)
+        MembersList(selectedGroupName, navController)
     }
 }
 
@@ -87,9 +98,14 @@ var members = mutableListOf<Member>()
 
 @Composable
 fun MembersList(
-    groupName: String,
+    groupName: MutableState<String>,
     navController: NavHostController,
 ) {
+
+
+
+    val gName = groupName.value
+
     // TODO: 本当に必要か考える
     // 横に並ぶ人の情報をまとめるデータクラス
     data class _persons(val person1: Member, val person2: Member? = null)
@@ -100,10 +116,12 @@ fun MembersList(
 
     val db = Firebase.firestore
 
-    if (!isDownloaded) {
+    Log.d("TAG", isDownloaded.toString())
+    // if (!isDownloaded) {
+    if (members.size == 0) {
         // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
         // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
-        db.collection(groupName).get().addOnSuccessListener { querySnapshot ->
+        db.collection(groupName.value).get().addOnSuccessListener { querySnapshot ->
             for (document in querySnapshot) {
                 // TODO: メンバーリストに追加する
                 val userInfo = document.toObject(MemberPayload::class.java)
@@ -117,8 +135,11 @@ fun MembersList(
                     imgUrl = userInfo.img_url,
                     bloodType = userInfo.blood_type!!,
                 )
-
-                members.add(member)
+                // なぜか 2 回 false のところを通っていたので、
+                // add する前に確認することとす
+                if (!isDownloaded) {
+                    members.add(member)
+                }
             }
             Log.d(TAG, "downloader finished")
             isDownloaded = true
@@ -157,7 +178,7 @@ fun MembersList(
                     person1 = pair.person1,
                     person2 = pair.person2,
                     navController = navController,
-                    groupName = groupName
+                    groupName = gName
                 )
             }
         }
@@ -251,10 +272,12 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
 
 @Composable
 fun App() {
+
+
     val navController = rememberNavController()
     NavHost(navController, startDestination = "main") {
 
-        composable("main") { MainView(navController) }
+        composable("main") { MainView("nogizaka", navController) }
 
         // userData は Member クラスを Json オブジェクトにして渡してあげる
         composable(
