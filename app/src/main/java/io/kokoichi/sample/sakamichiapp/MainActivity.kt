@@ -192,7 +192,8 @@ fun OneRow(
 
 
 // imgUrl = IMG_URL_PREFIFX/{groupName}/{memberName}.jpeg?alt=media
-val IMG_URL_PREFIFX = "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka"
+val IMG_URL_PREFIFX =
+    "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka"
 val IMG_URL_SUFFIX = ".jpeg?alt=media"
 val SLASH_ENCODED = "%2F"
 
@@ -269,6 +270,7 @@ fun App() {
             val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
             DetailedView(memberProps, navController)
         }
+    }
 }
 
 data class MemberProps(
