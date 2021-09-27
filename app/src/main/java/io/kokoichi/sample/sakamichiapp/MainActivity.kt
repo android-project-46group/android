@@ -136,7 +136,6 @@ fun MainView(groupName: String, navController: NavHostController) {
                                 .padding(4.dp)
                                 .clickable {
                                     selectedGroupNames = pre.name
-                                    gSelectedGroupName = pre.name
                                     selectedGroupName.apply { pre.name }
                                     members = mutableListOf<Member>()
                                     Log.d("TAG", "select group $gSelectedGroupName")
