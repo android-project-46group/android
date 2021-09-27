@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -28,7 +30,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
 import io.kokoichi.sample.sakamichiapp.ui.GroupList
+import io.kokoichi.sample.sakamichiapp.ui.GroupName
 import io.kokoichi.sample.sakamichiapp.ui.SortBar
+import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
 
@@ -49,6 +53,16 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("TAG", "onRestart() called")
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d("TAG", "onBackPressed() called")
+    }
 }
 
 //var selectedGroupName = "nogizaka"
@@ -58,16 +72,300 @@ var gSelectedGroupName = "sakurazaka"
 @Composable
 fun MainView(groupName: String, navController: NavHostController) {
 
-//    var selectedGroupName = rememberSaveable{ String }
     var selectedGroupName = remember{ mutableStateOf(gSelectedGroupName) }
     selectedGroupName.value = gSelectedGroupName
     Log.d("yoshi", selectedGroupName.toString())
 
     Column {
-        GroupList(selectedGroupName)
-        SortBar()
-//        MembersList(selectedGroupName.toString(), navController)
-        MembersList(selectedGroupName, navController)
+
+
+
+        val groups = mockGroups
+        val BORDER_COLOR = Color.Gray
+        val BORDER_THICKNESS = 2.dp
+
+        val FONT_SIZE = 20.sp
+        val FONT_COLOR = Color.Black
+
+        val SELECTED_BG_COLOR = Color.LightGray
+
+
+
+
+        // 通信が終わったことを通知するための変数
+        var isDownloaded by remember { mutableStateOf(false) }
+
+
+        // Row の margin が見つからなかったので、外 BOX の padding で対応
+        Box(
+            modifier = Modifier
+                .padding(8.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .border(BorderStroke(BORDER_THICKNESS, BORDER_COLOR))
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
+            ) {
+                // グループ名によって色を管理するための変数
+                var selectedGroupNames by remember { mutableStateOf(gSelectedGroupName) }
+                Log.d(TAG, selectedGroupNames.toString())
+                for (pre in GroupName.values()) {
+                    // 選ばれた値であれば、背景色グレーの値を設定する
+                    if (pre.name == gSelectedGroupName) {
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(4.dp)
+                                .clickable {
+                                    selectedGroupNames = pre.name
+                                    selectedGroupName.apply { pre.name }
+                                    members = mutableListOf<Member>()
+                                    Log.d("TAG", "select group $gSelectedGroupName")
+                                    isDownloaded = false
+                                }
+                                .background(SELECTED_BG_COLOR),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(text = pre.group, fontSize = FONT_SIZE)
+                        }
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(4.dp)
+                                .clickable {
+                                    selectedGroupNames = pre.name
+                                    gSelectedGroupName = pre.name
+                                    selectedGroupName.apply { pre.name }
+                                    members = mutableListOf<Member>()
+                                    Log.d("TAG", "select group $gSelectedGroupName")
+                                    isDownloaded = false
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = pre.group, fontSize = FONT_SIZE)
+                        }
+                    }
+                    gSelectedGroupName = selectedGroupNames
+                    // 最終 Box 以外には区切りとして縦線をひく
+                    if (pre.name !== "hinatazaka") {
+                        Divider(
+                            color = Color.Black,
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .width(BORDER_THICKNESS)
+                        )
+                    }
+
+                }
+            }
+        }
+
+
+
+
+
+
+
+        val BORDER_RADIUS = 2.dp
+
+        val KEY_FONT_SIZE = 10.sp
+        val VALUE_FONT_SIZE = 15.sp
+
+        val SORT_KEY_MESSAGE = "並びかえ"
+        val SORT_VAL_DEFAULT = "選んでください"
+        val SORT_VAL_BY_NAME = "50音順"
+        val SORT_VAL_BY_BIRTHDAY = "生年月日"
+        val SORT_VAL_BY_BLOOD = "血液型"
+
+
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .fillMaxWidth()
+
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(2f)
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(text = SORT_KEY_MESSAGE, fontSize = KEY_FONT_SIZE)
+            }
+
+            var sortExpanded by remember { mutableStateOf(false) }
+            var sortValMessage = SORT_VAL_DEFAULT
+            Box(
+                modifier = Modifier
+                    .wrapContentSize(Alignment.TopStart)
+                    .weight(3f)
+            ) {
+                Button(
+                    modifier = Modifier
+                        .padding(vertical = 2.dp),
+                    onClick = {
+                        sortExpanded = true
+                    }
+                ) {
+                    Text(text = sortValMessage, fontSize = 8.sp)
+                }
+                DropdownMenu(expanded = sortExpanded, onDismissRequest = { sortExpanded = false }) {
+                    DropdownMenuItem(
+                        onClick = {
+                            Log.d(TAG, "sort by name order was clicked")
+                            sortValMessage = SORT_VAL_BY_NAME
+                        }
+                    ) {
+                        Text(SORT_VAL_BY_NAME)
+                    }
+                    DropdownMenuItem(
+                        onClick = { sortValMessage = SORT_VAL_BY_BIRTHDAY }
+                    ) {
+                        Text(SORT_VAL_BY_BIRTHDAY)
+                    }
+                    DropdownMenuItem(
+                        onClick = { sortValMessage = SORT_VAL_BY_BLOOD },
+                    ) {
+                        Text(SORT_VAL_BY_BLOOD)
+                    }
+                }
+            }
+
+            //
+            // 絞り込みを行う
+            Box(
+                modifier = Modifier
+                    .weight(2f)
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "絞り込み", fontSize = KEY_FONT_SIZE)
+            }
+
+            var expanded by remember { mutableStateOf(false) }
+            Box(
+                modifier = Modifier
+                    .wrapContentSize(Alignment.TopStart)
+                    .weight(3f)
+            ) {
+                Button(
+                    modifier = Modifier
+                        .padding(vertical = 2.dp),
+                    onClick = {
+                        expanded = true
+                    }
+                ) {
+                    Text(text = "選んでください", fontSize = 8.sp)
+                }
+                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                    DropdownMenuItem(
+                        onClick = {
+                            Log.d(TAG, "1st gen selected")
+                        }
+                    ) {
+                        Text("1期生")
+                    }
+                    DropdownMenuItem(
+                        onClick = {  }
+                    ) {
+                        Text("2期生")
+                    }
+                    DropdownMenuItem(
+                        onClick = { /* Handle send feedback! */ },
+                    ) {
+                        Text("3期生")
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+        val gName = selectedGroupName
+
+        // TODO: 本当に必要か考える
+        // 横に並ぶ人の情報をまとめるデータクラス
+        data class _persons(val person1: Member, val person2: Member? = null)
+
+
+
+
+        val db = Firebase.firestore
+
+        Log.d("TAG", isDownloaded.toString())
+        // if (!isDownloaded) {
+        if (!isDownloaded) {
+            members = mutableListOf<Member>()
+            Log.d("TAG", "Download start")
+            // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
+            // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
+            db.collection(gSelectedGroupName).get().addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    // TODO: メンバーリストに追加する
+                    val userInfo = document.toObject(MemberPayload::class.java)
+
+                    Log.d("MainActivity", "response is $userInfo")
+
+                    var member = Member(
+                        name = userInfo?.name_en!!,
+                        name_ja = userInfo.name_ja,
+                        birthday = userInfo?.birthday,
+                        imgUrl = userInfo.img_url,
+                        bloodType = userInfo.blood_type!!,
+                    )
+                    // なぜか 2 回 false のところを通っていたので、
+                    // add する前に確認することとす
+                    if (!isDownloaded) {
+                        members.add(member)
+                    }
+                }
+                Log.d(TAG, "downloader finished")
+                isDownloaded = true
+
+            }.addOnFailureListener { exception ->
+                Log.e(TAG, "Exception when retrieving game", exception)
+            }
+        }
+
+
+        // Download が終了した時のみ、情報を表示
+        if (isDownloaded) {
+            val pairs: MutableList<_persons> = mutableListOf()
+
+            // LazyColumn で items ないでループを回すための準備
+            val numPerson: Int = members.size
+            val numPair: Int = members.size / 2 + members.size % 2
+            Log.d(TAG, "Number of pairs: $numPair")
+            for (i in 0 until numPair) {
+                // 最後の列では、偶数人の時のみ表示させる
+                pairs.add(
+                    _persons(
+                        person1 = members[2 * i],
+                        person2 = if (2 * i + 1 < numPerson) {
+                            members[2 * i + 1]
+                        } else {
+                            null
+                        },
+                    )
+                )
+            }
+
+            LazyColumn {
+                items(pairs) { pair ->
+                    OneRow(
+                        person1 = pair.person1,
+                        person2 = pair.person2,
+                        navController = navController,
+                        groupName = gSelectedGroupName
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -118,7 +416,8 @@ fun MembersList(
 
     Log.d("TAG", isDownloaded.toString())
     // if (!isDownloaded) {
-    if (members.size == 0) {
+    if (!isDownloaded) {
+        Log.d("TAG", "Download start")
         // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
         // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
         db.collection(groupName.value).get().addOnSuccessListener { querySnapshot ->
