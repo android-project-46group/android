@@ -19,23 +19,24 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 
 
-@Preview
-@Composable
-fun DetailedViewPreview() {
-    var person = MemberProps(
-        name = "iwamotorenka",
-        name_ja = "岩本蓮加",
-        birthday = "2004年2月2日",
-        heigt = "159cm"
-    )
-    Column {
-        Image(
-            painter = painterResource(id = R.drawable.profile_picture),
-            contentDescription = null,
-        )
-        Infos(person = person)
-    }
-}
+//@Preview
+//@Composable
+//fun DetailedViewPreview() {
+//    var person = MemberProps(
+//        name = "iwamotorenka",
+//        name_ja = "岩本蓮加",
+//        birthday = "2004年2月2日",
+//        heigt = "159cm",
+//        generation = "3期生"
+//    )
+//    Column {
+//        Image(
+//            painter = painterResource(id = R.drawable.profile_picture),
+//            contentDescription = null,
+//        )
+//        Infos(person = person)
+//    }
+//}
 
 @Composable
 fun DetailedView(person: MemberProps, navController: NavHostController) {
@@ -87,6 +88,8 @@ fun Infos(person: MemberProps) {
     CustomDevider(Color.Blue, 1.dp)
     OneInfo(InfoKeys.BLOODTYPE.key, person.bloodType)
     CustomDevider(Color.Blue, 1.dp)
+    OneInfo(InfoKeys.GENERATION.key, person.generation)
+    CustomDevider(Color.Blue, 1.dp)
 }
 
 @Composable
@@ -106,6 +109,7 @@ enum class InfoKeys(val key: String) {
     BIRTHDAY("生年月日："),
     HEIGHT("身長："),
     BLOODTYPE("血液型："),
+    GENERATION("世代："),
 }
 
 @Composable

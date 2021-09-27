@@ -11,4 +11,5 @@ data class MemberPayload (
     @PropertyName("height") val height: String? = null,
     @PropertyName("img_url") val img_url: String? = null,
     @PropertyName("blood_type") val blood_type: String? = null,
+    @PropertyName("generation") val generation: String? = null,
 )

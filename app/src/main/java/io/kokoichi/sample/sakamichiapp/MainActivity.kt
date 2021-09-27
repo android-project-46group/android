@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -29,9 +28,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
-import io.kokoichi.sample.sakamichiapp.ui.GroupList
 import io.kokoichi.sample.sakamichiapp.ui.GroupName
-import io.kokoichi.sample.sakamichiapp.ui.SortBar
 import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
@@ -72,12 +69,11 @@ var gSelectedGroupName = "sakurazaka"
 @Composable
 fun MainView(groupName: String, navController: NavHostController) {
 
-    var selectedGroupName = remember{ mutableStateOf(gSelectedGroupName) }
+    var selectedGroupName = remember { mutableStateOf(gSelectedGroupName) }
     selectedGroupName.value = gSelectedGroupName
     Log.d("yoshi", selectedGroupName.toString())
 
     Column {
-
 
 
         val groups = mockGroups
@@ -88,8 +84,6 @@ fun MainView(groupName: String, navController: NavHostController) {
         val FONT_COLOR = Color.Black
 
         val SELECTED_BG_COLOR = Color.LightGray
-
-
 
 
         // 通信が終わったことを通知するための変数
@@ -162,11 +156,6 @@ fun MainView(groupName: String, navController: NavHostController) {
         }
 
 
-
-
-
-
-
         val BORDER_RADIUS = 2.dp
 
         val KEY_FONT_SIZE = 10.sp
@@ -178,6 +167,14 @@ fun MainView(groupName: String, navController: NavHostController) {
         val SORT_VAL_BY_BIRTHDAY = "生年月日"
         val SORT_VAL_BY_BLOOD = "血液型"
 
+        // 絞り込みなどによって描画を変える必要があるかどうか
+        var needChange by remember { mutableStateOf(false) }
+
+
+        var showMessage: String = ""
+        if (showMessage == "") {
+            showMessage = SORT_VAL_DEFAULT
+        }
 
         Row(
             modifier = Modifier
@@ -195,7 +192,11 @@ fun MainView(groupName: String, navController: NavHostController) {
             }
 
             var sortExpanded by remember { mutableStateOf(false) }
-            var sortValMessage = SORT_VAL_DEFAULT
+
+            var showMessage by remember { mutableStateOf("") }
+            if (showMessage == "") {
+                showMessage = SORT_VAL_DEFAULT
+            }
             Box(
                 modifier = Modifier
                     .wrapContentSize(Alignment.TopStart)
@@ -208,24 +209,31 @@ fun MainView(groupName: String, navController: NavHostController) {
                         sortExpanded = true
                     }
                 ) {
-                    Text(text = sortValMessage, fontSize = 8.sp)
+                    Text(text = showMessage, fontSize = 8.sp)
                 }
                 DropdownMenu(expanded = sortExpanded, onDismissRequest = { sortExpanded = false }) {
                     DropdownMenuItem(
                         onClick = {
                             Log.d(TAG, "sort by name order was clicked")
-                            sortValMessage = SORT_VAL_BY_NAME
+                            sortExpanded = false
+                            showMessage = SORT_VAL_BY_NAME
                         }
                     ) {
                         Text(SORT_VAL_BY_NAME)
                     }
                     DropdownMenuItem(
-                        onClick = { sortValMessage = SORT_VAL_BY_BIRTHDAY }
+                        onClick = {
+                            sortExpanded = false
+                            showMessage = SORT_VAL_BY_BIRTHDAY
+                        }
                     ) {
                         Text(SORT_VAL_BY_BIRTHDAY)
                     }
                     DropdownMenuItem(
-                        onClick = { sortValMessage = SORT_VAL_BY_BLOOD },
+                        onClick = {
+                            sortExpanded = false
+                            showMessage = SORT_VAL_BY_BLOOD
+                        },
                     ) {
                         Text(SORT_VAL_BY_BLOOD)
                     }
@@ -234,13 +242,25 @@ fun MainView(groupName: String, navController: NavHostController) {
 
             //
             // 絞り込みを行う
+            val NARROW_KEY_MESSAGE = "絞り込み"
+            val NARROW_VAL_DEFAULT = "選んでください"
+            val NARROW_VAL_NOTHING = "なし"
+            val NARROW_VAL_FIRST_GEN = "1期生"
+            val NARROW_VAL_SECOND_GEN = "2期生"
+            val NARROW_VAL_THIRD_GEN = "3期生"
+
+//            var showMessage2: String = ""
+            var showMessage2 by remember { mutableStateOf("") }
+            if (showMessage2 == "") {
+                showMessage2 = NARROW_VAL_DEFAULT
+            }
             Box(
                 modifier = Modifier
                     .weight(2f)
                     .padding(4.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "絞り込み", fontSize = KEY_FONT_SIZE)
+                Text(text = NARROW_KEY_MESSAGE, fontSize = KEY_FONT_SIZE)
             }
 
             var expanded by remember { mutableStateOf(false) }
@@ -256,33 +276,77 @@ fun MainView(groupName: String, navController: NavHostController) {
                         expanded = true
                     }
                 ) {
-                    Text(text = "選んでください", fontSize = 8.sp)
+                    Text(text = showMessage2, fontSize = 8.sp)
                 }
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                     DropdownMenuItem(
                         onClick = {
-                            Log.d(TAG, "1st gen selected")
+                            Log.d(TAG, "no selection")
+                            expanded = false
+                            showMessage2 = NARROW_VAL_NOTHING
+
+                            // 表示するメンバーを絞らない
+                            showingMembers = mutableListOf()
+                            for (member in members) {
+                                showingMembers.add(member)
+                            }
                         }
                     ) {
-                        Text("1期生")
+                        Text(NARROW_VAL_NOTHING)
                     }
                     DropdownMenuItem(
-                        onClick = {  }
+                        onClick = {
+                            Log.d(TAG, "1st gen selected")
+                            expanded = false
+                            showMessage2 = NARROW_VAL_FIRST_GEN
+
+                            // 表示するメンバーを絞る
+                            showingMembers = mutableListOf()
+                            for (member in members) {
+                                if (member.generation == "1期生") {
+                                    showingMembers.add(member)
+                                }
+                            }
+                            needChange = !needChange
+                        }
                     ) {
-                        Text("2期生")
+                        Text(NARROW_VAL_FIRST_GEN)
                     }
                     DropdownMenuItem(
-                        onClick = { /* Handle send feedback! */ },
+                        onClick = {
+                            expanded = false
+                            showMessage2 = NARROW_VAL_SECOND_GEN
+
+                            showingMembers = mutableListOf()
+                            for (member in members) {
+                                if (member.generation == "2期生") {
+                                    showingMembers.add(member)
+                                }
+                            }
+                            needChange = !needChange
+                        }
                     ) {
-                        Text("3期生")
+                        Text(NARROW_VAL_SECOND_GEN)
+                    }
+                    DropdownMenuItem(
+                        onClick = {
+                            expanded = false
+                            showMessage2 = NARROW_VAL_THIRD_GEN
+
+                            // 表示するメンバーを絞る
+                            showingMembers = mutableListOf()
+                            for (member in members) {
+                                if (member.generation == "3期生") {
+                                    showingMembers.add(member)
+                                }
+                            }
+                        },
+                    ) {
+                        Text(NARROW_VAL_THIRD_GEN)
                     }
                 }
             }
         }
-
-
-
-
 
 
         val gName = selectedGroupName
@@ -291,7 +355,7 @@ fun MainView(groupName: String, navController: NavHostController) {
         // 横に並ぶ人の情報をまとめるデータクラス
         data class _persons(val person1: Member, val person2: Member? = null)
 
-
+//        val showingMembers by remember { mutableStateOf(false) }
 
 
         val db = Firebase.firestore
@@ -300,9 +364,11 @@ fun MainView(groupName: String, navController: NavHostController) {
         // if (!isDownloaded) {
         if (!isDownloaded) {
             members = mutableListOf<Member>()
+            showingMembers = mutableListOf<Member>()
             Log.d("TAG", "Download start")
             // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
             // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
+//            db.collection(gSelectedGroupName).whereEqualTo("generation", "2期生")
             db.collection(gSelectedGroupName).get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
                     // TODO: メンバーリストに追加する
@@ -316,14 +382,17 @@ fun MainView(groupName: String, navController: NavHostController) {
                         birthday = userInfo?.birthday,
                         imgUrl = userInfo.img_url,
                         bloodType = userInfo.blood_type!!,
+                        generation = userInfo.generation!!,
                     )
                     // なぜか 2 回 false のところを通っていたので、
                     // add する前に確認することとす
                     if (!isDownloaded) {
                         members.add(member)
+                        showingMembers.add(member)
                     }
                 }
                 Log.d(TAG, "downloader finished")
+                Log.d(TAG, "showingMember size: " + showingMembers.size)
                 isDownloaded = true
 
             }.addOnFailureListener { exception ->
@@ -334,19 +403,23 @@ fun MainView(groupName: String, navController: NavHostController) {
 
         // Download が終了した時のみ、情報を表示
         if (isDownloaded) {
+            if (needChange) {
+                Log.d("TAG", "change feature worked")
+            }
             val pairs: MutableList<_persons> = mutableListOf()
 
             // LazyColumn で items ないでループを回すための準備
-            val numPerson: Int = members.size
-            val numPair: Int = members.size / 2 + members.size % 2
+            // 全取得の members ではなく、条件により絞り込みをした showingMembers に対して表示を行う
+            val numPerson: Int = showingMembers.size
+            val numPair: Int = showingMembers.size / 2 + showingMembers.size % 2
             Log.d(TAG, "Number of pairs: $numPair")
             for (i in 0 until numPair) {
                 // 最後の列では、偶数人の時のみ表示させる
                 pairs.add(
                     _persons(
-                        person1 = members[2 * i],
+                        person1 = showingMembers[2 * i],
                         person2 = if (2 * i + 1 < numPerson) {
-                            members[2 * i + 1]
+                            showingMembers[2 * i + 1]
                         } else {
                             null
                         },
@@ -375,6 +448,7 @@ data class Member(
     val imgUrl: String? = null,
     val height: String? = "159cm",
     val bloodType: String = "不明",
+    val generation: String,
 )
 
 //@Preview
@@ -388,100 +462,103 @@ data class Member(
 //    }
 //}
 
-
-// 表示するメンバーオブジェクトの一覧
-// あえてあえて、グローバル変数で？持たせている
 var members = mutableListOf<Member>()
+var showingMembers = mutableListOf<Member>()
 
-@Composable
-fun MembersList(
-    groupName: MutableState<String>,
-    navController: NavHostController,
-) {
-
-
-
-    val gName = groupName.value
-
-    // TODO: 本当に必要か考える
-    // 横に並ぶ人の情報をまとめるデータクラス
-    data class _persons(val person1: Member, val person2: Member? = null)
-
-    // 通信が終わったことを通知するための変数
-    var isDownloaded by remember { mutableStateOf(false) }
-
-
-    val db = Firebase.firestore
-
-    Log.d("TAG", isDownloaded.toString())
-    // if (!isDownloaded) {
-    if (!isDownloaded) {
-        Log.d("TAG", "Download start")
-        // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
-        // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
-        db.collection(groupName.value).get().addOnSuccessListener { querySnapshot ->
-            for (document in querySnapshot) {
-                // TODO: メンバーリストに追加する
-                val userInfo = document.toObject(MemberPayload::class.java)
-
-                Log.d("MainActivity", "response is $userInfo")
-
-                var member = Member(
-                    name = userInfo?.name_en!!,
-                    name_ja = userInfo.name_ja,
-                    birthday = userInfo?.birthday,
-                    imgUrl = userInfo.img_url,
-                    bloodType = userInfo.blood_type!!,
-                )
-                // なぜか 2 回 false のところを通っていたので、
-                // add する前に確認することとす
-                if (!isDownloaded) {
-                    members.add(member)
-                }
-            }
-            Log.d(TAG, "downloader finished")
-            isDownloaded = true
-
-        }.addOnFailureListener { exception ->
-            Log.e(TAG, "Exception when retrieving game", exception)
-        }
-    }
-
-
-    // Download が終了した時のみ、情報を表示
-    if (isDownloaded) {
-        val pairs: MutableList<_persons> = mutableListOf()
-
-        // LazyColumn で items ないでループを回すための準備
-        val numPerson: Int = members.size
-        val numPair: Int = members.size / 2 + members.size % 2
-        Log.d(TAG, "Number of pairs: $numPair")
-        for (i in 0 until numPair) {
-            // 最後の列では、偶数人の時のみ表示させる
-            pairs.add(
-                _persons(
-                    person1 = members[2 * i],
-                    person2 = if (2 * i + 1 < numPerson) {
-                        members[2 * i + 1]
-                    } else {
-                        null
-                    },
-                )
-            )
-        }
-
-        LazyColumn {
-            items(pairs) { pair ->
-                OneRow(
-                    person1 = pair.person1,
-                    person2 = pair.person2,
-                    navController = navController,
-                    groupName = gName
-                )
-            }
-        }
-    }
-}
+//// 表示するメンバーオブジェクトの一覧
+//// あえてあえて、グローバル変数で？持たせている
+//
+//@Composable
+//fun MembersList(
+//    groupName: MutableState<String>,
+//    navController: NavHostController,
+//) {
+//
+//
+//    val gName = groupName.value
+//
+//    // TODO: 本当に必要か考える
+//    // 横に並ぶ人の情報をまとめるデータクラス
+//    data class _persons(val person1: Member, val person2: Member? = null)
+//
+//    // 通信が終わったことを通知するための変数
+//    var isDownloaded by remember { mutableStateOf(false) }
+//
+//
+//    val db = Firebase.firestore
+//
+//    Log.d("TAG", isDownloaded.toString())
+//    // if (!isDownloaded) {
+//    if (!isDownloaded) {
+//        Log.d("TAG", "Download start")
+//        // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
+//        // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
+////        db.collection(groupName.value).whereEqualTo("generation", "2期生")
+//        db.collection("hinatazaka").whereEqualTo("generation", "2期生")
+//            .get().addOnSuccessListener { querySnapshot ->
+//            for (document in querySnapshot) {
+//                // TODO: メンバーリストに追加する
+//                val userInfo = document.toObject(MemberPayload::class.java)
+//
+//                Log.d("MainActivity", "response is $userInfo")
+//
+//                var member = Member(
+//                    name = userInfo?.name_en!!,
+//                    name_ja = userInfo.name_ja,
+//                    birthday = userInfo?.birthday,
+//                    imgUrl = userInfo.img_url,
+//                    bloodType = userInfo.blood_type!!,
+//                    generation = userInfo.generation!!,
+//                )
+//                // なぜか 2 回 false のところを通っていたので、
+//                // add する前に確認することとす
+//                if (!isDownloaded) {
+//                    members.add(member)
+//                }
+//            }
+//            Log.d(TAG, "downloader finished")
+//            isDownloaded = true
+//
+//        }.addOnFailureListener { exception ->
+//            Log.e(TAG, "Exception when retrieving game", exception)
+//        }
+//    }
+//
+//
+//    // Download が終了した時のみ、情報を表示
+//    if (isDownloaded) {
+//        val pairs: MutableList<_persons> = mutableListOf()
+//
+//        // LazyColumn で items ないでループを回すための準備
+//        val numPerson: Int = members.size
+//        val numPair: Int = members.size / 2 + members.size % 2
+//        Log.d(TAG, "Number of pairs: $numPair")
+//        for (i in 0 until numPair) {
+//            // 最後の列では、偶数人の時のみ表示させる
+//            pairs.add(
+//                _persons(
+//                    person1 = members[2 * i],
+//                    person2 = if (2 * i + 1 < numPerson) {
+//                        members[2 * i + 1]
+//                    } else {
+//                        null
+//                    },
+//                )
+//            )
+//        }
+//
+//        LazyColumn {
+//            items(pairs) { pair ->
+//                OneRow(
+//                    person1 = pair.person1,
+//                    person2 = pair.person2,
+//                    navController = navController,
+//                    groupName = gName
+//                )
+//            }
+//        }
+//    }
+//}
 
 @Composable
 fun OneRow(
@@ -533,6 +610,7 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
                 group = groupName,
                 heigt = person.height,
                 bloodType = person.bloodType,
+                generation = person.generation,
             )
 
             val jsonUser = Gson().toJson(userProps)
@@ -603,5 +681,6 @@ data class MemberProps(
     val birthday: String? = null,
     val group: String? = "nogizaka",
     val heigt: String? = "159cm",
-    val bloodType: String = "不明"
+    val bloodType: String = "不明",
+    val generation: String = "不明"
 )
