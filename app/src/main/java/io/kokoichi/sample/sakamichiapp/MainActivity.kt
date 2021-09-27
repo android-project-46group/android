@@ -266,10 +266,9 @@ fun App() {
             val userJson = backStackEntry.arguments?.getString("userData")
 
             Log.d(TAG, userJson.toString())
-            val MemberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
-            DetailedView(MemberProps)
+            val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
+            DetailedView(memberProps, navController)
         }
-    }
 }
 
 data class MemberProps(
