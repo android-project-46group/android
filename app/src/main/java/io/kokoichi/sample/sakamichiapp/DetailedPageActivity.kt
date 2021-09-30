@@ -78,39 +78,9 @@ fun Infos(person: MemberProps) {
 
     // 引き続き Column だが、center 揃えをなくすために再び Column で囲ってあげる
     Column() {
-        Row(
-            modifier = Modifier
-                .padding(PADDING_HORIZONTAL * 2, PADDING_VERTICAL, PADDING_HORIZONTAL * 2, 0.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(3.dp, 0.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(NOGI_TAG_COLOR)
-            ) {
-                Text(
-                    text = person.generation!!,
-                    modifier = Modifier
-                        .padding(4.dp, 0.dp),
-                    style = MaterialTheme.typography.h6,
-                    color = Color.White,
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .padding(3.dp, 0.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(NOGI_TAG_COLOR),
-            ) {
-                Text(
-                    text = "かわいい！",
-                    modifier = Modifier
-                        .padding(4.dp, 0.dp),
-                    style = MaterialTheme.typography.h6,
-                    color = Color.White,
-                )
-            }
-        }
+
+        var Tags = arrayOf(person.generation, "かわいい")
+        RowTags(Tags)
 
 
         // Japanese Name
@@ -135,6 +105,31 @@ fun Infos(person: MemberProps) {
         OneInfo(InfoKeys.BLOODTYPE.key, person.bloodType)
         CustomDevider(Color.Blue, 1.dp)
 
+    }
+}
+
+@Composable
+fun RowTags(tags: Array<String>) {
+    Row(
+        modifier = Modifier
+            .padding(PADDING_HORIZONTAL * 2, PADDING_VERTICAL, PADDING_HORIZONTAL * 2, 0.dp)
+    ) {
+        for (tag in tags) {
+            Box(
+                modifier = Modifier
+                    .padding(3.dp, 0.dp)
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(NOGI_TAG_COLOR)
+            ) {
+                Text(
+                    text = tag,
+                    modifier = Modifier
+                        .padding(4.dp, 0.dp),
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White,
+                )
+            }
+        }
     }
 }
 
