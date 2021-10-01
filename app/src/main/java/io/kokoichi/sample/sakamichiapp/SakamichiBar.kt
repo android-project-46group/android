@@ -12,7 +12,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.kokoichi.sample.sakamichiapp.Member
@@ -47,7 +46,7 @@ fun GroupList(selectedGroupName: MutableState<String>) {
             // グループ名によって色を管理するための変数
             var selectedGroupNames by remember { mutableStateOf(gSelectedGroupName) }
             Log.d(TAG, selectedGroupNames.toString())
-            for (pre in GroupName.values()) {
+            for (pre in GroupNames.values()) {
                 // 選ばれた値であれば、背景色グレーの値を設定する
                 if (pre.name == gSelectedGroupName) {
                     Box(
@@ -99,10 +98,10 @@ fun GroupList(selectedGroupName: MutableState<String>) {
 }
 
 // Enum
-enum class GroupName(val group: String) {
-    nogizaka("乃木坂"),
-    sakurazaka("櫻坂"),
-    hinatazaka("日向坂"),
+enum class GroupNames(val group: String) {
+    NOGIZAKA("乃木坂"),
+    SAKURAZAKA("櫻坂"),
+    HINATAZAKA("日向坂"),
 }
 
 // Mock For Development
