@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
@@ -626,14 +630,37 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
                 modifier = Modifier.fillMaxWidth()
             )
         } else {
-            Image(
-                painter = rememberImagePainter(person.imgUrl),  // これには size が必要！
-                contentDescription = null,
-                // TODO.size が必要だったから設定した値であり、ハードコーディングを避ける！ -----
-                modifier = Modifier
-                    .size(200.dp)
-                    .fillMaxWidth()
-            )
+            // Column, Row だと重ならない設定になるので、Box の中に入れてあげる
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                var finishedLoading by remember { mutableStateOf(false) }
+                Image(
+                    // rememberImagePainterには size が必要！
+                    painter = rememberImagePainter(person.imgUrl,
+                        builder = {
+                            placeholder(R.drawable.ic_baseline_person_outline_24)
+                            listener(
+                                onStart = {
+                                    // set your progressbar visible here
+                                },
+                                onSuccess = { request, metadata ->
+                                    // set your progressbar invisible here
+                                    progress = 1f
+                                    finishedLoading = true
+                                }
+                            )
+                        }),
+                    contentDescription = null,
+                    // TODO .size が必要だったから設定した値であり、ハードコーディングを避ける！ -----
+                    modifier = Modifier
+                        .size(200.dp)
+                        .fillMaxWidth()
+                )
+                if (!finishedLoading) {
+                    CircularProgressIndicator()
+                }
+            }
         }
 
         Row {
@@ -645,6 +672,25 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
         }
     }
 }
+
+//@Composable
+//inline fun rememberImagePainter(
+//    data: Any?,
+//    @DrawableRes emptyPlaceholder: Int,
+//    builder: ImageRequest.Builder.() -> Unit = {},  // ここってどういう意味だっけ？
+//): Painter {
+//    val painter = rememberImagePainter(
+//        data,
+//        builder = {
+//            placeholder(emptyPlaceholder)
+//            builder()
+//        }
+//    )
+//    if (data == null) {
+//        return painterResource(emptyPlaceholder)
+//    }
+//    return painter
+//}
 
 @Composable
 fun App() {
