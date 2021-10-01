@@ -188,10 +188,23 @@ fun MainView(groupName: String, navController: NavHostController) {
 
         var showStyle by remember { mutableStateOf(gSelectedShowType) }
 
-
-        var showMessage: String = ""
+        var showMessage by remember { mutableStateOf("") }
         if (showMessage == "") {
             showMessage = SORT_VAL_DEFAULT
+        }
+
+        // 絞り込みを行うための設定
+        val NARROW_KEY_MESSAGE = "絞り込み"
+        val NARROW_VAL_DEFAULT = "選んでください"
+        val NARROW_VAL_NOTHING = "なし"
+        val NARROW_VAL_FIRST_GEN = "1期生"
+        val NARROW_VAL_SECOND_GEN = "2期生"
+        val NARROW_VAL_THIRD_GEN = "3期生"
+        val NARROW_VAL_FOURTH_GEN = "4期生"
+
+        var showMessage2 by remember { mutableStateOf(gSelectedGeneration) }
+        if (showMessage2 == "") {
+            showMessage2 = NARROW_VAL_DEFAULT
         }
 
         Row(
@@ -211,10 +224,6 @@ fun MainView(groupName: String, navController: NavHostController) {
 
             var sortExpanded by remember { mutableStateOf(false) }
 
-            var showMessage by remember { mutableStateOf("") }
-            if (showMessage == "") {
-                showMessage = SORT_VAL_DEFAULT
-            }
             Box(
                 modifier = Modifier
                     .wrapContentSize(Alignment.TopStart)
@@ -295,21 +304,6 @@ fun MainView(groupName: String, navController: NavHostController) {
                 }
             }
 
-            //
-            // 絞り込みを行う
-            val NARROW_KEY_MESSAGE = "絞り込み"
-            val NARROW_VAL_DEFAULT = "選んでください"
-            val NARROW_VAL_NOTHING = "なし"
-            val NARROW_VAL_FIRST_GEN = "1期生"
-            val NARROW_VAL_SECOND_GEN = "2期生"
-            val NARROW_VAL_THIRD_GEN = "3期生"
-            val NARROW_VAL_FOURTH_GEN = "4期生"
-
-//            var showMessage2: String = ""
-            var showMessage2 by remember { mutableStateOf(gSelectedGeneration) }
-            if (showMessage2 == "") {
-                showMessage2 = NARROW_VAL_DEFAULT
-            }
             Box(
                 modifier = Modifier
                     .weight(2f)
@@ -439,6 +433,15 @@ fun MainView(groupName: String, navController: NavHostController) {
         Log.d("TAG", isDownloaded.toString())
         // if (!isDownloaded) {
         if (!isDownloaded) {
+
+            // グループ切り替えのタイミングで
+            gSelectedShowType = ShowMemberStyle.DEFAULT
+            showStyle = ShowMemberStyle.DEFAULT
+            gSelectedGeneration = ""
+            showMessage = SORT_VAL_DEFAULT
+            showMessage2 = NARROW_VAL_NOTHING
+            gIsDownloaded = false
+
             members = mutableListOf<Member>()
             showingMembers = mutableListOf<Member>()
             Log.d("TAG", "Download start")
@@ -560,9 +563,23 @@ fun MainView(groupName: String, navController: NavHostController) {
             if (showStyle == ShowMemberStyle.LINES) {
                 var lastVal = ""
                 LazyColumn {
-                    items(pairs) { pair ->
-                        // TODO: now, only sorted by bloodtype
+                    var showObj = mutableListOf<_persons>()
+                    for (pair in pairs) {
                         if (lastVal != pair.person1.bloodType) {
+                            showObj.add(
+                                _persons(
+                                    person1 = Member(
+                                        bloodType = pair.person1.bloodType,
+                                        generation = "0期生"
+                                    )
+                                ))
+                            lastVal = pair.person1.bloodType
+                        }
+                        showObj.add(pair)
+                    }
+                    items(showObj) { pair ->
+                        // TODO: now, only sorted by bloodtype
+                        if (pair.person1.generation == "0期生") {
                             Text (
                                 text = pair.person1.bloodType,
                                 modifier = Modifier
@@ -573,14 +590,15 @@ fun MainView(groupName: String, navController: NavHostController) {
                                 fontSize = 36.sp
                             )
                             lastVal = pair.person1.bloodType
+                        } else {
+                            OneRow(
+                                person1 = pair.person1,
+                                person2 = pair.person2,
+                                navController = navController,
+                                groupName = gSelectedGroupName,
+                                showStyle = showStyle,
+                            )
                         }
-                        OneRow(
-                            person1 = pair.person1,
-                            person2 = pair.person2,
-                            navController = navController,
-                            groupName = gSelectedGroupName,
-                            showStyle = showStyle,
-                        )
                     }
                 }
             } else {
