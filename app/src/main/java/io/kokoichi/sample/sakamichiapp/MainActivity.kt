@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.DrawableRes
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
@@ -16,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,12 +24,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import coil.compose.rememberImagePainter
-import coil.request.ImageRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
-import io.kokoichi.sample.sakamichiapp.ui.GroupName
+import io.kokoichi.sample.sakamichiapp.ui.GroupNames
+import io.kokoichi.sample.sakamichiapp.ui.GroupNames.*
 import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
@@ -70,6 +67,21 @@ class MainActivity : ComponentActivity() {
 // globally selected group name
 var gSelectedGroupName = "sakurazaka"
 
+// なんか、Composable 変わって戻ってきたら、値が変わっていたので、それを保存するための global 変数...?
+var gSelectedShowType = ShowMemberStyle.DEFAULT
+var gSelectedGeneration = ""
+var gShowingMembers = mutableListOf<Member>()
+var gIsDownloaded = false
+
+/**
+ * DEFAULT: 何もなし
+ * BIRTHDAY: 生年月日を表示
+ * LINES: タイプによってラインを引く
+ */
+enum class ShowMemberStyle {
+    DEFAULT, BIRTHDAY, LINES
+}
+
 @Composable
 fun MainView(groupName: String, navController: NavHostController) {
 
@@ -91,7 +103,7 @@ fun MainView(groupName: String, navController: NavHostController) {
 
 
         // 通信が終わったことを通知するための変数
-        var isDownloaded by remember { mutableStateOf(false) }
+        var isDownloaded by remember { mutableStateOf(gIsDownloaded) }
 
 
         // Row の margin が見つからなかったので、外 BOX の padding で対応
@@ -108,7 +120,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                 // グループ名によって色を管理するための変数
                 var selectedGroupNames by remember { mutableStateOf(gSelectedGroupName) }
                 Log.d(TAG, selectedGroupNames.toString())
-                for (pre in GroupName.values()) {
+                for (pre in values()) {
                     // 選ばれた値であれば、背景色グレーの値を設定する
                     if (pre.name == gSelectedGroupName) {
                         Box(
@@ -121,6 +133,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                                     members = mutableListOf<Member>()
                                     Log.d("TAG", "select group $gSelectedGroupName")
                                     isDownloaded = false
+                                    gIsDownloaded = false
                                 }
                                 .background(SELECTED_BG_COLOR),
                             contentAlignment = Alignment.Center,
@@ -138,6 +151,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                                     members = mutableListOf<Member>()
                                     Log.d("TAG", "select group $gSelectedGroupName")
                                     isDownloaded = false
+                                    gIsDownloaded = false
                                 },
                             contentAlignment = Alignment.Center
                         ) {
@@ -174,10 +188,29 @@ fun MainView(groupName: String, navController: NavHostController) {
         // 絞り込みなどによって描画を変える必要があるかどうか
         var needChange by remember { mutableStateOf(false) }
 
+        var showStyle by remember { mutableStateOf(gSelectedShowType) }
 
-        var showMessage: String = ""
+        var showMessage by remember { mutableStateOf("") }
         if (showMessage == "") {
             showMessage = SORT_VAL_DEFAULT
+        }
+
+        // 絞り込みを行うための設定
+        val NARROW_KEY_MESSAGE = "絞り込み"
+        val NARROW_VAL_DEFAULT = "選んでください"
+        val NARROW_VAL_NOTHING = "なし"
+        val NARROW_VAL_FIRST_GEN = "1期生"
+        val NARROW_VAL_SECOND_GEN = "2期生"
+        val NARROW_VAL_THIRD_GEN = "3期生"
+        val NARROW_VAL_FOURTH_GEN = "4期生"
+
+        val NOGI_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN, NARROW_VAL_FOURTH_GEN)
+        val SAKURA_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN)
+        val HINATA_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN)
+
+        var showMessage2 by remember { mutableStateOf(gSelectedGeneration) }
+        if (showMessage2 == "") {
+            showMessage2 = NARROW_VAL_DEFAULT
         }
 
         Row(
@@ -197,10 +230,6 @@ fun MainView(groupName: String, navController: NavHostController) {
 
             var sortExpanded by remember { mutableStateOf(false) }
 
-            var showMessage by remember { mutableStateOf("") }
-            if (showMessage == "") {
-                showMessage = SORT_VAL_DEFAULT
-            }
             Box(
                 modifier = Modifier
                     .wrapContentSize(Alignment.TopStart)
@@ -218,9 +247,25 @@ fun MainView(groupName: String, navController: NavHostController) {
                 DropdownMenu(expanded = sortExpanded, onDismissRequest = { sortExpanded = false }) {
                     DropdownMenuItem(
                         onClick = {
+                            sortExpanded = false
+                            showMessage = "なし"
+                            showingMembers.sortBy { it.name_ja }
+                            showStyle = ShowMemberStyle.DEFAULT
+                            gSelectedShowType = ShowMemberStyle.DEFAULT
+                            needChange = !needChange
+                        }
+                    ) {
+                        Text("なし")
+                    }
+                    DropdownMenuItem(
+                        onClick = {
                             Log.d(TAG, "sort by name order was clicked")
                             sortExpanded = false
                             showMessage = SORT_VAL_BY_NAME
+                            showingMembers.sortBy { it.name }
+                            showStyle = ShowMemberStyle.DEFAULT
+                            gSelectedShowType = ShowMemberStyle.DEFAULT
+                            needChange = !needChange
                         }
                     ) {
                         Text(SORT_VAL_BY_NAME)
@@ -229,6 +274,10 @@ fun MainView(groupName: String, navController: NavHostController) {
                         onClick = {
                             sortExpanded = false
                             showMessage = SORT_VAL_BY_BIRTHDAY
+                            showingMembers.sortBy { it.birthday }
+                            showStyle = ShowMemberStyle.BIRTHDAY
+                            gSelectedShowType = ShowMemberStyle.BIRTHDAY
+                            needChange = !needChange
                         }
                     ) {
                         Text(SORT_VAL_BY_BIRTHDAY)
@@ -236,7 +285,24 @@ fun MainView(groupName: String, navController: NavHostController) {
                     DropdownMenuItem(
                         onClick = {
                             sortExpanded = false
+                            showMessage = "月日"
+                            showingMembers.sortBy { it.b_strength }
+                            showStyle = ShowMemberStyle.BIRTHDAY
+                            gSelectedShowType = ShowMemberStyle.BIRTHDAY
+                            needChange = !needChange
+                        }
+                    ) {
+                        Text("月日")
+                    }
+                    DropdownMenuItem(
+                        onClick = {
+                            sortExpanded = false
                             showMessage = SORT_VAL_BY_BLOOD
+
+                            showingMembers.sortBy { it.bloodType }
+                            showStyle = ShowMemberStyle.LINES
+                            gSelectedShowType = ShowMemberStyle.LINES
+                            needChange = !needChange
                         },
                     ) {
                         Text(SORT_VAL_BY_BLOOD)
@@ -244,20 +310,6 @@ fun MainView(groupName: String, navController: NavHostController) {
                 }
             }
 
-            //
-            // 絞り込みを行う
-            val NARROW_KEY_MESSAGE = "絞り込み"
-            val NARROW_VAL_DEFAULT = "選んでください"
-            val NARROW_VAL_NOTHING = "なし"
-            val NARROW_VAL_FIRST_GEN = "1期生"
-            val NARROW_VAL_SECOND_GEN = "2期生"
-            val NARROW_VAL_THIRD_GEN = "3期生"
-
-//            var showMessage2: String = ""
-            var showMessage2 by remember { mutableStateOf("") }
-            if (showMessage2 == "") {
-                showMessage2 = NARROW_VAL_DEFAULT
-            }
             Box(
                 modifier = Modifier
                     .weight(2f)
@@ -298,56 +350,75 @@ fun MainView(groupName: String, navController: NavHostController) {
                     ) {
                         Text(NARROW_VAL_NOTHING)
                     }
-                    DropdownMenuItem(
-                        onClick = {
-                            Log.d(TAG, "1st gen selected")
-                            expanded = false
-                            showMessage2 = NARROW_VAL_FIRST_GEN
 
-                            // 表示するメンバーを絞る
-                            showingMembers = mutableListOf()
-                            for (member in members) {
-                                if (member.generation == "1期生") {
-                                    showingMembers.add(member)
-                                }
+                    Log.d("TAG", gSelectedGroupName)
+                    lateinit var narLists : List<String>
+                    if (gSelectedGroupName == "NOGIZAKA") {
+                        narLists = NOGI_NARROW_VALS
+                    }
+                    if (gSelectedGroupName == "SAKURAZAKA") {
+                        narLists = SAKURA_NARROW_VALS
+                    }
+                    if (gSelectedGroupName == "HINATAZAKA") {
+                        narLists = HINATA_NARROW_VALS
+                    }
+                    for (narVal in narLists) {
+                        DropdownMenuItem(
+                            onClick = {
+                                expanded = false
+                                showMessage2 = narVal
+
+                                sortShowingMembers(narVal)
+                                needChange = !needChange
                             }
-                            needChange = !needChange
+                        ) {
+                            Text(narVal)
                         }
-                    ) {
-                        Text(NARROW_VAL_FIRST_GEN)
                     }
-                    DropdownMenuItem(
-                        onClick = {
-                            expanded = false
-                            showMessage2 = NARROW_VAL_SECOND_GEN
-
-                            showingMembers = mutableListOf()
-                            for (member in members) {
-                                if (member.generation == "2期生") {
-                                    showingMembers.add(member)
-                                }
-                            }
-                            needChange = !needChange
-                        }
-                    ) {
-                        Text(NARROW_VAL_SECOND_GEN)
-                    }
-                    DropdownMenuItem(
-                        onClick = {
-                            expanded = false
-                            showMessage2 = NARROW_VAL_THIRD_GEN
-
-                            // 表示するメンバーを絞る
-                            showingMembers = mutableListOf()
-                            for (member in members) {
-                                if (member.generation == "3期生") {
-                                    showingMembers.add(member)
-                                }
-                            }
-                        },
-                    ) {
-                        Text(NARROW_VAL_THIRD_GEN)
-                    }
+//                    DropdownMenuItem(
+//                        onClick = {
+//                            Log.d(TAG, "1st gen selected")
+//                            expanded = false
+//                            showMessage2 = NARROW_VAL_FIRST_GEN
+//
+//                            sortShowingMembers(NARROW_VAL_FIRST_GEN)
+//                            needChange = !needChange
+//                        }
+//                    ) {
+//                        Text(NARROW_VAL_FIRST_GEN)
+//                    }
+//                    DropdownMenuItem(
+//                        onClick = {
+//                            expanded = false
+//                            showMessage2 = NARROW_VAL_SECOND_GEN
+//
+//                            sortShowingMembers(NARROW_VAL_SECOND_GEN)
+//                            needChange = !needChange
+//                        }
+//                    ) {
+//                        Text(NARROW_VAL_SECOND_GEN)
+//                    }
+//                    DropdownMenuItem(
+//                        onClick = {
+//                            expanded = false
+//                            showMessage2 = NARROW_VAL_THIRD_GEN
+//
+//                            sortShowingMembers(NARROW_VAL_THIRD_GEN)
+//                        },
+//                    ) {
+//                        Text(NARROW_VAL_THIRD_GEN)
+//                    }
+//                    DropdownMenuItem(
+//                        onClick = {
+//                            expanded = false
+//                            showMessage2 = NARROW_VAL_FOURTH_GEN
+//                            gSelectedGeneration = NARROW_VAL_FOURTH_GEN
+//
+//                            sortShowingMembers(NARROW_VAL_FOURTH_GEN)
+//                        },
+//                    ) {
+//                        Text(NARROW_VAL_FOURTH_GEN)
+//                    }
                 }
             }
         }
@@ -359,20 +430,25 @@ fun MainView(groupName: String, navController: NavHostController) {
         // 横に並ぶ人の情報をまとめるデータクラス
         data class _persons(val person1: Member, val person2: Member? = null)
 
-//        val showingMembers by remember { mutableStateOf(false) }
-
-
         val db = Firebase.firestore
 
         Log.d("TAG", isDownloaded.toString())
         // if (!isDownloaded) {
         if (!isDownloaded) {
+
+            // グループ切り替えのタイミングで
+            gSelectedShowType = ShowMemberStyle.DEFAULT
+            showStyle = ShowMemberStyle.DEFAULT
+            gSelectedGeneration = ""
+            showMessage = SORT_VAL_DEFAULT
+            showMessage2 = NARROW_VAL_NOTHING
+            gIsDownloaded = false
+
             members = mutableListOf<Member>()
             showingMembers = mutableListOf<Member>()
             Log.d("TAG", "Download start")
             // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
             // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
-//            db.collection(gSelectedGroupName).whereEqualTo("generation", "2期生")
             db.collection(gSelectedGroupName).get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
                     // TODO: メンバーリストに追加する
@@ -384,6 +460,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                         name = userInfo?.name_en!!,
                         name_ja = userInfo.name_ja,
                         birthday = userInfo?.birthday,
+                        b_strength = birthdayStrength(userInfo.birthday!!),
                         imgUrl = userInfo.img_url,
                         bloodType = userInfo.blood_type!!,
                         generation = userInfo.generation!!,
@@ -398,9 +475,9 @@ fun MainView(groupName: String, navController: NavHostController) {
                 Log.d(TAG, "downloader finished")
                 Log.d(TAG, "showingMember size: " + showingMembers.size)
                 isDownloaded = true
-
+                gIsDownloaded = true
             }.addOnFailureListener { exception ->
-                Log.e(TAG, "Exception when retrieving game", exception)
+                Log.e(TAG, "Exception when retrieving data", exception)
             }
         }
 
@@ -414,33 +491,131 @@ fun MainView(groupName: String, navController: NavHostController) {
 
             // LazyColumn で items ないでループを回すための準備
             // 全取得の members ではなく、条件により絞り込みをした showingMembers に対して表示を行う
-            val numPerson: Int = showingMembers.size
-            val numPair: Int = showingMembers.size / 2 + showingMembers.size % 2
-            Log.d(TAG, "Number of pairs: $numPair")
-            for (i in 0 until numPair) {
-                // 最後の列では、偶数人の時のみ表示させる
-                pairs.add(
-                    _persons(
-                        person1 = showingMembers[2 * i],
-                        person2 = if (2 * i + 1 < numPerson) {
-                            showingMembers[2 * i + 1]
+            if (showStyle == ShowMemberStyle.LINES) {   // Line を引くときは、メンバーの分割を変えてあげる
+                var lastVal = ""
+                var tmp = 0 // 待ち人数
+                var waiting = showingMembers[0]
+                for (person in showingMembers) {
+                    if (person.bloodType == lastVal) {
+                        if (tmp == 0) {
+                            tmp = 1
+                            waiting = person
                         } else {
-                            null
-                        },
-                    )
-                )
-            }
-
-            LazyColumn {
-                items(pairs) { pair ->
-                    OneRow(
-                        person1 = pair.person1,
-                        person2 = pair.person2,
-                        navController = navController,
-                        groupName = gSelectedGroupName
+                            tmp = 0
+                            pairs.add(
+                                _persons(
+                                    person1 = waiting,
+                                    person2 = person
+                                )
+                            )
+                        }
+                    } else {
+                        lastVal = person.bloodType
+                        if (tmp == 0) {
+                            tmp = 1
+                            waiting = person
+                        } else {
+                            pairs.add(
+                                _persons(
+                                    person1 = waiting,
+                                    person2 = null
+                                )
+                            )
+                            tmp = 1
+                            waiting = person
+                        }
+                    }
+                }
+            } else {    // ラインを引かない実装の場合
+                val numPerson: Int = showingMembers.size
+                val numPair: Int = showingMembers.size / 2 + showingMembers.size % 2
+                Log.d(TAG, "Number of pairs: $numPair")
+                for (i in 0 until numPair) {
+                    // 最後の列では、偶数人の時のみ表示させる
+                    pairs.add(
+                        _persons(
+                            person1 = showingMembers[2 * i],
+                            person2 = if (2 * i + 1 < numPerson) {
+                                showingMembers[2 * i + 1]
+                            } else {
+                                null
+                            },
+                        )
                     )
                 }
             }
+
+            // 途中で離散値を表示する場合の表示
+            if (showStyle == ShowMemberStyle.LINES) {
+                var lastVal = ""
+                LazyColumn {
+                    var showObj = mutableListOf<_persons>()
+                    for (pair in pairs) {
+                        if (lastVal != pair.person1.bloodType) {
+                            showObj.add(
+                                _persons(
+                                    person1 = Member(
+                                        bloodType = pair.person1.bloodType,
+                                        generation = "0期生"
+                                    )
+                                )
+                            )
+                            lastVal = pair.person1.bloodType
+                        }
+                        showObj.add(pair)
+                    }
+                    items(showObj) { pair ->
+                        // TODO: now, only sorted by bloodtype
+                        if (pair.person1.generation == "0期生") {
+                            Text(
+                                text = pair.person1.bloodType,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(4.dp)
+                                    .background(NOGI_TAG_COLOR)
+                                    .fillMaxWidth(),
+                                fontSize = 36.sp
+                            )
+                            lastVal = pair.person1.bloodType
+                        } else {
+                            OneRow(
+                                person1 = pair.person1,
+                                person2 = pair.person2,
+                                navController = navController,
+                                groupName = gSelectedGroupName,
+                                showStyle = showStyle,
+                            )
+                        }
+                    }
+                }
+            } else {
+                LazyColumn {
+                    items(pairs) { pair ->
+                        OneRow(
+                            person1 = pair.person1,
+                            person2 = pair.person2,
+                            navController = navController,
+                            groupName = gSelectedGroupName,
+                            showStyle = showStyle,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * 絞り込みを行う
+ * グローバルに関する変数に関しての変更
+ */
+fun sortShowingMembers(narrowValGen: String) {
+    gSelectedGeneration = narrowValGen
+
+    showingMembers = mutableListOf()
+    for (member in members) {
+        if (member.generation == narrowValGen) {
+            showingMembers.add(member)
         }
     }
 }
@@ -449,127 +624,38 @@ data class Member(
     val name: String = "name",
     val name_ja: String? = "メンバー名",
     val birthday: String? = null,
+    val b_strength: Int? = null,
     val imgUrl: String? = null,
     val height: String? = "159cm",
     val bloodType: String = "不明",
     val generation: String,
 )
 
-//@Preview
-//@Composable
-//fun HomePreview() {
-//    SakamichiAppTheme {
-//        Column {
-//            GroupList()
-//            MembersList("Android")
-//        }
-//    }
-//}
+/**
+ * 月日でソートするための関数
+ * 2000年4月18日 → 4 * 100 + 18 = 418
+ */
+fun birthdayStrength(birthday: String): Int {
+    var s = birthday.split("年")
+    val year = s[0]
+    var d = s[1].split("月")
+    val month = d[0].toInt()
+    val day = d[1].split("日")[0].toInt()
+    return 100 * month + day
+}
+
 
 var members = mutableListOf<Member>()
 var showingMembers = mutableListOf<Member>()
 
-//// 表示するメンバーオブジェクトの一覧
-//// あえてあえて、グローバル変数で？持たせている
-//
-//@Composable
-//fun MembersList(
-//    groupName: MutableState<String>,
-//    navController: NavHostController,
-//) {
-//
-//
-//    val gName = groupName.value
-//
-//    // TODO: 本当に必要か考える
-//    // 横に並ぶ人の情報をまとめるデータクラス
-//    data class _persons(val person1: Member, val person2: Member? = null)
-//
-//    // 通信が終わったことを通知するための変数
-//    var isDownloaded by remember { mutableStateOf(false) }
-//
-//
-//    val db = Firebase.firestore
-//
-//    Log.d("TAG", isDownloaded.toString())
-//    // if (!isDownloaded) {
-//    if (!isDownloaded) {
-//        Log.d("TAG", "Download start")
-//        // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
-//        // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
-////        db.collection(groupName.value).whereEqualTo("generation", "2期生")
-//        db.collection("hinatazaka").whereEqualTo("generation", "2期生")
-//            .get().addOnSuccessListener { querySnapshot ->
-//            for (document in querySnapshot) {
-//                // TODO: メンバーリストに追加する
-//                val userInfo = document.toObject(MemberPayload::class.java)
-//
-//                Log.d("MainActivity", "response is $userInfo")
-//
-//                var member = Member(
-//                    name = userInfo?.name_en!!,
-//                    name_ja = userInfo.name_ja,
-//                    birthday = userInfo?.birthday,
-//                    imgUrl = userInfo.img_url,
-//                    bloodType = userInfo.blood_type!!,
-//                    generation = userInfo.generation!!,
-//                )
-//                // なぜか 2 回 false のところを通っていたので、
-//                // add する前に確認することとす
-//                if (!isDownloaded) {
-//                    members.add(member)
-//                }
-//            }
-//            Log.d(TAG, "downloader finished")
-//            isDownloaded = true
-//
-//        }.addOnFailureListener { exception ->
-//            Log.e(TAG, "Exception when retrieving game", exception)
-//        }
-//    }
-//
-//
-//    // Download が終了した時のみ、情報を表示
-//    if (isDownloaded) {
-//        val pairs: MutableList<_persons> = mutableListOf()
-//
-//        // LazyColumn で items ないでループを回すための準備
-//        val numPerson: Int = members.size
-//        val numPair: Int = members.size / 2 + members.size % 2
-//        Log.d(TAG, "Number of pairs: $numPair")
-//        for (i in 0 until numPair) {
-//            // 最後の列では、偶数人の時のみ表示させる
-//            pairs.add(
-//                _persons(
-//                    person1 = members[2 * i],
-//                    person2 = if (2 * i + 1 < numPerson) {
-//                        members[2 * i + 1]
-//                    } else {
-//                        null
-//                    },
-//                )
-//            )
-//        }
-//
-//        LazyColumn {
-//            items(pairs) { pair ->
-//                OneRow(
-//                    person1 = pair.person1,
-//                    person2 = pair.person2,
-//                    navController = navController,
-//                    groupName = gName
-//                )
-//            }
-//        }
-//    }
-//}
 
 @Composable
 fun OneRow(
     person1: Member,
     person2: Member? = null,
     navController: NavHostController,
-    groupName: String
+    groupName: String,
+    showStyle: ShowMemberStyle
 ) {
     Row(
         modifier = Modifier
@@ -578,7 +664,12 @@ fun OneRow(
     ) {
         // weight で分割する割合を指定
         Box(modifier = Modifier.weight(1f)) {
-            OnePerson(person = person1, navController = navController, groupName = groupName)
+            OnePerson(
+                person = person1,
+                navController = navController,
+                groupName = groupName,
+                showStyle = showStyle
+            )
         }
         // 横並びのカードの距離
         Spacer(modifier = Modifier.width(8.dp))
@@ -586,7 +677,12 @@ fun OneRow(
         Box(modifier = Modifier.weight(1f)) {
             // 2人目が存在する時のみ描画
             if (person2 != null) {
-                OnePerson(person = person2, navController = navController, groupName = groupName)
+                OnePerson(
+                    person = person2,
+                    navController = navController,
+                    groupName = groupName,
+                    showStyle = showStyle
+                )
             }
         }
     }
@@ -600,7 +696,12 @@ val IMG_URL_SUFFIX = ".jpeg?alt=media"
 val SLASH_ENCODED = "%2F"
 
 @Composable
-fun OnePerson(person: Member, navController: NavHostController, groupName: String) {
+fun OnePerson(
+    person: Member,
+    navController: NavHostController,
+    groupName: String,
+    showStyle: ShowMemberStyle
+) {
     Column(
         modifier = Modifier.clickable {
             Log.d(TAG, person.name_ja + " clicked")
@@ -646,7 +747,6 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
                                 },
                                 onSuccess = { request, metadata ->
                                     // set your progressbar invisible here
-                                    progress = 1f
                                     finishedLoading = true
                                 }
                             )
@@ -663,34 +763,23 @@ fun OnePerson(person: Member, navController: NavHostController, groupName: Strin
             }
         }
 
-        Row {
+        Column() {
             Text(
                 text = person.name_ja!!,
-                modifier = Modifier.padding(all = 4.dp),
-                style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.padding(20.dp, 4.dp, 0.dp, 4.dp),
+                style = MaterialTheme.typography.subtitle1,
             )
+            // 誕生日ソートがかかっている時のみ、生年月日を表示させる
+            if (showStyle == ShowMemberStyle.BIRTHDAY) {
+                Text(
+                    text = person.birthday!!,
+                    modifier = Modifier.padding(20.dp, 0.dp, 0.dp, 4.dp),
+                    style = MaterialTheme.typography.subtitle2,
+                )
+            }
         }
     }
 }
-
-//@Composable
-//inline fun rememberImagePainter(
-//    data: Any?,
-//    @DrawableRes emptyPlaceholder: Int,
-//    builder: ImageRequest.Builder.() -> Unit = {},  // ここってどういう意味だっけ？
-//): Painter {
-//    val painter = rememberImagePainter(
-//        data,
-//        builder = {
-//            placeholder(emptyPlaceholder)
-//            builder()
-//        }
-//    )
-//    if (data == null) {
-//        return painterResource(emptyPlaceholder)
-//    }
-//    return painter
-//}
 
 @Composable
 fun App() {
