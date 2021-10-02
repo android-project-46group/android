@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     App()
+//                    WebViewWidget(url_short = "https://blog.nogizaka46.com/renka.iwamoto/2021/09/063158.php")
                 }
             }
         }
@@ -204,9 +205,15 @@ fun MainView(groupName: String, navController: NavHostController) {
         val NARROW_VAL_THIRD_GEN = "3期生"
         val NARROW_VAL_FOURTH_GEN = "4期生"
 
-        val NOGI_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN, NARROW_VAL_FOURTH_GEN)
+        val NOGI_NARROW_VALS = listOf(
+            NARROW_VAL_FIRST_GEN,
+            NARROW_VAL_SECOND_GEN,
+            NARROW_VAL_THIRD_GEN,
+            NARROW_VAL_FOURTH_GEN
+        )
         val SAKURA_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN)
-        val HINATA_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN)
+        val HINATA_NARROW_VALS =
+            listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN)
 
         var showMessage2 by remember { mutableStateOf(gSelectedGeneration) }
         if (showMessage2 == "") {
@@ -352,7 +359,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                     }
 
                     Log.d("TAG", gSelectedGroupName)
-                    lateinit var narLists : List<String>
+                    lateinit var narLists: List<String>
                     if (gSelectedGroupName == "NOGIZAKA") {
                         narLists = NOGI_NARROW_VALS
                     }
@@ -806,6 +813,18 @@ fun App() {
             Log.d(TAG, userJson.toString())
             val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
             DetailedView(memberProps, navController)
+        }
+
+        composable(
+            route = "webView/url={url}",
+            arguments = listOf(navArgument("url") { type = NavType.StringType })
+        ) { backStackEntry ->
+
+            var url = backStackEntry.arguments?.getString("url")
+            if (url == null) {
+                url = "https://blog.nogizaka46.com/"
+            }
+            WebViewWidget(url)
         }
     }
 }
