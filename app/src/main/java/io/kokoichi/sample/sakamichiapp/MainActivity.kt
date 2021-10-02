@@ -28,8 +28,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
-import io.kokoichi.sample.sakamichiapp.ui.GroupNames
-import io.kokoichi.sample.sakamichiapp.ui.GroupNames.*
+import io.kokoichi.sample.sakamichiapp.models.GroupNames.*
 import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
@@ -360,13 +359,13 @@ fun MainView(groupName: String, navController: NavHostController) {
 
                     Log.d("TAG", gSelectedGroupName)
                     lateinit var narLists: List<String>
-                    if (gSelectedGroupName == "NOGIZAKA") {
+                    if (gSelectedGroupName == "nogizaka") {
                         narLists = NOGI_NARROW_VALS
                     }
-                    if (gSelectedGroupName == "SAKURAZAKA") {
+                    else if (gSelectedGroupName == "sakurazaka") {
                         narLists = SAKURA_NARROW_VALS
                     }
-                    if (gSelectedGroupName == "HINATAZAKA") {
+                    else {
                         narLists = HINATA_NARROW_VALS
                     }
                     for (narVal in narLists) {
@@ -456,6 +455,7 @@ fun MainView(groupName: String, navController: NavHostController) {
             Log.d("TAG", "Download start")
             // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
             // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
+            Log.d(TAG, gSelectedGroupName)
             db.collection(gSelectedGroupName).get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
                     // TODO: メンバーリストに追加する
@@ -484,6 +484,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                 isDownloaded = true
                 gIsDownloaded = true
             }.addOnFailureListener { exception ->
+                Log.d(TAG, "Exception when retrieving data", exception)
                 Log.e(TAG, "Exception when retrieving data", exception)
             }
         }
