@@ -11,33 +11,20 @@ import io.kokoichi.sample.sakamichiapp.*
 
 
 @Composable
-fun MainView(groupName: String, navController: NavHostController, viewModel: HomeViewModel) {
-
+fun MainView(navController: NavHostController, viewModel: HomeViewModel) {
 
     val uiState by viewModel.uiState.collectAsState()
     Column {
 
-
-        val BORDER_COLOR = Color.Gray
-        val BORDER_THICKNESS = 2.dp
-
-
-
-        // 通信が終わったことを通知するための変数
-        var isDownloaded by remember { mutableStateOf(gIsDownloaded) }
-
-        var selectedGroupNames by remember { mutableStateOf("sakurazaka") }
         GroupBar(
             uiState = uiState,
             viewModel = viewModel
         )
 
-
         SortBar(
             uiState = uiState,
             viewModel = viewModel,
         )
-
 
         MainColumn(
             uiState = uiState,

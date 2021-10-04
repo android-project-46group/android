@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.sp
 import io.kokoichi.sample.sakamichiapp.*
 import io.kokoichi.sample.sakamichiapp.models.*
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
-import io.kokoichi.sample.sakamichiapp.ui.util.sortShowingMembers
 
 @Composable
 fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
@@ -60,7 +59,7 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                     onClick = {
                         sortExpanded = false
 
-                        showingMembers.sortBy { it.name_ja }
+                        viewModel.sortMemberByNameJa()
 
                         viewModel.setSortType("なし")
                         viewModel.setShowStyle(ShowMemberStyle.DEFAULT)
@@ -71,7 +70,8 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                 DropdownMenuItem(
                     onClick = {
                         sortExpanded = false
-                        showingMembers.sortBy { it.name }
+                        viewModel.sortMemberByNameEn()
+
                         viewModel.setSortType(SortKeyVal.SORT_VAL_BY_NAME.str)
                         viewModel.setShowStyle(ShowMemberStyle.DEFAULT)
                     }
@@ -82,7 +82,7 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                     onClick = {
                         sortExpanded = false
 
-                        showingMembers.sortBy { it.birthday }
+                        viewModel.sortMemberByBirthday()
 
                         viewModel.setSortType(SortKeyVal.SORT_VAL_BY_BIRTHDAY.str)
                         viewModel.setShowStyle(ShowMemberStyle.BIRTHDAY)
@@ -94,7 +94,7 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                     onClick = {
                         sortExpanded = false
 
-                        showingMembers.sortBy { it.b_strength }
+                        viewModel.sortMemberByMonthDay()
 
                         viewModel.setSortType("月日")
                         viewModel.setShowStyle(ShowMemberStyle.BIRTHDAY)
@@ -106,7 +106,7 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                     onClick = {
                         sortExpanded = false
 
-                        showingMembers.sortBy { it.bloodType }
+                        viewModel.sortMemberByBloodType()
 
                         viewModel.setSortType(SortKeyVal.SORT_VAL_BY_BLOOD.str)
                         viewModel.setShowStyle(ShowMemberStyle.LINES)
@@ -148,10 +148,7 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                         expanded = false
 
                         // 表示するメンバーを絞らない
-                        showingMembers = mutableListOf()
-                        for (member in members) {
-                            showingMembers.add(member)
-                        }
+                        viewModel.setShowingMembers(uiState.members)
 
                         // 順番が重要っぽい
                         viewModel.setNarrowType(NarrowKeyVal.NARROW_VAL_NOTHING.str)
@@ -173,7 +170,7 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                         onClick = {
                             expanded = false
 
-                            sortShowingMembers(narVal.str)
+                            viewModel.sortShowingMembers(narVal.str)
                             viewModel.setNarrowType(narVal.str)
                         }
                     ) {

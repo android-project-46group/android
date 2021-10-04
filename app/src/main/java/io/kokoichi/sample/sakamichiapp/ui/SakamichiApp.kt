@@ -17,14 +17,15 @@ import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
 
 @Composable
 fun SakamichiApp(viewModel: HomeViewModel) {
+
     val navController = rememberNavController()
+
     NavHost(navController, startDestination = "main") {
 
         composable("main") {
             MainView(
-                "nogizaka",
-                navController,
-                viewModel
+                navController = navController,
+                viewModel = viewModel
             )
         }
 
@@ -35,10 +36,6 @@ fun SakamichiApp(viewModel: HomeViewModel) {
         ) { backStackEntry ->
             // 受け取った時の処理を記述、
             // Json が渡ってくるので、それをオブジェクトに変換する
-            Log.d(TAG, "Received: " + backStackEntry)
-            Log.d(TAG, "Received: " + backStackEntry.arguments.toString())
-
-
             val userJson = backStackEntry.arguments?.getString("userData")
 
             Log.d(TAG, userJson.toString())

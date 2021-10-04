@@ -51,7 +51,7 @@ fun GroupBar(
 
                                 viewModel.setGroup(pre.name)
                                 viewModel.initSortBar()
-                                members = mutableListOf<Member>()
+                                viewModel.resetMembers()
                                 Log.d("TAG", "select group ${pre.name}")
                                 Log.d("TAG", "select group ${viewModel.uiState.value.groupName}")
 
@@ -69,7 +69,7 @@ fun GroupBar(
                             .clickable {
                                 viewModel.setGroup(pre.name)
                                 viewModel.initSortBar()
-                                members = mutableListOf<Member>()
+                                viewModel.resetMembers()
                                 Log.d("TAG", "select group ${pre.name}")
                             },
                         contentAlignment = Alignment.Center

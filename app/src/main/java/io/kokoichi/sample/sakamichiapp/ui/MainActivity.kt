@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     SakamichiApp(viewModel)
-//                    WebViewWidget(url_short = "https://blog.nogizaka46.com/renka.iwamoto/2021/09/063158.php")
                 }
             }
         }
@@ -45,17 +44,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//var selectedGroupName = "nogizaka"
-// globally selected group name
-
-// なんか、Composable 変わって戻ってきたら、値が変わっていたので、それを保存するための global 変数...?
-var gSelectedShowType = ShowMemberStyle.DEFAULT
-var gSelectedGeneration = ""
-var gShowingMembers = mutableListOf<Member>()
-var gIsDownloaded = false
-
-var members = mutableListOf<Member>()
-var showingMembers = mutableListOf<Member>()
 
 
 

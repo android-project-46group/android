@@ -35,27 +35,23 @@ fun MainColumn(
     val db = Firebase.firestore
 
     Column {
+        // load が完了してなければ DB からデータをとってくる
         if (!uiState.loaded) {
-
-            // グループ切り替えのタイミングで
-
             viewModel.setShowStyle(ShowMemberStyle.DEFAULT)
 
             viewModel.initSortBar()
+            viewModel.resetMembers()
 
-            gIsDownloaded = false
-
-            members = mutableListOf<Member>()
-            showingMembers = mutableListOf<Member>()
             Log.d("TAG", "Download start")
 
             Log.d(TAG, uiState.groupName)
 
+            // TODO: ここのロジックはどこかに移植する！（data package?）
             db.collection(uiState.groupName).get().addOnSuccessListener { querySnapshot ->
+                var tmps = mutableListOf<Member>()
                 for (document in querySnapshot) {
-                    // TODO: メンバーリストに追加する
-                    val userInfo = document.toObject(MemberPayload::class.java)
 
+                    val userInfo = document.toObject(MemberPayload::class.java)
                     var member = Member(
                         name = userInfo?.name_en!!,
                         name_ja = userInfo.name_ja,
@@ -65,16 +61,13 @@ fun MainColumn(
                         bloodType = userInfo.blood_type!!,
                         generation = userInfo.generation!!,
                     )
-                    // なぜか 2 回 false のところを通っていたので、
-                    // add する前に確認することとす
-                    if (!uiState.loaded) {
-                        members.add(member)
-                        showingMembers.add(member)
-                    }
+
+                    tmps.add(member)
                 }
+                viewModel.addMembers(tmps)
+                viewModel.finishLoading()
                 Log.d(TAG, "downloader finished")
 
-                viewModel.finishLoading()
             }.addOnFailureListener { exception ->
                 Log.d(TAG, "Exception when retrieving data", exception)
             }
@@ -90,8 +83,8 @@ fun MainColumn(
             if (uiState.showStyle == ShowMemberStyle.LINES) {   // Line を引くときは、メンバーの分割を変えてあげる
                 var lastVal = ""
                 var tmp = 0 // 待ち人数
-                var waiting = showingMembers[0]
-                for (person in showingMembers) {
+                var waiting = uiState.showingMembers[0]
+                for (person in uiState.showingMembers) {
                     if (person.bloodType == lastVal) {
                         if (tmp == 0) {
                             tmp = 1
@@ -123,16 +116,16 @@ fun MainColumn(
                     }
                 }
             } else {    // ラインを引かない実装の場合
-                val numPerson: Int = showingMembers.size
-                val numPair: Int = showingMembers.size / 2 + showingMembers.size % 2
+                val numPerson: Int = uiState.showingMembers.size
+                val numPair: Int = uiState.showingMembers.size / 2 + uiState.showingMembers.size % 2
                 Log.d(TAG, "Number of pairs: $numPair")
                 for (i in 0 until numPair) {
                     // 最後の列では、偶数人の時のみ表示させる
                     pairs.add(
                         _persons(
-                            person1 = showingMembers[2 * i],
+                            person1 = uiState.showingMembers[2 * i],
                             person2 = if (2 * i + 1 < numPerson) {
-                                showingMembers[2 * i + 1]
+                                uiState.showingMembers[2 * i + 1]
                             } else {
                                 null
                             },

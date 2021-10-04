@@ -1,8 +1,5 @@
 package io.kokoichi.sample.sakamichiapp.ui.util
 
-import io.kokoichi.sample.sakamichiapp.gSelectedGeneration
-import io.kokoichi.sample.sakamichiapp.members
-import io.kokoichi.sample.sakamichiapp.showingMembers
 
 data class Member(
     val name: String = "name",
@@ -16,22 +13,7 @@ data class Member(
 )
 
 /**
- * 絞り込みを行う
- * グローバルに関する変数に関しての変更
- */
-fun sortShowingMembers(narrowValGen: String) {
-    gSelectedGeneration = narrowValGen
-
-    showingMembers = mutableListOf()
-    for (member in members) {
-        if (member.generation == narrowValGen) {
-            showingMembers.add(member)
-        }
-    }
-}
-
-/**
- * 月日でソートするための関数
+ * 月日でソートするため、日付を大小に変換する関数
  * 2000年4月18日 → 4 * 100 + 18 = 418
  */
 fun birthdayStrength(birthday: String): Int {
@@ -44,6 +26,9 @@ fun birthdayStrength(birthday: String): Int {
 }
 
 /**
+ * 各々の情報を表示する際のスタイル
+ * sort タイプによって異なる
+ *
  * DEFAULT: 何もなし
  * BIRTHDAY: 生年月日を表示
  * LINES: タイプによってラインを引く
