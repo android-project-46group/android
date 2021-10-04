@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
-import io.kokoichi.sample.sakamichiapp.SLASH_ENCODED
 import io.kokoichi.sample.sakamichiapp.data.scrapingImgsNogizaka
+import io.kokoichi.sample.sakamichiapp.ui.util.SLASH_ENCODED
 
 @Composable
 fun BlogPics(name: String, navController: NavHostController) {
