@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.kokoichi.sample.sakamichiapp.Member
+import io.kokoichi.sample.sakamichiapp.ui.util.Member
 import io.kokoichi.sample.sakamichiapp.gSelectedGroupName
 import io.kokoichi.sample.sakamichiapp.members
 import io.kokoichi.sample.sakamichiapp.models.GroupNames

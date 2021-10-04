@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
-import io.kokoichi.sample.sakamichiapp.IMG_URL_PREFIFX
-import io.kokoichi.sample.sakamichiapp.IMG_URL_SUFFIX
-import io.kokoichi.sample.sakamichiapp.MemberProps
-import io.kokoichi.sample.sakamichiapp.SLASH_ENCODED
+import io.kokoichi.sample.sakamichiapp.ui.util.IMG_URL_PREFIFX
+import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
+import io.kokoichi.sample.sakamichiapp.ui.util.IMG_URL_SUFFIX
+import io.kokoichi.sample.sakamichiapp.ui.util.SLASH_ENCODED
 
 val NOGI_TAG_COLOR = Color(191, 135, 194)
 
