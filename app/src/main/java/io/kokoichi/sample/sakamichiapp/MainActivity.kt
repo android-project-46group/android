@@ -27,8 +27,8 @@ import coil.compose.rememberImagePainter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
+import io.kokoichi.sample.sakamichiapp.models.GroupNames
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
-import io.kokoichi.sample.sakamichiapp.models.GroupNames.*
 import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
@@ -120,7 +120,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                 // グループ名によって色を管理するための変数
                 var selectedGroupNames by remember { mutableStateOf(gSelectedGroupName) }
                 Log.d(TAG, selectedGroupNames.toString())
-                for (pre in values()) {
+                for (pre in GroupNames.values()) {
                     // 選ばれた値であれば、背景色グレーの値を設定する
                     if (pre.name == gSelectedGroupName) {
                         Box(
@@ -825,6 +825,7 @@ fun App() {
             if (url == null) {
                 url = "https://blog.nogizaka46.com/"
             }
+            Log.d("TAG", "The passed content URL is $url")
             WebViewWidget(url)
         }
     }

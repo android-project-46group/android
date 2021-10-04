@@ -23,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import io.kokoichi.sample.sakamichiapp.data.scrapingImgsNogizaka
+import io.kokoichi.sample.sakamichiapp.models.urls
+import org.jsoup.Jsoup
 
 
 val NOGI_TAG_COLOR = Color(191, 135, 194)
@@ -85,16 +88,14 @@ fun DetailedView(person: MemberProps, navController: NavHostController) {
 @Composable
 fun BlogPics(name: String, navController: NavHostController) {
     // TODO, blog からとってくる！
-    val imgUrl = name
-    var urls = listOf<String>(imgUrl, imgUrl, imgUrl, imgUrl, imgUrl)
+    val urlsList = scrapingImgsNogizaka("renka.iwamoto")
     LazyRow {
-        items(urls) { url ->
-//            val u = "https://blog.nogizaka46.com/renka.iwamoto/2021/09/063158.php"
-//            val u_short = "renka.iwamoto/2021/09/063158.php"
+        items(urlsList) { urls ->
+
             val u_short = "renka.iwamoto${SLASH_ENCODED}2021${SLASH_ENCODED}09${SLASH_ENCODED}063158.php"
 
             Image(
-                painter = rememberImagePainter(url),  // これには size が必要！
+                painter = rememberImagePainter(urls.imgUrl),  // これには size が必要！
                 contentDescription = null,
                 modifier = Modifier
                     .width(160.dp)  // これ、size と順番が逆だと設定できない
@@ -102,10 +103,15 @@ fun BlogPics(name: String, navController: NavHostController) {
                     .padding(0.dp, 10.dp, 0.dp, 0.dp)
                     .clickable {
 
-                        val WEB_VIEW_URL = "webView" + "/url=$u_short"
+                        // navigation の際に / が問題になるのでエスケープする
+                        val encodedUrl = urls.contentUrl.replace("/", SLASH_ENCODED)
+
+                        Log.d("TAG", "content URL is: " + encodedUrl)
+
+                        val WEB_VIEW_URL = "webView" + "/url=$encodedUrl"
                         navController.navigate(WEB_VIEW_URL)
 
-                        Log.d("TAG", "Back from webView to ...")
+
                     }
             )
         }
@@ -114,18 +120,16 @@ fun BlogPics(name: String, navController: NavHostController) {
 
 @Composable
 fun WebViewWidget(
-    url_short: String
+    contentUrl: String
 ) {
     AndroidView(
         factory = {
             WebView(it)
         },
         update = { webView ->
-            val url = "https://blog.nogizaka46.com/" + url_short
-//            val url = url_short
             webView.webViewClient = WebViewClient()
-            Log.d("TAG", url)
-            webView.loadUrl(url)
+            Log.d("TAG", contentUrl)
+            webView.loadUrl(contentUrl)
         }
     )
 }
