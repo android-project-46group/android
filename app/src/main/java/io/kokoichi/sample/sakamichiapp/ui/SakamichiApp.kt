@@ -13,13 +13,20 @@ import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
 import io.kokoichi.sample.sakamichiapp.TAG
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.DetailedView
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.WebViewWidget
+import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
 
 @Composable
-fun SakamichiApp() {
+fun SakamichiApp(viewModel: HomeViewModel) {
     val navController = rememberNavController()
     NavHost(navController, startDestination = "main") {
 
-        composable("main") { MainView("nogizaka", navController) }
+        composable("main") {
+            MainView(
+                "nogizaka",
+                navController,
+                viewModel
+            )
+        }
 
         // userData は Member クラスを Json オブジェクトにして渡してあげる
         composable(
