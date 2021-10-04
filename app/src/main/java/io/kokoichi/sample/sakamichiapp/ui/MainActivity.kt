@@ -29,6 +29,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.models.GroupNames
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
+import io.kokoichi.sample.sakamichiapp.ui.detailedPage.DetailedView
+import io.kokoichi.sample.sakamichiapp.ui.detailedPage.NOGI_TAG_COLOR
+import io.kokoichi.sample.sakamichiapp.ui.detailedPage.WebViewWidget
 import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
