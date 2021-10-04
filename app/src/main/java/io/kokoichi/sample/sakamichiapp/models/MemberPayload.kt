@@ -4,6 +4,9 @@ import com.google.firebase.firestore.PropertyName;
 
 import java.util.List;
 
+/**
+ * db からデータをとってくるときにバインドさせるクラス
+ */
 data class MemberPayload (
     @PropertyName("name_en") val name_en: String? = null,
     @PropertyName("name_ja") val name_ja: String? = null,
