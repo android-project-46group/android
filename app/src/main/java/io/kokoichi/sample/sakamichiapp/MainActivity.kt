@@ -27,9 +27,8 @@ import coil.compose.rememberImagePainter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
+import io.kokoichi.sample.sakamichiapp.models.GroupNames
 import io.kokoichi.sample.sakamichiapp.models.MemberPayload
-import io.kokoichi.sample.sakamichiapp.ui.GroupNames
-import io.kokoichi.sample.sakamichiapp.ui.GroupNames.*
 import io.kokoichi.sample.sakamichiapp.ui.mockGroups
 import io.kokoichi.sample.sakamichiapp.ui.theme.SakamichiAppTheme
 
@@ -47,6 +46,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     App()
+//                    WebViewWidget(url_short = "https://blog.nogizaka46.com/renka.iwamoto/2021/09/063158.php")
                 }
             }
         }
@@ -120,7 +120,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                 // グループ名によって色を管理するための変数
                 var selectedGroupNames by remember { mutableStateOf(gSelectedGroupName) }
                 Log.d(TAG, selectedGroupNames.toString())
-                for (pre in values()) {
+                for (pre in GroupNames.values()) {
                     // 選ばれた値であれば、背景色グレーの値を設定する
                     if (pre.name == gSelectedGroupName) {
                         Box(
@@ -204,9 +204,15 @@ fun MainView(groupName: String, navController: NavHostController) {
         val NARROW_VAL_THIRD_GEN = "3期生"
         val NARROW_VAL_FOURTH_GEN = "4期生"
 
-        val NOGI_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN, NARROW_VAL_FOURTH_GEN)
+        val NOGI_NARROW_VALS = listOf(
+            NARROW_VAL_FIRST_GEN,
+            NARROW_VAL_SECOND_GEN,
+            NARROW_VAL_THIRD_GEN,
+            NARROW_VAL_FOURTH_GEN
+        )
         val SAKURA_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN)
-        val HINATA_NARROW_VALS = listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN)
+        val HINATA_NARROW_VALS =
+            listOf(NARROW_VAL_FIRST_GEN, NARROW_VAL_SECOND_GEN, NARROW_VAL_THIRD_GEN)
 
         var showMessage2 by remember { mutableStateOf(gSelectedGeneration) }
         if (showMessage2 == "") {
@@ -352,14 +358,14 @@ fun MainView(groupName: String, navController: NavHostController) {
                     }
 
                     Log.d("TAG", gSelectedGroupName)
-                    lateinit var narLists : List<String>
-                    if (gSelectedGroupName == "NOGIZAKA") {
+                    lateinit var narLists: List<String>
+                    if (gSelectedGroupName == "nogizaka") {
                         narLists = NOGI_NARROW_VALS
                     }
-                    if (gSelectedGroupName == "SAKURAZAKA") {
+                    else if (gSelectedGroupName == "sakurazaka") {
                         narLists = SAKURA_NARROW_VALS
                     }
-                    if (gSelectedGroupName == "HINATAZAKA") {
+                    else {
                         narLists = HINATA_NARROW_VALS
                     }
                     for (narVal in narLists) {
@@ -449,6 +455,7 @@ fun MainView(groupName: String, navController: NavHostController) {
             Log.d("TAG", "Download start")
             // Firebase の用意する、非同期通信が終わったことを表すメソッド addOnSuccessListener について、
             // 別メソッドに切り出そうとしたら、その通知を受け取れなくて断念してこの関数内に記述している。
+            Log.d(TAG, gSelectedGroupName)
             db.collection(gSelectedGroupName).get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
                     // TODO: メンバーリストに追加する
@@ -477,6 +484,7 @@ fun MainView(groupName: String, navController: NavHostController) {
                 isDownloaded = true
                 gIsDownloaded = true
             }.addOnFailureListener { exception ->
+                Log.d(TAG, "Exception when retrieving data", exception)
                 Log.e(TAG, "Exception when retrieving data", exception)
             }
         }
@@ -806,6 +814,19 @@ fun App() {
             Log.d(TAG, userJson.toString())
             val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
             DetailedView(memberProps, navController)
+        }
+
+        composable(
+            route = "webView/url={url}",
+            arguments = listOf(navArgument("url") { type = NavType.StringType })
+        ) { backStackEntry ->
+
+            var url = backStackEntry.arguments?.getString("url")
+            if (url == null) {
+                url = "https://blog.nogizaka46.com/"
+            }
+            Log.d("TAG", "The passed content URL is $url")
+            WebViewWidget(url)
         }
     }
 }

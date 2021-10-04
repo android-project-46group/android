@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import io.kokoichi.sample.sakamichiapp.Member
 import io.kokoichi.sample.sakamichiapp.gSelectedGroupName
 import io.kokoichi.sample.sakamichiapp.members
+import io.kokoichi.sample.sakamichiapp.models.GroupNames
 
 
 @Composable
@@ -95,13 +96,6 @@ fun GroupList(selectedGroupName: MutableState<String>) {
             }
         }
     }
-}
-
-// Enum
-enum class GroupNames(val group: String) {
-    NOGIZAKA("乃木坂"),
-    SAKURAZAKA("櫻坂"),
-    HINATAZAKA("日向坂"),
 }
 
 // Mock For Development
