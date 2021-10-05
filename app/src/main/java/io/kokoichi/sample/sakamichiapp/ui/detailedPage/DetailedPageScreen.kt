@@ -38,23 +38,16 @@ fun DetailedViewPreview() {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.profile_picture),
-//            contentDescription = null,
-//        )
         Infos(person = person)
     }
 }
 
 @Composable
 fun DetailedView(person: MemberProps, navController: NavHostController) {
-//    val doc = Jsoup.connect("https://blog.nogizaka46.com/renka.iwamoto").get()
-//    Log.d("TAG", doc.toString())
 
     // この CenterHorizontally は、写真用。タグのことがあるので、Infos では一旦外す
     Column(
         modifier = Modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var imgUrl =
@@ -68,14 +61,13 @@ fun DetailedView(person: MemberProps, navController: NavHostController) {
                 .size(280.dp)
                 .padding(0.dp, 15.dp, 0.dp, 0.dp)
                 .clickable {
-//                        "https://blog.nogizaka46.com/hina.higuchi/smph/"
+                    /* DO SOMETHING ? */
                 }
         )
 
         Infos(person = person)
 
-        imgUrl = "https://img.nogizaka46.com/blog/renka.iwamoto/img/2021/09/18/6726332/0004.jpeg"
-        BlogPics(imgUrl, navController)
+        BlogPics(person, navController)
     }
 }
 
@@ -91,25 +83,25 @@ fun Infos(person: MemberProps) {
         var Tags = arrayOf(person.generation, "かわいい")
         RowTags(Tags)
 
-
         // Japanese Name
         Text(
             text = person.name_ja!!,
             modifier = Modifier
                 .padding(PADDING_HORIZONTAL * 3, 0.dp, PADDING_HORIZONTAL * 2, PADDING_VERTICAL),
-//        .padding(PADDING_HORIZONTAL * 2, PADDING_VERTICAL),
             style = MaterialTheme.typography.h2,
         )
 
         // Double Divider
         CustomDevider(Color.Blue, 1.dp)
+        Spacer(modifier = Modifier.height(3.dp))
+        CustomDevider(Color.Blue, 1.dp)
+
         OneInfo(InfoKeys.HEIGHT.key, person.heigt.toString())
         CustomDevider(Color.Blue, 1.dp)
         OneInfo(InfoKeys.BIRTHDAY.key, person.birthday!!)
         CustomDevider(Color.Blue, 1.dp)
         OneInfo(InfoKeys.BLOODTYPE.key, person.bloodType)
         CustomDevider(Color.Blue, 1.dp)
-
     }
 }
 

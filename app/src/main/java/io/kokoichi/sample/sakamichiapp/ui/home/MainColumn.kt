@@ -57,6 +57,7 @@ fun MainColumn(
                         name_ja = userInfo.name_ja,
                         birthday = userInfo?.birthday,
                         b_strength = birthdayStrength(userInfo.birthday!!),
+                        blog_url = userInfo.blog_url,
                         imgUrl = userInfo.img_url,
                         bloodType = userInfo.blood_type!!,
                         generation = userInfo.generation!!,

@@ -13,9 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.kokoichi.sample.sakamichiapp.*
 import io.kokoichi.sample.sakamichiapp.models.GroupNames
-import io.kokoichi.sample.sakamichiapp.ui.util.Member
 
 @Composable
 fun GroupBar(
@@ -32,7 +30,6 @@ fun GroupBar(
         val BORDER_THICKNESS = 2.dp
         val SELECTED_BG_COLOR = Color.LightGray
         val FONT_SIZE = 20.sp
-        val FONT_COLOR = Color.Black
 
         Row(
             modifier = Modifier
@@ -86,7 +83,6 @@ fun GroupBar(
                             .width(BORDER_THICKNESS)
                     )
                 }
-
             }
         }
     }

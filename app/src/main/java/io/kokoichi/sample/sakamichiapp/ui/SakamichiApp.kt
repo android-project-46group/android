@@ -10,7 +10,6 @@ import androidx.navigation.navArgument
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.ui.home.MainView
 import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
-import io.kokoichi.sample.sakamichiapp.TAG
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.DetailedView
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.WebViewWidget
 import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
@@ -38,8 +37,10 @@ fun SakamichiApp(viewModel: HomeViewModel) {
             // Json が渡ってくるので、それをオブジェクトに変換する
             val userJson = backStackEntry.arguments?.getString("userData")
 
-            Log.d(TAG, userJson.toString())
+            Log.d("TAG", userJson.toString())
             val memberProps = Gson().fromJson<MemberProps>(userJson, MemberProps::class.java)
+            Log.d("TAG", memberProps.toString())
+
             DetailedView(memberProps, navController)
         }
 

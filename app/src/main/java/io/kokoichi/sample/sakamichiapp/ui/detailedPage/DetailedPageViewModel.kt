@@ -13,18 +13,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
-import io.kokoichi.sample.sakamichiapp.data.scrapingImgsNogizaka
+import io.kokoichi.sample.sakamichiapp.data.scrapingImgsHinata
+import io.kokoichi.sample.sakamichiapp.data.scrapingImgsNogi
+import io.kokoichi.sample.sakamichiapp.data.scrapingImgsSakura
+import io.kokoichi.sample.sakamichiapp.models.urls
+import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
 import io.kokoichi.sample.sakamichiapp.ui.util.SLASH_ENCODED
 
 @Composable
-fun BlogPics(name: String, navController: NavHostController) {
-    // TODO, blog からとってくる！
-    val urlsList = scrapingImgsNogizaka("renka.iwamoto")
+fun BlogPics(person: MemberProps, navController: NavHostController) {
+    var urlsList = mutableListOf<urls>()
+
+    var blogUrl = person.blog_url
+
+    // TODO: もうちょいスマートにかく？
+    if (person.group == "nogizaka") {
+        urlsList = scrapingImgsNogi(blogUrl!!)
+    } else if (person.group == "sakurazaka") {
+        Log.d("SCRAPING", "blog url is " + blogUrl)
+        urlsList = scrapingImgsSakura(blogUrl!!)
+    } else if (person.group == "hinatazaka") {
+        Log.d("SCRAPING", "blog url is " + blogUrl)
+        urlsList = scrapingImgsHinata(blogUrl!!)
+    }
+
     LazyRow {
         items(urlsList) { urls ->
-
-            val u_short =
-                "renka.iwamoto${SLASH_ENCODED}2021${SLASH_ENCODED}09${SLASH_ENCODED}063158.php"
 
             Image(
                 painter = rememberImagePainter(urls.imgUrl),  // これには size が必要！
@@ -42,7 +56,6 @@ fun BlogPics(name: String, navController: NavHostController) {
 
                         val WEB_VIEW_URL = "webView" + "/url=$encodedUrl"
                         navController.navigate(WEB_VIEW_URL)
-
 
                     }
             )
