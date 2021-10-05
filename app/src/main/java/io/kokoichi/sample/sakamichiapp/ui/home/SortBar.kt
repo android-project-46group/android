@@ -17,7 +17,6 @@ import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 
 @Composable
 fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
-    val BORDER_RADIUS = 2.dp
     val KEY_FONT_SIZE = 10.sp
 
     Row(

@@ -20,7 +20,6 @@ import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.ui.util.Member
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
-import io.kokoichi.sample.sakamichiapp.TAG
 import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
 import io.kokoichi.sample.sakamichiapp.ui.util.QUESTION_ENCODED
 import io.kokoichi.sample.sakamichiapp.ui.util.SLASH_ENCODED
