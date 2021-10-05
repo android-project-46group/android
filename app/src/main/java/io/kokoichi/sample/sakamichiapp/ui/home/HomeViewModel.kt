@@ -31,7 +31,7 @@ data class HomeUiState(
 class HomeViewModel : ViewModel() {
 
     // UI state exposed to the UI
-    private val _uiState = MutableStateFlow(HomeUiState(loaded = true))
+    private val _uiState = MutableStateFlow(HomeUiState(loaded = false))
 
     //    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
     var uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()

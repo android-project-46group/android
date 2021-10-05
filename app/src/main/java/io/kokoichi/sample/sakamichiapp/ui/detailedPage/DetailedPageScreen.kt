@@ -74,8 +74,8 @@ fun DetailedView(person: MemberProps, navController: NavHostController) {
 
         Infos(person = person)
 
-        imgUrl = "https://img.nogizaka46.com/blog/renka.iwamoto/img/2021/09/18/6726332/0004.jpeg"
-        BlogPics(imgUrl, navController)
+//        imgUrl = "https://img.nogizaka46.com/blog/renka.iwamoto/img/2021/09/18/6726332/0004.jpeg"
+        BlogPics(person, navController)
     }
 }
 

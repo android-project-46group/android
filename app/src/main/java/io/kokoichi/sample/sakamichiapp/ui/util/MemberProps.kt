@@ -6,6 +6,7 @@ data class Member(
     val name_ja: String? = "メンバー名",
     val birthday: String? = null,
     val b_strength: Int? = null,
+    val blog_url: String? = null,
     val imgUrl: String? = null,
     val height: String? = "159cm",
     val bloodType: String = "不明",

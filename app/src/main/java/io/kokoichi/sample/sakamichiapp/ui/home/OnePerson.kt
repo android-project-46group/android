@@ -22,6 +22,8 @@ import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 import io.kokoichi.sample.sakamichiapp.TAG
 import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
+import io.kokoichi.sample.sakamichiapp.ui.util.QUESTION_ENCODED
+import io.kokoichi.sample.sakamichiapp.ui.util.SLASH_ENCODED
 
 @Composable
 fun OnePerson(
@@ -32,11 +34,11 @@ fun OnePerson(
 ) {
     Column(
         modifier = Modifier.clickable {
-            Log.d(TAG, person.name_ja + " clicked")
+            Log.d("TAG", person.name_ja + " clicked")
 
             // FIXME: 以下の理由で、MemberProps を作っている。URL に注意
             // Props で渡すときに、URL は JSON デコードがなんか上手くできなかった
-            val userProps = MemberProps(
+            var userProps = MemberProps(
                 name = person.name,
                 name_ja = person.name_ja,
                 birthday = person.birthday,
@@ -44,11 +46,14 @@ fun OnePerson(
                 heigt = person.height,
                 bloodType = person.bloodType,
                 generation = person.generation,
+                blog_url = person.blog_url
+                    ?.replace("/", SLASH_ENCODED)
+                    ?.replace("?", QUESTION_ENCODED),
             )
 
             val jsonUser = Gson().toJson(userProps)
             val ROUTE_MEMBER_DETAILS = "detailed" + "/userData=" + jsonUser
-            Log.d(TAG, ROUTE_MEMBER_DETAILS)
+            Log.d("TAG", ROUTE_MEMBER_DETAILS)
             navController.navigate(ROUTE_MEMBER_DETAILS)
         }
     ) {

@@ -12,14 +12,12 @@ import org.jsoup.Jsoup
 /**
  * memberName = renka.iwamoto の形式
  */
-fun scrapingImgsNogizaka(memberName: String) = runBlocking {
-    var topContent = ""
+fun scrapingImgsNogi(blogUrl: String) = runBlocking {
 
-    var imgUrls = mutableListOf<String>()
     var articles = mutableListOf<article>()
     var urlsList = mutableListOf<urls>()
     withContext(Dispatchers.Default) {
-        val document = Jsoup.connect("https://blog.nogizaka46.com/$memberName/").get()
+        val document = Jsoup.connect(blogUrl).get()
 
         val titleH1s = document.select("h1.clearfix")
 
@@ -34,7 +32,6 @@ fun scrapingImgsNogizaka(memberName: String) = runBlocking {
             )
         }
 
-
         for (article in articles) {
 
             var doc1 = Jsoup.connect(article.url).get()
@@ -48,7 +45,6 @@ fun scrapingImgsNogizaka(memberName: String) = runBlocking {
             for (imgTag in imgTags) {
                 url = imgTag.attr("src").replace("http://", "https://")
                 if (url != "https://img.nogizaka46.com/blog/img/dot.gif") {
-                    imgUrls.add(url)
 
                     urlsList.add(
                         urls(
@@ -59,8 +55,6 @@ fun scrapingImgsNogizaka(memberName: String) = runBlocking {
                 }
             }
         }
-
-        Log.d("TAG", urlsList.toString())
     }
     return@runBlocking urlsList
 }
