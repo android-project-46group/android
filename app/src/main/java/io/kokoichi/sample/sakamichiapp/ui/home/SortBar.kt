@@ -1,7 +1,10 @@
 package io.kokoichi.sample.sakamichiapp.ui.home
 
 import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -9,14 +12,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import io.kokoichi.sample.sakamichiapp.*
+import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.models.*
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 
 @Composable
-fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
+fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel, navController: NavHostController) {
     val KEY_FONT_SIZE = 10.sp
 
     Row(
@@ -177,6 +187,31 @@ fun SortBar(uiState: HomeUiState, viewModel: HomeViewModel) {
                     }
                 }
             }
+        }
+
+        // Link to formation page
+        BoxWithConstraints(
+            modifier = Modifier
+                .wrapContentSize(Alignment.TopStart)
+                .weight(1f)
+        ) {
+            val boxWidth = with(LocalDensity.current) { constraints.maxWidth.toDp() }
+            val boxHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() }
+
+            val length = min(boxWidth, boxHeight)
+
+            Image(
+                painter = painterResource(id = R.drawable.refactor),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(length)
+                    .clip(CutCornerShape(5.dp))
+                    .clickable {
+                        // Navigate to formations page  (now, only for hinata-zaka)
+                        navController.navigate("formations") { launchSingleTop = true }
+                    },
+                contentScale = ContentScale.Crop
+            )
         }
     }
 }

@@ -20,7 +20,7 @@ fun SakamichiApp(viewModel: HomeViewModel) {
 
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = "test") {
+    NavHost(navController, startDestination = "main") {
 
         composable("main") {
             MainView(
@@ -59,7 +59,7 @@ fun SakamichiApp(viewModel: HomeViewModel) {
         }
 
         composable(
-            route = "test"
+            route = "formations"
         ) {
             FormationView(
                 navController = navController,

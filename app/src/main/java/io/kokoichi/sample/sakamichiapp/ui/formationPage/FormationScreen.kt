@@ -58,7 +58,27 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
             }
         }
 
-
+        // TODO:
+        // このデータも DB から拾ってくる？？
+        val SONG_TITLES = listOf<String>(
+            "ってか",
+            "キュン",
+            "Right？",
+            "あくびLetter",
+            "こんなに好きになっちゃっていいの？",
+            "どうする？どうする？どうする？",
+            "アディショナルタイム",
+            "ソンナコトナイヨ",
+            "ドレミソラシド",
+            "世界にはThank you！が溢れている",
+            "何度でも何度でも",
+            "君しか勝たん",
+            "声の足跡",
+            "夢は何歳まで？",
+            "思いがけないダブルレインボー",
+            "膨大な夢に押し潰されて",
+            "酸っぱい自己嫌悪",
+        )
 
         Column() {
             Box(
@@ -69,13 +89,16 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
             ) {
                 Row() {
                     Text(
+                        modifier = Modifier
+                            .weight(3f),
                         text = uiState.formationTitle,
                         fontSize = 40.sp
                     )
                     var sortExpanded by remember { mutableStateOf(false) }
                     Box(
                         modifier = Modifier
-                            .padding(130.dp, 0.dp, 0.dp, 0.dp),
+                            .weight(1f)
+                            .padding(0.dp, 0.dp, 0.dp, 0.dp),
                     ) {
                         Button(
                             onClick = {
@@ -87,25 +110,17 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
                         DropdownMenu(
                             expanded = sortExpanded,
                             onDismissRequest = { sortExpanded = false }) {
-                            DropdownMenuItem(
-                                onClick = {
-                                    sortExpanded = false
+                            for (title in SONG_TITLES) {
+                                DropdownMenuItem(
+                                    onClick = {
+                                        sortExpanded = false
 
-                                    getFormation(formation, "キュン", viewModel)
-                                    viewModel.setFormationTitle("キュン")
+                                        getFormation(formation, title, viewModel)
+                                        viewModel.setFormationTitle(title)
+                                    }
+                                ) {
+                                    Text(title)
                                 }
-                            ) {
-                                Text("キュン")
-                            }
-                            DropdownMenuItem(
-                                onClick = {
-                                    sortExpanded = false
-
-                                    getFormation(formation, "ってか", viewModel)
-                                    viewModel.setFormationTitle("ってか")
-                                }
-                            ) {
-                                Text("ってか")
                             }
                         }
                     }
@@ -181,7 +196,7 @@ fun EachRow(positions: MutableList<Position>) {
                         )
                     })
 
-                // state is ImagePainter.State.Empty
+                // In the case where you cannot get a image from the URL
                 if (loadError) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_baseline_person_outline_24),
