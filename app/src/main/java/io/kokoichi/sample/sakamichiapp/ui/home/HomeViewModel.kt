@@ -22,6 +22,7 @@ data class HomeUiState(
     val narrowTyle: String = "なし",
     var showingMembers: MutableList<Member> = mutableListOf(),
     var formations: MutableList<Position> = mutableListOf(),    // homeView の責務を超えてる？
+    var formationTitle: String = "ってか",
 ) {
     /**
      * True if this represents a first load
@@ -134,5 +135,8 @@ class HomeViewModel : ViewModel() {
 
     fun setFormations(positionList: MutableList<Position>) {
         _uiState.update { it.copy(formations = positionList) }
+    }
+    fun setFormationTitle(title: String) {
+        _uiState.update { it.copy(formationTitle = title) }
     }
 }
