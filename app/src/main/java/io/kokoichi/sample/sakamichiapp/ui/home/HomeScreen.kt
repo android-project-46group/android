@@ -20,6 +20,7 @@ fun MainView(navController: NavHostController, viewModel: HomeViewModel) {
         SortBar(
             uiState = uiState,
             viewModel = viewModel,
+            navController = navController,
         )
 
         MainColumn(

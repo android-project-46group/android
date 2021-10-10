@@ -12,6 +12,7 @@ import io.kokoichi.sample.sakamichiapp.ui.home.MainView
 import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.DetailedView
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.WebViewWidget
+import io.kokoichi.sample.sakamichiapp.ui.formationPage.FormationView
 import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
 
 @Composable
@@ -55,6 +56,15 @@ fun SakamichiApp(viewModel: HomeViewModel) {
             }
             Log.d("TAG", "The passed content URL is $url")
             WebViewWidget(url)
+        }
+
+        composable(
+            route = "formations"
+        ) {
+            FormationView(
+                navController = navController,
+                viewModel = viewModel
+            )
         }
     }
 }

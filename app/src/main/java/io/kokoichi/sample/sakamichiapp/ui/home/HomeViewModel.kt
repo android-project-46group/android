@@ -1,6 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.ui.home
 
 import androidx.lifecycle.*
+import io.kokoichi.sample.sakamichiapp.ui.formationPage.Position
 import io.kokoichi.sample.sakamichiapp.ui.util.Member
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,8 @@ data class HomeUiState(
     val sortTyle: String = "選んでください",
     val narrowTyle: String = "なし",
     var showingMembers: MutableList<Member> = mutableListOf(),
+    var formations: MutableList<Position> = mutableListOf(),    // homeView の責務を超えてる？
+    var formationTitle: String = "ってか",
 ) {
     /**
      * True if this represents a first load
@@ -129,4 +132,11 @@ class HomeViewModel : ViewModel() {
         setShowingMembers(showingMembers)
     }
 
+
+    fun setFormations(positionList: MutableList<Position>) {
+        _uiState.update { it.copy(formations = positionList) }
+    }
+    fun setFormationTitle(title: String) {
+        _uiState.update { it.copy(formationTitle = title) }
+    }
 }
