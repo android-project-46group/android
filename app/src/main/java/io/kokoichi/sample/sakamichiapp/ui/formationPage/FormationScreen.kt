@@ -88,12 +88,17 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
                 contentAlignment = Alignment.Center
             ) {
                 Row() {
-                    Text(
+                    Box(
                         modifier = Modifier
                             .weight(3f),
-                        text = uiState.formationTitle,
-                        fontSize = 40.sp
-                    )
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = uiState.formationTitle,
+                            fontSize = 40.sp
+                        )
+                    }
+
                     var sortExpanded by remember { mutableStateOf(false) }
                     Box(
                         modifier = Modifier
@@ -205,7 +210,7 @@ fun EachRow(positions: MutableList<Position>) {
                             .size(IMG_SIZE)
                             .fillMaxWidth()
                             .clip(CircleShape)
-                            .clickable{
+                            .clickable {
                                 // TODO:
                                 // Error が出てしまった後は、曲名を切り替えてもそこのエラーが残ってしまう
                                 // 一時的な対策として、タップすると再リロサイリロード走るようにする
@@ -224,7 +229,7 @@ fun EachRow(positions: MutableList<Position>) {
                             .size(IMG_SIZE)
                             .fillMaxWidth()
                             .clip(CircleShape)
-                            .clickable{
+                            .clickable {
 //                                      Log.d("state", loadError.toString())
                             },
                         contentScale = ContentScale.Crop
@@ -249,13 +254,9 @@ fun getFormation(formation: String, title: String, viewModel: HomeViewModel) {
             Log.d("position", "SUCCESS")
             var tmps = mutableListOf<Position>()
             for (document in querySnapshot) {
-                Log.d("position", document.toString())
-//                Log.d("position", document.field)
 
                 val position = document.toObject(Position::class.java)
                 tmps.add(position)
-
-                Log.d("positoin", position.toString())
             }
 
             viewModel.setFormations(tmps)
