@@ -4,8 +4,6 @@ import android.util.Log
 import io.kokoichi.sample.sakamichiapp.ui.formationPage.Position
 import io.kokoichi.sample.sakamichiapp.ui.formationPage.Song
 import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
-import io.kokoichi.sample.sakamichiapp.ui.util.Member
-import io.kokoichi.sample.sakamichiapp.ui.util.birthdayStrength
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

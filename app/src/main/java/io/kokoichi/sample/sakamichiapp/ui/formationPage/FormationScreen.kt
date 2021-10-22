@@ -201,7 +201,6 @@ fun EachRow(positions: MutableList<Position>) {
                             .fillMaxWidth()
                             .clip(CircleShape)
                             .clickable {
-//                                      Log.d("state", loadError.toString())
                             },
                         contentScale = ContentScale.Crop
                     )
