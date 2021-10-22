@@ -13,3 +13,12 @@ data class Member(
     var img_url: String,
 )
 
+data class Positions(val positions: List<PositionProp>)
+
+data class PositionProp(
+    var member_name: String,
+    var img_url: String,
+    var position: String,
+    var is_center: Boolean,
+)
+

@@ -9,6 +9,6 @@ interface ApiInterface {
     @GET("members")
     fun getData(@Query("gn") groupName: String): Call<MemberInfos>
 
-    @GET("songs")
-    fun getAllSongs(@Query("gn") groupName: String): Call<MemberInfos>
+    @GET("positions")
+    fun getPositions(@Query("title") title: String): Call<Positions>
 }
