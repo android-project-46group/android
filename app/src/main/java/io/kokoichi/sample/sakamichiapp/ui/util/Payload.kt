@@ -8,5 +8,6 @@ data class MemberProps(
     val heigt: String? = "159cm",
     val bloodType: String = "不明",
     val generation: String = "不明",
-    var blog_url: String? = ""
+    var blog_url: String? = "",
+    var img_url: String? = "",
 )
