@@ -17,17 +17,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import io.kokoichi.sample.sakamichiapp.R
-import io.kokoichi.sample.sakamichiapp.TAG
-import io.kokoichi.sample.sakamichiapp.models.SortKeyVal
 import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
-import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 import io.kokoichi.sample.sakamichiapp.webapi.getPositions
-
+import io.kokoichi.sample.sakamichiapp.webapi.getSongs
 
 @Composable
 internal fun FormationView(navController: NavHostController, viewModel: HomeViewModel) {
@@ -58,27 +52,8 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
             }
         }
 
-        // TODO:
-        // このデータも DB から拾ってくる？？
-        val SONG_TITLES = listOf<String>(
-            "ってか",
-            "キュン",
-            "Right？",
-            "あくびLetter",
-            "こんなに好きになっちゃっていいの？",
-            "どうする？どうする？どうする？",
-            "アディショナルタイム",
-            "ソンナコトナイヨ",
-            "ドレミソラシド",
-            "世界にはThank you！が溢れている",
-            "何度でも何度でも",
-            "君しか勝たん",
-            "声の足跡",
-            "夢は何歳まで？",
-            "思いがけないダブルレインボー",
-            "膨大な夢に押し潰されて",
-            "酸っぱい自己嫌悪",
-        )
+        // Get songs from web api
+        getSongs(groupName = "hinatazaka", viewModel = viewModel)
 
         Column() {
             Box(
@@ -115,16 +90,16 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
                         DropdownMenu(
                             expanded = sortExpanded,
                             onDismissRequest = { sortExpanded = false }) {
-                            for (title in SONG_TITLES) {
+                            for (song in uiState.songTitles) {
                                 DropdownMenuItem(
                                     onClick = {
                                         sortExpanded = false
 
-                                        getPositions(title = title, viewModel = viewModel)
-                                        viewModel.setFormationTitle(title)
+                                        getPositions(title = song.title, viewModel = viewModel)
+                                        viewModel.setFormationTitle(song.title)
                                     }
                                 ) {
-                                    Text(title)
+                                    Text(song.title)
                                 }
                             }
                         }
@@ -247,4 +222,10 @@ data class Position(
     val img_url: String? = null,
     val position: String = "不明",
     val is_center: Boolean = false,
+)
+
+data class Song(
+    val single: String = "不明",
+    val title: String = "不明",
+    val center: String? = null,
 )

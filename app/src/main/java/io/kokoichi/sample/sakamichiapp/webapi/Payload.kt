@@ -22,3 +22,10 @@ data class PositionProp(
     var is_center: Boolean,
 )
 
+data class Songs(var songs: List<SongProp>)
+
+data class SongProp(
+    var single: String,
+    var title: String,
+    var center: String,
+)

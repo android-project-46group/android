@@ -2,6 +2,7 @@ package io.kokoichi.sample.sakamichiapp.ui.home
 
 import androidx.lifecycle.*
 import io.kokoichi.sample.sakamichiapp.ui.formationPage.Position
+import io.kokoichi.sample.sakamichiapp.ui.formationPage.Song
 import io.kokoichi.sample.sakamichiapp.ui.util.Member
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ data class HomeUiState(
     val narrowTyle: String = "なし",
     var showingMembers: MutableList<Member> = mutableListOf(),
     var formations: MutableList<Position> = mutableListOf(),    // homeView の責務を超えてる？
+    var songTitles: MutableList<Song> = mutableListOf(),
     var formationTitle: String = "ってか",
 ) {
     /**
@@ -138,5 +140,12 @@ class HomeViewModel : ViewModel() {
     }
     fun setFormationTitle(title: String) {
         _uiState.update { it.copy(formationTitle = title) }
+    }
+
+    /**
+     * フォーメーション中の歌一覧の楽曲
+     */
+    fun setSongs(songs: MutableList<Song>) {
+        _uiState.update { it.copy(songTitles = songs) }
     }
 }

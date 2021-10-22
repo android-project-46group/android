@@ -1,6 +1,5 @@
 package io.kokoichi.sample.sakamichiapp.ui.home
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,11 +15,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import io.kokoichi.sample.sakamichiapp.*
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.NOGI_TAG_COLOR
 import io.kokoichi.sample.sakamichiapp.ui.util.Member
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
 import io.kokoichi.sample.sakamichiapp.webapi.*
+
+const val TAG = "MainColumn"
 
 @Composable
 fun MainColumn(
