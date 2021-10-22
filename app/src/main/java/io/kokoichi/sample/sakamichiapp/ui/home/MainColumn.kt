@@ -15,12 +15,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import io.kokoichi.sample.sakamichiapp.*
-import io.kokoichi.sample.sakamichiapp.models.MemberPayload
 import io.kokoichi.sample.sakamichiapp.ui.detailedPage.NOGI_TAG_COLOR
 import io.kokoichi.sample.sakamichiapp.ui.util.Member
 import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
-import io.kokoichi.sample.sakamichiapp.ui.util.birthdayStrength
+import io.kokoichi.sample.sakamichiapp.webapi.*
+
+const val TAG = "MainColumn"
 
 @Composable
 fun MainColumn(
@@ -46,32 +46,7 @@ fun MainColumn(
 
             Log.d(TAG, uiState.groupName)
 
-            // TODO: ここのロジックはどこかに移植する！（data package?）
-            db.collection(uiState.groupName).get().addOnSuccessListener { querySnapshot ->
-                var tmps = mutableListOf<Member>()
-                for (document in querySnapshot) {
-
-                    val userInfo = document.toObject(MemberPayload::class.java)
-                    var member = Member(
-                        name = userInfo?.name_en!!,
-                        name_ja = userInfo.name_ja,
-                        birthday = userInfo?.birthday,
-                        b_strength = birthdayStrength(userInfo.birthday!!),
-                        blog_url = userInfo.blog_url,
-                        imgUrl = userInfo.img_url,
-                        bloodType = userInfo.blood_type!!,
-                        generation = userInfo.generation!!,
-                    )
-
-                    tmps.add(member)
-                }
-                viewModel.addMembers(tmps)
-                viewModel.finishLoading()
-                Log.d(TAG, "downloader finished")
-
-            }.addOnFailureListener { exception ->
-                Log.d(TAG, "Exception when retrieving data", exception)
-            }
+            GetMemberInfos(groupName = uiState.groupName, viewModel = viewModel)
         }
 
         // Download が終了した時のみ、情報を表示

@@ -17,28 +17,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import io.kokoichi.sample.sakamichiapp.R
-import io.kokoichi.sample.sakamichiapp.TAG
-import io.kokoichi.sample.sakamichiapp.models.SortKeyVal
 import io.kokoichi.sample.sakamichiapp.ui.home.HomeViewModel
-import io.kokoichi.sample.sakamichiapp.ui.util.ShowMemberStyle
-
+import io.kokoichi.sample.sakamichiapp.webapi.getPositions
+import io.kokoichi.sample.sakamichiapp.webapi.getSongs
 
 @Composable
 internal fun FormationView(navController: NavHostController, viewModel: HomeViewModel) {
 
     val uiState by viewModel.uiState.collectAsState()
 
-    var formation = "formations_hinata"
     var title = "ってか"
 
     // これがないと、再描画が走るたびに「ってか」になっちゃう
     if (uiState.formations.size == 0) {
-        getFormation(formation = formation, title = title, viewModel = viewModel)
+        getPositions(title = title, viewModel = viewModel)
     }
 
 
@@ -58,27 +52,8 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
             }
         }
 
-        // TODO:
-        // このデータも DB から拾ってくる？？
-        val SONG_TITLES = listOf<String>(
-            "ってか",
-            "キュン",
-            "Right？",
-            "あくびLetter",
-            "こんなに好きになっちゃっていいの？",
-            "どうする？どうする？どうする？",
-            "アディショナルタイム",
-            "ソンナコトナイヨ",
-            "ドレミソラシド",
-            "世界にはThank you！が溢れている",
-            "何度でも何度でも",
-            "君しか勝たん",
-            "声の足跡",
-            "夢は何歳まで？",
-            "思いがけないダブルレインボー",
-            "膨大な夢に押し潰されて",
-            "酸っぱい自己嫌悪",
-        )
+        // Get songs from web api
+        getSongs(groupName = "hinatazaka", viewModel = viewModel)
 
         Column() {
             Box(
@@ -115,16 +90,16 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
                         DropdownMenu(
                             expanded = sortExpanded,
                             onDismissRequest = { sortExpanded = false }) {
-                            for (title in SONG_TITLES) {
+                            for (song in uiState.songTitles) {
                                 DropdownMenuItem(
                                     onClick = {
                                         sortExpanded = false
 
-                                        getFormation(formation, title, viewModel)
-                                        viewModel.setFormationTitle(title)
+                                        getPositions(title = song.title, viewModel = viewModel)
+                                        viewModel.setFormationTitle(song.title)
                                     }
                                 ) {
-                                    Text(title)
+                                    Text(song.title)
                                 }
                             }
                         }
@@ -165,10 +140,6 @@ internal fun FormationView(navController: NavHostController, viewModel: HomeView
 @Composable
 fun EachRow(positions: MutableList<Position>) {
 
-    val IMG_URL_BASE =
-        "https://firebasestorage.googleapis.com/v0/b/my-memory-3b3bd.appspot.com/o/saka%2Fhinatazaka%2F"
-    val IMG_URL_SUFFIX = ".jpeg?alt=media"
-
     val IMG_SIZE = 60.dp
     val FONT_SIZE = 15.sp
     val IMG_PADDING = 3.dp
@@ -180,7 +151,7 @@ fun EachRow(positions: MutableList<Position>) {
                 modifier = Modifier.padding(IMG_PADDING)
             ) {
 
-                val imgUrl = IMG_URL_BASE + position.name_en + IMG_URL_SUFFIX
+                val imgUrl = position.img_url
 
                 var loadError by remember { mutableStateOf(false) }
 
@@ -230,7 +201,6 @@ fun EachRow(positions: MutableList<Position>) {
                             .fillMaxWidth()
                             .clip(CircleShape)
                             .clickable {
-//                                      Log.d("state", loadError.toString())
                             },
                         contentScale = ContentScale.Crop
                     )
@@ -242,36 +212,19 @@ fun EachRow(positions: MutableList<Position>) {
     }
 }
 
-fun getFormation(formation: String, title: String, viewModel: HomeViewModel) {
-
-    val db = Firebase.firestore
-
-    // TODO: ここのロジックはどこかに移植する！（data package?）
-    db.collection(formation)
-        .whereEqualTo("title", title)
-        .get()
-        .addOnSuccessListener { querySnapshot ->
-            Log.d("position", "SUCCESS")
-            var tmps = mutableListOf<Position>()
-            for (document in querySnapshot) {
-
-                val position = document.toObject(Position::class.java)
-                tmps.add(position)
-            }
-
-            viewModel.setFormations(tmps)
-            viewModel.finishLoading()
-
-        }.addOnFailureListener { exception ->
-            Log.d(TAG, "Exception when retrieving data", exception)
-        }
-}
-
 
 data class Position(
     val title: String = "不明",
     val single: String = "不明",
     val name_en: String = "不明",
     val name_ja: String = "不明",
+    val img_url: String? = null,
     val position: String = "不明",
+    val is_center: Boolean = false,
+)
+
+data class Song(
+    val single: String = "不明",
+    val title: String = "不明",
+    val center: String? = null,
 )
