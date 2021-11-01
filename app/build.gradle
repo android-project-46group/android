@@ -86,4 +86,12 @@ dependencies {
     implementation("org.jsoup:jsoup:1.11.3")
 
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+
+    // for WebAPI
+    def retrofitVersion = '2.7.1'
+    implementation "com.squareup.retrofit2:retrofit:2.7.1"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 }

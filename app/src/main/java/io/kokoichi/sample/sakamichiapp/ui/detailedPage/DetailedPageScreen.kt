@@ -17,10 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
-import io.kokoichi.sample.sakamichiapp.ui.util.IMG_URL_PREFIFX
 import io.kokoichi.sample.sakamichiapp.ui.components.MemberProps
-import io.kokoichi.sample.sakamichiapp.ui.util.IMG_URL_SUFFIX
-import io.kokoichi.sample.sakamichiapp.ui.util.SLASH_ENCODED
 
 val NOGI_TAG_COLOR = Color(191, 135, 194)
 
@@ -50,8 +47,7 @@ fun DetailedView(person: MemberProps, navController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var imgUrl =
-            IMG_URL_PREFIFX + SLASH_ENCODED + person.group + SLASH_ENCODED + person.name + IMG_URL_SUFFIX
+        var imgUrl = person.img_url
 
         Image(
             painter = rememberImagePainter(imgUrl),  // これには size が必要！

@@ -48,19 +48,27 @@ fun OnePerson(
                 blog_url = person.blog_url
                     ?.replace("/", SLASH_ENCODED)
                     ?.replace("?", QUESTION_ENCODED),
+                img_url = person.imgUrl
+                    ?.replace("/", SLASH_ENCODED)
+                    ?.replace("?", QUESTION_ENCODED),
             )
 
-            val jsonUser = Gson().toJson(userProps)
-            val ROUTE_MEMBER_DETAILS = "detailed" + "/userData=" + jsonUser
-            Log.d("TAG", ROUTE_MEMBER_DETAILS)
-            navController.navigate(ROUTE_MEMBER_DETAILS)
+            if (person.imgUrl != null) {
+                val jsonUser = Gson().toJson(userProps)
+                val ROUTE_MEMBER_DETAILS = "detailed" + "/userData=" + jsonUser
+                Log.d("TAG", ROUTE_MEMBER_DETAILS)
+                navController.navigate(ROUTE_MEMBER_DETAILS)
+            }
         }
     ) {
         if (person.imgUrl == null) {
+//            id = R.drawable.profile_picture
             Image(
-                painter = painterResource(id = R.drawable.profile_picture),
+                painter = painterResource(id = R.drawable.himura),
                 contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .size(200.dp)
+                    .fillMaxWidth()
             )
         } else {
             // Column, Row だと重ならない設定になるので、Box の中に入れてあげる
