@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.ui.theme
+package io.kokoichi.sample.sakamichiapp.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
