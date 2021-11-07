@@ -27,8 +27,6 @@ open class MemberListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(MemberListUiState())
     var uiState: StateFlow<MemberListUiState> = _uiState
 
-    //    private val _uiState = mutableStateOf(MemberListUiState())
-//    var uiState: State<MemberListUiState> = _uiState
     private var hasInitialized = false
 
     /**
@@ -183,32 +181,26 @@ open class MemberListViewModel @Inject constructor(
 
     fun setGroupName(groupName: GroupName) {
         _uiState.update { it.copy(groupName = groupName) }
-//        _uiState.value.sortKey = sortKey
     }
 
     fun setVisibleStyle(style: VisibleMemberStyle) {
         _uiState.update { it.copy(visibleStyle = style) }
-//        _uiState.value.visibleStyle = style
     }
 
     fun setSortKey(key: MemberListSortKeys) {
         _uiState.update { it.copy(sortKey = key) }
-//        _uiState.value.visibleStyle = key
     }
 
     fun setSortType(type: SortOrderType) {
         _uiState.update { it.copy(sortType = type) }
-//        _uiState.value.sortType = type
     }
 
     fun setNarrowType(type: NarrowKeys) {
         _uiState.update { it.copy(narrowType = type) }
-//        _uiState.value.narrowType = type
     }
 
     fun setVisibleMembers(members: MutableList<Member>) {
         _uiState.update { it.copy(visibleMembers = members) }
-//        _uiState.value.visibleMembers = members
     }
 
     fun setApiMembers(members: MutableList<Member>) {
