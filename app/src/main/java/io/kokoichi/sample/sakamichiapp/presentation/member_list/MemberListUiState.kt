@@ -17,8 +17,10 @@ data class MemberListUiState(
     var formationTitle: String = "",
 )
 
-enum class GroupName {
-    NOGIZAKA, SAKURAZAKA, HINATAZAKA
+enum class GroupName(val jname: String) {
+    NOGIZAKA("乃木坂"),
+    SAKURAZAKA("櫻坂"),
+    HINATAZAKA("日向坂"),
 }
 
 /**
@@ -61,5 +63,6 @@ enum class NarrowKeys(val jname: String) {
     NONE("なし"),
     FIRST_GEN("1期生"),
     SECOND_GEN("2期生"),
-    THIRD_GEN("2期生"),
+    THIRD_GEN("3期生"),
+    FORTH_GEN("4期生"),
 }

@@ -1,6 +1,5 @@
 package io.kokoichi.sample.sakamichiapp.presentation.member_list
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.kokoichi.sample.sakamichiapp.common.Resource
 import io.kokoichi.sample.sakamichiapp.common.calcBirthdayOrder
+import io.kokoichi.sample.sakamichiapp.common.calcMonthDayOrder
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
 import io.kokoichi.sample.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
 import kotlinx.coroutines.flow.*
@@ -26,22 +26,29 @@ open class MemberListViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(MemberListUiState())
     var uiState: StateFlow<MemberListUiState> = _uiState
-//    private val _uiState = mutableStateOf(MemberListUiState())
+
+    //    private val _uiState = mutableStateOf(MemberListUiState())
 //    var uiState: State<MemberListUiState> = _uiState
+    private var hasInitialized = false
 
     /**
      * Get members from WebAPI and set them as members (in apiState).
      *
-     * @param groupName group name (lower case is expected.)
+     * @param groupName group name (one of the GroupName enum)
      */
-    fun getMembers(groupName: String) {
-        getMembersUseCase(groupName).onEach { result ->
+    fun getMembers(groupName: GroupName) {
+        getMembersUseCase(groupName.name.lowercase()).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _apiState.value =
-                        MemberListApiState(members = result.data!!.toMutableList() ?: arrayListOf())
+                        MemberListApiState(
+                            members = result.data!!
+                                .toMutableList()
+                                .onEach {
+                                    it.group = groupName.jname
+                                }
+                        )
                     setVisibleMembers(_apiState.value.members)
-                    Log.d("hoge", _apiState.value.members.toString())
                 }
                 is Resource.Error -> {
                     _apiState.value = MemberListApiState(
@@ -87,10 +94,10 @@ open class MemberListViewModel @Inject constructor(
                 _uiState.value.visibleMembers.sortBy { it.bloodType }
             }
             MemberListSortKeys.BIRTHDAY -> {
-                _uiState.value.visibleMembers.sortBy { it.birthday }
+                _uiState.value.visibleMembers.sortBy { calcBirthdayOrder(it.birthday) }
             }
             MemberListSortKeys.MONTH_DAY -> {
-                _uiState.value.visibleMembers.sortBy { calcBirthdayOrder(it.birthday) }
+                _uiState.value.visibleMembers.sortBy { calcMonthDayOrder(it.birthday) }
             }
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortBy { it.height }
@@ -115,10 +122,10 @@ open class MemberListViewModel @Inject constructor(
                 _uiState.value.visibleMembers.sortByDescending { it.bloodType }
             }
             MemberListSortKeys.BIRTHDAY -> {
-                _uiState.value.visibleMembers.sortByDescending { it.birthday }
+                _uiState.value.visibleMembers.sortByDescending { calcBirthdayOrder(it.birthday) }
             }
             MemberListSortKeys.MONTH_DAY -> {
-                _uiState.value.visibleMembers.sortByDescending { calcBirthdayOrder(it.birthday) }
+                _uiState.value.visibleMembers.sortByDescending { calcMonthDayOrder(it.birthday) }
             }
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortByDescending { it.height }
@@ -126,15 +133,56 @@ open class MemberListViewModel @Inject constructor(
         }
     }
 
+    fun narrowDownVisibleMembers(nKey: NarrowKeys) {
+        if (nKey == NarrowKeys.NONE) {
+            _uiState.value.visibleMembers = _apiState.value.members
+        } else {
+            _uiState.value.visibleMembers = _apiState.value.members.filter {
+                it.generation == nKey.jname
+            }.toMutableList()
+        }
+    }
+
+    fun hasInitialized(): Boolean {
+        return hasInitialized
+    }
+
+    fun setHasInitialized(value: Boolean) {
+        hasInitialized = value
+    }
+
+    fun setVisibleStyle(type: MemberListSortKeys) {
+        val visibleMemberType = when (type) {
+            MemberListSortKeys.BLOOD_TYPE, MemberListSortKeys.GENERATION ->
+                VisibleMemberStyle.LINES
+            else ->
+                VisibleMemberStyle.DEFAULT
+        }
+        setVisibleStyle(visibleMemberType)
+    }
+
+    fun resetOptions() {
+        _uiState.update {
+            it.copy(
+                visibleStyle = VisibleMemberStyle.DEFAULT,
+                sortKey = MemberListSortKeys.NONE,
+                sortType = SortOrderType.ASCENDING,
+            )
+        }
+    }
+
     /**
      * Reset the members (in apiState) using groupName (in uiState).
      */
     fun setApiMembers() {
-        getMembers(uiState.value.groupName.name.lowercase())
+        getMembers(uiState.value.groupName)
+
+        // TODO: Consider what logic is the best.
+        resetOptions()
     }
 
-    fun setGroupName(sortKey: MemberListSortKeys) {
-        _uiState.update { it.copy(sortKey = sortKey) }
+    fun setGroupName(groupName: GroupName) {
+        _uiState.update { it.copy(groupName = groupName) }
 //        _uiState.value.sortKey = sortKey
     }
 
@@ -161,6 +209,10 @@ open class MemberListViewModel @Inject constructor(
     fun setVisibleMembers(members: MutableList<Member>) {
         _uiState.update { it.copy(visibleMembers = members) }
 //        _uiState.value.visibleMembers = members
+    }
+
+    fun setApiMembers(members: MutableList<Member>) {
+        _apiState.value = MemberListApiState(members = members)
     }
 }
 

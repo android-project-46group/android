@@ -28,6 +28,7 @@ class MemberListViewModelWihMock(
             arrayOf("A型", "1期生", "160.5cm", "加藤史帆", "1998年2月2日"),
             arrayOf("O型", "3期生", "151.4ccm", "山口陽世", "2004年2月23日"),
             arrayOf("AB型", "3期生", "162.5cm", "上村ひなの", "2004年4月12日"),
+            arrayOf("AB型", "3期生", "162.5cm", "上村ひなの", "2004年4月12日"), // Same value
         )
         fakeResStr.forEach {
             fakeRes.add(
