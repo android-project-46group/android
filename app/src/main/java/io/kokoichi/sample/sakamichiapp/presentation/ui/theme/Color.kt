@@ -2,7 +2,14 @@ package io.kokoichi.sample.sakamichiapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+// Hinatazaka
+val BaseColorH = Color(0xFF7CC7E8)
+val SubColorH = Color(0x997CC7E8)
+
+// Sakurazaka
+val BaseColorS = Color(0xFFF19DB5)
+val SubColorS = Color(0x99F19DB5)
+
+// Nogizaka
+val BaseColorN = Color(0xFF742581)
+val SubColorN = Color(0x99742581)

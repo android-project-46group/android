@@ -1,47 +1,46 @@
 package io.kokoichi.sample.sakamichiapp.presentation.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
-)
-
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+import androidx.compose.ui.graphics.Color
+import io.kokoichi.sample.sakamichiapp.presentation.member_list.GroupName
 
 @Composable
-fun SakamichiAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+fun CustomSakaTheme(
+    group: GroupName,
     content: @Composable() () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
+    // Change color according to the selected group
     MaterialTheme(
-        colors = colors,
+        colors = when(group){
+            GroupName.NOGIZAKA -> nogiColors
+            GroupName.SAKURAZAKA -> sakuraColors
+            GroupName.HINATAZAKA -> hinataColors
+        },
         typography = Typography,
         shapes = Shapes,
         content = content
     )
 }
+
+private val nogiColors = lightColors(
+    primary = BaseColorN,
+    secondary = SubColorN,
+    background = Color.White,
+    primaryVariant = Color.White,
+)
+
+private val hinataColors = lightColors(
+    primary = BaseColorH,
+    secondary = SubColorH,
+    background = Color.White,
+    primaryVariant = Color.White,
+)
+
+private val sakuraColors = lightColors(
+    primary = BaseColorS,
+    secondary = SubColorS,
+    background = Color.White,
+    primaryVariant = Color.White,
+)

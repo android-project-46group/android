@@ -11,4 +11,5 @@ data class Member(
     val imgUrl: String,
     val name: String,
     val birthday: String,
+    var group: String? = null,
 )
