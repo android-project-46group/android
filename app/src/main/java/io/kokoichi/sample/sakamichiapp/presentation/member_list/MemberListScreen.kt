@@ -37,7 +37,7 @@ fun MemberListScreen(
         color = Color.White,
     )
 
-    CustomSakaTheme(group = uiState.groupName) {
+    CustomSakaTheme(group = uiState.groupName.jname) {
         MainView(
             uiState, navController, viewModel
         )

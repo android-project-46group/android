@@ -8,15 +8,16 @@ import io.kokoichi.sample.sakamichiapp.presentation.member_list.GroupName
 
 @Composable
 fun CustomSakaTheme(
-    group: GroupName,
+    group: String,
     content: @Composable() () -> Unit
 ) {
     // Change color according to the selected group
     MaterialTheme(
         colors = when(group){
-            GroupName.NOGIZAKA -> nogiColors
-            GroupName.SAKURAZAKA -> sakuraColors
-            GroupName.HINATAZAKA -> hinataColors
+            GroupName.NOGIZAKA.jname -> nogiColors
+            GroupName.SAKURAZAKA.jname -> sakuraColors
+            GroupName.HINATAZAKA.jname -> hinataColors
+            else -> nogiColors
         },
         typography = Typography,
         shapes = Shapes,
