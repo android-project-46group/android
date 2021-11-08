@@ -1,5 +1,6 @@
 package io.kokoichi.sample.sakamichiapp.presentation.member_list
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -23,6 +24,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
 @UninstallModules(AppModule::class)
