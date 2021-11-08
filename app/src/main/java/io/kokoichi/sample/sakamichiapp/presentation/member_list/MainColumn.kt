@@ -49,7 +49,7 @@ fun DefaultColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background),
-        contentPadding = PaddingValues(20.dp),
+        contentPadding = PaddingValues(top = 10.dp, bottom = 56.dp, start = 20.dp, end = 20.dp),
     ) {
         val itemCount = if (members.size % 3 == 0) {
             members.size / 3
@@ -104,7 +104,7 @@ fun ColumnWithLine(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background),
-        contentPadding = PaddingValues(20.dp),
+        contentPadding = PaddingValues(top = 10.dp, bottom = 56.dp, start = 20.dp, end = 20.dp),
     ) {
         for (type in looperStr) {
             item {
