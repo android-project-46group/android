@@ -205,6 +205,7 @@ fun WrapOnePerson(
                 member = member,
                 modifier = modifier,
                 onclick = {
+                    navController.navigateUp()
                     navController.navigate(
                         Screen.MemberDetailScreen.route
                                 + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
@@ -217,6 +218,7 @@ fun WrapOnePerson(
                 member = member,
                 modifier = modifier,
                 onclick = {
+                    navController.navigateUp()
                     navController.navigate(
                         Screen.MemberDetailScreen.route
                                 + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
@@ -229,6 +231,7 @@ fun WrapOnePerson(
                 member = member,
                 modifier = modifier,
                 onclick = {
+                    navController.navigateUp()
                     navController.navigate(
                         Screen.MemberDetailScreen.route
                                 + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
