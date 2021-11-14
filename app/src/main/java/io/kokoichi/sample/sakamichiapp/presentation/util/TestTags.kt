@@ -10,4 +10,7 @@ object TestTags {
     const val PLAY_QUIZ_ANS = "PLAY_QUIZ_ANS"
     const val PLAY_QUIZ_ONE_CHOICE = "PLAY_QUIZ_ONE_CHOICE"
     const val PLAY_QUIZ_PROGRESS_BAR = "PLAY_QUIZ_PROGRESS_BAR"
+
+    // Utils
+    const val GROUP_BAR = "GROUP_BAR"
 }

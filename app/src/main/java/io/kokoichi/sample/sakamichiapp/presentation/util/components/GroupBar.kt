@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.kokoichi.sample.sakamichiapp.presentation.util.components.CustomDevider
 
 /**
@@ -20,20 +22,21 @@ import io.kokoichi.sample.sakamichiapp.presentation.util.components.CustomDevide
  */
 @Composable
 fun GroupBar(
-    uiState: MemberListUiState,
-    viewModel: MemberListViewModel,
-    modifier: Modifier = Modifier
+    selectedGroupName: GroupName,
+    onclick: (GroupName) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag(TestTags.GROUP_BAR),
     ) {
         for (groupName: GroupName in GroupName.values()) {
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .clickable {
-                        viewModel.setGroupName(groupName)
-                        viewModel.setApiMembers()
+                        onclick(groupName)
                     },
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -41,7 +44,7 @@ fun GroupBar(
                 // Change text color if the group is selected.
                 Text(
                     text = groupName.jname + "46",
-                    color = if (groupName == uiState.groupName) {
+                    color = if (groupName == selectedGroupName) {
                         MaterialTheme.colors.primary
                     } else {
                         Color.Gray
@@ -49,7 +52,7 @@ fun GroupBar(
                     fontSize = 20.sp,
                 )
                 // Draw a double line if the group is selected.
-                if (groupName == uiState.groupName) {
+                if (groupName == selectedGroupName) {
                     CustomDevider(MaterialTheme.colors.secondary, 1.dp)
                     CustomDevider(MaterialTheme.colors.background, 1.dp)
                     CustomDevider(MaterialTheme.colors.secondary, 1.dp)
