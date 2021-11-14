@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navArgument
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
@@ -33,6 +34,11 @@ import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsScreen
  */
 @Composable
 fun BottomNavHost(navHostController: NavHostController) {
+    // Change color of ActionBar using systemuicontroller.
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setSystemBarsColor(
+        color = Color.White,
+    )
     NavHost(
         navController = navHostController,
         startDestination = BottomNavItem.Home.route
