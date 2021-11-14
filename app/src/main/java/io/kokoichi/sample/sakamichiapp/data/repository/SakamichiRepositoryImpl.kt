@@ -1,6 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.data.repository
 
 import io.kokoichi.sample.sakamichiapp.data.remote.SakamichiApi
+import io.kokoichi.sample.sakamichiapp.data.remote.dto.BlogsDto
 import io.kokoichi.sample.sakamichiapp.data.remote.dto.MembersDto
 import io.kokoichi.sample.sakamichiapp.data.remote.dto.PositionsDto
 import io.kokoichi.sample.sakamichiapp.data.remote.dto.SongsDto
@@ -16,6 +17,10 @@ class SakamichiRepositoryImpl @Inject constructor(
 
     override suspend fun getMembers(groupName: String): MembersDto {
         return api.getMembers(groupName)
+    }
+
+    override suspend fun getBlogs(groupName: String): BlogsDto {
+        return api.getBlogs(groupName)
     }
 
     override suspend fun getSongs(groupName: String): SongsDto {
