@@ -1,12 +1,6 @@
 package io.kokoichi.sample.sakamichiapp.data.remote
 
-import io.kokoichi.sample.sakamichiapp.BuildConfig
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.MemberDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.MembersDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.PositionsDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.SongsDto
-import retrofit2.http.GET
-import retrofit2.http.Query
+import io.kokoichi.sample.sakamichiapp.data.remote.dto.*
 import retrofit2.mock.BehaviorDelegate
 
 /**
@@ -86,6 +80,56 @@ class MockSakamichiApi(
             )
         )
         return delegate.returningResponse(membersDto).getMembers(groupName)
+    }
+
+    override suspend fun getBlogs(groupName: String, apiKey: String): BlogsDto {
+        val blogsDto = BlogsDto(
+            blogs = listOf(
+                BlogDto(
+                    name = "秋元 真夏",
+                    blogUrl = "https://blog.nogizaka46.com/manatsu.akimoto",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/akimotomanatsu.jpeg",
+                    lastUpdatedAt = "2021/08/20 00:00"
+                ),
+                BlogDto(
+                    name = "生田 絵梨花",
+                    blogUrl = "https://blog.nogizaka46.com/erika.ikuta",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/ikutaerika.jpeg",
+                    lastUpdatedAt = "2021/10/25 19:00"
+                ),
+                BlogDto(
+                    name = "伊藤 理々杏",
+                    blogUrl = "https://blog.nogizaka46.com/riria.itou",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/itouriria.jpeg",
+                    lastUpdatedAt = "2021/10/08 17:24"
+                ),
+                BlogDto(
+                    name = "岩本 蓮加",
+                    blogUrl = "https://blog.nogizaka46.com/renka.iwamoto",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/iwamotorenka.jpeg",
+                    lastUpdatedAt = "2021/10/30 22:30"
+                ),
+                BlogDto(
+                    name = "梅澤 美波",
+                    blogUrl = "https://blog.nogizaka46.com/minami.umezawa",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/umezawaminami.jpeg",
+                    lastUpdatedAt = "2021/10/17 20:30"
+                ),
+                BlogDto(
+                    name = "北野 日奈子",
+                    blogUrl = "https://blog.nogizaka46.com/hinako.kitano",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/kitanohinako.jpeg",
+                    lastUpdatedAt = "2021/08/16 00:45"
+                ),
+                BlogDto(
+                    name = "久保 史緒里",
+                    blogUrl = "https://blog.nogizaka46.com/shiori.kubo",
+                    lastBlogImg = "https://kokoichi0206.mydns.jp/imgs/blog/nogi/kuboshiori.jpeg",
+                    lastUpdatedAt = "2021/11/04 20:42"
+                )
+            )
+        )
+        return delegate.returningResponse(blogsDto).getBlogs(groupName)
     }
 
     override suspend fun getSongs(groupName: String, apiKey: String): SongsDto {
