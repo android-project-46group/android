@@ -1,5 +1,8 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.dp
+
 
 object Constants {
 
@@ -14,6 +17,7 @@ object Constants {
      */
     const val NAV_PARAM_MEMBER_PROPS = "memberJson"
 
+    // =========== MemberList Screen ===========
     val BLOOD_TYPE_LIST = listOf<String>(
         "A型", "B型", "O型", "AB型", "不明",
     )
@@ -27,6 +31,14 @@ object Constants {
     val POSSIBLE_GENERATIONS_H = listOf<String>(
         "1期生", "2期生", "3期生",
     )
+
+    // =========== Blog Screen ===========
+    // Padding or composable size.
+    val BottomBarPadding = PaddingValues(
+        top = 10.dp, bottom = 56.dp, start = 5.dp, end = 5.dp
+    )
+
+    const val BLOG_ONE_ROW_NUM = 3
 }
 
 /**

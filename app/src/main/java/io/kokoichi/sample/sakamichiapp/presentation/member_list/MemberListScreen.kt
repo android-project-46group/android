@@ -54,8 +54,11 @@ fun MainView(
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
         GroupBar(
-            uiState = uiState,
-            viewModel = viewModel,
+            selectedGroupName = uiState.groupName,
+            onclick = { gn ->
+                viewModel.setGroupName(gn)
+                viewModel.setApiMembers()
+            },
             modifier = Modifier
                 .padding(top = 8.dp)
                 .padding(bottom = 4.dp)
