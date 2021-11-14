@@ -63,6 +63,26 @@ class MockSakamichiApi(
                     blogUrl = "https://blog.nogizaka46.com/renka.iwamoto",
                     imgUrl = "https://kokoichi0206.mydns.jp/imgs/nogi/iwamotorenka.jpeg"
                 ),
+                MemberDto(
+                    userId = 5,
+                    nameName = "梅澤 美波",
+                    birthday = "1999年1月6日",
+                    height = "170cm",
+                    bloodType = "A型",
+                    generation = "3期生",
+                    blogUrl = "https://blog.nogizaka46.com/minami.umezawa",
+                    imgUrl = "https://kokoichi0206.mydns.jp/imgs/nogi/umezawaminami.jpeg"
+                ),
+                MemberDto(
+                    userId = 6,
+                    nameName = "北野 日奈子",
+                    birthday = "1996年7月17日",
+                    height = "158cm",
+                    bloodType = "O型",
+                    generation = "2期生",
+                    blogUrl = "https://blog.nogizaka46.com/hinako.kitano",
+                    imgUrl = "https://kokoichi0206.mydns.jp/imgs/nogi/kitanohinako.jpeg"
+                )
             )
         )
         return delegate.returningResponse(membersDto).getMembers(groupName)

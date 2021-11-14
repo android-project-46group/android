@@ -30,7 +30,7 @@ object TestAppModule {
 
         val behavior = NetworkBehavior.create()
 
-        behavior.setDelay(100, TimeUnit.MILLISECONDS)
+        behavior.setDelay(0, TimeUnit.MILLISECONDS)
         behavior.setVariancePercent(0)
         behavior.setFailurePercent(0)
         behavior.setErrorPercent(0)

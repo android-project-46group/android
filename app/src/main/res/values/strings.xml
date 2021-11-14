@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Sakamichi app</string>
+    <!--    Strings for ChooseQuizTypeScreen-->
+    <string name="choose_quiz_type_title">クイズの種類</string>
+    <string name="choose_group_name_text">%sクイズ</string>
+    
+    <!--    Strings for PlayQuizScreen-->
+    <string name="quiz_play_title">%sの\n%sは？"</string>
+    <string name="quiz_play_correct_answer">正解は%s</string>
+    <string name="quiz_play_choice_index">%d.</string>
+    <string name="quiz_play_progress">%d/%d</string>
+
+    <!--    Strings for ResultsScreen-->
+    <string name="results_screen_total_quiz_num">%d問中</string>
+    <string name="results_screen_scores">%d問正解</string>
+    <string name="back_to_quiz_top_page">問題トップへ</string>
+    <string name="quiz_result_show_ans">正解を表示する</string>
+    <string name="quiz_result_hide_ans">正解を非表示にする</string>
+    <string name="separator_between_name_and_ans">:</string>
 </resources>
