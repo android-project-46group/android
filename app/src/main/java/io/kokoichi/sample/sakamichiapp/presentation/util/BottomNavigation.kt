@@ -22,7 +22,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
-import io.kokoichi.sample.sakamichiapp.presentation.blog.BlogScreen
+import io.kokoichi.sample.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
 import io.kokoichi.sample.sakamichiapp.presentation.member_detail.MemberDetailScreen
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.MemberListScreen
 import io.kokoichi.sample.sakamichiapp.presentation.positions.PositionsScreen
@@ -78,7 +78,9 @@ fun BottomNavHost(navHostController: NavHostController) {
         composable(
             Screen.BlogScreen.route
         ) {
-            BlogScreen()
+            BlogScreenWithCustomTheme(
+                navController = navHostController,
+            )
         }
 
         /**

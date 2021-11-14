@@ -2,6 +2,12 @@ package io.kokoichi.sample.sakamichiapp.presentation.util
 
 object TestTags {
 
+    // Blog Screen
+    const val BLOG_TITLE = "BLOG_TITLE"
+    const val BLOG_SORT_BUTTON = "BLOG_SORT_BUTTON"
+    const val BLOG_ONE_BOX = "BLOG_ONE_BOX"
+
+    // Quiz Screen
     const val CHOOSE_QUIZ_TYPE_PAGE_TITLE = "CHOOSE_QUIZ_TYPE_PAGE_TITLE"
     const val QUIZ_TYPE_CHOICE = "QUIZ_TYPE_CHOICE"
 
