@@ -16,6 +16,7 @@ object Constants {
      * Navigation parameter (MemberDetailScreen)
      */
     const val NAV_PARAM_MEMBER_PROPS = "memberJson"
+    const val NAV_PARAM_WEBVIEW_PROPS = "url"
 
     // =========== MemberList Screen ===========
     val BLOOD_TYPE_LIST = listOf<String>(
