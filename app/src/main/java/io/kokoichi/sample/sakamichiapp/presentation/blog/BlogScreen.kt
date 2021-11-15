@@ -34,7 +34,9 @@ import io.kokoichi.sample.sakamichiapp.presentation.member_list.GroupName
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.Typography
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
+import io.kokoichi.sample.sakamichiapp.presentation.util.Screen
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
+import io.kokoichi.sample.sakamichiapp.presentation.util.getBlogUrlProps
 
 @Composable
 fun BlogScreenWithCustomTheme(
@@ -184,7 +186,11 @@ fun OneBlogRow(
                 OneBlog(
                     uiState = uiState,
                     blog = row[i],
-                    onclick = {},
+                    onclick = { blog ->
+                        val navPath = "${Screen.WebViewScreen.route}/" +
+                                "${Constants.NAV_PARAM_WEBVIEW_PROPS}=${getBlogUrlProps(blog)}"
+                        navController.navigate(navPath)
+                    },
                     modifier = Modifier
                         .weight(1f)
                 )
