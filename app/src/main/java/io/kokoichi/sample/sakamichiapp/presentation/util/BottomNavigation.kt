@@ -28,6 +28,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.member_list.MemberListScreen
 import io.kokoichi.sample.sakamichiapp.presentation.positions.PositionsScreen
 import io.kokoichi.sample.sakamichiapp.presentation.quiz.QuizScreen
 import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsScreen
+import io.kokoichi.sample.sakamichiapp.presentation.util.components.WebViewWidget
 
 /**
  * Bottom navigation host setup (Register routing).
@@ -108,6 +109,25 @@ fun BottomNavHost(navHostController: NavHostController) {
             Screen.SettingScreen.route
         ) {
             SettingsScreen()
+        }
+
+        /**
+         * WebView composable (util)
+         */
+        composable(
+            Screen.WebViewScreen.route
+                    + "/${Constants.NAV_PARAM_WEBVIEW_PROPS}={${Constants.NAV_PARAM_WEBVIEW_PROPS}}",
+            arguments = listOf(
+                navArgument(Constants.NAV_PARAM_WEBVIEW_PROPS) {
+                    type = NavType.StringType
+                })
+        ) { backStackEntry ->
+            var url = backStackEntry.arguments?.getString(Constants.NAV_PARAM_WEBVIEW_PROPS)
+            if (url == null) {
+                // Default URL
+                url = "https://blog.nogizaka46.com/"
+            }
+            WebViewWidget(contentUrl = url)
         }
     }
 }
