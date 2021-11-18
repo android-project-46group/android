@@ -32,7 +32,9 @@ fun SettingsScreen() {
             QuizResultsScreen()
         }
         composable(SettingScreen.ClearCacheScreen.route) {
-            ClearCacheScreen()
+            CacheClearDialog(
+                navController = navHostController,
+            )
         }
     }
 }

@@ -26,4 +26,8 @@
 
     <!--    Strings for SettingScreen-->
     <string name="setting_screen_title">設定</string>
+    <string name="clear_cache_title">キャッシュ情報を削除しますか？</string>
+    <string name="clear_cache_body">一時的な情報を削除することでストレージに多少の余裕を持たせることができます。</string>
+    <string name="clear_cache_ok">削除</string>
+    <string name="clear_cache_cancel">キャンセル</string>
 </resources>
