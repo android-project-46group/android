@@ -9,7 +9,7 @@
     <!--    Strings for ChooseQuizTypeScreen-->
     <string name="choose_quiz_type_title">クイズの種類</string>
     <string name="choose_group_name_text">%sクイズ</string>
-    
+
     <!--    Strings for PlayQuizScreen-->
     <string name="quiz_play_title">%sの\n%sは？"</string>
     <string name="quiz_play_correct_answer">正解は%s</string>
@@ -23,4 +23,7 @@
     <string name="quiz_result_show_ans">正解を表示する</string>
     <string name="quiz_result_hide_ans">正解を非表示にする</string>
     <string name="separator_between_name_and_ans">:</string>
+
+    <!--    Strings for SettingScreen-->
+    <string name="setting_screen_title">設定</string>
 </resources>
