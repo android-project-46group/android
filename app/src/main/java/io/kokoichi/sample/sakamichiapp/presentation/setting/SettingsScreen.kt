@@ -14,9 +14,15 @@ fun SettingsScreen() {
         navController = navHostController,
         startDestination = SettingScreen.SettingTopScreen.route,
     ) {
+        val navigation = listOf(
+            SettingNavigation.UpdateBlog,
+            SettingNavigation.QuizResult,
+            SettingNavigation.ClearCache,
+        )
         composable(SettingScreen.SettingTopScreen.route) {
             SettingTopScreen(
                 navController = navHostController,
+                navigationList = navigation
             )
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
