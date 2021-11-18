@@ -20,6 +20,11 @@ object TestTags {
     // Setting Screen
     const val SETTING_TITLE = "SETTING_TITLE"
 
+    const val CACHE_CLEAR_DIALOG_TITLE = "CACHE_CLEAR_DIALOG_TITLE"
+    const val CACHE_CLEAR_DIALOG_BODY = "CACHE_CLEAR_DIALOG_BODY"
+    const val CACHE_CLEAR_DIALOG_OK = "CACHE_CLEAR_DIALOG_OK"
+    const val CACHE_CLEAR_DIALOG_CANCEL = "CACHE_CLEAR_DIALOG_CANCEL"
+
     // Utils
     const val GROUP_BAR = "GROUP_BAR"
 }
