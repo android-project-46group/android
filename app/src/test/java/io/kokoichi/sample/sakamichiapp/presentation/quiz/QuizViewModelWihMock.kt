@@ -2,14 +2,16 @@ package io.kokoichi.sample.sakamichiapp.presentation.quiz
 
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
 import io.kokoichi.sample.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
+import io.kokoichi.sample.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
 
 /**
  * Mock ViewModel of MemberList Screen
  */
 class QuizViewModelWihMock(
-    getMembersUseCase: GetMembersUseCase
+    getMembersUseCase: GetMembersUseCase,
+    recordUseCase: RecordUseCases
 ) : QuizViewModel (
-    getMembersUseCase
+    getMembersUseCase, recordUseCase
 ) {
     /**
      * Api return example

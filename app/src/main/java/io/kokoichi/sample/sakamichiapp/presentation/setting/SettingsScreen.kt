@@ -1,12 +1,19 @@
 package io.kokoichi.sample.sakamichiapp.presentation.setting
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
+
+    val uiState by viewModel.uiState.collectAsState()
 
     val navHostController = rememberNavController()
 
@@ -29,7 +36,9 @@ fun SettingsScreen() {
             UpdateBlogScreen()
         }
         composable(SettingScreen.QuizResultsScreen.route) {
-            QuizResultsScreen()
+            QuizResultsScreen(
+                uiState = uiState
+            )
         }
         composable(SettingScreen.ClearCacheScreen.route) {
             CacheClearDialog(
