@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.kokoichi.sample.sakamichiapp.common.Resource
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
 import io.kokoichi.sample.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
+import io.kokoichi.sample.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.MemberListApiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -19,7 +20,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 open class QuizViewModel @Inject constructor(
-    private val getMembersUseCase: GetMembersUseCase
+    private val getMembersUseCase: GetMembersUseCase,
+    private val recordUseCase: RecordUseCases,
 ) : ViewModel() {
 
     private val _apiState = mutableStateOf(MemberListApiState())
@@ -110,6 +112,26 @@ open class QuizViewModel @Inject constructor(
     }
 
     /**
+     * Update quiz record in database.
+     */
+    private fun updateQuizRecord() {
+        viewModelScope.launch {
+            // Get the old record if it exists.
+            val record = recordUseCase.getRecord(
+                group = uiState.value.groupName!!.name,
+                type = uiState.value.quizType!!.name,
+            )
+            // Insert the newer record.
+            recordUseCase.insertRecord(
+                record.copy(
+                    correctNum = record.correctNum + uiState.value.scores,
+                    totalNum = record.totalNum + uiState.value.quizNum,
+                )
+            )
+        }
+    }
+
+    /**
      * Generate random quizzes and set them to _uiState.
      */
     fun createQuizzes() {
@@ -130,6 +152,8 @@ open class QuizViewModel @Inject constructor(
                 delay(2500L)
             }
             if (isLastQuiz()) {
+                // Update the record quiz total results.
+                updateQuizRecord()
                 setPageType(PageType.RESULT)
             }
             countUpQuizProgress()
@@ -186,7 +210,7 @@ open class QuizViewModel @Inject constructor(
      * Reset the members (in apiState) using groupName (in uiState).
      */
     fun setApiMembers() {
-        if(uiState.value.groupName == null) {
+        if (uiState.value.groupName == null) {
             getMembers()
         } else {
             getMembers(uiState.value.groupName)
