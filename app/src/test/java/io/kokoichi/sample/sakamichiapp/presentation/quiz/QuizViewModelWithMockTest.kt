@@ -10,7 +10,7 @@ class QuizViewModelWithMockTest {
 
     @Before
     fun setUp() {
-        viewModel = QuizViewModelWihMock(mockk())
+        viewModel = QuizViewModelWihMock(mockk(), mockk())
 
         // Initialize the members
         viewModel.setMembers(members = viewModel.fakeGetMembersApi())
