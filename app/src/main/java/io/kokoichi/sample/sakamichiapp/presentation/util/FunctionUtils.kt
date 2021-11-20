@@ -1,8 +1,13 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
+import androidx.compose.ui.graphics.Color
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.domain.model.Blog
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
+import io.kokoichi.sample.sakamichiapp.presentation.quiz.GroupName
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorH
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorN
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorS
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants.QUESTION_ENCODED
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants.SLASH_ENCODED
 
@@ -40,4 +45,48 @@ fun getBlogUrlProps(blog: Blog): String {
     return url
         .replace("/", Constants.SLASH_ENCODED)
         .replace("?", Constants.QUESTION_ENCODED)
+}
+
+/**
+ * Get baseColor of the group by group name (NOGIZAKA or 乃木坂)
+ *
+ * @param group Group name
+ * @return BaseColor of the passed group (Color type)
+ */
+fun getBaseColor(group: String): Color {
+
+    return when(group) {
+        GroupName.NOGIZAKA.name, GroupName.NOGIZAKA.jname -> {
+            BaseColorN
+        }
+        GroupName.HINATAZAKA.name, GroupName.HINATAZAKA.jname -> {
+            BaseColorH
+        }
+        GroupName.SAKURAZAKA.name, GroupName.SAKURAZAKA.jname -> {
+            BaseColorS
+        }
+        else -> Color.Black
+    }
+}
+
+/**
+ * Get subColor of the group by group name (NOGIZAKA or 乃木坂)
+ *
+ * @param group Group name
+ * @return SubColor of the passed group (Color type)
+ */
+fun getSubColor(group: String): Color {
+
+    return when(group) {
+        GroupName.NOGIZAKA.name, GroupName.NOGIZAKA.jname -> {
+            BaseColorN
+        }
+        GroupName.HINATAZAKA.name, GroupName.HINATAZAKA.jname -> {
+            BaseColorH
+        }
+        GroupName.SAKURAZAKA.name, GroupName.SAKURAZAKA.jname -> {
+            BaseColorS
+        }
+        else -> BaseColorN
+    }
 }
