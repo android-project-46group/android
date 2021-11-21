@@ -36,4 +36,15 @@
     <string name="column_name_group">グループ</string>
     <string name="column_name_correct">正解</string>
     <string name="column_name_total">総数</string>
+
+    <!--    Strings for UpdateBlogScreen-->
+    <string name="update_blog_title">ブログ情報の更新</string>
+    <string name="update_blog_body">頻繁に更新処理をかけるとサーバーに負担をかけることになるため、不必要な更新はおやめください。本当に更新処理をかけますか？</string>
+    <string name="update_blog_button_ok">更新する</string>
+    <string name="update_blog_button_cancel">キャンセル</string>
+    <string name="update_blog_success_dialog_title">更新成功</string>
+    <string name="update_blog_success_dialog_body">更新処理の通知を正常に送ることができました</string>
+    <string name="update_blog_failure_dialog_title">更新失敗</string>
+    <string name="update_blog_failure_dialog_body">更新処理の通知を送ることができませんでした。必要な権限があるか管理者にお問い合わせください。</string>
+    <string name="update_blog_dialog_button">OK</string>
 </resources>
