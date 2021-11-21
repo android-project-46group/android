@@ -91,14 +91,13 @@ fun UpdateBlogScreen(
                             width = 1.dp,
                             color = SubColorS,
                             shape = buttonShape
-                        ),
+                        )
+                        .testTag(TestTags.UPDATE_BLOG_OK_BUTTON),
                     onClick = {
                         openDialog = true
                     },
                 ) {
                     Text(
-                        modifier = Modifier
-                            .testTag(TestTags.UPDATE_BLOG_OK_BUTTON),
                         text = stringResource(R.string.update_blog_button_ok),
                         color = SubColorS,
                     )
