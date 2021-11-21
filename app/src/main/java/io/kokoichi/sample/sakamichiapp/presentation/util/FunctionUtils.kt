@@ -1,5 +1,6 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.domain.model.Blog
@@ -10,6 +11,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorN
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorS
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants.QUESTION_ENCODED
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants.SLASH_ENCODED
+import java.time.LocalTime
 
 /**
  * Convert Member data class object to Json string.
@@ -43,8 +45,8 @@ fun getBlogUrlProps(blog: Blog): String {
     }
     // Return url with url encoding
     return url
-        .replace("/", Constants.SLASH_ENCODED)
-        .replace("?", Constants.QUESTION_ENCODED)
+        .replace("/", SLASH_ENCODED)
+        .replace("?", QUESTION_ENCODED)
 }
 
 /**
@@ -55,7 +57,7 @@ fun getBlogUrlProps(blog: Blog): String {
  */
 fun getBaseColor(group: String): Color {
 
-    return when(group) {
+    return when (group) {
         GroupName.NOGIZAKA.name, GroupName.NOGIZAKA.jname -> {
             BaseColorN
         }
@@ -77,7 +79,7 @@ fun getBaseColor(group: String): Color {
  */
 fun getSubColor(group: String): Color {
 
-    return when(group) {
+    return when (group) {
         GroupName.NOGIZAKA.name, GroupName.NOGIZAKA.jname -> {
             BaseColorN
         }
@@ -89,4 +91,15 @@ fun getSubColor(group: String): Color {
         }
         else -> BaseColorN
     }
+}
+
+/**
+ * Get current time + millTime
+ *
+ * @param time LocalTime
+ * @return MillSec of current time. (34.122 second -> 34122)
+ */
+fun getMilliSecFromLocalTime(time: LocalTime): Int {
+
+    return time.second * 1_000 + time.nano / 1_000_000
 }
