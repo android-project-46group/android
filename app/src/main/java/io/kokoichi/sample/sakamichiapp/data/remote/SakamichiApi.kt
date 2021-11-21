@@ -1,10 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.data.remote
 
 import io.kokoichi.sample.sakamichiapp.BuildConfig
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.BlogsDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.MembersDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.PositionsDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.SongsDto
+import io.kokoichi.sample.sakamichiapp.data.remote.dto.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -36,4 +33,10 @@ interface SakamichiApi {
         @Query("title") title: String,
         @Query("key") apiKey: String = BuildConfig.API_KEY
     ): PositionsDto
+
+    // This GET method updated blog info in db.
+    @GET("blog/update/")
+    suspend fun updateBlog(
+        @Query("key") apiKey: String = BuildConfig.API_KEY
+    ): UpdateBlogResponseDto
 }

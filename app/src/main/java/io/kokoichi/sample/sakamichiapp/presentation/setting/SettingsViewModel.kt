@@ -1,9 +1,9 @@
 package io.kokoichi.sample.sakamichiapp.presentation.setting
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.kokoichi.sample.sakamichiapp.domain.usecase.other_api.UpdateBlogUseCase
 import io.kokoichi.sample.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
 import io.kokoichi.sample.sakamichiapp.presentation.quiz.GroupName
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val updateBlogUseCase: UpdateBlogUseCase,
     private val recordUseCase: RecordUseCases
 ) : ViewModel() {
 
@@ -45,6 +46,12 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun updateBlog() {
+        viewModelScope.launch {
+            updateBlogUseCase()
         }
     }
 }

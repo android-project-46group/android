@@ -33,7 +33,10 @@ fun SettingsScreen(
             )
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
-            UpdateBlogScreen()
+            UpdateBlogScreen(
+                navController = navHostController,
+                viewModel = viewModel,
+            )
         }
         composable(SettingScreen.QuizResultsScreen.route) {
             QuizResultsScreen(
