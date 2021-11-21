@@ -1,10 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.data.repository
 
 import io.kokoichi.sample.sakamichiapp.data.remote.SakamichiApi
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.BlogsDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.MembersDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.PositionsDto
-import io.kokoichi.sample.sakamichiapp.data.remote.dto.SongsDto
+import io.kokoichi.sample.sakamichiapp.data.remote.dto.*
 import io.kokoichi.sample.sakamichiapp.domain.repository.SakamichiRepository
 import javax.inject.Inject
 
@@ -29,5 +26,9 @@ class SakamichiRepositoryImpl @Inject constructor(
 
     override suspend fun getPositions(title: String): PositionsDto {
         return api.getPositions(title)
+    }
+
+    override suspend fun updateBlog(): UpdateBlogResponseDto {
+        return api.updateBlog()
     }
 }
