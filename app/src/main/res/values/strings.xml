@@ -1,3 +1,62 @@
 <resources>
     <string name="app_name">Sakamichi app</string>
+
+    <!--    Strings for BlogScreen-->
+    <string name="blog_screen_title">Blogs</string>
+    <string name="blog_sort_key_time">Date updated</string>
+    <string name="blog_sort_key_name">Name</string>
+
+    <!--    Strings for ChooseQuizTypeScreen-->
+    <string name="choose_quiz_type_title">クイズの種類</string>
+    <string name="choose_group_name_text">%sクイズ</string>
+
+    <!--    Strings for PlayQuizScreen-->
+    <string name="quiz_play_title">%sの\n%sは？"</string>
+    <string name="quiz_play_correct_answer">正解は%s</string>
+    <string name="quiz_play_choice_index">%d.</string>
+    <string name="quiz_play_progress">%d/%d</string>
+
+    <!--    Strings for ResultsScreen-->
+    <string name="results_screen_total_quiz_num">%d問中</string>
+    <string name="results_screen_scores">%d問正解</string>
+    <string name="back_to_quiz_top_page">問題トップへ</string>
+    <string name="quiz_result_show_ans">正解を表示する</string>
+    <string name="quiz_result_hide_ans">正解を非表示にする</string>
+    <string name="separator_between_name_and_ans">:</string>
+
+    <!--    Strings for SettingScreen-->
+    <string name="setting_screen_title">設定</string>
+    <string name="clear_cache_title">キャッシュ情報を削除しますか？</string>
+    <string name="clear_cache_body">一時的な情報を削除することでストレージに多少の余裕を持たせることができます。</string>
+    <string name="clear_cache_ok">削除</string>
+    <string name="clear_cache_cancel">キャンセル</string>
+
+    <!--    Strings for SettingTopScreen-->
+    <string name="developer_success_snack_bar_text">You are now a developer!</string>
+
+    <!--    Strings for QuizResultsScreen-->
+    <string name="quiz_result_screen_title">クイズ正解数</string>
+    <string name="column_name_group">グループ</string>
+    <string name="column_name_correct">正解</string>
+    <string name="column_name_total">総数</string>
+
+    <!--    Strings for UpdateBlogScreen-->
+    <string name="update_blog_title">ブログ情報の更新</string>
+    <string name="update_blog_body">頻繁に更新処理をかけるとサーバーに負担をかけることになるため、不必要な更新はおやめください。本当に更新処理をかけますか？</string>
+    <string name="update_blog_button_ok">更新する</string>
+    <string name="update_blog_button_cancel">キャンセル</string>
+    <string name="update_blog_success_dialog_title">更新成功</string>
+    <string name="update_blog_success_dialog_body">更新処理の通知を正常に送ることができました</string>
+    <string name="update_blog_failure_dialog_title">更新失敗</string>
+    <string name="update_blog_failure_dialog_body">更新処理の通知を送ることができませんでした。必要な権限があるか管理者にお問い合わせください。</string>
+    <string name="update_blog_dialog_button">OK</string>
+
+    <!--    Strings for ReportIssueScreen-->
+    <string name="report_issue_title">不具合の報告／意見</string>
+    <string name="report_issue_text_placeholder">詳細内容</string>
+    <string name="report_issue_submit_button">送信</string>
+    <string name="report_issue_dialog_title">送信</string>
+    <string name="report_issue_dialog_body">内容をご確認ください</string>
+    <string name="report_issue_dialog_button_ok">送信</string>
+    <string name="report_issue_dialog_button_cancel">キャンセル</string>
 </resources>
