@@ -24,7 +24,6 @@ import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SubColorS
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import java.io.File
-import java.lang.Exception
 
 @Composable
 fun CacheClearDialog(
@@ -43,14 +42,16 @@ fun CacheClearDialog(
                     Text(
                         modifier = Modifier
                             .testTag(TestTags.CACHE_CLEAR_DIALOG_TITLE),
-                        text = stringResource(R.string.clear_cache_title)
+                        text = stringResource(R.string.clear_cache_title),
+                        color = Color.DarkGray,
                     )
                 },
                 text = {
                     Text(
                         modifier = Modifier
                             .testTag(TestTags.CACHE_CLEAR_DIALOG_BODY),
-                        text = stringResource(R.string.clear_cache_body)
+                        text = stringResource(R.string.clear_cache_body),
+                        color = Color.DarkGray,
                     )
                 },
                 buttons = {
