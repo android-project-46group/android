@@ -100,6 +100,7 @@ fun ReportIssueScreen(
                     modifier = Modifier
                         .testTag(TestTags.REPORT_ISSUE_DIALOG_TITLE),
                     text = stringResource(R.string.report_issue_dialog_title),
+                    color = Color.DarkGray,
                 )
             },
             text = {
@@ -107,6 +108,7 @@ fun ReportIssueScreen(
                     modifier = Modifier
                         .testTag(TestTags.REPORT_ISSUE_DIALOG_BODY),
                     text = stringResource(R.string.report_issue_dialog_body),
+                    color = Color.DarkGray,
                     textAlign = TextAlign.Start
                 )
             },
