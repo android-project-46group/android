@@ -31,6 +31,9 @@
     <string name="clear_cache_ok">削除</string>
     <string name="clear_cache_cancel">キャンセル</string>
 
+    <!--    Strings for SettingTopScreen-->
+    <string name="developer_success_snack_bar_text">You are now a developer!</string>
+
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">クイズ正解数</string>
     <string name="column_name_group">グループ</string>

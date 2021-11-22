@@ -29,7 +29,8 @@ fun SettingsScreen(
         composable(SettingScreen.SettingTopScreen.route) {
             SettingTopScreen(
                 navController = navHostController,
-                navigationList = navigation
+                navigationList = navigation,
+                viewModel = viewModel,
             )
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
