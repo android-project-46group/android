@@ -40,6 +40,9 @@ object Constants {
     )
 
     const val BLOG_ONE_ROW_NUM = 3
+
+    // =========== Setting Screen ===========
+    const val MAX_REPORT_ISSUE_BODY_LINES = 4
 }
 
 /**

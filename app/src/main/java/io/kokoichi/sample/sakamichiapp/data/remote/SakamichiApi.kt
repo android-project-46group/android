@@ -2,7 +2,9 @@ package io.kokoichi.sample.sakamichiapp.data.remote
 
 import io.kokoichi.sample.sakamichiapp.BuildConfig
 import io.kokoichi.sample.sakamichiapp.data.remote.dto.*
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 /**
@@ -39,4 +41,10 @@ interface SakamichiApi {
     suspend fun updateBlog(
         @Query("key") apiKey: String = BuildConfig.API_KEY
     ): UpdateBlogResponseDto
+
+    // This POST method send messages to server.
+    @POST("issues")
+    suspend fun reportIssue(
+        @Body message: String
+    ): ReportIssueResponseDto
 }

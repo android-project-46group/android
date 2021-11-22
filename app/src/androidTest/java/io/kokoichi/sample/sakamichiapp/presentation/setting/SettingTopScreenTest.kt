@@ -14,6 +14,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.MainActivity
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
@@ -45,6 +46,7 @@ class SettingTopScreenTest {
             SettingTopScreen(
                 navController = navController,
                 navigationList = navigation,
+                viewModel = mockk(),
             )
         }
     }
