@@ -7,14 +7,28 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
 
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
-
     val uiState by viewModel.uiState.collectAsState()
 
+    // TODO: カスタムテーマカラーを作るならここ？
+    CustomSakaTheme {
+        SettingsRouting(
+            viewModel = viewModel,
+            uiState = uiState,
+        )
+    }
+}
+
+@Composable
+fun SettingsRouting(
+    viewModel: SettingsViewModel,
+    uiState: SettingsUiState
+) {
     val navHostController = rememberNavController()
 
     NavHost(
@@ -25,6 +39,7 @@ fun SettingsScreen(
             SettingNavigation.UpdateBlog,
             SettingNavigation.QuizResult,
             SettingNavigation.ClearCache,
+            SettingNavigation.ReportIssue,
         )
         composable(SettingScreen.SettingTopScreen.route) {
             SettingTopScreen(
@@ -47,6 +62,11 @@ fun SettingsScreen(
         composable(SettingScreen.ClearCacheScreen.route) {
             CacheClearDialog(
                 navController = navHostController,
+            )
+        }
+        composable(SettingScreen.ReportIssueScreen.route) {
+            ReportIssueScreen(
+                viewModel = viewModel,
             )
         }
     }
@@ -73,5 +93,10 @@ sealed class SettingNavigation(
     object ClearCache : SettingNavigation(
         name = "キャッシュをクリア",
         route = SettingScreen.ClearCacheScreen.route,
+    )
+
+    object ReportIssue : SettingNavigation(
+        name = "不具合の報告／意見",
+        route = SettingScreen.ReportIssueScreen.route
     )
 }

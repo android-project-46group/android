@@ -50,4 +50,13 @@
     <string name="update_blog_failure_dialog_title">更新失敗</string>
     <string name="update_blog_failure_dialog_body">更新処理の通知を送ることができませんでした。必要な権限があるか管理者にお問い合わせください。</string>
     <string name="update_blog_dialog_button">OK</string>
+
+    <!--    Strings for ReportIssueScreen-->
+    <string name="report_issue_title">不具合の報告／意見</string>
+    <string name="report_issue_text_placeholder">詳細内容</string>
+    <string name="report_issue_submit_button">送信</string>
+    <string name="report_issue_dialog_title">送信</string>
+    <string name="report_issue_dialog_body">内容をご確認ください</string>
+    <string name="report_issue_dialog_button_ok">送信</string>
+    <string name="report_issue_dialog_button_cancel">キャンセル</string>
 </resources>

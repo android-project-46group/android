@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.kokoichi.sample.sakamichiapp.domain.usecase.other_api.ReportIssueUseCase
 import io.kokoichi.sample.sakamichiapp.domain.usecase.other_api.UpdateBlogUseCase
 import io.kokoichi.sample.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
 import io.kokoichi.sample.sakamichiapp.presentation.quiz.GroupName
@@ -11,6 +12,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.util.DataStoreManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val updateBlogUseCase: UpdateBlogUseCase,
+    private val reportIssueUseCase: ReportIssueUseCase,
     private val recordUseCase: RecordUseCases
 ) : ViewModel() {
 
@@ -52,10 +55,12 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun reportIssue(message: String) {
+        reportIssueUseCase(message).launchIn(viewModelScope)
+    }
+
     fun updateBlog() {
-        viewModelScope.launch {
-            updateBlogUseCase()
-        }
+        updateBlogUseCase().launchIn(viewModelScope)
     }
 
     fun writeIsDevTrue(context: Context) {

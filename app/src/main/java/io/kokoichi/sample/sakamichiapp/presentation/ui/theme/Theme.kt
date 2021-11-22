@@ -8,7 +8,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.member_list.GroupName
 
 @Composable
 fun CustomSakaTheme(
-    group: String,
+    group: String = "乃木坂",
     content: @Composable() () -> Unit
 ) {
     // Change color according to the selected group

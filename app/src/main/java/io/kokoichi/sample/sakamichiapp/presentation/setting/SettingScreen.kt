@@ -8,4 +8,5 @@ sealed class SettingScreen(val route: String) {
     object UpdateBlogScreen : SettingScreen("update_blog")
     object QuizResultsScreen : SettingScreen("quiz_results")
     object ClearCacheScreen : SettingScreen("clear_cache")
+    object ReportIssueScreen : SettingScreen("report_issue")
 }
