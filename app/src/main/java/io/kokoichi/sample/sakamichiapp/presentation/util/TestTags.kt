@@ -19,6 +19,8 @@ object TestTags {
 
     // Setting Screen
     const val SETTING_TITLE = "SETTING_TITLE"
+    const val SETTING_VERSION = "SETTING_VERSION"
+    const val SNACK_BAR_TEXT = "SNACK_BAR_TEXT"
 
     const val CACHE_CLEAR_DIALOG_TITLE = "CACHE_CLEAR_DIALOG_TITLE"
     const val CACHE_CLEAR_DIALOG_BODY = "CACHE_CLEAR_DIALOG_BODY"
