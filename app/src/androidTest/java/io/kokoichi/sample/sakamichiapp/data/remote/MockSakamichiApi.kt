@@ -143,4 +143,8 @@ class MockSakamichiApi(
     override suspend fun updateBlog(apiKey: String): UpdateBlogResponseDto {
         TODO("Not yet implemented")
     }
+
+    override suspend fun reportIssue(message: String): ReportIssueResponseDto {
+        TODO("Not yet implemented")
+    }
 }
