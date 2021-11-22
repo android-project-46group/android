@@ -16,4 +16,6 @@ interface SakamichiRepository {
     suspend fun getPositions(title: String): PositionsDto
 
     suspend fun updateBlog(): UpdateBlogResponseDto
+
+    suspend fun reportIssue(message: String): ReportIssueResponseDto
 }

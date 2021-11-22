@@ -31,4 +31,8 @@ class SakamichiRepositoryImpl @Inject constructor(
     override suspend fun updateBlog(): UpdateBlogResponseDto {
         return api.updateBlog()
     }
+
+    override suspend fun reportIssue(message: String): ReportIssueResponseDto {
+        return api.reportIssue(message)
+    }
 }
