@@ -170,6 +170,7 @@ fun CheckDialog(
                     modifier = Modifier
                         .testTag(TestTags.UPDATE_BLOG_DIALOG_TITLE),
                     text = title,
+                    color = Color.DarkGray,
                 )
             },
             text = {
@@ -177,6 +178,7 @@ fun CheckDialog(
                     modifier = Modifier
                         .testTag(TestTags.UPDATE_BLOG_DIALOG_BODY),
                     text = body,
+                    color = Color.DarkGray,
                 )
             },
             buttons = {
