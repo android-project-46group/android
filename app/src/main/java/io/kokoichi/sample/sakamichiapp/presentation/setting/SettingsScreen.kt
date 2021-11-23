@@ -40,6 +40,7 @@ fun SettingsRouting(
             SettingNavigation.QuizResult,
             SettingNavigation.ClearCache,
             SettingNavigation.ReportIssue,
+            SettingNavigation.SetTheme,
         )
         composable(SettingScreen.SettingTopScreen.route) {
             SettingTopScreen(
@@ -67,6 +68,11 @@ fun SettingsRouting(
         composable(SettingScreen.ReportIssueScreen.route) {
             ReportIssueScreen(
                 viewModel = viewModel,
+            )
+        }
+        composable(SettingScreen.SetThemeScreen.route) {
+            SetThemeScreen(
+                viewModel = viewModel
             )
         }
     }
@@ -98,5 +104,10 @@ sealed class SettingNavigation(
     object ReportIssue : SettingNavigation(
         name = "不具合の報告／意見",
         route = SettingScreen.ReportIssueScreen.route
+    )
+
+    object SetTheme : SettingNavigation(
+        name = "テーマカラー設定",
+        route = SettingScreen.SetThemeScreen.route
     )
 }
