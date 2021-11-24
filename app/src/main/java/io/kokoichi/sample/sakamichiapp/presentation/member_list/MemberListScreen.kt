@@ -31,12 +31,6 @@ fun MemberListScreen(
 
     val uiState by viewModel.uiState.collectAsState()
 
-    // Change color of ActionBar using systemuicontroller.
-    val systemUiController = rememberSystemUiController()
-    systemUiController.setSystemBarsColor(
-        color = Color.White,
-    )
-
     CustomSakaTheme(group = uiState.groupName.jname) {
         MainView(
             uiState, navController, viewModel
