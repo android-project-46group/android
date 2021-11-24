@@ -72,7 +72,8 @@ fun SettingsRouting(
         }
         composable(SettingScreen.SetThemeScreen.route) {
             SetThemeScreen(
-                viewModel = viewModel
+                navController = navHostController,
+                viewModel = viewModel,
             )
         }
     }

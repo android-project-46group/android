@@ -45,6 +45,11 @@ object TestTags {
     const val REPORT_ISSUE_DIALOG_OK = "REPORT_ISSUE_DIALOG_OK"
     const val REPORT_ISSUE_DIALOG_CANCEL = "REPORT_ISSUE_DIALOG_CANCEL"
 
+    // SetTheme Screen
+    const val SET_THEME_TITLE = "SET_THEME_TITLE"
+    const val SET_THEME_BACK_ARROW = "SET_THEME_BACK_ARROW"
+    const val SET_THEME_THEME = "SET_THEME_THEME"
+
     // Utils
     const val GROUP_BAR = "GROUP_BAR"
 }
