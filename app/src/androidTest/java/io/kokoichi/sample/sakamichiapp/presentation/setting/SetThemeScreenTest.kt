@@ -1,19 +1,20 @@
 package io.kokoichi.sample.sakamichiapp.presentation.setting
 
+import android.content.Context
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.di.AppModule
 import io.kokoichi.sample.sakamichiapp.presentation.MainActivity
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
@@ -22,8 +23,7 @@ import org.junit.Test
 @ExperimentalMaterialApi
 @HiltAndroidTest
 @UninstallModules(AppModule::class)
-class UpdateBlogScreenTest {
-
+class SetThemeScreenTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
@@ -36,8 +36,7 @@ class UpdateBlogScreenTest {
     @RelaxedMockK
     lateinit var viewModel: SettingsViewModel
 
-    @RelaxedMockK
-    lateinit var uiState: SettingsUiState
+    lateinit var context: Context
 
     @Before
     fun setUp() {
@@ -45,67 +44,42 @@ class UpdateBlogScreenTest {
         MockKAnnotations.init(this)
 
         composeRule.setContent {
-            UpdateBlogScreen(
+            context = LocalContext.current
+            SetThemeScreen(
                 navController = navController,
                 viewModel = viewModel,
-                uiState = uiState,
             )
         }
     }
 
     @Test
-    fun contents_display() {
+    fun setThemeScreen_display() {
         // Arrange
+        val expectedStr =
+            context.resources.getString(R.string.set_theme_title)
 
         // Act
 
         // Assert
         composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_TITLE)
+            .onNodeWithTag(TestTags.SET_THEME_TITLE)
             .assertExists()
+            .assertTextEquals(expectedStr)
         composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_BODY)
+            .onNodeWithTag(TestTags.SET_THEME_BACK_ARROW)
             .assertExists()
+        // Only one Check Icon
         composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_OK_BUTTON)
+            .onNodeWithContentDescription("check")
             .assertExists()
+        // At least one theme row
         composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_CANCEL_BUTTON)
-            .assertExists()
-    }
-
-    @Test
-    fun onOkButtonClicked_openDialog() {
-        // Arrange
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_TITLE)
-            .assertDoesNotExist()
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_BODY)
-            .assertDoesNotExist()
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_OK_BUTTON)
-            .assertDoesNotExist()
-
-        // Act
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_OK_BUTTON)
-            .performClick()
-
-        // Assert
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_TITLE)
-            .assertExists()
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_BODY)
-            .assertExists()
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_OK_BUTTON)
+            .onAllNodesWithTag(TestTags.SET_THEME_THEME)[0]
             .assertExists()
     }
 
     @Test
-    fun onCancelButtonClicked_navigatePopBackStack() {
+    fun onBackArrowClicked_navigatePopBackStack() {
         // Arrange
         verify(exactly = 0) {
             navController.popBackStack()
@@ -113,7 +87,7 @@ class UpdateBlogScreenTest {
 
         // Act
         composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_CANCEL_BUTTON)
+            .onNodeWithTag(TestTags.SET_THEME_BACK_ARROW)
             .performClick()
 
         // Assert
@@ -123,23 +97,49 @@ class UpdateBlogScreenTest {
     }
 
     @Test
-    fun onDialogOkButtonClicked_closeDialog() {
+    fun onOtherThanBackArrowClicked_notNavigate() {
         // Arrange
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_OK_BUTTON)
-            .performClick()
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_TITLE)
-            .assertExists()
+        verify(exactly = 0) {
+            navController.navigateUp()
+            navController.popBackStack()
+        }
 
         // Act
         composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_OK_BUTTON)
+            .onNodeWithTag(TestTags.SET_THEME_TITLE)
+            .performClick()
+        composeRule
+            .onAllNodesWithTag(TestTags.SET_THEME_THEME)[0]
+            .performClick()
+        composeRule
+            .onNodeWithContentDescription("check")
+            .assertExists()
+
+        // Assert
+        verify(exactly = 0) {
+            navController.navigateUp()
+            navController.popBackStack()
+        }
+    }
+
+    @Test
+    fun onThemeClicked_setTheme() {
+        // Arrange
+        val theme = ThemeType.Sakurazaka
+        verify(exactly = 0) {
+            viewModel.setThemeType(theme)
+            viewModel.writeTheme(context, theme.name)
+        }
+
+        // Act
+        composeRule
+            .onNodeWithText(theme.name)
             .performClick()
 
         // Assert
-        composeRule
-            .onNodeWithTag(TestTags.UPDATE_BLOG_DIALOG_TITLE)
-            .assertDoesNotExist()
+        verify(exactly = 1) {
+            viewModel.setThemeType(theme)
+            viewModel.writeTheme(context, theme.name)
+        }
     }
 }

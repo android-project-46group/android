@@ -35,6 +35,9 @@ class ReportIssueScreenTest {
     @RelaxedMockK
     lateinit var viewModel: SettingsViewModel
 
+    @RelaxedMockK
+    lateinit var uiState: SettingsUiState
+
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -43,6 +46,7 @@ class ReportIssueScreenTest {
         composeRule.setContent {
             ReportIssueScreen(
                 viewModel = viewModel,
+                uiState = uiState,
             )
         }
     }

@@ -59,4 +59,7 @@
     <string name="report_issue_dialog_body">内容をご確認ください</string>
     <string name="report_issue_dialog_button_ok">送信</string>
     <string name="report_issue_dialog_button_cancel">キャンセル</string>
+
+    <!--    Strings for SetThemeScreen-->
+    <string name="set_theme_title">テーマカラー</string>
 </resources>

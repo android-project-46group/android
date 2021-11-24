@@ -9,4 +9,5 @@ sealed class SettingScreen(val route: String) {
     object QuizResultsScreen : SettingScreen("quiz_results")
     object ClearCacheScreen : SettingScreen("clear_cache")
     object ReportIssueScreen : SettingScreen("report_issue")
+    object SetThemeScreen : SettingScreen("set_theme")
 }

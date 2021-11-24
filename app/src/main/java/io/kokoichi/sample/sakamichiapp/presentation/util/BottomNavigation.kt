@@ -28,13 +28,18 @@ import io.kokoichi.sample.sakamichiapp.presentation.member_list.MemberListScreen
 import io.kokoichi.sample.sakamichiapp.presentation.positions.PositionsScreen
 import io.kokoichi.sample.sakamichiapp.presentation.quiz.QuizScreen
 import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsScreen
+import io.kokoichi.sample.sakamichiapp.presentation.setting.getBaseColorInThemeTypesFromString
+import io.kokoichi.sample.sakamichiapp.presentation.setting.getSubColorInThemeTypesFromString
 import io.kokoichi.sample.sakamichiapp.presentation.util.components.WebViewWidget
 
 /**
  * Bottom navigation host setup (Register routing).
  */
 @Composable
-fun BottomNavHost(navHostController: NavHostController) {
+fun BottomNavHost(
+    navHostController: NavHostController,
+    onThemeChanged: (String) -> Unit
+) {
     // Change color of ActionBar using systemuicontroller.
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
@@ -108,7 +113,9 @@ fun BottomNavHost(navHostController: NavHostController) {
         composable(
             Screen.SettingScreen.route
         ) {
-            SettingsScreen()
+            SettingsScreen(
+                onThemeChanged = onThemeChanged,
+            )
         }
 
         /**
@@ -141,9 +148,15 @@ fun BottomNavigationBar(
     navController: NavController,
     items: List<BottomNavItem>,
     modifier: Modifier = Modifier,
+    themeType: String = "",
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry.value?.destination?.route
+
+    // Colors used for bottom bar
+    val selectedColor = getBaseColorInThemeTypesFromString(themeType)
+    val unSelectedColor = getSubColorInThemeTypesFromString(themeType).copy(alpha = 0.4f)
+
     BottomNavigation(
         modifier = modifier,
         backgroundColor = Color.White,
@@ -164,8 +177,8 @@ fun BottomNavigationBar(
                         navController.navigate(item.route)
                     }
                 },
-                selectedContentColor = Color.DarkGray,
-                unselectedContentColor = Color.LightGray,
+                selectedContentColor = selectedColor,
+                unselectedContentColor = unSelectedColor,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
                         if (item.badgeCount > 0) {
@@ -190,9 +203,9 @@ fun BottomNavigationBar(
                             textAlign = TextAlign.Center,
                             fontSize = 10.sp,
                             color = if (selected) {
-                                Color.DarkGray
+                                selectedColor
                             } else {
-                                Color.LightGray
+                                unSelectedColor
                             },
                         )
                     }

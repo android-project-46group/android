@@ -74,4 +74,43 @@ class SettingsViewModel @Inject constructor(
             }
         }
     }
+
+    fun writeTheme(
+        context: Context,
+        theme: String,
+    ) {
+        viewModelScope.launch {
+            async {
+                DataStoreManager.writeString(
+                    context,
+                    DataStoreManager.KEY_THEME_GROUP,
+                    theme,
+                )
+            }
+        }
+    }
+
+    fun readThemeFromDataStore(context: Context) {
+        viewModelScope.launch {
+            val res = async {
+                DataStoreManager.readString(context, DataStoreManager.KEY_THEME_GROUP)
+            }
+            setThemeType(res.await())
+        }
+    }
+
+    fun setThemeType(typeStr: String) {
+        val type = themeTypes
+            .firstOrNull { it.name == typeStr }
+
+        _uiState.update {
+            it.copy(
+                themeType = type ?: ThemeType.BasicNight
+            )
+        }
+    }
+
+    fun setThemeType(type: ThemeType) {
+        _uiState.update { it.copy(themeType = type) }
+    }
 }

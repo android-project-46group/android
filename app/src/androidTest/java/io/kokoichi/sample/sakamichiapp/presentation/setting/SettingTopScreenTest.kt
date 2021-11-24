@@ -34,6 +34,9 @@ class SettingTopScreenTest {
     @RelaxedMockK
     lateinit var navController: NavController
 
+    @RelaxedMockK
+    lateinit var uiState: SettingsUiState
+
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -47,6 +50,7 @@ class SettingTopScreenTest {
                 navController = navController,
                 navigationList = navigation,
                 viewModel = mockk(),
+                uiState = uiState,
             )
         }
     }
