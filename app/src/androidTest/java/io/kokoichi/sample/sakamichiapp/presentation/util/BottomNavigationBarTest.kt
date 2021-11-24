@@ -52,7 +52,8 @@ class BottomNavigationBarTest {
                     BottomNavItem.Position,
                     BottomNavItem.Quiz,
                     BottomNavItem.Setting,
-                )
+                ),
+                themeType = "",
             )
         }
     }
