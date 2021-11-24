@@ -74,6 +74,7 @@ fun SettingsRouting(
             SetThemeScreen(
                 navController = navHostController,
                 viewModel = viewModel,
+                selected = uiState.themeType.name,
             )
         }
     }

@@ -31,11 +31,11 @@ import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 fun SetThemeScreen(
     navController: NavHostController,
     viewModel: SettingsViewModel,
+    selected: String = ThemeType.BasicNight.name,
 ) {
-    var selectedItem by remember { mutableStateOf(viewModel.uiState.value.themeType.name)}
+    var selectedItem by remember { mutableStateOf(selected) }
 
     val context = LocalContext.current
-
 
     Column {
         ThemeTopBar(
