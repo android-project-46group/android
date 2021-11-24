@@ -32,6 +32,7 @@ fun SetThemeScreen(
     navController: NavHostController,
     viewModel: SettingsViewModel,
     selected: String = ThemeType.BasicNight.name,
+    onThemeChanged: (String) -> Unit = {},
 ) {
     var selectedItem by remember { mutableStateOf(selected) }
 
@@ -52,6 +53,7 @@ fun SetThemeScreen(
                 selectedItem = type.name
                 viewModel.setThemeType(type)
                 viewModel.writeTheme(context, type.name)
+                onThemeChanged(type.name)
             }
         )
     }

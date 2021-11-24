@@ -12,7 +12,8 @@ import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
+    onThemeChanged: (String) -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -23,6 +24,7 @@ fun SettingsScreen(
         SettingsRouting(
             viewModel = viewModel,
             uiState = uiState,
+            onThemeChanged = onThemeChanged,
         )
     }
 }
@@ -30,7 +32,8 @@ fun SettingsScreen(
 @Composable
 fun SettingsRouting(
     viewModel: SettingsViewModel,
-    uiState: SettingsUiState
+    uiState: SettingsUiState,
+    onThemeChanged: (String) -> Unit = {},
 ) {
     val navHostController = rememberNavController()
 
@@ -57,6 +60,7 @@ fun SettingsRouting(
             UpdateBlogScreen(
                 navController = navHostController,
                 viewModel = viewModel,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.QuizResultsScreen.route) {
@@ -81,6 +85,7 @@ fun SettingsRouting(
                 navController = navHostController,
                 viewModel = viewModel,
                 selected = uiState.themeType.name,
+                onThemeChanged = onThemeChanged,
             )
         }
     }
