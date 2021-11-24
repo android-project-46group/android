@@ -113,10 +113,10 @@ fun SettingRow(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
             .clickable {
                 onclick()
             }
+            .padding(10.dp)
             .testTag(text),
         contentAlignment = Alignment.CenterEnd,
     ) {
