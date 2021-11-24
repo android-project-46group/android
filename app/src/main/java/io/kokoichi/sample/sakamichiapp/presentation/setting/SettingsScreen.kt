@@ -3,6 +3,7 @@ package io.kokoichi.sample.sakamichiapp.presentation.setting
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,7 +16,9 @@ fun SettingsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    // TODO: カスタムテーマカラーを作るならここ？
+    val context = LocalContext.current
+    viewModel.readThemeFromDataStore(context)
+
     CustomSakaTheme {
         SettingsRouting(
             viewModel = viewModel,
@@ -47,6 +50,7 @@ fun SettingsRouting(
                 navController = navHostController,
                 navigationList = navigation,
                 viewModel = viewModel,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
@@ -63,11 +67,13 @@ fun SettingsRouting(
         composable(SettingScreen.ClearCacheScreen.route) {
             CacheClearDialog(
                 navController = navHostController,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.ReportIssueScreen.route) {
             ReportIssueScreen(
                 viewModel = viewModel,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.SetThemeScreen.route) {

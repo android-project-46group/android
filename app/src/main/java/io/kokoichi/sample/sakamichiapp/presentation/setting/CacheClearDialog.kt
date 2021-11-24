@@ -21,13 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.kokoichi.sample.sakamichiapp.R
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SubColorS
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import java.io.File
 
 @Composable
 fun CacheClearDialog(
     navController: NavController,
+    uiState: SettingsUiState,
 ) {
     Surface(
         modifier = Modifier
@@ -66,7 +66,7 @@ fun CacheClearDialog(
                             modifier = Modifier
                                 .weight(1f)
                                 .clip(RoundedCornerShape(5.dp))
-                                .background(SubColorS)
+                                .background(uiState.themeType.subColor)
                                 .testTag(TestTags.CACHE_CLEAR_DIALOG_OK),
                             onClick = {
                                 openDialog.value = false
@@ -88,7 +88,7 @@ fun CacheClearDialog(
                                 .weight(1f)
                                 .border(
                                     width = 1.dp,
-                                    color = SubColorS,
+                                    color = uiState.themeType.subColor,
                                     shape = RoundedCornerShape(5.dp)
                                 )
                                 .testTag(TestTags.CACHE_CLEAR_DIALOG_CANCEL),
@@ -99,7 +99,7 @@ fun CacheClearDialog(
                         ) {
                             Text(
                                 text = stringResource(R.string.clear_cache_cancel),
-                                color = SubColorS,
+                                color = uiState.themeType.subColor,
                             )
                         }
                     }

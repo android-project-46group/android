@@ -17,17 +17,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import io.kokoichi.sample.sakamichiapp.R
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SubColorS
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants.BottomBarPadding
 import io.kokoichi.sample.sakamichiapp.presentation.util.DataStoreManager
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
-import io.kokoichi.sample.sakamichiapp.presentation.util.getSubColor
 import kotlinx.coroutines.async
 
 @Composable
 fun UpdateBlogScreen(
     navController: NavHostController,
-    viewModel: SettingsViewModel
+    viewModel: SettingsViewModel,
+    uiState: SettingsUiState,
 ) {
 
     val context = LocalContext.current
@@ -51,7 +50,7 @@ fun UpdateBlogScreen(
                 .fillMaxSize()
                 .padding(20.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(getSubColor("SAKURAZAKA").copy(alpha = 0.4f))
+                .background(uiState.themeType.subColor)
                 .padding(10.dp)
         ) {
             Column {
@@ -89,7 +88,7 @@ fun UpdateBlogScreen(
                         .background(Color.White)
                         .border(
                             width = 1.dp,
-                            color = SubColorS,
+                            color = uiState.themeType.baseColor,
                             shape = buttonShape
                         )
                         .testTag(TestTags.UPDATE_BLOG_OK_BUTTON),
@@ -99,7 +98,7 @@ fun UpdateBlogScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.update_blog_button_ok),
-                        color = SubColorS,
+                        color = uiState.themeType.baseColor,
                     )
                 }
 
@@ -113,7 +112,7 @@ fun UpdateBlogScreen(
                         .background(Color.White)
                         .border(
                             width = 1.dp,
-                            color = SubColorS,
+                            color = uiState.themeType.baseColor,
                             shape = buttonShape
                         ),
                     onClick = {
@@ -122,7 +121,7 @@ fun UpdateBlogScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.update_blog_button_cancel),
-                        color = SubColorS,
+                        color = uiState.themeType.baseColor,
                     )
                 }
             }
@@ -136,6 +135,7 @@ fun UpdateBlogScreen(
             CheckDialog(
                 title = stringResource(R.string.update_blog_success_dialog_title),
                 body = stringResource(R.string.update_blog_success_dialog_body),
+                buttonColor = uiState.themeType.subColor,
                 onButtonClicked = {
                     openDialog = !openDialog
                 },
@@ -145,6 +145,7 @@ fun UpdateBlogScreen(
             CheckDialog(
                 title = stringResource(R.string.update_blog_failure_dialog_title),
                 body = stringResource(R.string.update_blog_failure_dialog_body),
+                buttonColor = uiState.themeType.subColor,
                 onButtonClicked = {
                     openDialog = !openDialog
                 },
@@ -157,6 +158,7 @@ fun UpdateBlogScreen(
 fun CheckDialog(
     title: String,
     body: String,
+    buttonColor: Color,
     onButtonClicked: () -> Unit = {},
 ) {
     Surface(
@@ -192,7 +194,7 @@ fun CheckDialog(
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(5.dp))
-                            .background(SubColorS)
+                            .background(buttonColor)
                             .testTag(TestTags.UPDATE_BLOG_DIALOG_OK_BUTTON),
                         onClick = {
                             onButtonClicked()

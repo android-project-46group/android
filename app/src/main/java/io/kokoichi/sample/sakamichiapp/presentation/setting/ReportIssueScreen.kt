@@ -19,13 +19,13 @@ import androidx.compose.ui.unit.dp
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceMedium
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SubColorS
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 
 @Composable
 fun ReportIssueScreen(
-    viewModel: SettingsViewModel
+    viewModel: SettingsViewModel,
+    uiState: SettingsUiState,
 ) {
     var isDialogOpen by remember { mutableStateOf(false) }
 
@@ -58,7 +58,7 @@ fun ReportIssueScreen(
                 .background(Color.White)
                 .border(
                     width = 2.dp,
-                    color = Color.LightGray,
+                    color = uiState.themeType.subColor,
                     shape = boxShape
                 )
                 .testTag(TestTags.REPORT_ISSUE_BODY),
@@ -86,7 +86,7 @@ fun ReportIssueScreen(
                 }
                 .testTag(TestTags.REPORT_ISSUE_BUTTON),
             text = stringResource(R.string.report_issue_submit_button),
-            color = SubColorS,
+            color = uiState.themeType.baseColor,
             style = MaterialTheme.typography.h6,
         )
     }
@@ -124,7 +124,7 @@ fun ReportIssueScreen(
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(5.dp))
-                            .background(SubColorS)
+                            .background(uiState.themeType.subColor)
                             .testTag(TestTags.REPORT_ISSUE_DIALOG_OK),
                         onClick = {
                             isDialogOpen = false
@@ -135,7 +135,7 @@ fun ReportIssueScreen(
                         Text(
                             modifier = Modifier,
                             text = stringResource(R.string.report_issue_dialog_button_ok),
-                            color = Color.White,
+                            color = uiState.themeType.fontColor,
                         )
                     }
                     // Some space same as the start, end and bottom
@@ -145,7 +145,7 @@ fun ReportIssueScreen(
                             .weight(1f)
                             .border(
                                 width = 1.dp,
-                                color = SubColorS,
+                                color = uiState.themeType.subColor,
                                 shape = RoundedCornerShape(5.dp)
                             )
                             .testTag(TestTags.REPORT_ISSUE_DIALOG_CANCEL),
@@ -155,7 +155,7 @@ fun ReportIssueScreen(
                     ) {
                         Text(
                             text = stringResource(R.string.report_issue_dialog_button_cancel),
-                            color = SubColorS,
+                            color = uiState.themeType.subColor,
                         )
                     }
                 }
