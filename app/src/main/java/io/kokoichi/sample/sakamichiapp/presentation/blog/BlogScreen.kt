@@ -31,8 +31,7 @@ import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.domain.model.Blog
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.GroupBar
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.GroupName
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.Typography
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.*
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 import io.kokoichi.sample.sakamichiapp.presentation.util.Screen
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
@@ -110,7 +109,7 @@ fun BlogTopBar(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)
+                .padding(SpaceSmall)
                 .testTag(TestTags.BLOG_TITLE),
             text = stringResource(R.string.blog_screen_title),
             style = Typography.h5,
@@ -118,7 +117,7 @@ fun BlogTopBar(
         )
 
         // Sort type button (Name or Time
-        val boxShape = RoundedCornerShape(5.dp)
+        val boxShape = MaterialTheme.shapes.small
         val customColor = if (isChecked) {
             Color.White
         } else {
@@ -131,7 +130,7 @@ fun BlogTopBar(
         }
         Row(
             modifier = Modifier
-                .padding(end = 10.dp)
+                .padding(end = SpaceSmall)
                 .clip(boxShape)
                 .background(
                     color = reverseColor,
@@ -145,7 +144,7 @@ fun BlogTopBar(
                     color = customColor,
                     shape = boxShape
                 )
-                .padding(vertical = 2.dp, horizontal = 5.dp)
+                .padding(horizontal = SpaceSmall)
                 .testTag(TestTags.BLOG_SORT_BUTTON),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
@@ -154,7 +153,7 @@ fun BlogTopBar(
                 painter = painterResource(id = R.drawable.up),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(15.dp),
+                    .size(SpaceMedium),
                 colorFilter = ColorFilter.tint(customColor)
             )
             Text(
@@ -213,7 +212,7 @@ fun OneBlog(
 ) {
     Column(
         modifier = modifier
-            .padding(vertical = 10.dp)
+            .padding(vertical = SpaceSmall)
             .clickable {
                 onclick(blog)
             }
@@ -239,19 +238,19 @@ fun OneBlog(
             modifier = Modifier
                 .size(120.dp)
                 .padding(2.dp)
-                .clip(RoundedCornerShape(10.dp)),
+                .clip(MaterialTheme.shapes.medium),
             alignment = Alignment.Center,
         )
         Text(
             modifier = Modifier
-                .padding(5.dp),
+                .padding(SpaceSmall),
             text = blog.name,
             style = Typography.body2,
             color = MaterialTheme.colors.secondary,
         )
         Text(
             modifier = Modifier
-                .padding(bottom = 5.dp),
+                .padding(bottom = SpaceTiny),
             text = blog.lastUpdatedAt,
             style = Typography.caption,
         )

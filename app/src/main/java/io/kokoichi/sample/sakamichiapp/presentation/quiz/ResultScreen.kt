@@ -11,11 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import io.kokoichi.sample.sakamichiapp.R
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SubColorN
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.Typography
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.*
 
 @Composable
 fun ResultScreen(
@@ -30,18 +27,17 @@ fun ResultScreen(
         Text(
             text = stringResource(R.string.results_screen_total_quiz_num, uiState.quizNum),
             style = Typography.h3,
-            fontSize = 46.sp,
         )
         Text(
             text = stringResource(R.string.results_screen_scores, uiState.scores),
             style = Typography.h2,
             color = Color.Red,
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(SpaceSmall))
 
         BackToQuizHomeButton(viewModel = viewModel)
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(SpaceSmall))
         var showAns by remember { mutableStateOf(false) }
         Text(
             modifier = Modifier
@@ -69,7 +65,7 @@ fun BackToQuizHomeButton(viewModel: QuizViewModel) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(40.dp)
+            .padding(SpaceHuge)
     ) {
         Text(
             modifier = Modifier
@@ -78,7 +74,7 @@ fun BackToQuizHomeButton(viewModel: QuizViewModel) {
                 .clickable {
                     viewModel.resetQuizzes()
                 }
-                .padding(20.dp),
+                .padding(SpaceMedium),
             text = stringResource(R.string.back_to_quiz_top_page),
             style = Typography.h4,
             color = Color.White,
@@ -97,7 +93,7 @@ fun CorrectAnswers(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 30.dp),
+                    .padding(vertical = SpaceSmall, horizontal = SpaceLarge),
                 verticalAlignment = CenterVertically,
             ) {
                 Text(
@@ -106,7 +102,7 @@ fun CorrectAnswers(
                     style = Typography.body1,
                 )
                 Text(
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier.padding(SpaceTiny),
                     text = stringResource(R.string.separator_between_name_and_ans),
                     style = Typography.body1,
                 )

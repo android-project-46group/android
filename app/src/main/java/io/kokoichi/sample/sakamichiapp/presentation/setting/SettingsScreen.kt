@@ -3,6 +3,7 @@ package io.kokoichi.sample.sakamichiapp.presentation.setting
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,15 +12,19 @@ import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
+    onThemeChanged: (String) -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    // TODO: カスタムテーマカラーを作るならここ？
+    val context = LocalContext.current
+    viewModel.readThemeFromDataStore(context)
+
     CustomSakaTheme {
         SettingsRouting(
             viewModel = viewModel,
             uiState = uiState,
+            onThemeChanged = onThemeChanged,
         )
     }
 }
@@ -27,7 +32,8 @@ fun SettingsScreen(
 @Composable
 fun SettingsRouting(
     viewModel: SettingsViewModel,
-    uiState: SettingsUiState
+    uiState: SettingsUiState,
+    onThemeChanged: (String) -> Unit = {},
 ) {
     val navHostController = rememberNavController()
 
@@ -40,18 +46,21 @@ fun SettingsRouting(
             SettingNavigation.QuizResult,
             SettingNavigation.ClearCache,
             SettingNavigation.ReportIssue,
+            SettingNavigation.SetTheme,
         )
         composable(SettingScreen.SettingTopScreen.route) {
             SettingTopScreen(
                 navController = navHostController,
                 navigationList = navigation,
                 viewModel = viewModel,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
             UpdateBlogScreen(
                 navController = navHostController,
                 viewModel = viewModel,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.QuizResultsScreen.route) {
@@ -62,11 +71,21 @@ fun SettingsRouting(
         composable(SettingScreen.ClearCacheScreen.route) {
             CacheClearDialog(
                 navController = navHostController,
+                uiState = uiState,
             )
         }
         composable(SettingScreen.ReportIssueScreen.route) {
             ReportIssueScreen(
                 viewModel = viewModel,
+                uiState = uiState,
+            )
+        }
+        composable(SettingScreen.SetThemeScreen.route) {
+            SetThemeScreen(
+                navController = navHostController,
+                viewModel = viewModel,
+                selected = uiState.themeType.name,
+                onThemeChanged = onThemeChanged,
             )
         }
     }
@@ -98,5 +117,10 @@ sealed class SettingNavigation(
     object ReportIssue : SettingNavigation(
         name = "不具合の報告／意見",
         route = SettingScreen.ReportIssueScreen.route
+    )
+
+    object SetTheme : SettingNavigation(
+        name = "テーマカラー設定",
+        route = SettingScreen.SetThemeScreen.route
     )
 }

@@ -37,6 +37,7 @@ fun SettingTopScreen(
     navController: NavController,
     navigationList: List<SettingNavigation>,
     viewModel: SettingsViewModel,
+    uiState: SettingsUiState,
 ) {
     Column(
         modifier = Modifier
@@ -49,12 +50,12 @@ fun SettingTopScreen(
             modifier = Modifier
                 .height(40.dp)
                 .fillMaxWidth()
-                .background(Color.LightGray.copy(alpha = 0.4f))
+                .background(uiState.themeType.subColor)
         )
         LazyColumn {
             item {
                 Divider(
-                    color = Color.LightGray,
+                    color = uiState.themeType.subColor,
                     thickness = 1.dp
                 )
             }
@@ -76,7 +77,7 @@ fun SettingTopScreen(
             modifier = Modifier
                 .height(100.dp)
                 .fillMaxWidth()
-                .background(Color.LightGray.copy(alpha = 0.4f))
+                .background(uiState.themeType.subColor)
         )
 
         val context = LocalContext.current
@@ -87,7 +88,7 @@ fun SettingTopScreen(
             modifier = Modifier
                 .height(40.dp)
                 .fillMaxWidth()
-                .background(Color.LightGray.copy(alpha = 0.4f))
+                .background(uiState.themeType.subColor)
         )
     }
 }
@@ -112,10 +113,10 @@ fun SettingRow(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
             .clickable {
                 onclick()
             }
+            .padding(10.dp)
             .testTag(text),
         contentAlignment = Alignment.CenterEnd,
     ) {

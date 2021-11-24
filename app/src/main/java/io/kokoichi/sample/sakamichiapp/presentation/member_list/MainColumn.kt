@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.components.OnePerson
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceMedium
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 import io.kokoichi.sample.sakamichiapp.presentation.util.Screen
 import io.kokoichi.sample.sakamichiapp.presentation.util.getGenerationLooper
@@ -48,8 +50,9 @@ fun DefaultColumn(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
-        contentPadding = PaddingValues(top = 10.dp, bottom = 56.dp, start = 20.dp, end = 20.dp),
+            .background(MaterialTheme.colors.background)
+            .padding(horizontal = SpaceMedium),
+        contentPadding = Constants.BottomBarPadding,
     ) {
         val itemCount = if (members.size % 3 == 0) {
             members.size / 3
@@ -103,18 +106,21 @@ fun ColumnWithLine(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
-        contentPadding = PaddingValues(top = 10.dp, bottom = 56.dp, start = 20.dp, end = 20.dp),
+            .background(MaterialTheme.colors.background)
+            .padding(horizontal = SpaceMedium),
+        contentPadding = Constants.BottomBarPadding,
     ) {
         for (type in looperStr) {
             item {
                 Text(
                     text = type,
                     modifier = Modifier
-                        .padding(4.dp)
-                        .padding(start = 10.dp)
+                        .padding(
+                            start = SpaceMedium,
+                            bottom = SpaceSmall,
+                        )
                         .fillMaxWidth(),
-                    fontSize = 36.sp,
+                    style = MaterialTheme.typography.h4,
                     color = MaterialTheme.colors.primary,
                 )
             }
@@ -141,7 +147,7 @@ fun ColumnWithLine(
             }
 
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(SpaceSmall))
             }
         }
     }
@@ -165,7 +171,7 @@ fun MemberRow(
             navController = navController,
             uiState = uiState,
         )
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(SpaceMedium))
         if (entries.size >= rowIndex * 3 + 2) {
             WrapOnePerson(
                 member = entries[rowIndex * 3 + 1],
@@ -176,7 +182,7 @@ fun MemberRow(
         } else {
             Spacer(modifier = Modifier.weight(1f))
         }
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(SpaceMedium))
         if (entries.size >= rowIndex * 3 + 3) {
             WrapOnePerson(
                 member = entries[rowIndex * 3 + 2],
@@ -188,7 +194,7 @@ fun MemberRow(
             Spacer(modifier = Modifier.weight(1f))
         }
     }
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = Modifier.height(SpaceMedium))
 }
 
 @Composable
@@ -199,44 +205,24 @@ fun WrapOnePerson(
     uiState: MemberListUiState,
 ) {
     // Change display information according to selected sortKey.
-    when (uiState.sortKey) {
+    val extraInfo = when (uiState.sortKey) {
         MemberListSortKeys.BIRTHDAY, MemberListSortKeys.MONTH_DAY ->
-            OnePerson(
-                member = member,
-                modifier = modifier,
-                onclick = {
-                    navController.navigateUp()
-                    navController.navigate(
-                        Screen.MemberDetailScreen.route
-                                + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
-                    )
-                },
-                extraInfo = member.birthday,
-            )
+            member.birthday
         MemberListSortKeys.HEIGHT ->
-            OnePerson(
-                member = member,
-                modifier = modifier,
-                onclick = {
-                    navController.navigateUp()
-                    navController.navigate(
-                        Screen.MemberDetailScreen.route
-                                + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
-                    )
-                },
-                extraInfo = member.height,
-            )
+            member.height
         else ->
-            OnePerson(
-                member = member,
-                modifier = modifier,
-                onclick = {
-                    navController.navigateUp()
-                    navController.navigate(
-                        Screen.MemberDetailScreen.route
-                                + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
-                    )
-                },
-            )
+            null
     }
+    OnePerson(
+        member = member,
+        modifier = modifier,
+        onclick = {
+            navController.navigateUp()
+            navController.navigate(
+                Screen.MemberDetailScreen.route
+                        + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
+            )
+        },
+        extraInfo = extraInfo,
+    )
 }

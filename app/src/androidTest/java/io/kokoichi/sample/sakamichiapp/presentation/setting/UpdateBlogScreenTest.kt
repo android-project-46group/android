@@ -1,7 +1,6 @@
 package io.kokoichi.sample.sakamichiapp.presentation.setting
 
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -34,6 +33,12 @@ class UpdateBlogScreenTest {
     @RelaxedMockK
     lateinit var navController: NavHostController
 
+    @RelaxedMockK
+    lateinit var viewModel: SettingsViewModel
+
+    @RelaxedMockK
+    lateinit var uiState: SettingsUiState
+
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -42,7 +47,8 @@ class UpdateBlogScreenTest {
         composeRule.setContent {
             UpdateBlogScreen(
                 navController = navController,
-                viewModel = mockk()
+                viewModel = viewModel,
+                uiState = uiState,
             )
         }
     }

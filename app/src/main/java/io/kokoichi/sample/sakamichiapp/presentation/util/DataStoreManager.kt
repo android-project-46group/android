@@ -23,6 +23,7 @@ object DataStoreManager {
      * Key sets for Data store.
      */
     const val KEY_IS_DEVELOPER = "is_developer"
+    const val KEY_THEME_GROUP = "theme_type"
 
     suspend fun writeBoolean(context: Context, key: String, value: Boolean) =
         withContext(Dispatchers.IO) {

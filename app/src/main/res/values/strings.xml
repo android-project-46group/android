@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Sakamichi app</string>
 
+    <!--    Strings for MemberListScreen-->
+    <string name="member_list_sort_key">並びかえ</string>
+    <string name="member_list_narrow_down_key">絞り込み</string>
+
     <!--    Strings for BlogScreen-->
     <string name="blog_screen_title">Blogs</string>
     <string name="blog_sort_key_time">Date updated</string>
@@ -59,4 +63,7 @@
     <string name="report_issue_dialog_body">内容をご確認ください</string>
     <string name="report_issue_dialog_button_ok">送信</string>
     <string name="report_issue_dialog_button_cancel">キャンセル</string>
+
+    <!--    Strings for SetThemeScreen-->
+    <string name="set_theme_title">テーマカラー</string>
 </resources>

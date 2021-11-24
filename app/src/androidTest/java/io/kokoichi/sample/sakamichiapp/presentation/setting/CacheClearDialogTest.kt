@@ -16,6 +16,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.MainActivity
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule
@@ -35,6 +36,9 @@ class CacheClearDialogTest {
     @RelaxedMockK
     lateinit var navController: NavController
 
+    @RelaxedMockK
+    lateinit var uiState: SettingsUiState
+
     @Before
     fun setUp() {
         hiltRule.inject()
@@ -43,6 +47,7 @@ class CacheClearDialogTest {
         composeRule.setContent {
             CacheClearDialog(
                 navController = navController,
+                uiState = uiState,
             )
         }
     }
