@@ -1,19 +1,18 @@
 package io.kokoichi.sample.sakamichiapp.presentation.member_list
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.components.SortBar
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
 
 /**
  * Function to display member list.
@@ -54,8 +53,7 @@ fun MainView(
                 viewModel.setApiMembers()
             },
             modifier = Modifier
-                .padding(top = 8.dp)
-                .padding(bottom = 4.dp)
+                .padding(top = SpaceSmall)
         )
 
         SortBar(

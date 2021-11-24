@@ -1,6 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 
@@ -33,7 +34,17 @@ object Constants {
         "1期生", "2期生", "3期生",
     )
 
+    // =========== Quiz Screen ===========
+    // Colors to display QuizTypes.
+    val QuizTypeColors = listOf(
+        Color(0.101960786F, 0.0F, 0.8235294F, 1.0F),
+        Color(0.83137256F, 0.16470589F, 0.101960786F, 1.0F),
+        Color(0.9607843F, 0.5137255F, 0.9607843F, 1.0F),
+        Color(0.13333334F, 0.4F, 0.25882354F, 1.0F),
+    )
+
     // =========== Blog Screen ===========
+    val MAX_QUIZ_COUNT = 5
     // Padding or composable size.
     val BottomBarPadding = PaddingValues(
         top = 10.dp, bottom = 56.dp, start = 5.dp, end = 5.dp

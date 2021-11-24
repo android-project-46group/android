@@ -1,6 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.presentation.quiz
 
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
+import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 
 /**
  * States for Member List UI.
@@ -13,7 +14,7 @@ data class QuizUiState(
     var pageType: PageType = PageType.MODE_SELECTION,
     var quizType: QuizType? = null,
     var quizzes: List<Quiz> = emptyList(),
-    var quizNum: Int = 2,
+    var quizNum: Int = Constants.MAX_QUIZ_COUNT,
     var quizProgress: Int = 0,
     var scores: Int = 0,
     var isCorrect: Boolean? = null,
