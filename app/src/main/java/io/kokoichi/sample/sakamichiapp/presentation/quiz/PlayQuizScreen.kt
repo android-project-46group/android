@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import io.kokoichi.sample.sakamichiapp.R
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceMedium
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.Typography
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 
@@ -60,7 +62,7 @@ fun PlayQuizScreen(
                 style = Typography.h5,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = SpaceMedium)
                     .align(Alignment.Center)
             )
         }
@@ -162,7 +164,7 @@ fun OneQuiz(
                             ),
                         alignment = Alignment.Center
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
+                    Spacer(modifier = Modifier.width(SpaceSmall))
                     Text(
                         modifier = Modifier
                             .testTag(TestTags.PLAY_QUIZ_TITLE),
@@ -176,7 +178,7 @@ fun OneQuiz(
                 }
                 Text(
                     modifier = Modifier
-                        .padding(10.dp)
+                        .padding(SpaceSmall)
                         .testTag(TestTags.PLAY_QUIZ_ANS),
                     text = stringResource(
                         R.string.quiz_play_correct_answer,
@@ -228,11 +230,11 @@ fun OneRow(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp, horizontal = 20.dp)
+            .padding(vertical = SpaceSmall, horizontal = SpaceMedium)
             .border(
                 width = 2.dp,
                 color = Color.DarkGray,
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(SpaceMedium)
             )
             .clickable {
                 onClick()
@@ -242,7 +244,7 @@ fun OneRow(
             }
             .background(
                 color = if (selected) Color.LightGray else Color.Transparent,
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(SpaceMedium),
             )
             .testTag(TestTags.PLAY_QUIZ_ONE_CHOICE),
         contentAlignment = Alignment.Center,
@@ -263,11 +265,11 @@ fun OneRow(
                 text = choice,
                 style = Typography.h5,
                 modifier = Modifier
-                    .padding(start = 20.dp)
+                    .padding(start = SpaceMedium)
                     .weight(3f),
                 textAlign = TextAlign.Start,
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(SpaceSmall))
         }
     }
 }
@@ -283,7 +285,7 @@ fun CustomProgress(uiState: QuizUiState) {
             modifier = Modifier
                 .height(15.dp)
                 .padding(vertical = 0.dp)
-                .padding(start = 20.dp, end = 10.dp)
+                .padding(start = SpaceMedium, end = SpaceSmall)
                 .weight(7f)
                 .testTag(TestTags.PLAY_QUIZ_PROGRESS_BAR),
         )
@@ -305,7 +307,7 @@ fun MyCircle(
     Box(
         modifier = modifier
             .border(
-                width = 18.dp,
+                width = SpaceMedium,
                 color = Color.Red,
                 shape = CircleShape,
             )

@@ -16,10 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.kokoichi.sample.sakamichiapp.R
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorH
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorN
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.BaseColorS
-import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.Typography
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.*
+import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 
 /**
@@ -64,7 +62,7 @@ fun OneGroup(
 ) {
     Box(
         modifier = Modifier
-            .padding(horizontal = 30.dp, vertical = 20.dp),
+            .padding(horizontal = SpaceLarge, vertical = SpaceMedium),
     ) {
         Row(
             modifier = modifier
@@ -75,7 +73,7 @@ fun OneGroup(
                 .border(
                     width = 2.dp,
                     color = Color.LightGray,
-                    shape = RoundedCornerShape(20.dp),
+                    shape = RoundedCornerShape(SpaceMedium),
                 )
                 .testTag(groupName.name),
             horizontalArrangement = Arrangement.Center,
@@ -85,7 +83,7 @@ fun OneGroup(
                 modifier = Modifier
                     .weight(1f)
                     .size(100.dp)
-                    .padding(15.dp),
+                    .padding(SpaceMedium),
                 painter = painterResource(
                     id = when (groupName) {
                         GroupName.NOGIZAKA ->
@@ -125,26 +123,18 @@ fun ChooseQuizTypePage(viewModel: QuizViewModel) {
     ) {
         Text(
             modifier = Modifier
-                .padding(20.dp)
+                .padding(SpaceMedium)
                 .fillMaxWidth()
                 .testTag(TestTags.CHOOSE_QUIZ_TYPE_PAGE_TITLE),
             text = stringResource(R.string.choose_quiz_type_title),
             style = Typography.h5,
             textAlign = TextAlign.Center,
         )
-        val quizTypes = QuizType.values()
-        // Colors to show quizTypes.
-        val colors = listOf(
-            Color(0.101960786F, 0.0F, 0.8235294F, 1.0F),
-            Color(0.83137256F, 0.16470589F, 0.101960786F, 1.0F),
-            Color(0.9607843F, 0.5137255F, 0.9607843F, 1.0F),
-            Color(0.13333334F, 0.4F, 0.25882354F, 1.0F),
-        )
-        quizTypes.forEachIndexed { ind, type ->
+        QuizType.values().forEachIndexed { ind, type ->
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 30.dp, vertical = 10.dp),
+                    .padding(horizontal = SpaceLarge, vertical = SpaceSmall),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -157,14 +147,14 @@ fun ChooseQuizTypePage(viewModel: QuizViewModel) {
                         .border(
                             width = 2.dp,
                             color = Color.LightGray,
-                            shape = RoundedCornerShape(20.dp),
+                            shape = RoundedCornerShape(SpaceMedium),
                         )
-                        .padding(20.dp)
+                        .padding(SpaceMedium)
                         .testTag(TestTags.QUIZ_TYPE_CHOICE),
                     text = type.jname,
                     style = Typography.h4,
                     textAlign = TextAlign.Center,
-                    color = colors[ind],
+                    color = Constants.QuizTypeColors[ind],
                 )
             }
         }

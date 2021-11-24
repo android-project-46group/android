@@ -252,6 +252,5 @@ sealed class BottomNavItem(
         name = "設定",
         route = Screen.SettingScreen.route,
         icons = R.drawable.settings,
-        badgeCount = 3,
     )
 }

@@ -17,8 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.presentation.member_list.*
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceHuge
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceTiny
 
 /**
  * Bar to change displaying member information.
@@ -33,20 +37,20 @@ fun SortBar(
      */
     Row(
         modifier = Modifier
-            .padding(horizontal = 8.dp, vertical = 2.dp)
+            .padding(horizontal = SpaceSmall, vertical = SpaceTiny)
             .fillMaxWidth()
-            .height(30.dp)
+            .height(SpaceHuge)
     ) {
         Box(
             modifier = Modifier
                 .weight(2f)
-                .padding(4.dp),
+                .padding(SpaceTiny),
             contentAlignment = Alignment.Center,
         ) {
             Text(
                 modifier = Modifier
                     .padding(vertical = 0.dp),
-                text = "並びかえ",
+                text = stringResource(R.string.member_list_sort_key),
                 fontSize = 10.sp,
             )
         }
@@ -69,7 +73,7 @@ fun SortBar(
                     modifier = Modifier
                         .padding(vertical = 0.dp),
                     text = uiState.sortKey.jname,
-                    fontSize = 8.sp
+                    fontSize = 8.sp,
                 )
             }
         }
@@ -141,11 +145,11 @@ fun SortBar(
         Box(
             modifier = Modifier
                 .weight(2f)
-                .padding(4.dp),
+                .padding(SpaceTiny),
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = "絞り込み",
+                text = stringResource(R.string.member_list_narrow_down_key),
                 fontSize = 10.sp
             )
         }

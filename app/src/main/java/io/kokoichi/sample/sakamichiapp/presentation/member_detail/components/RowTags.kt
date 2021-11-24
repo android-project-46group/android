@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.kokoichi.sample.sakamichiapp.presentation.member_detail.PADDING_HORIZONTAL
 import io.kokoichi.sample.sakamichiapp.presentation.member_detail.PADDING_VERTICAL
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceMedium
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceTiny
 
 /**
  * Row of tags
@@ -41,14 +43,14 @@ fun OneTag(
 ) {
     Box(
         modifier = Modifier
-            .padding(3.dp, 0.dp)
-            .clip(RoundedCornerShape(15.dp))
+            .padding(horizontal = SpaceTiny)
+            .clip(RoundedCornerShape(SpaceMedium))
             .background(MaterialTheme.colors.secondary)
     ) {
         Text(
             text = tag,
             modifier = Modifier
-                .padding(4.dp, 0.dp),
+                .padding(horizontal = SpaceTiny),
             style = MaterialTheme.typography.h6,
             color = Color.White,
         )

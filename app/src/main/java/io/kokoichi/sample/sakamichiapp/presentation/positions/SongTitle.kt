@@ -31,7 +31,7 @@ fun SongTitle(
         Box(
             modifier = Modifier
                 .weight(1f)
-                .padding(0.dp, 0.dp, 0.dp, 0.dp),
+                .padding(0.dp),
         ) {
             Button(
                 onClick = {
