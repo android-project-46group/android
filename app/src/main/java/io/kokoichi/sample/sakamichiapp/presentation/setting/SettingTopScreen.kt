@@ -244,6 +244,9 @@ fun SnackbarSetting(
                                 .padding(5.dp)
                                 .testTag(TestTags.SNACK_BAR_TEXT),
                             text = snackbarData.message,
+                            style = MaterialTheme.typography.body2.copy(
+                                color = Color.DarkGray,
+                            ),
                         )
                     }
                 }
