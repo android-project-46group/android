@@ -1,7 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.presentation.setting
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -81,7 +81,9 @@ fun SettingTopScreen(
         )
 
         val context = LocalContext.current
-        VersionInfo {
+        VersionInfo(
+            borderColor = uiState.themeType.subColor,
+        ) {
             viewModel.writeIsDevTrue(context)
         }
         Spacer(
@@ -137,7 +139,10 @@ fun SettingRow(
 }
 
 @Composable
-fun VersionInfo(onIsDevChanged: () -> Unit) {
+fun VersionInfo(
+    borderColor: Color,
+    onIsDevChanged: () -> Unit,
+) {
 
     val context = LocalContext.current
     // For click timing
@@ -148,7 +153,7 @@ fun VersionInfo(onIsDevChanged: () -> Unit) {
     val snackbarCoroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     var snackBarJob: Job? = null
-    val thresholdMillSec = 500
+    val thresholdMillSec = 1000
     val needTap = 7
 
     var isDeveloper by remember { mutableStateOf(false) }
@@ -171,7 +176,7 @@ fun VersionInfo(onIsDevChanged: () -> Unit) {
                 }
                 lastTouchedTime = current
                 // If the count is near the needTapNum, show snack bar.
-                if (touchNum > 3) {
+                if (touchNum > 2) {
                     snackBarJob?.cancel()
                     snackBarJob = snackbarCoroutineScope.launch {
                         snackbarHostState.showSnackbar("You are now ${needTap - touchNum} steps away from being a developer.")
@@ -211,12 +216,16 @@ fun VersionInfo(onIsDevChanged: () -> Unit) {
         )
     }
 
-    SnackbarSetting(snackbarHostState)
+    SnackbarSetting(
+        snackbarHostState = snackbarHostState,
+        borderColor = borderColor,
+    )
 }
 
 @Composable
 fun SnackbarSetting(
     snackbarHostState: SnackbarHostState,
+    borderColor: Color,
 ) {
     Box(
         modifier = Modifier
@@ -229,10 +238,14 @@ fun SnackbarSetting(
             snackbar = { snackbarData: SnackbarData ->
                 Card(
                     shape = RoundedCornerShape(8.dp),
-                    border = BorderStroke(2.dp, Color.White),
                     modifier = Modifier
                         .padding(16.dp)
                         .wrapContentSize()
+                        .border(
+                            width = 1.dp,
+                            color = borderColor,
+                            shape = RoundedCornerShape(8.dp)
+                        )
                 ) {
                     Column(
                         modifier = Modifier.padding(8.dp),
