@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.presentation.setting
+package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -10,10 +10,11 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import io.kokoichi.sample.sakamichiapp.di.AppModule
 import io.kokoichi.sample.sakamichiapp.presentation.MainActivity
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsUiState
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsViewModel
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Rule

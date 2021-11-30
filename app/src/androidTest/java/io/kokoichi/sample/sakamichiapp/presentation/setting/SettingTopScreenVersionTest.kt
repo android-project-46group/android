@@ -13,6 +13,7 @@ import dagger.hilt.android.testing.UninstallModules
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.di.AppModule
 import io.kokoichi.sample.sakamichiapp.presentation.MainActivity
+import io.kokoichi.sample.sakamichiapp.presentation.setting.components.VersionInfo
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK

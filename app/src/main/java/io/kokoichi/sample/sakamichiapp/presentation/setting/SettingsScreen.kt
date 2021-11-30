@@ -8,6 +8,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import io.kokoichi.sample.sakamichiapp.presentation.setting.pages.*
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
 
 @Composable
@@ -47,6 +48,7 @@ fun SettingsRouting(
             SettingNavigation.ClearCache,
             SettingNavigation.ReportIssue,
             SettingNavigation.SetTheme,
+            SettingNavigation.ShareApp,
         )
         composable(SettingScreen.SettingTopScreen.route) {
             SettingTopScreen(
@@ -88,6 +90,9 @@ fun SettingsRouting(
                 onThemeChanged = onThemeChanged,
             )
         }
+        composable(SettingScreen.ShareAppScreen.route) {
+            ShareAppScreen()
+        }
     }
 }
 
@@ -122,5 +127,10 @@ sealed class SettingNavigation(
     object SetTheme : SettingNavigation(
         name = "テーマカラー設定",
         route = SettingScreen.SetThemeScreen.route
+    )
+
+    object ShareApp : SettingNavigation(
+        name = "このアプリをシェアする",
+        route = SettingScreen.ShareAppScreen.route
     )
 }

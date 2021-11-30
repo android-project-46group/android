@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.presentation.setting
+package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,8 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.kokoichi.sample.sakamichiapp.R
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsUiState
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsViewModel
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceMedium
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceTiny
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 
@@ -123,7 +126,7 @@ fun ReportIssueScreen(
                     TextButton(
                         modifier = Modifier
                             .weight(1f)
-                            .clip(RoundedCornerShape(5.dp))
+                            .clip(RoundedCornerShape(SpaceTiny))
                             .background(uiState.themeType.subColor)
                             .testTag(TestTags.REPORT_ISSUE_DIALOG_OK),
                         onClick = {
@@ -146,7 +149,7 @@ fun ReportIssueScreen(
                             .border(
                                 width = 1.dp,
                                 color = uiState.themeType.subColor,
-                                shape = RoundedCornerShape(5.dp)
+                                shape = RoundedCornerShape(SpaceTiny)
                             )
                             .testTag(TestTags.REPORT_ISSUE_DIALOG_CANCEL),
                         onClick = {
