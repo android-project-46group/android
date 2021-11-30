@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.presentation.setting
+package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -10,6 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.kokoichi.sample.sakamichiapp.R
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsUiState
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceHuge
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceSmall
 import io.kokoichi.sample.sakamichiapp.presentation.util.components.CustomDevider
 import io.kokoichi.sample.sakamichiapp.presentation.util.getBaseColor
 
@@ -47,7 +50,7 @@ fun ResultTitle() {
     ) {
         Text(
             modifier = Modifier
-                .padding(30.dp),
+                .padding(SpaceHuge),
             text = stringResource(R.string.quiz_result_screen_title),
             style = MaterialTheme.typography.h3,
         )
@@ -72,7 +75,7 @@ fun RowTest(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp, horizontal = 30.dp)
+            .padding(vertical = SpaceSmall, horizontal = SpaceHuge)
     ) {
         Text(
             modifier = Modifier

@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.presentation.setting
+package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -21,6 +21,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import io.kokoichi.sample.sakamichiapp.R
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsUiState
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceMedium
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SpaceTiny
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import java.io.File
 
@@ -55,7 +58,7 @@ fun CacheClearDialog(
                     )
                 },
                 buttons = {
-                    val buttonPaddingValue = 12.dp
+                    val buttonPaddingValue = SpaceMedium
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -65,7 +68,7 @@ fun CacheClearDialog(
                         TextButton(
                             modifier = Modifier
                                 .weight(1f)
-                                .clip(RoundedCornerShape(5.dp))
+                                .clip(RoundedCornerShape(SpaceTiny))
                                 .background(uiState.themeType.subColor)
                                 .testTag(TestTags.CACHE_CLEAR_DIALOG_OK),
                             onClick = {
@@ -89,7 +92,7 @@ fun CacheClearDialog(
                                 .border(
                                     width = 1.dp,
                                     color = uiState.themeType.subColor,
-                                    shape = RoundedCornerShape(5.dp)
+                                    shape = RoundedCornerShape(SpaceTiny)
                                 )
                                 .testTag(TestTags.CACHE_CLEAR_DIALOG_CANCEL),
                             onClick = {

@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.presentation.setting
+package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import io.kokoichi.sample.sakamichiapp.R
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsViewModel
+import io.kokoichi.sample.sakamichiapp.presentation.setting.ThemeType
+import io.kokoichi.sample.sakamichiapp.presentation.setting.themeTypes
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.*
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 
@@ -82,10 +85,10 @@ fun ThemeTopBar(
         )
         Icon(
             imageVector = Icons.Default.ArrowBack,
-            contentDescription = "back",
+            contentDescription = stringResource(R.string.back_arrow),
             tint = themeType.fontColor,
             modifier = Modifier
-                .size(30.dp)
+                .size(IconSizeMedium)
                 .clickable {
                     onArrowClick()
                 }
@@ -136,7 +139,7 @@ fun ColorRow(
         Spacer(modifier = Modifier.width(SpaceSmall))
         Box(
             modifier = Modifier
-                .size(25.dp)
+                .size(IconSizeMedium)
                 .clip(CircleShape)
                 .background(type.subColor)
         )
@@ -158,10 +161,10 @@ fun ColorRow(
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
-                    contentDescription = "check",
+                    contentDescription = stringResource(R.string.check),
                     tint = Color.LightGray,
                     modifier = Modifier
-                        .size(25.dp),
+                        .size(IconSizeMedium),
                 )
             }
         }

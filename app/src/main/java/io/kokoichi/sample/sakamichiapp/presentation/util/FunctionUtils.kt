@@ -103,3 +103,22 @@ fun getMilliSecFromLocalTime(time: LocalTime): Int {
 
     return time.second * 1_000 + time.nano / 1_000_000
 }
+
+/**
+ * Get generation list according to the passed group name.
+ *
+ * @param group group name
+ * @return List of group name (List<String>)
+ */
+fun getGenerationLooper(group: String): List<String> {
+    return when (group) {
+        "乃木坂" ->
+            Constants.POSSIBLE_GENERATIONS_N
+        "櫻坂" ->
+            Constants.POSSIBLE_GENERATIONS_S
+        "日向坂" ->
+            Constants.POSSIBLE_GENERATIONS_H
+        else ->
+            Constants.POSSIBLE_GENERATIONS_N
+    }
+}

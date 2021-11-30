@@ -1,4 +1,4 @@
-package io.kokoichi.sample.sakamichiapp.presentation.setting
+package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,6 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import io.kokoichi.sample.sakamichiapp.R
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsUiState
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsViewModel
 import io.kokoichi.sample.sakamichiapp.presentation.util.Constants.BottomBarPadding
 import io.kokoichi.sample.sakamichiapp.presentation.util.DataStoreManager
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
