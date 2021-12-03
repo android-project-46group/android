@@ -17,7 +17,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.R
@@ -167,15 +167,9 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = {
-                    // Always starts from startDestinationRoute
-                    if (currentRoute != item.route) {
-                        navController.graph.startDestinationRoute?.let { it ->
-                            navController.popBackStack(
-                                it, false
-                            )
-                        }
-                        navController.navigate(item.route)
-                    }
+                    // Always only one route is stocked
+                    navController.popBackStack()
+                    navController.navigate(item.route)
                 },
                 selectedContentColor = selectedColor,
                 unselectedContentColor = unSelectedColor,
