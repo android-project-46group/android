@@ -57,6 +57,8 @@ object Constants {
     // =========== Setting Screen ===========
     const val MAX_REPORT_ISSUE_BODY_LINES = 4
 
+    const val NAVIGATION_DURATION_MILLIS = 600
+
     // version in settings
     const val NEED_TAP_NUM_TO_SHOW_SNACK_BAR = 2
     const val NEED_TAP_NUM_TO_BE_DEVELOPER = 7

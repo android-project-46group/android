@@ -1,6 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -35,6 +36,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.util.components.WebViewWidge
 /**
  * Bottom navigation host setup (Register routing).
  */
+@ExperimentalAnimationApi
 @Composable
 fun BottomNavHost(
     navHostController: NavHostController,
