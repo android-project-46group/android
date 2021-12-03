@@ -1,16 +1,22 @@
 package io.kokoichi.sample.sakamichiapp.presentation.setting
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import io.kokoichi.sample.sakamichiapp.presentation.setting.pages.*
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.CustomSakaTheme
+import io.kokoichi.sample.sakamichiapp.presentation.util.Constants
 
+@ExperimentalAnimationApi
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
@@ -30,17 +36,31 @@ fun SettingsScreen(
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun SettingsRouting(
     viewModel: SettingsViewModel,
     uiState: SettingsUiState,
     onThemeChanged: (String) -> Unit = {},
 ) {
-    val navHostController = rememberNavController()
+    val navController = rememberAnimatedNavController()
 
-    NavHost(
-        navController = navHostController,
+    AnimatedNavHost(
+        navController,
+        modifier = Modifier.fillMaxSize(),
         startDestination = SettingScreen.SettingTopScreen.route,
+        enterTransition = { _, _ ->
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Left,
+                animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
+            ) + fadeIn(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
+        },
+        popExitTransition = { _, _ ->
+            slideOutOfContainer(
+                AnimatedContentScope.SlideDirection.Right,
+                animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
+            ) + fadeOut(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
+        },
     ) {
         val navigation = listOf(
             SettingNavigation.UpdateBlog,
@@ -50,9 +70,24 @@ fun SettingsRouting(
             SettingNavigation.SetTheme,
             SettingNavigation.ShareApp,
         )
-        composable(SettingScreen.SettingTopScreen.route) {
+
+        composable(
+            route = SettingScreen.SettingTopScreen.route,
+            exitTransition = { _, _ ->
+                slideOutOfContainer(
+                    AnimatedContentScope.SlideDirection.Left,
+                    animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
+                ) + fadeOut(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
+            },
+            popEnterTransition = { _, _ ->
+                slideIntoContainer(
+                    AnimatedContentScope.SlideDirection.Right,
+                    animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
+                ) + fadeIn(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
+            }
+        ) {
             SettingTopScreen(
-                navController = navHostController,
+                navController = navController,
                 navigationList = navigation,
                 viewModel = viewModel,
                 uiState = uiState,
@@ -60,7 +95,7 @@ fun SettingsRouting(
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
             UpdateBlogScreen(
-                navController = navHostController,
+                navController = navController,
                 viewModel = viewModel,
                 uiState = uiState,
             )
@@ -72,7 +107,7 @@ fun SettingsRouting(
         }
         composable(SettingScreen.ClearCacheScreen.route) {
             CacheClearDialog(
-                navController = navHostController,
+                navController = navController,
                 uiState = uiState,
             )
         }
@@ -84,7 +119,7 @@ fun SettingsRouting(
         }
         composable(SettingScreen.SetThemeScreen.route) {
             SetThemeScreen(
-                navController = navHostController,
+                navController = navController,
                 viewModel = viewModel,
                 selected = uiState.themeType.name,
                 onThemeChanged = onThemeChanged,
