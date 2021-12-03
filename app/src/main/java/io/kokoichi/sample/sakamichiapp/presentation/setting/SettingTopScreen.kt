@@ -62,7 +62,9 @@ fun SettingTopScreen(
                 SettingRow(
                     text = item.name,
                     onclick = {
-                        navController.navigate(item.route)
+                        if (navController.currentDestination?.route !in navigationList.map { it.route }) {
+                            navController.navigate(item.route)
+                        }
                     }
                 )
                 Divider(
