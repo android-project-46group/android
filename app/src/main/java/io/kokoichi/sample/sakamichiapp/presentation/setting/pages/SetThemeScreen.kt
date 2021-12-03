@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -88,12 +89,19 @@ fun ThemeTopBar(
             contentDescription = stringResource(R.string.back_arrow),
             tint = themeType.fontColor,
             modifier = Modifier
-                .size(IconSizeMedium)
+                .size(
+                    width = IconSizeMedium + SpaceTiny + SpaceTiny,
+                    height = IconSizeMedium + SpaceTiny
+                )
+                .clip(RoundedCornerShape(SpaceTiny))
                 .clickable {
                     onArrowClick()
                 }
+                .padding(end = SpaceTiny)
+                .padding(SpaceTiny / 2)
                 .testTag(TestTags.SET_THEME_BACK_ARROW),
-        )
+            )
+
     }
 }
 
