@@ -72,7 +72,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: default
           arch: x86
-          profile: Nexus 6
+          profile: Galaxy Nexus
           script: ./gradlew connectedCheck --stacktrace
 
       - name: Upload Reports
@@ -93,6 +93,13 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+
+      - name: Load build files from cache (can i?)
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: app/build/outputs/apk/debug
+          key: ${{ runner.os }}-build
 
       - name: Upload apk file
         uses: actions/upload-artifact@v2
