@@ -40,12 +40,20 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Cache build files
-        id: cache-build
+        id: cache_build_id
         uses: actions/cache@v2
         with:
           path: app/build/outputs/apk/debug
           # key: ${{ runner.os }}-build
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
+      
+      # Save whether new version or not
+      - name: New version
+        if: steps.cache_build_id.outputs.cache-hit != 'true'
+        run: echo "is_new_build=true" >> $GITHUB_ENV
+      - name: NOT new version
+        if: steps.cache_build_id.outputs.cache-hit == 'true'
+        run: echo "is_new_build=false" >> $GITHUB_ENV
 
   test:
     runs-on: macos-latest
@@ -54,7 +62,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [ 29, 30, 31 ]
+        api-level: [ 26, 27, 28, 29, 30 ]
 
     steps:
       - name: checkout
@@ -81,7 +89,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: ${{ env.env_target }}
+          # target: ${{ env.env_target }}
+          target: google_apis
           arch: x86
           profile: Galaxy Nexus
           script: ./gradlew connectedCheck --stacktrace
@@ -89,7 +98,7 @@ jobs:
       - name: Upload Reports
         uses: actions/upload-artifact@v2
         with:
-          name: Test-Reports
+          name: Test-Reports-API${{ matrix.api-level }}
           path: app/build/reports
         if: always()
   
@@ -116,6 +125,7 @@ jobs:
 
       - name: Upload apk file
         uses: actions/upload-artifact@v2
+        if: ${{ env.is_new_build }} == 'true'
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk
