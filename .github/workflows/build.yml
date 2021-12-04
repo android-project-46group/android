@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [ 23, 29 ]
+        api-level: [ 26, 29 ]
 
     steps:
       - name: checkout
@@ -81,7 +81,8 @@ jobs:
   deploy:
     if: github.event_name == 'push'
 
-    needs: [ build, test ]
+    # needs: [ build, test ]
+    needs: build
 
     runs-on: ubuntu-latest
     steps:
