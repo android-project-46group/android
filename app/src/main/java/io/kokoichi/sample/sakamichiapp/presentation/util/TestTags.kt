@@ -50,6 +50,9 @@ object TestTags {
     const val SET_THEME_BACK_ARROW = "SET_THEME_BACK_ARROW"
     const val SET_THEME_THEME = "SET_THEME_THEME"
 
+    // Setting utils
+    const val SETTING_TOP_BAR = "SETTING_TOP_BAR"
+
     // Utils
     const val GROUP_BAR = "GROUP_BAR"
 }

@@ -64,7 +64,7 @@ class SetThemeScreenTest {
 
         // Assert
         composeRule
-            .onNodeWithTag(TestTags.SET_THEME_TITLE)
+            .onNodeWithTag(TestTags.SETTING_TOP_BAR)
             .assertExists()
             .assertTextEquals(expectedStr)
         composeRule
@@ -108,7 +108,7 @@ class SetThemeScreenTest {
 
         // Act
         composeRule
-            .onNodeWithTag(TestTags.SET_THEME_TITLE)
+            .onNodeWithTag(TestTags.SETTING_TOP_BAR)
             .performClick()
         composeRule
             .onAllNodesWithTag(TestTags.SET_THEME_THEME)[0]

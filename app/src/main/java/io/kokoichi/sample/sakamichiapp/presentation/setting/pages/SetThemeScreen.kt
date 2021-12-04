@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,12 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsViewModel
 import io.kokoichi.sample.sakamichiapp.presentation.setting.ThemeType
+import io.kokoichi.sample.sakamichiapp.presentation.setting.components.SettingTopBar
 import io.kokoichi.sample.sakamichiapp.presentation.setting.themeTypes
 import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.*
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
@@ -43,8 +41,9 @@ fun SetThemeScreen(
     val context = LocalContext.current
 
     Column {
-        ThemeTopBar(
+        SettingTopBar(
             themeType = themeTypes.first { it.name == selectedItem },
+            text = stringResource(R.string.set_theme_title),
             onArrowClick = {
                 navController.popBackStack()
             },
@@ -60,48 +59,6 @@ fun SetThemeScreen(
                 onThemeChanged(type.name)
             }
         )
-    }
-}
-
-@Composable
-fun ThemeTopBar(
-    themeType: ThemeType,
-    onArrowClick: () -> Unit = {},
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(themeType.subColor)
-            .padding(SpaceMedium),
-        contentAlignment = Alignment.CenterStart,
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag(TestTags.SET_THEME_TITLE),
-            text = stringResource(R.string.set_theme_title),
-            style = Typography.h5,
-            color = themeType.fontColor,
-            textAlign = TextAlign.Center,
-        )
-        Icon(
-            imageVector = Icons.Default.ArrowBack,
-            contentDescription = stringResource(R.string.back_arrow),
-            tint = themeType.fontColor,
-            modifier = Modifier
-                .size(
-                    width = IconSizeMedium + SpaceTiny + SpaceTiny,
-                    height = IconSizeMedium + SpaceTiny
-                )
-                .clip(RoundedCornerShape(SpaceTiny))
-                .clickable {
-                    onArrowClick()
-                }
-                .padding(end = SpaceTiny)
-                .padding(SpaceTiny / 2)
-                .testTag(TestTags.SET_THEME_BACK_ARROW),
-            )
-
     }
 }
 
