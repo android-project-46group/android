@@ -3,8 +3,10 @@ package io.kokoichi.sample.sakamichiapp.presentation.setting.pages
 import android.content.Context
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -12,8 +14,7 @@ import dagger.hilt.android.testing.UninstallModules
 import io.kokoichi.sample.sakamichiapp.R
 import io.kokoichi.sample.sakamichiapp.di.AppModule
 import io.kokoichi.sample.sakamichiapp.presentation.MainActivity
-import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsViewModel
-import io.kokoichi.sample.sakamichiapp.presentation.setting.ThemeType
+import io.kokoichi.sample.sakamichiapp.presentation.setting.SettingsUiState
 import io.kokoichi.sample.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
@@ -25,7 +26,7 @@ import org.junit.Test
 @ExperimentalMaterialApi
 @HiltAndroidTest
 @UninstallModules(AppModule::class)
-class SetThemeScreenTest {
+class ShareAppScreenTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
 
@@ -36,7 +37,7 @@ class SetThemeScreenTest {
     lateinit var navController: NavHostController
 
     @RelaxedMockK
-    lateinit var viewModel: SettingsViewModel
+    lateinit var uiState: SettingsUiState
 
     lateinit var context: Context
 
@@ -47,37 +48,38 @@ class SetThemeScreenTest {
 
         composeRule.setContent {
             context = LocalContext.current
-            SetThemeScreen(
+            ShareAppScreen(
                 navController = navController,
-                viewModel = viewModel,
+                uiState = uiState,
             )
         }
     }
 
     @Test
-    fun setThemeScreen_display() {
+    fun shareAppScreen_display() {
         // Arrange
-        val expectedStr =
-            context.resources.getString(R.string.set_theme_title)
+        val expectedTitleStr =
+            context.resources.getString(R.string.share_app_title)
+        val expectedMessageStr =
+            context.resources.getString(R.string.share_app_message)
 
         // Act
 
         // Assert
+        // Title in top bar
         composeRule
             .onNodeWithTag(TestTags.SETTING_TOP_BAR)
             .assertExists()
-            .assertTextEquals(expectedStr)
+            .assertTextEquals(expectedTitleStr)
+        // Image
         composeRule
-            .onNodeWithTag(TestTags.SET_THEME_BACK_ARROW)
+            .onNodeWithTag(TestTags.SHARE_APP_QR_CODE)
             .assertExists()
-        // Only one Check Icon
+        // Share with other apps button
         composeRule
-            .onNodeWithContentDescription("check")
+            .onNodeWithTag(TestTags.SHARE_APP_MESSAGE)
             .assertExists()
-        // At least one theme row
-        composeRule
-            .onAllNodesWithTag(TestTags.SET_THEME_THEME)[0]
-            .assertExists()
+            .assertTextEquals(expectedMessageStr)
     }
 
     @Test
@@ -95,53 +97,6 @@ class SetThemeScreenTest {
         // Assert
         verify(exactly = 1) {
             navController.popBackStack()
-        }
-    }
-
-    @Test
-    fun onOtherThanBackArrowClicked_notNavigate() {
-        // Arrange
-        verify(exactly = 0) {
-            navController.navigateUp()
-            navController.popBackStack()
-        }
-
-        // Act
-        composeRule
-            .onNodeWithTag(TestTags.SETTING_TOP_BAR)
-            .performClick()
-        composeRule
-            .onAllNodesWithTag(TestTags.SET_THEME_THEME)[0]
-            .performClick()
-        composeRule
-            .onNodeWithContentDescription("check")
-            .assertExists()
-
-        // Assert
-        verify(exactly = 0) {
-            navController.navigateUp()
-            navController.popBackStack()
-        }
-    }
-
-    @Test
-    fun onThemeClicked_setTheme() {
-        // Arrange
-        val theme = ThemeType.Sakurazaka
-        verify(exactly = 0) {
-            viewModel.setThemeType(theme)
-            viewModel.writeTheme(context, theme.name)
-        }
-
-        // Act
-        composeRule
-            .onNodeWithText(theme.name)
-            .performClick()
-
-        // Assert
-        verify(exactly = 1) {
-            viewModel.setThemeType(theme)
-            viewModel.writeTheme(context, theme.name)
         }
     }
 }
