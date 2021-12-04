@@ -46,9 +46,12 @@ object TestTags {
     const val REPORT_ISSUE_DIALOG_CANCEL = "REPORT_ISSUE_DIALOG_CANCEL"
 
     // SetTheme Screen
-    const val SET_THEME_TITLE = "SET_THEME_TITLE"
     const val SET_THEME_BACK_ARROW = "SET_THEME_BACK_ARROW"
     const val SET_THEME_THEME = "SET_THEME_THEME"
+
+    // ShareApp Screen
+    const val SHARE_APP_MESSAGE = "SHARE_APP_MESSAGE"
+    const val SHARE_APP_QR_CODE = "SHARE_APP_QR_CODE"
 
     // Setting utils
     const val SETTING_TOP_BAR = "SETTING_TOP_BAR"

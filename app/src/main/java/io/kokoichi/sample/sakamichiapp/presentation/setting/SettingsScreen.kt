@@ -126,7 +126,10 @@ fun SettingsRouting(
             )
         }
         composable(SettingScreen.ShareAppScreen.route) {
-            ShareAppScreen()
+            ShareAppScreen(
+                navController = navController,
+                uiState = uiState,
+            )
         }
     }
 }
