@@ -83,6 +83,7 @@ jobs:
 
     needs: [ build, test ]
 
+    runs-on: ubuntu-latest
     steps:
       - name: Upload apk file
         uses: actions/upload-artifact@v2
