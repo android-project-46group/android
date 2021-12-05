@@ -30,77 +30,69 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      - name: Run Android Lint
-        run: ./gradlew lintDebug
+      # - name: Run Android Lint
+      #   run: ./gradlew lintDebug
 
-      - name: Run Unit Test
-        run: ./gradlew testDebug
+      # - name: Run Unit Test
+      #   run: ./gradlew testDebug
 
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+      # - name: Build with Gradle
+      #   run: ./gradlew assembleDebug
 
       - name: Cache build files
         id: cache_build_id
         uses: actions/cache@v2
         with:
           path: app/build/outputs/apk/debug
-          # key: ${{ runner.os }}-build
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
-      
-      # Save whether new version or not
-      - name: New version
-        if: steps.cache_build_id.outputs.cache-hit != 'true'
-        run: echo "is_new_build=true" >> $GITHUB_ENV
-      - name: NOT new version
-        if: steps.cache_build_id.outputs.cache-hit == 'true'
-        run: echo "is_new_build=false" >> $GITHUB_ENV
 
-  test:
-    runs-on: macos-latest
-    # needs: build
+  # test:
+  #   if: "!contains(github.event.head_commit.message, 'skip test')"
 
-    strategy:
-      fail-fast: false
-      matrix:
-        api-level: [ 26, 27, 28, 29, 30 ]
+  #   runs-on: macos-latest
+  #   # needs: build
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       api-level: [ 29, 30 ]
 
-      # setup JDK
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '11'
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v2
 
-      # https://docs.github.com/ja/actions/learn-github-actions/workflow-commands-for-github-actions#example
-      - name: Set the target name to GITHUB_ENV 
-        id: setup_target_name
-        run: |
-          target="default"
-          if [ "${{ matrix.api-level }}" -ge "29" ]; then
-            target="google_apis"
-          fi
-          echo "env_target=$target" >> $GITHUB_ENV
+  #     # setup JDK
+  #     - name: set up JDK 11
+  #       uses: actions/setup-java@v2
+  #       with:
+  #         distribution: 'zulu'
+  #         java-version: '11'
 
-      - name: Run tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          # target: ${{ env.env_target }}
-          target: google_apis
-          arch: x86
-          profile: Galaxy Nexus
-          script: ./gradlew connectedCheck --stacktrace
+  #     # https://docs.github.com/ja/actions/learn-github-actions/workflow-commands-for-github-actions#example
+  #     - name: Set the target name to GITHUB_ENV 
+  #       id: setup_target_name
+  #       run: |
+  #         target="default"
+  #         if [ "${{ matrix.api-level }}" -ge "29" ]; then
+  #           target="google_apis"
+  #         fi
+  #         echo "env_target=$target" >> $GITHUB_ENV
 
-      - name: Upload Reports
-        uses: actions/upload-artifact@v2
-        with:
-          name: Test-Reports-API${{ matrix.api-level }}
-          path: app/build/reports
-        if: always()
+  #     - name: Run tests
+  #       uses: reactivecircus/android-emulator-runner@v2
+  #       with:
+  #         api-level: ${{ matrix.api-level }}
+  #         target: ${{ env.env_target }}
+  #         arch: x86
+  #         profile: Galaxy Nexus
+  #         script: ./gradlew connectedCheck --stacktrace
+
+  #     - name: Upload Reports
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: Test-Reports-API${{ matrix.api-level }}
+  #         path: app/build/reports
+  #       if: always()
   
   deploy:
     if: github.event_name == 'push'
@@ -119,15 +111,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: app/build/outputs/apk/debug
-          # key: ${{ runner.os }}-build
-          # no files?
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
 
       - name: Upload apk file
-        if: ${{ env.is_new_build }} == 'true'
         uses: actions/upload-artifact@v2
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk
           retention-days: 3
-
