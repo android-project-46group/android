@@ -30,6 +30,16 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
+      - name: Cache Gradle files for later Unit test
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+              
       # - name: Run Android Lint
       #   run: ./gradlew lintDebug
 
@@ -51,6 +61,16 @@ jobs:
     needs: build
 
     steps:
+      - name: Cache Gradle files
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Run Unit Test
         run: ./gradlew testDebug
 
