@@ -88,6 +88,9 @@ class SettingTopScreenTest {
     @Test
     fun settingRow_canNavigate() {
         // Arrange
+        verify(exactly = 0) {
+            navController.navigate(SettingNavigation.ClearCache.route)
+        }
 
         // Act
         composeRule
@@ -95,7 +98,7 @@ class SettingTopScreenTest {
             .performClick()
 
         // Assert
-        verify {
+        verify(exactly = 1) {
             navController.navigate(SettingNavigation.ClearCache.route)
         }
     }

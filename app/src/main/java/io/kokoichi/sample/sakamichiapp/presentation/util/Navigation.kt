@@ -1,5 +1,6 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.ExperimentalMaterialApi
@@ -15,6 +16,7 @@ import kotlinx.coroutines.async
 /**
  * Compose navigation set-up.
  */
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun Navigation() {

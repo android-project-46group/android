@@ -12,7 +12,7 @@ android {
         minSdk 26
         targetSdk 31
         versionCode 1
-        versionName "0.3.0"
+        versionName "1.0.0"
         buildConfigField("String", "API_KEY", API_KEY)
 
         testInstrumentationRunner "io.kokoichi.sample.sakamichiapp.HiltTestRunner"
@@ -40,7 +40,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.21'
+        kotlinCompilerVersion '1.6'
     }
     packagingOptions {
         resources {
@@ -71,7 +71,7 @@ dependencies {
 
     // Compose dependencies
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
-    implementation "androidx.navigation:navigation-compose:2.4.0-alpha08"
+    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
     implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"
 
     // Retrofit
@@ -141,6 +141,8 @@ dependencies {
 
     // Action bar helper
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
+    // Animated navigation
+    implementation "com.google.accompanist:accompanist-navigation-animation:0.20.2"
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"

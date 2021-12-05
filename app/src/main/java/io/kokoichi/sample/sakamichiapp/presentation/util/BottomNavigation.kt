@@ -1,6 +1,7 @@
 package io.kokoichi.sample.sakamichiapp.presentation.util
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -17,7 +18,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
 import io.kokoichi.sample.sakamichiapp.R
@@ -35,6 +36,7 @@ import io.kokoichi.sample.sakamichiapp.presentation.util.components.WebViewWidge
 /**
  * Bottom navigation host setup (Register routing).
  */
+@ExperimentalAnimationApi
 @Composable
 fun BottomNavHost(
     navHostController: NavHostController,
@@ -167,15 +169,9 @@ fun BottomNavigationBar(
             BottomNavigationItem(
                 selected = selected,
                 onClick = {
-                    // Always starts from startDestinationRoute
-                    if (currentRoute != item.route) {
-                        navController.graph.startDestinationRoute?.let { it ->
-                            navController.popBackStack(
-                                it, false
-                            )
-                        }
-                        navController.navigate(item.route)
-                    }
+                    // Always only one route is stocked
+                    navController.popBackStack()
+                    navController.navigate(item.route)
                 },
                 selectedContentColor = selectedColor,
                 unselectedContentColor = unSelectedColor,

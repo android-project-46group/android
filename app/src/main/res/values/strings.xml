@@ -37,6 +37,8 @@
 
     <!--    Strings for SettingTopScreen-->
     <string name="developer_success_snack_bar_text">You are now a developer!</string>
+    <string name="developer_on_the_way_snack_bar_text">You are now %d steps away from being a developer.</string>
+    <string name="version_info_in_settings">バージョン情報 %s</string>
 
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">クイズ正解数</string>
@@ -66,4 +68,17 @@
 
     <!--    Strings for SetThemeScreen-->
     <string name="set_theme_title">テーマカラー</string>
+
+    <!--    Strings for ShareAppScreen-->
+    <string name="share_app_title">アプリをシェアする</string>
+    <string name="share_app_intent_text">%s を利用すると坂道グループに関する様々な情報を入手できます。</string>
+    <string name="share_app_apk_link">https://kokoichi0206.mydns.jp/app-debug.apk</string>
+    <string name="share_app_intent_title">このアプリを他の人に共有します</string>
+    <string name="share_app_message">他のアプリを開く</string>
+
+    <!--    Content descriptions-->
+    <string name="back_arrow">back arrow</string>
+    <string name="right_arrow">right arrow</string>
+    <string name="check">check</string>
+    <string name="url_link">link for apk</string>
 </resources>

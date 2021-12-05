@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 
 object Constants {
 
+    // =========== Compose Navigation ===========
     /**
      * Escape string (percent-encoding)
      */
@@ -44,33 +45,23 @@ object Constants {
     )
 
     // =========== Blog Screen ===========
-    val MAX_QUIZ_COUNT = 5
+    const val MAX_QUIZ_COUNT = 5
     // Padding or composable size.
     val BottomBarPadding = PaddingValues(
         top = 10.dp, bottom = 56.dp, start = 5.dp, end = 5.dp
     )
+    val BottomPadding = 56.dp
 
     const val BLOG_ONE_ROW_NUM = 3
 
     // =========== Setting Screen ===========
     const val MAX_REPORT_ISSUE_BODY_LINES = 4
+
+    const val NAVIGATION_DURATION_MILLIS = 600
+
+    // version in settings
+    const val NEED_TAP_NUM_TO_SHOW_SNACK_BAR = 2
+    const val NEED_TAP_NUM_TO_BE_DEVELOPER = 7
+    const val CANCELLATION_THRESHOLD_MILLI_TIMES_OF_DEVELOPER = 1_000
 }
 
-/**
- * Get generation list according to the passed group name.
- *
- * @param group group name
- * @return List of group name (List<String>)
- */
-fun getGenerationLooper(group: String): List<String> {
-    return when (group) {
-        "乃木坂" ->
-            Constants.POSSIBLE_GENERATIONS_N
-        "櫻坂" ->
-            Constants.POSSIBLE_GENERATIONS_S
-        "日向坂" ->
-            Constants.POSSIBLE_GENERATIONS_H
-        else ->
-            Constants.POSSIBLE_GENERATIONS_N
-    }
-}
