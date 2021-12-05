@@ -36,8 +36,8 @@ jobs:
       # - name: Run Unit Test
       #   run: ./gradlew testDebug
 
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+      # - name: Build with Gradle
+        # run: ./gradlew assembleDebug
 
       - name: Cache build files
         id: cache_build_id
@@ -106,7 +106,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
 
-      - name: Load build files from cache (can i?)
+      - name: Load build files from cache
         id: cache-build
         uses: actions/cache@v2
         with:
