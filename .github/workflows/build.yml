@@ -2,15 +2,14 @@ name: Build & test
 
 on:
   push:
-    # branches-ignore:
-    #   - issue/**
+    branches:
+      - main
+      - leading
     paths-ignore:
-      - 'readme/**'
-      - README.md
+      - '**.md'
   pull_request:
     paths-ignore:
-      - 'readme/**'
-      - README.md
+      - '**.md'
 
 jobs:
   build:
@@ -39,6 +38,7 @@ jobs:
       # - name: Build with Gradle
         # run: ./gradlew assembleDebug
 
+      # Cache build files for later deploy
       - name: Cache build files
         id: cache_build_id
         uses: actions/cache@v2
