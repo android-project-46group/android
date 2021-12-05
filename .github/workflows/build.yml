@@ -63,17 +63,17 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-        
-      - name: Cache Gradle files
-        uses: actions/cache@v2
-        with:
-          path: |
-            .gradlew
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+
+      # - name: Cache Gradle files
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       .gradlew
+      #       ~/.gradle/caches
+      #       ~/.gradle/wrapper
+      #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-gradle-
 
       - name: Run Unit Test
         run: ./gradlew testDebug
