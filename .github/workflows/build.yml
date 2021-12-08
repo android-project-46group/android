@@ -79,9 +79,9 @@ jobs:
 
       # setup JDK
       - name: set up JDK 11
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v1
         with:
-          distribution: 'zulu'
+          # distribution: 'zulu'
           java-version: '11'
 
       # Determin emulator image to use according to api-level.
@@ -102,7 +102,7 @@ jobs:
           target: ${{ env.env_target }}
           profile: Galaxy Nexus
           emulator-build: 7425822
-          script: ./gradlew --scan --continue --no-configuration-cache --stacktrace runAffectedAndroidTests
+          script: ./gradlew --scan --continue --no-configuration-cache --stacktrace connectedCheck
 
       # Upload results as a artifact even if the test failed
       - name: Upload Reports
