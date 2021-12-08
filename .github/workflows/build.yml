@@ -65,7 +65,7 @@ jobs:
 
   android-emulator-test:
     runs-on: macos-latest
-    needs: build
+    # needs: build
     timeout-minutes: 30
 
     strategy:
@@ -100,10 +100,9 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: ${{ env.env_target }}
-          arch: x86
           profile: Galaxy Nexus
           emulator-build: 7425822
-          script: ./gradlew connectedCheck --stacktrace
+          script: ./gradlew --scan --continue --no-configuration-cache --stacktrace connectedCheck
 
       # Upload results as a artifact even if the test failed
       - name: Upload Reports
