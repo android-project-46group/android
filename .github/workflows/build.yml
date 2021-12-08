@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - leading
+      - ci-test
     paths-ignore:
       - '**.md'
   pull_request:
@@ -70,7 +71,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [ 29, 30 ]
+        api-level: [ 26, 27, 29, 30 ]
 
     steps:
       - name: checkout
@@ -101,6 +102,7 @@ jobs:
           target: ${{ env.env_target }}
           arch: x86
           profile: Galaxy Nexus
+          emulator-build: 7425822
           script: ./gradlew connectedCheck --stacktrace
 
       # Upload results as a artifact even if the test failed
