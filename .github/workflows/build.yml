@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - leading
-      - issue/63
+      - issue/21
     paths-ignore:
       - '**.md'
   pull_request:
@@ -37,8 +37,14 @@ jobs:
 
       - name: Build with Gradle
         run: |
+          if [[ -n "${{ secrets.KEYSTORE_BASE64 }}" ]]; then
+            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+            export KEYSTORE_PASSWORD="${{ secrets.KEYSTORE_PASSWORD }}"
+            export KEY_ALIAS="${{ secrets.KEY_ALIAS }}"
+            export KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}"
+          fi
           export ENV_API_KEY="${{ secrets.API_KEY }}"
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
 
       # Cache build files for later deploy
       - name: Cache build files
@@ -136,5 +142,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/release/*
           retention-days: 3
