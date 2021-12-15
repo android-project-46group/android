@@ -30,10 +30,10 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      - name: Decrypt secrets
-        shell: bash
-        env:
-          ENV_API_KEY: ${{ secrets.API_KEY }}
+      # - name: Decrypt secrets
+      #   shell: bash
+      #   env:
+      #     ENV_API_KEY: ${{ secrets.API_KEY }}
 
       - name: Run Android Lint
         run: ./gradlew lintDebug
