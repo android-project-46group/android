@@ -41,7 +41,12 @@ jobs:
         run: ./gradlew lintDebug
 
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: |
+          export TEST_ENV="${{ secrets.SECRET_TEST }}"
+          echo "${TEST_ENV}"
+          export ENV_API_KEY="${{ secrets.API_KEY }}"
+          ./gradlew assembleRelease
+        # run: ./gradlew assembleDebug
 
       # Cache build files for later deploy
       - name: Cache build files
