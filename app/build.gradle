@@ -12,8 +12,9 @@ android {
         minSdk 26
         targetSdk 31
         versionCode 1
-        versionName "1.0.0"
-        buildConfigField("String", "API_KEY", API_KEY)
+        versionName "1.1.0"
+//        buildConfigField("String", "API_KEY", API_KEY)
+        buildConfigField("String", "API_KEY", System.getenv('ENV_API_KEY') ?: API_KEY)
 
         testInstrumentationRunner "io.kokoichi.sample.sakamichiapp.HiltTestRunner"
         vectorDrawables {
