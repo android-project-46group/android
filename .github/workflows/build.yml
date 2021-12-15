@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - leading
+      - issue/63
     paths-ignore:
       - '**.md'
   pull_request:
@@ -19,11 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    # You have to specify the environment to use secrets.
+    environment: production
     steps:
       - name: Check out
         uses: actions/checkout@v2
         
-      - name: set up JDK 11
+      - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
@@ -33,14 +36,16 @@ jobs:
         run: ./gradlew lintDebug
 
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: |
+          export ENV_API_KEY="${{ secrets.API_KEY }}"
+          ./gradlew assembleDebug
 
       # Cache build files for later deploy
       - name: Cache build files
         id: cache_build_id
         uses: actions/cache@v2
         with:
-          path: app/build/outputs/apk/debug
+          path: app/build/outputs/apk/
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
 
   local-test:
@@ -85,7 +90,7 @@ jobs:
 
       # Determin emulator image to use according to api-level.
       # https://docs.github.com/ja/actions/learn-github-actions/workflow-commands-for-github-actions#example
-      - name: Set the target name to GITHUB_ENV 
+      - name: Set the emulator target name to GITHUB_ENV 
         id: setup_target_name
         run: |
           target="default"
@@ -124,7 +129,7 @@ jobs:
         id: cache-build
         uses: actions/cache@v2
         with:
-          path: app/build/outputs/apk/debug
+          path: app/build/outputs/apk/
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
 
       - name: Upload apk file
