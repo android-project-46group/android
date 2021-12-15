@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    environment: production
     env:
       ENV_API_KEY: ${{ secrets.API_KEY }}
       TEST_KEY: ${{ secrets.SECRET_TEST }}
