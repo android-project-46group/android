@@ -12,8 +12,7 @@ android {
         minSdk 26
         targetSdk 31
         versionCode 1
-        versionName "1.1.4"
-//        buildConfigField("String", "API_KEY", API_KEY)
+        versionName "1.1.5"
         buildConfigField("String", "API_KEY", "\"${System.getenv('API_KEY')}\"" ?: API_KEY)
 
         testInstrumentationRunner "io.kokoichi.sample.sakamichiapp.HiltTestRunner"
