@@ -37,8 +37,9 @@ jobs:
 
       - name: Build with Gradle
         run: |
+          pwd
           if [[ -n "${{ secrets.KEYSTORE_BASE64 }}" ]]; then
-            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/release.keystore
             export KEYSTORE_PASSWORD="${{ secrets.KEYSTORE_PASSWORD }}"
             export KEY_ALIAS="${{ secrets.KEY_ALIAS }}"
             export KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}"
