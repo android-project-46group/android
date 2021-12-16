@@ -3,7 +3,7 @@
 ## How to get this App
 ------------
 
-* [Link](https://kokoichi0206.mydns.jp/app-debug.apk)
+* [Link](https://kokoichi0206.mydns.jp/sakamichi-app.apk)
 * QR Code
 
 ![](./readme/link_to_apk.png)

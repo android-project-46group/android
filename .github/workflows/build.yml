@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - leading
-      - issue/21
     paths-ignore:
       - '**.md'
   pull_request:
@@ -37,7 +36,6 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          pwd
           if [[ -n "${{ secrets.KEYSTORE_BASE64 }}" ]]; then
             echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/release.keystore
             export KEYSTORE_PASSWORD="${{ secrets.KEYSTORE_PASSWORD }}"
