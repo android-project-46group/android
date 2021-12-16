@@ -19,11 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    # You have to specify the environment to use secrets.
+    environment: production
     steps:
       - name: Check out
         uses: actions/checkout@v2
         
-      - name: set up JDK 11
+      - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
@@ -33,14 +35,22 @@ jobs:
         run: ./gradlew lintDebug
 
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: |
+          if [[ -n "${{ secrets.KEYSTORE_BASE64 }}" ]]; then
+            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/release.keystore
+            export KEYSTORE_PASSWORD="${{ secrets.KEYSTORE_PASSWORD }}"
+            export KEY_ALIAS="${{ secrets.KEY_ALIAS }}"
+            export KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}"
+          fi
+          export ENV_API_KEY="${{ secrets.API_KEY }}"
+          ./gradlew assembleRelease
 
       # Cache build files for later deploy
       - name: Cache build files
         id: cache_build_id
         uses: actions/cache@v2
         with:
-          path: app/build/outputs/apk/debug
+          path: app/build/outputs/apk/
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
 
   local-test:
@@ -85,7 +95,7 @@ jobs:
 
       # Determin emulator image to use according to api-level.
       # https://docs.github.com/ja/actions/learn-github-actions/workflow-commands-for-github-actions#example
-      - name: Set the target name to GITHUB_ENV 
+      - name: Set the emulator target name to GITHUB_ENV 
         id: setup_target_name
         run: |
           target="default"
@@ -124,12 +134,12 @@ jobs:
         id: cache-build
         uses: actions/cache@v2
         with:
-          path: app/build/outputs/apk/debug
+          path: app/build/outputs/apk/
           key: ${{ runner.os }}-${{ hashFiles('app/build.gradle') }}
 
       - name: Upload apk file
         uses: actions/upload-artifact@v2
         with:
           name: apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/release/*
           retention-days: 3
