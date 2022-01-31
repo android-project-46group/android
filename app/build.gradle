@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.dokka'
 }
 
 def applicationName = "SakamichiApp"
@@ -29,7 +30,7 @@ android {
             return
         }
         variant.outputs.all {
-            outputFileName = "${applicationName}-${versionName}.apk"  // ←ココ
+            outputFileName = "${applicationName}-${versionName}.apk"
         }
     }
 
@@ -74,6 +75,17 @@ android {
     configurations.all {
         resolutionStrategy {
             force 'junit:junit:4.13.2'
+        }
+    }
+}
+
+dokkaGfm.configure {
+//    dokkaHtml.configure {
+    // projectDir は app フォルダのこと
+    outputDirectory.set(new File("${projectDir}/build/dokkaGfm"))
+    dokkaSourceSets {
+        named("main") {
+            noAndroidSdkLink.set(false)
         }
     }
 }
@@ -172,4 +184,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     // optional - RxJava3 support
     implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0"
+
+    // Fix sqlite database error in m1 mac
+    kapt "org.xerial:sqlite-jdbc:3.34.0"
 }
