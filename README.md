@@ -9,7 +9,7 @@
 ![](./readme/link_to_apk.png)
 
 
-## SampleViews
+## Views
 ------------
 
 | Screen |  |
