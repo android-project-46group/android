@@ -12,13 +12,13 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "io.kokoichi.sample.sakamichiapp"
+        applicationId "jp.mydns.kokoichi0206.sakamichiapp"
         minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.1.9"
 
-        testInstrumentationRunner "io.kokoichi.sample.sakamichiapp.HiltTestRunner"
+        testInstrumentationRunner "jp.mydns.kokoichi0206.sakamichiapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
