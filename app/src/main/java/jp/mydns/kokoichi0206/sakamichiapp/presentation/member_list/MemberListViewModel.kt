@@ -35,6 +35,7 @@ open class MemberListViewModel @Inject constructor(
      * @param groupName group name (one of the GroupName enum)
      */
     fun getMembers(groupName: GroupName) {
+        _uiState.update { it.copy(isLoading = true, error = "") }
         getMembersUseCase(groupName.name.lowercase()).onEach { result ->
             when (result) {
                 is Resource.Success -> {
@@ -46,12 +47,16 @@ open class MemberListViewModel @Inject constructor(
                                     it.group = groupName.jname
                                 }
                         )
+                    _uiState.update { it.copy(isLoading = false) }
                     setVisibleMembers(_apiState.value.members)
                 }
                 is Resource.Error -> {
                     _apiState.value = MemberListApiState(
                         error = result.message ?: "An unexpected error occurred."
                     )
+                    _uiState.update {
+                        it.copy(isLoading = false, error = result.message ?: "An unexpected error occurred.")
+                    }
                 }
                 is Resource.Loading -> {
                     _apiState.value = MemberListApiState(isLoading = true)

@@ -1,6 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
@@ -46,10 +45,6 @@ fun DefaultColumn(
     members: MutableList<Member> = uiState.visibleMembers,
 ) {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .padding(horizontal = SpaceMedium),
         contentPadding = Constants.BottomBarPadding,
     ) {
         val itemCount = if (members.size % 3 == 0) {
@@ -102,10 +97,6 @@ fun ColumnWithLine(
             getGenerationLooper(uiState.groupName.jname)
     }
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .padding(horizontal = SpaceMedium),
         contentPadding = Constants.BottomBarPadding,
     ) {
         for (type in looperStr) {
