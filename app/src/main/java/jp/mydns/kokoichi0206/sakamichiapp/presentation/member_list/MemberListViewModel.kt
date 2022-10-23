@@ -100,6 +100,7 @@ open class MemberListViewModel @Inject constructor(
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortBy { it.height }
             }
+            else -> {}
         }
     }
 
@@ -128,6 +129,7 @@ open class MemberListViewModel @Inject constructor(
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortByDescending { it.height }
             }
+            else -> {}
         }
     }
 
