@@ -16,18 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
+import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.Typography
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun PlayQuizScreen(
@@ -129,29 +137,49 @@ fun OneQuiz(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Image(
-                        painter = rememberImagePainter(quiz.correctMember.imgUrl,
-                            builder = {
-                                placeholder(
-                                    when (uiState.groupName) {
-                                        GroupName.NOGIZAKA ->
-                                            R.drawable.nogizaka_official_icon
-                                        GroupName.SAKURAZAKA ->
-                                            R.drawable.sakurazaka_official_icon
-                                        GroupName.HINATAZAKA ->
-                                            R.drawable.hinata_official_icon
-                                        else ->
-                                            R.drawable.nogizaka_official_icon
-                                    }
-                                )
-                                listener(
-                                    onStart = {
-                                        // set your progressbar visible here
-                                    },
-                                    onSuccess = { request, metadata ->
-                                    }
-                                )
-                            }),
+                    val context = LocalContext.current
+
+                    val request = ImageRequest.Builder(context)
+                        .data(quiz.correctMember.imgUrl)
+                        .placeholder(
+                            when (uiState.groupName) {
+                                GroupName.NOGIZAKA ->
+                                    R.drawable.nogizaka_official_icon
+                                GroupName.SAKURAZAKA ->
+                                    R.drawable.sakurazaka_official_icon
+                                GroupName.HINATAZAKA ->
+                                    R.drawable.hinata_official_icon
+                                else ->
+                                    R.drawable.nogizaka_official_icon
+                            }
+                        )
+                        .build()
+                    val imageLoader = ImageLoader.Builder(context)
+                        .crossfade(true)
+                        .okHttpClient {
+                            OkHttpClient.Builder()
+                                .addInterceptor(LoggingInterceptor())
+                                // サーバー側の設定か、なぜか指定が必要！
+                                .connectTimeout(777, TimeUnit.MILLISECONDS)
+                                .build()
+                        }
+                        .memoryCache {
+                            MemoryCache.Builder(context)
+                                .maxSizePercent(0.25)
+                                .strongReferencesEnabled(true)
+                                .build()
+                        }
+                        .diskCache {
+                            DiskCache.Builder()
+                                .directory(context.cacheDir.resolve("image_cache"))
+                                .maxSizePercent(0.02)
+                                .build()
+                        }
+                        .build()
+
+                    AsyncImage(
+                        model = request,
+                        imageLoader = imageLoader,
                         contentDescription = "image of ${quiz.correctMember.name}",
                         contentScale = ContentScale.Crop, // crop the image if it's not a square
                         modifier = Modifier
@@ -165,6 +193,7 @@ fun OneQuiz(
                             ),
                         alignment = Alignment.Center
                     )
+
                     Spacer(modifier = Modifier.width(SpaceSmall))
                     Text(
                         modifier = Modifier

@@ -13,12 +13,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
+import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun OnePerson(
@@ -37,27 +45,50 @@ fun OnePerson(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = rememberImagePainter(member.imgUrl,
-                    builder = {
-                        placeholder(when(member.group) {
-                            "乃木坂" ->
-                                R.drawable.nogizaka_official_icon
-                            "櫻坂" ->
-                                R.drawable.sakurazaka_official_icon
-                            else ->
-                                R.drawable.hinata_official_icon
-                        })
-                        listener(
-                            onStart = {
-                                // set your progressbar visible here
-                            },
-                            onSuccess = { request, metadata ->
-                            }
-                        )
-                    }),
-                contentDescription = "image of ${member.name}",
-                contentScale = ContentScale.Crop, // crop the image if it's not a square
+            val context = LocalContext.current
+
+            val request = ImageRequest.Builder(context)
+                .data(member.imgUrl)
+                .placeholder(
+                    when (member.group) {
+                        "乃木坂" ->
+                            R.drawable.nogizaka_official_icon
+                        "櫻坂" ->
+                            R.drawable.sakurazaka_official_icon
+                        else ->
+                            R.drawable.hinata_official_icon
+                    }
+                )
+                .build()
+            val imageLoader = ImageLoader.Builder(context)
+                .crossfade(true)
+                .okHttpClient {
+                    OkHttpClient.Builder()
+                        .addInterceptor(LoggingInterceptor())
+                        // サーバー側の設定か、なぜか指定が必要！
+                        .connectTimeout(777, TimeUnit.MILLISECONDS)
+                        .build()
+                }
+                .memoryCache {
+                    MemoryCache.Builder(context)
+                        .maxSizePercent(0.25)
+                        .strongReferencesEnabled(true)
+                        .build()
+                }
+                .diskCache {
+                    DiskCache.Builder()
+                        .directory(context.cacheDir.resolve("image_cache"))
+                        .maxSizePercent(0.02)
+                        .build()
+                }
+                .build()
+
+            AsyncImage(
+                model = request,
+                imageLoader = imageLoader,
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                alignment = Alignment.TopStart,
                 modifier = Modifier
                     .clickable {
                         onclick(member)
@@ -65,8 +96,8 @@ fun OnePerson(
                     .size(110.dp)
                     .clip(CircleShape)
                     .border(2.dp, MaterialTheme.colors.secondary, CircleShape),
-                alignment = Alignment.TopStart
             )
+
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = member.name,
