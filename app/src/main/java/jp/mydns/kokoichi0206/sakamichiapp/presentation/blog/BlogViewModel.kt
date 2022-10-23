@@ -77,6 +77,7 @@ open class BlogViewModel @Inject constructor(
     }
 
     fun setApiBlogs() {
+        setBlogs(mutableListOf())
         getBlogs(uiState.value.groupName)
     }
 

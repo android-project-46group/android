@@ -71,6 +71,9 @@ open class PositionsViewModel @Inject constructor(
      * @param songName song name
      */
     fun getPositions(songName: String) {
+        // Clear first
+        _positionState.value = PositionListState(positions = mutableListOf())
+
         getPositionsUseCase(songName).onEach { result ->
             when (result) {
                 is Resource.Success -> {

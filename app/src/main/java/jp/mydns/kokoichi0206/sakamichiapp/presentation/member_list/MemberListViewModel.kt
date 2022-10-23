@@ -175,6 +175,7 @@ open class MemberListViewModel @Inject constructor(
      * Reset the members (in apiState) using groupName (in uiState).
      */
     fun setApiMembers() {
+        setVisibleMembers(mutableListOf())
         getMembers(uiState.value.groupName)
 
         // TODO: Consider what logic is the best.
