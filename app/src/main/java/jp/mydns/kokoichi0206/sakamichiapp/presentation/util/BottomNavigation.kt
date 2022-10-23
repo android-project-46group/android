@@ -177,23 +177,10 @@ fun BottomNavigationBar(
                 unselectedContentColor = unSelectedColor,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
-                        if (item.badgeCount > 0) {
-                            BadgeBox(
-                                badgeContent = {
-                                    Text(text = item.badgeCount.toString())
-                                }
-                            ) {
-                                Icon(
-                                    painter = painterResource(item.icons),
-                                    contentDescription = item.name,
-                                )
-                            }
-                        } else {
                             Icon(
                                 painter = painterResource(id = item.icons),
                                 contentDescription = item.name
                             )
-                        }
                         Text(
                             text = item.name,
                             textAlign = TextAlign.Center,

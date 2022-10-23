@@ -100,6 +100,7 @@ fun PlayQuizScreen(
                             .padding(50.dp)
                             .testTag(TestTags.WRONG_CORRECT_ICON),
                     )
+                else -> {}
             }
         }
     }
