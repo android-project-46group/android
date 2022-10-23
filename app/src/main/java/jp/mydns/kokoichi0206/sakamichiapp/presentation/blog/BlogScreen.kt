@@ -40,6 +40,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.SkeletonBlogScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -87,16 +88,25 @@ fun BlogScreen(
             },
         )
 
-        val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
-        LazyColumn(
-            contentPadding = Constants.BottomBarPadding,
-        ) {
-            items(rows) { row ->
-                OneBlogRow(
-                    row = row,
-                    uiState = uiState,
-                    navController = navController,
-                )
+        if (uiState.isLoading) {
+            SkeletonBlogScreen()
+        } else if (uiState.error.isNotBlank()) {
+            Text(
+                text = uiState.error,
+                color = MaterialTheme.colors.primary,
+            )
+        } else {
+            val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
+            LazyColumn(
+                contentPadding = Constants.BottomBarPadding,
+            ) {
+                items(rows) { row ->
+                    OneBlogRow(
+                        row = row,
+                        uiState = uiState,
+                        navController = navController,
+                    )
+                }
             }
         }
     }
