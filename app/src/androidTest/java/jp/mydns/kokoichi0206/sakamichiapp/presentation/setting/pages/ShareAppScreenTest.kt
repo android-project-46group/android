@@ -1,8 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
 
-import android.content.Context
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -11,7 +10,6 @@ import androidx.navigation.NavHostController
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
@@ -39,15 +37,12 @@ class ShareAppScreenTest {
     @RelaxedMockK
     lateinit var uiState: SettingsUiState
 
-    lateinit var context: Context
-
     @Before
     fun setUp() {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
-        composeRule.setContent {
-            context = LocalContext.current
+        composeRule.activity.setContent {
             ShareAppScreen(
                 navController = navController,
                 uiState = uiState,
@@ -58,10 +53,8 @@ class ShareAppScreenTest {
     @Test
     fun shareAppScreen_display() {
         // Arrange
-        val expectedTitleStr =
-            context.resources.getString(R.string.share_app_title)
-        val expectedMessageStr =
-            context.resources.getString(R.string.share_app_message)
+        val expectedTitleStr = "アプリをシェアする"
+        val expectedMessageStr = "他のアプリを開く"
 
         // Act
 

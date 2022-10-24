@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.package">
+    package="jp.mydns.kokoichi0206.sakamichiapp.test">
 
     <application android:extractNativeLibs="true" />
 </manifest>

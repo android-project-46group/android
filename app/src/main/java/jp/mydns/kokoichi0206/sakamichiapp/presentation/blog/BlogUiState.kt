@@ -8,6 +8,8 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
  */
 data class BlogUiState(
     var loaded: Boolean = false,
+    var isLoading: Boolean = false,
+    var error: String = "",
     var groupName: GroupName = GroupName.NOGIZAKA,
     var blogs: List<Blog> = emptyList(),
     // Sort blogs by lastUpdatedTime or memberName.

@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp
 
+import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -43,7 +44,7 @@ class AppEndToEnd {
         hiltRule.inject()
 
         // Use real navigation (not mockk)
-        composeRule.setContent {
+        composeRule.activity.setContent {
             Navigation()
         }
     }

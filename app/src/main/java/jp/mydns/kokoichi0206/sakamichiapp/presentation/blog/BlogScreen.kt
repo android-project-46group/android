@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,16 +26,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
+import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupBar
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.RetryInterceptor
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.SkeletonBlogScreen
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.blogImage
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun BlogScreenWithCustomTheme(
@@ -79,16 +90,25 @@ fun BlogScreen(
             },
         )
 
-        val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
-        LazyColumn(
-            contentPadding = Constants.BottomBarPadding,
-        ) {
-            items(rows) { row ->
-                OneBlogRow(
-                    row = row,
-                    uiState = uiState,
-                    navController = navController,
-                )
+        if (uiState.isLoading) {
+            SkeletonBlogScreen()
+        } else if (uiState.error.isNotBlank()) {
+            Text(
+                text = uiState.error,
+                color = MaterialTheme.colors.primary,
+            )
+        } else {
+            val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
+            LazyColumn(
+                contentPadding = Constants.BottomBarPadding,
+            ) {
+                items(rows) { row ->
+                    OneBlogRow(
+                        row = row,
+                        uiState = uiState,
+                        navController = navController,
+                    )
+                }
             }
         }
     }
@@ -218,28 +238,55 @@ fun OneBlog(
             .testTag(TestTags.BLOG_ONE_BOX),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Image(
-            painter = rememberImagePainter(blog.lastBlogImg,
-                builder = {
-                    placeholder(
-                        when (uiState.groupName) {
-                            GroupName.NOGIZAKA ->
-                                R.drawable.nogizaka_official_icon
-                            GroupName.SAKURAZAKA ->
-                                R.drawable.sakurazaka_official_icon
-                            GroupName.HINATAZAKA ->
-                                R.drawable.hinata_official_icon
-                        }
-                    )
-                }),
+        val context = LocalContext.current
+
+        val request = ImageRequest.Builder(context)
+            .data(blog.lastBlogImg)
+            .placeholder(
+                when (uiState.groupName) {
+                    GroupName.NOGIZAKA ->
+                        R.drawable.nogizaka_official_icon
+                    GroupName.SAKURAZAKA ->
+                        R.drawable.sakurazaka_official_icon
+                    GroupName.HINATAZAKA ->
+                        R.drawable.hinata_official_icon
+                }
+            )
+            .build()
+        val imageLoader = ImageLoader.Builder(context)
+            .crossfade(true)
+            .okHttpClient {
+                OkHttpClient.Builder()
+                    .addInterceptor(LoggingInterceptor())
+                    .addInterceptor(RetryInterceptor())
+                    // サーバー側の設定か、なぜか指定が必要！
+                    .connectTimeout(777, TimeUnit.MILLISECONDS)
+                    .build()
+            }
+            .memoryCache {
+                MemoryCache.Builder(context)
+                    .maxSizePercent(0.25)
+                    .strongReferencesEnabled(true)
+                    .build()
+            }
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(context.cacheDir.resolve("image_cache"))
+                    .maxSizePercent(0.02)
+                    .build()
+            }
+            .build()
+
+        AsyncImage(
+            model = request,
+            imageLoader = imageLoader,
             contentDescription = "blog image of ${blog.name}",
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(120.dp)
-                .padding(2.dp)
-                .clip(MaterialTheme.shapes.medium),
             alignment = Alignment.Center,
+            modifier = Modifier
+                .blogImage(),
         )
+
         Text(
             modifier = Modifier
                 .padding(SpaceSmall),
