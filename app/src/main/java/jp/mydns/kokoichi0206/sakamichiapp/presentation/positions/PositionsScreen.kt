@@ -23,6 +23,7 @@ import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.RetryInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Position
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -108,6 +109,7 @@ fun EachRow(positions: List<Position>) {
                     .okHttpClient {
                         OkHttpClient.Builder()
                             .addInterceptor(LoggingInterceptor())
+                            .addInterceptor(RetryInterceptor())
                             // サーバー側の設定か、なぜか指定が必要！
                             .connectTimeout(777, TimeUnit.MILLISECONDS)
                             .build()
