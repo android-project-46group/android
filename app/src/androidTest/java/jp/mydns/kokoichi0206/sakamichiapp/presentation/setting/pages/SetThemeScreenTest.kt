@@ -1,16 +1,13 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
 
-import android.content.Context
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.navigation.NavHostController
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
@@ -39,15 +36,12 @@ class SetThemeScreenTest {
     @RelaxedMockK
     lateinit var viewModel: SettingsViewModel
 
-    lateinit var context: Context
-
     @Before
     fun setUp() {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
         composeRule.activity.setContent {
-            context = LocalContext.current
             SetThemeScreen(
                 navController = navController,
                 viewModel = viewModel,
@@ -58,8 +52,7 @@ class SetThemeScreenTest {
     @Test
     fun setThemeScreen_display() {
         // Arrange
-        val expectedStr =
-            context.resources.getString(R.string.set_theme_title)
+        val expectedStr = "テーマカラー"
 
         // Act
 
@@ -131,7 +124,6 @@ class SetThemeScreenTest {
         val theme = ThemeType.Sakurazaka
         verify(exactly = 0) {
             viewModel.setThemeType(theme)
-            viewModel.writeTheme(context, theme.name)
         }
 
         // Act
@@ -142,7 +134,6 @@ class SetThemeScreenTest {
         // Assert
         verify(exactly = 1) {
             viewModel.setThemeType(theme)
-            viewModel.writeTheme(context, theme.name)
         }
     }
 }
