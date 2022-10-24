@@ -85,7 +85,7 @@ fun OnePerson(
             AsyncImage(
                 model = request,
                 imageLoader = imageLoader,
-                contentDescription = "",
+                contentDescription = "image of ${member.name}",
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.TopStart,
                 modifier = Modifier
