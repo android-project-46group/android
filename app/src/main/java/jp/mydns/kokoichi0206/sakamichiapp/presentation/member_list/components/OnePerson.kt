@@ -20,6 +20,7 @@ import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.RetryInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.memberImage
 import okhttp3.OkHttpClient
@@ -62,6 +63,7 @@ fun OnePerson(
                 .okHttpClient {
                     OkHttpClient.Builder()
                         .addInterceptor(LoggingInterceptor())
+                        .addInterceptor(RetryInterceptor())
                         // サーバー側の設定か、なぜか指定が必要！
                         .connectTimeout(777, TimeUnit.MILLISECONDS)
                         .build()
