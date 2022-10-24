@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -32,7 +33,7 @@ class QuizScreenTest {
     fun setUp() {
         hiltRule.inject()
 
-        composeRule.setContent {
+        composeRule.activity.setContent {
             QuizScreen()
         }
     }

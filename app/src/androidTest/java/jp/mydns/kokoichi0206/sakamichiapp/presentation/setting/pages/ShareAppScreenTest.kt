@@ -1,6 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
 
 import android.content.Context
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertTextEquals
@@ -46,7 +47,7 @@ class ShareAppScreenTest {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
-        composeRule.setContent {
+        composeRule.activity.setContent {
             context = LocalContext.current
             ShareAppScreen(
                 navController = navController,

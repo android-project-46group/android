@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.util
 
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.Modifier
@@ -42,7 +43,7 @@ class BottomNavigationBarTest {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
-        composeRule.setContent {
+        composeRule.activity.setContent {
             BottomNavigationBar(
                 modifier = Modifier.height(56.dp),
                 navController = navController,

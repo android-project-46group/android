@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
@@ -44,7 +45,7 @@ class MemberListScreenTest {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
-        composeRule.setContent {
+        composeRule.activity.setContent {
             MemberListScreen(
                 navController = navController,
             )
