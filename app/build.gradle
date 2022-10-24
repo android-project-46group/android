@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.1.9"
 
+        testApplicationId "jp.mydns.kokoichi0206.sakamichiapp.test"
         testInstrumentationRunner "jp.mydns.kokoichi0206.sakamichiapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true

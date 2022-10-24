@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
 
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -45,7 +46,7 @@ class SettingTopScreenTest {
         val navigation = listOf(
             SettingNavigation.ClearCache
         )
-        composeRule.setContent {
+        composeRule.activity.setContent {
             SettingTopScreen(
                 navController = navController,
                 navigationList = navigation,

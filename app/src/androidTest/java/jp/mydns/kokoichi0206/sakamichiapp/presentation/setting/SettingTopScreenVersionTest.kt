@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
 
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -42,7 +43,7 @@ class SettingTopScreenVersionTest {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
-        composeRule.setContent {
+        composeRule.activity.setContent {
             VersionInfo {
             }
         }

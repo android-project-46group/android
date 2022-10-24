@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
+import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -41,7 +42,7 @@ class BlogScreenTest {
         hiltRule.inject()
         MockKAnnotations.init(this)
 
-        composeRule.setContent {
+        composeRule.activity.setContent {
             BlogScreenWithCustomTheme(
                 navController = navController,
             )
