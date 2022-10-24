@@ -5,8 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -14,6 +15,10 @@ import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.Typography
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
 
 /**
  * Skeleton Screen
@@ -21,7 +26,9 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun SkeletonBlogScreen() {
-    LazyColumn {
+    LazyColumn(
+        contentPadding = Constants.BottomBarPadding,
+    ) {
         items(8) {
             Row {
                 Box(modifier = Modifier.weight(1f))
@@ -68,41 +75,36 @@ fun SkeletonPart(
     )
     Column(
         modifier = Modifier
-            .padding(vertical = 8.dp)
-            .width(size)
+            .padding(vertical = SpaceSmall)
+            .width(size),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(
             modifier = Modifier
-                .size(120.dp)
-                .padding(2.dp)
-                .clip(MaterialTheme.shapes.medium)
-                .background(brush)
+                .blogImage()
+                .background(brush),
         )
-        Spacer(
+
+        Text(
             modifier = Modifier
-                .height(8.dp)
-        )
-        Spacer(
-            modifier = Modifier
-                .height(20.dp)
+                .padding(top = SpaceSmall)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(brush)
+                .clip(RoundedCornerShape(5.dp))
+                .background(brush),
+            text = "name",
+            style = Typography.body2,
+            color = Color.Transparent,
         )
-        Spacer(
+        Text(
             modifier = Modifier
-                .height(12.dp)
-        )
-        Spacer(
-            modifier = Modifier
-                .height(20.dp)
+                .padding(top = SpaceSmall)
+                .padding(bottom = SpaceTiny)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(brush)
-        )
-        Spacer(
-            modifier = Modifier
-                .height(12.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .background(brush),
+            text = "time",
+            style = Typography.caption,
+            color = Color.Transparent,
         )
     }
 }
