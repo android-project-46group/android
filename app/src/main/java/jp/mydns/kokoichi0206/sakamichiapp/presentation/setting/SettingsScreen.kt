@@ -49,13 +49,13 @@ fun SettingsRouting(
         navController,
         modifier = Modifier.fillMaxSize(),
         startDestination = SettingScreen.SettingTopScreen.route,
-        enterTransition = { _, _ ->
+        enterTransition = {
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Left,
                 animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
             ) + fadeIn(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
         },
-        popExitTransition = { _, _ ->
+        popExitTransition = {
             slideOutOfContainer(
                 AnimatedContentScope.SlideDirection.Right,
                 animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
@@ -73,13 +73,13 @@ fun SettingsRouting(
 
         composable(
             route = SettingScreen.SettingTopScreen.route,
-            exitTransition = { _, _ ->
+            exitTransition = {
                 slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
                 ) + fadeOut(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
             },
-            popEnterTransition = { _, _ ->
+            popEnterTransition = {
                 slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
