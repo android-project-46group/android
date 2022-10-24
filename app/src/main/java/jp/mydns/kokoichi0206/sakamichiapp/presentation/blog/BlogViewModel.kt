@@ -1,7 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,10 +17,6 @@ import javax.inject.Inject
 open class BlogViewModel @Inject constructor(
     private val getBlogsUseCase: GetBlogsUseCase
 ) : ViewModel() {
-
-    private val _apiState = mutableStateOf(BlogApiState())
-    var apiState: State<BlogApiState> = _apiState
-
     private val _uiState = MutableStateFlow(BlogUiState())
     var uiState: StateFlow<BlogUiState> = _uiState
 
@@ -32,25 +26,26 @@ open class BlogViewModel @Inject constructor(
      * @param groupName group name (one of the GroupName enum)
      */
     private fun getBlogs(groupName: GroupName) {
+        _uiState.update { it.copy(isLoading = true) }
         getBlogsUseCase(groupName.name.lowercase()).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _apiState.value =
-                        BlogApiState(
-                            members = result.data!!
-                                .toMutableList()
-                        )
-                    setBlogs(_apiState.value.members)
+                    setBlogs(result.data!!.toMutableList())
+                    _uiState.update { it.copy(isLoading = false) }
+
                     // Sorting here is the best??
                     sortBlogs()
                 }
                 is Resource.Error -> {
-                    _apiState.value = BlogApiState(
-                        error = result.message ?: "An unexpected error occurred."
-                    )
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.message ?: "An unexpected error occurred."
+                        )
+                    }
                 }
                 is Resource.Loading -> {
-                    _apiState.value = BlogApiState(isLoading = true)
+                    _uiState.update { it.copy(isLoading = true) }
                 }
             }
         }.launchIn(viewModelScope)
@@ -77,6 +72,7 @@ open class BlogViewModel @Inject constructor(
     }
 
     fun setApiBlogs() {
+        setBlogs(mutableListOf())
         getBlogs(uiState.value.groupName)
     }
 

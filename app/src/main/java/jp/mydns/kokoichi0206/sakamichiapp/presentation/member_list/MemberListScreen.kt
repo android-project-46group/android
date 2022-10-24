@@ -1,18 +1,23 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.SortBar
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.CustomSakaTheme
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.SkeletonMemberScreen
 
 /**
  * Function to display member list.
@@ -29,7 +34,6 @@ fun MemberListScreen(
     }
 
     val uiState by viewModel.uiState.collectAsState()
-
     CustomSakaTheme(group = uiState.groupName.jname) {
         MainView(
             uiState, navController, viewModel
@@ -61,9 +65,27 @@ fun MainView(
             viewModel = viewModel,
         )
 
-        MainColumn(
-            uiState = uiState,
-            navController = navController,
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
+                .padding(horizontal = SpaceMedium),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (uiState.isLoading) {
+                // スケルトンスクリーン。
+                SkeletonMemberScreen()
+            } else if (uiState.error.isNotBlank()) {
+                Text(
+                    text = uiState.error,
+                    color = MaterialTheme.colors.primary,
+                )
+            } else {
+                MainColumn(
+                    uiState = uiState,
+                    navController = navController,
+                )
+            }
+        }
     }
 }

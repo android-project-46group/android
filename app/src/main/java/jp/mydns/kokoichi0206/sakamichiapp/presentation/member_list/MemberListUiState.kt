@@ -8,6 +8,8 @@ import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 data class MemberListUiState(
     var favorites: Set<String> = emptySet(),
     var loaded: Boolean = false,
+    var isLoading: Boolean = false,
+    var error: String = "",
     var groupName: GroupName = GroupName.NOGIZAKA,
     var visibleStyle: VisibleMemberStyle = VisibleMemberStyle.DEFAULT,
     var sortKey: MemberListSortKeys = MemberListSortKeys.NONE,
@@ -38,7 +40,7 @@ enum class VisibleMemberStyle {
 /**
  * Keys to sort members.
  */
-enum class MemberListSortKeys(val jname: String){
+enum class MemberListSortKeys(val jname: String) {
     NONE("なし"),     // No sort (default).
     NAME("名前"),
     GENERATION("期別"),
