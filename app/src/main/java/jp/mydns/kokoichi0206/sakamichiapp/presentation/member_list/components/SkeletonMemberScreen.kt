@@ -4,16 +4,21 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.memberImage
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
 
 /**
  * Skeleton Screen
@@ -21,23 +26,23 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun SkeletonMemberScreen() {
-    LazyColumn {
+    LazyColumn(
+        contentPadding = Constants.BottomBarPadding,
+    ) {
         items(8) {
             Row {
-                SkeletonPart(110.dp)
-                Box(modifier = Modifier.weight(1f))
-                SkeletonPart(110.dp)
-                Box(modifier = Modifier.weight(1f))
-                SkeletonPart(110.dp)
+                SkeletonPart()
+                Spacer(modifier = Modifier.width(SpaceMedium))
+                SkeletonPart()
+                Spacer(modifier = Modifier.width(SpaceMedium))
+                SkeletonPart()
             }
         }
     }
 }
 
 @Composable
-fun SkeletonPart(
-    size: Dp,
-) {
+fun SkeletonPart() {
     val gradient = listOf(
         Color.LightGray.copy(alpha = 0.9f),
         Color.LightGray.copy(alpha = 0.3f),
@@ -66,28 +71,26 @@ fun SkeletonPart(
     )
     Column(
         modifier = Modifier
-            .width(size)
+            .width(110.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(
             modifier = Modifier
-                .size(size)
-                .clip(CircleShape)
+                .memberImage()
                 .background(brush)
         )
-        Spacer(
+
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
             modifier = Modifier
-                .height(8.dp)
-        )
-        Spacer(
-            modifier = Modifier
-                .height(24.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(brush)
+                .clip(RoundedCornerShape(5.dp))
+                .background(brush),
+            text = "name",
+            color = Color.Transparent,
+            fontSize = 14.sp,
+            textAlign = TextAlign.Center,
         )
-        Spacer(
-            modifier = Modifier
-                .height(24.dp)
-        )
+        Spacer(modifier = Modifier.height(12.dp))
     }
 }

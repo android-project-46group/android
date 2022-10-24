@@ -1,16 +1,12 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +21,7 @@ import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.memberImage
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -93,9 +90,7 @@ fun OnePerson(
                     .clickable {
                         onclick(member)
                     }
-                    .size(110.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, MaterialTheme.colors.secondary, CircleShape),
+                    .memberImage(),
             )
 
             Spacer(modifier = Modifier.height(12.dp))

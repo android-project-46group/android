@@ -41,6 +41,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.SkeletonBlogScreen
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.blogImage
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -281,9 +282,7 @@ fun OneBlog(
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center,
             modifier = Modifier
-                .size(120.dp)
-                .padding(2.dp)
-                .clip(MaterialTheme.shapes.medium),
+                .blogImage(),
         )
 
         Text(
