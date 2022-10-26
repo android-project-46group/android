@@ -17,6 +17,7 @@ data class MemberListUiState(
     var narrowType: NarrowKeys = NarrowKeys.NONE,
     var visibleMembers: MutableList<Member> = mutableListOf(),
     var formationTitle: String = "",
+    var isRefreshing: Boolean = false,
 )
 
 enum class GroupName(val jname: String) {
