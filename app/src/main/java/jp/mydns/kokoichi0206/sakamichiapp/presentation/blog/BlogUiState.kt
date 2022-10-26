@@ -15,4 +15,5 @@ data class BlogUiState(
     // Sort blogs by lastUpdatedTime or memberName.
     // If this flag is true, it means by lastUpdatedTime.
     var isSortTime: Boolean = false,
+    var isRefreshing: Boolean = false,
 )

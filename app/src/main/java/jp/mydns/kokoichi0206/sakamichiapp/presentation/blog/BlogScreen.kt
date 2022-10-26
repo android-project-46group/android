@@ -1,9 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -31,6 +28,8 @@ import coil.compose.AsyncImage
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupBar
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
@@ -90,25 +89,48 @@ fun BlogScreen(
             },
         )
 
-        if (uiState.isLoading) {
-            SkeletonBlogScreen()
-        } else if (uiState.error.isNotBlank()) {
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = uiState.isRefreshing),
+            onRefresh = { viewModel.setApiBlogs() }
+        ) {
+            SwipableBlogArea(
+                navController = navController,
+                uiState = uiState,
+            )
+        }
+    }
+}
+
+@Composable
+fun SwipableBlogArea(
+    navController: NavController,
+    uiState: BlogUiState,
+) {
+    if (uiState.isLoading) {
+        SkeletonBlogScreen()
+    } else if (uiState.error.isNotBlank()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            contentAlignment = Alignment.Center,
+        ) {
             Text(
                 text = uiState.error,
                 color = MaterialTheme.colors.primary,
             )
-        } else {
-            val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
-            LazyColumn(
-                contentPadding = Constants.BottomBarPadding,
-            ) {
-                items(rows) { row ->
-                    OneBlogRow(
-                        row = row,
-                        uiState = uiState,
-                        navController = navController,
-                    )
-                }
+        }
+    } else {
+        val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
+        LazyColumn(
+            contentPadding = Constants.BottomBarPadding,
+        ) {
+            items(rows) { row ->
+                OneBlogRow(
+                    row = row,
+                    uiState = uiState,
+                    navController = navController,
+                )
             }
         }
     }
