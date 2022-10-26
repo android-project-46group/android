@@ -2,11 +2,8 @@ package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.test.assertHasClickAction
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.performClick
 import androidx.navigation.NavController
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -55,25 +52,25 @@ class MemberListScreenTest {
     @Test
     fun memberImage_display() {
         // Members are defined in data/remote/MockSakamichiApi
-        composeRule.onNodeWithContentDescription("image of 秋元 真夏").assertIsDisplayed()
-        composeRule.onNodeWithContentDescription("image of 生田 絵梨花").assertIsDisplayed()
-        composeRule.onNodeWithContentDescription("image of 伊藤 理々杏").assertIsDisplayed()
-        composeRule.onNodeWithContentDescription("image of 岩本 蓮加").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("image of 秋元 真夏 0").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("image of 生田 絵梨花 0").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("image of 伊藤 理々杏 0").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("image of 岩本 蓮加 0").assertIsDisplayed()
     }
 
     @Test
     fun memberImage_canTap() {
         // Members are defined in data/remote/MockSakamichiApi
-        composeRule.onNodeWithContentDescription("image of 秋元 真夏").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("image of 秋元 真夏 0").assertIsDisplayed()
 
-        composeRule.onNodeWithContentDescription("image of 秋元 真夏").assertHasClickAction()
+        composeRule.onNodeWithContentDescription("image of 秋元 真夏 0").assertHasClickAction()
     }
 
     @Test
     fun memberImage_canTapCorrectly() {
         // Arrange
         val targetMember = Member(
-            name = "秋元 真夏",
+            name = "秋元 真夏 0",
             birthday = "1993年8月20日",
             height = "154cm",
             bloodType = "B型",
@@ -102,7 +99,7 @@ class MemberListScreenTest {
     fun memberImage_canTapOnlyOnce() {
         // Arrange
         val targetMember = Member(
-            name = "秋元 真夏",
+            name = "秋元 真夏 0",
             birthday = "1993年8月20日",
             height = "154cm",
             bloodType = "B型",
@@ -121,6 +118,27 @@ class MemberListScreenTest {
 
         // Assert
         // Then the route is MainListView (target image is displayed)
-        composeRule.onNodeWithContentDescription("image of 秋元 真夏").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("image of ${targetMember.name}").assertIsDisplayed()
+    }
+
+    @Test
+    fun swipeToRefresh_callAPI() {
+        // Arrange
+        val targetMember = "秋元 真夏"
+        composeRule.onNodeWithText("$targetMember 0").assertExists()
+
+        // Act
+        // Swipe Down to refresh
+        composeRule.onRoot().performTouchInput {
+            android.os.SystemClock.sleep(1000)
+            swipeDown(
+                startY = centerY
+            )
+            android.os.SystemClock.sleep(1000)
+        }
+
+        // Assert
+        // FIXME: Swipe actually calls API but increments the counter 2!!
+        composeRule.onNodeWithText("$targetMember 2").assertExists()
     }
 }
