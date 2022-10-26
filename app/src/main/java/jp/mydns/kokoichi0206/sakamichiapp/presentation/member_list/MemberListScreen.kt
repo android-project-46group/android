@@ -65,27 +65,42 @@ fun MainView(
             viewModel = viewModel,
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background)
-                .padding(horizontal = SpaceMedium),
-            contentAlignment = Alignment.Center,
-        ) {
-            if (uiState.isLoading) {
-                // スケルトンスクリーン。
-                SkeletonMemberScreen()
-            } else if (uiState.error.isNotBlank()) {
-                Text(
-                    text = uiState.error,
-                    color = MaterialTheme.colors.primary,
-                )
-            } else {
-                MainColumn(
-                    uiState = uiState,
-                    navController = navController,
-                )
-            }
+        SwipableArea(
+            uiState = uiState,
+            navController = navController,
+        )
+    }
+}
+
+/**
+ * An area to be swiped.
+ * This area should be vertically scrollable.
+ */
+@Composable
+fun SwipableArea(
+    uiState: MemberListUiState,
+    navController: NavController,
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)
+            .padding(horizontal = SpaceMedium),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (uiState.isLoading) {
+            // スケルトンスクリーン。
+            SkeletonMemberScreen()
+        } else if (uiState.error.isNotBlank()) {
+            Text(
+                text = uiState.error,
+                color = MaterialTheme.colors.primary,
+            )
+        } else {
+            MainColumn(
+                uiState = uiState,
+                navController = navController,
+            )
         }
     }
 }
