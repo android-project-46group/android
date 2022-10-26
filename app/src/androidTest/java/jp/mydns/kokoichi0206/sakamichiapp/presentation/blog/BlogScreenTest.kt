@@ -2,10 +2,8 @@ package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.navigation.NavController
 import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -72,5 +70,26 @@ class BlogScreenTest {
 
         // Assert
         composeRule.onNodeWithTag(TestTags.BLOG_TITLE).assertTextEquals(titleStr)
+    }
+
+    @Test
+    fun swipeToRefresh_callAPI() {
+        // Arrange
+        val targetMember = "秋元 真夏"
+        composeRule.onNodeWithText("$targetMember 0").assertExists()
+
+        // Act
+        // Swipe Down to refresh
+        composeRule.onRoot().performTouchInput {
+            android.os.SystemClock.sleep(1000)
+            swipeDown(
+                startY = centerY
+            )
+            android.os.SystemClock.sleep(1000)
+        }
+
+        // Assert
+        // FIXME: Swipe actually calls API but increments the counter 2!!
+        composeRule.onNodeWithText("$targetMember 2").assertExists()
     }
 }
