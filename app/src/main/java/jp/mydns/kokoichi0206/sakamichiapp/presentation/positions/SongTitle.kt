@@ -8,14 +8,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import jp.mydns.kokoichi0206.sakamichiapp.R
 
 @Composable
 fun SongTitle(
     viewModel: PositionsViewModel,
     uiState: PositionsUiState,
 ) {
+    val context = LocalContext.current
     Row() {
         Box(
             modifier = Modifier
@@ -23,7 +26,7 @@ fun SongTitle(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = uiState.selectedSong
+                text = uiState.selectedSong ?: context.getString(R.string.position_default)
             )
         }
 
@@ -38,7 +41,7 @@ fun SongTitle(
                     sortExpanded = true
                 }
             ) {
-                Text(text = "曲名", fontSize = 8.sp)
+                Text(text = context.getString(R.string.position_button), fontSize = 8.sp)
             }
             DropdownMenu(
                 expanded = sortExpanded,
