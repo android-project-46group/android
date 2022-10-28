@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Sakamichi app</string>
 
+    <!--    Bottom Navigation Title-->
+    <string name="bottom_nav_members">Members</string>
+    <string name="bottom_nav_blog">Blog</string>
+    <string name="bottom_nav_position">Position</string>
+    <string name="bottom_nav_quiz">Quiz</string>
+    <string name="bottom_nav_settings">Settings</string>
+
     <!--    Strings for MemberListScreen-->
     <string name="member_list_sort_key">Sort</string>
     <string name="member_list_narrow_down_key">Narrow</string>

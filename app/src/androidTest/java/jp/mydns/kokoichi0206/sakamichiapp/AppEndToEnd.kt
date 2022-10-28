@@ -56,7 +56,7 @@ class AppEndToEnd {
         val targetIcon = BottomNavItem.Setting
 
         composeRule
-            .onNodeWithContentDescription(targetIcon.name)
+            .onNodeWithContentDescription("${targetIcon.name}")
             .assertExists()
             .performClick()
 
@@ -75,7 +75,7 @@ class AppEndToEnd {
         val settingIcon = BottomNavItem.Setting
         // Move to SettingsScreen
         composeRule
-            .onNodeWithContentDescription(settingIcon.name)
+            .onNodeWithContentDescription("${settingIcon.name}")
             .assertExists()
             .performClick()
         // Now you're SettingTopScreen
