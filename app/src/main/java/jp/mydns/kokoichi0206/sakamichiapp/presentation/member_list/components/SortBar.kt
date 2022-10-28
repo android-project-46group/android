@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.*
@@ -32,6 +33,8 @@ fun SortBar(
     uiState: MemberListUiState,
     viewModel: MemberListViewModel,
 ) {
+    val context = LocalContext.current
+
     /**
      * Sort Part
      */
@@ -72,7 +75,7 @@ fun SortBar(
                 Text(
                     modifier = Modifier
                         .padding(vertical = 0.dp),
-                    text = uiState.sortKey.jname,
+                    text = uiState.sortKey.getStringResource(context),
                     fontSize = 8.sp,
                 )
             }
@@ -89,7 +92,7 @@ fun SortBar(
                     }
                 ) {
                     Text(
-                        text = sortKey.jname,
+                        text = sortKey.getStringResource(context),
                         color = MaterialTheme.colors.secondary
                     )
                 }
@@ -170,7 +173,7 @@ fun SortBar(
                 Text(
                     modifier = Modifier
                         .padding(vertical = 0.dp),
-                    text = uiState.narrowType.jname,
+                    text = uiState.narrowType.getStringResource(context),
                     fontSize = 8.sp
                 )
             }
@@ -197,7 +200,7 @@ fun SortBar(
                             }
                         ) {
                             Text(
-                                text = nKey.jname,
+                                text = nKey.getStringResource(context),
                                 color = MaterialTheme.colors.secondary
                             )
                         }
