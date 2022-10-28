@@ -26,6 +26,11 @@
     <string name="narrow_key_3rd">3期生</string>
     <string name="narrow_key_4th">4期生</string>
 
+    <string name="detail_info_birthday">生年月日</string>
+    <string name="detail_info_height">身長</string>
+    <string name="detail_info_blood">血液型</string>
+    <string name="detail_info_group">グループ名</string>
+
     <!--    Strings for BlogScreen-->
     <string name="blog_screen_title">Blogs</string>
     <string name="blog_sort_key_time">Date updated</string>
