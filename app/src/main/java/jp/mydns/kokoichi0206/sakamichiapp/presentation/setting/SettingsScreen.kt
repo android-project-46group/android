@@ -70,6 +70,7 @@ fun SettingsRouting(
             SettingNavigation.ReportIssue,
             SettingNavigation.SetTheme,
             SettingNavigation.ShareApp,
+            SettingNavigation.AboutApp,
         )
 
         composable(
@@ -132,6 +133,12 @@ fun SettingsRouting(
                 uiState = uiState,
             )
         }
+        composable(SettingScreen.AboutAppScreen.route) {
+            AboutAppScreen(
+                navController = navController,
+                uiState = uiState,
+            )
+        }
     }
 }
 
@@ -171,5 +178,10 @@ sealed class SettingNavigation(
     object ShareApp : SettingNavigation(
         name = R.string.setting_share_app,
         route = SettingScreen.ShareAppScreen.route
+    )
+
+    object AboutApp : SettingNavigation(
+        name = R.string.setting_about_app,
+        route = SettingScreen.AboutAppScreen.route
     )
 }
