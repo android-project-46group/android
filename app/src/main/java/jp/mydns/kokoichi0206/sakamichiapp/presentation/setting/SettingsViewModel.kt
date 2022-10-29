@@ -9,6 +9,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.other_api.UpdateBlogUse
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.GroupName
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -55,6 +56,13 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun readUserID(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val id = DataStoreManager.readString(context, DataStoreManager.KEY_USER_ID)
+            _uiState.update { it.copy(userId = id) }
+        }
+    }
+
     fun reportIssue(message: String) {
         reportIssueUseCase(message).launchIn(viewModelScope)
     }
@@ -64,7 +72,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun writeIsDevTrue(context: Context) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             async {
                 DataStoreManager.writeBoolean(
                     context,
@@ -79,7 +87,7 @@ class SettingsViewModel @Inject constructor(
         context: Context,
         theme: String,
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             async {
                 DataStoreManager.writeString(
                     context,
@@ -91,7 +99,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun readThemeFromDataStore(context: Context) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val res = async {
                 DataStoreManager.readString(context, DataStoreManager.KEY_THEME_GROUP)
             }

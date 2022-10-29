@@ -4,6 +4,7 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -26,7 +27,10 @@ fun SettingsScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     val context = LocalContext.current
-    viewModel.readThemeFromDataStore(context)
+    LaunchedEffect(key1 = true) {
+        viewModel.readUserID(context)
+        viewModel.readThemeFromDataStore(context)
+    }
 
     CustomSakaTheme {
         SettingsRouting(

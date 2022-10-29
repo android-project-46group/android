@@ -8,6 +8,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
 data class SettingsUiState(
     val records: MutableList<Record> = mutableListOf(),
     val themeType: ThemeType = ThemeType.BasicNight,
+    val userId: String = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
 )
 
 data class Record(

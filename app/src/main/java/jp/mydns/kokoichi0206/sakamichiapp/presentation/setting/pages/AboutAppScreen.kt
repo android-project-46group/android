@@ -89,7 +89,7 @@ fun AboutAppScreen(
             color = TextGray,
         )
         Text(
-            text = "A2A3C4F9-06E2-44D7-A624-4151835E62CD",
+            text = uiState.userId,
             color = TextGray,
         )
     }
