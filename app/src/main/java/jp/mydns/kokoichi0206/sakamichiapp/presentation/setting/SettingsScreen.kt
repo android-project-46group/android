@@ -4,6 +4,7 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -26,7 +27,11 @@ fun SettingsScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     val context = LocalContext.current
-    viewModel.readThemeFromDataStore(context)
+    LaunchedEffect(key1 = true) {
+        viewModel.readVersion()
+        viewModel.readUserID(context)
+        viewModel.readThemeFromDataStore(context)
+    }
 
     CustomSakaTheme {
         SettingsRouting(
@@ -70,6 +75,7 @@ fun SettingsRouting(
             SettingNavigation.ReportIssue,
             SettingNavigation.SetTheme,
             SettingNavigation.ShareApp,
+            SettingNavigation.AboutApp,
         )
 
         composable(
@@ -132,6 +138,12 @@ fun SettingsRouting(
                 uiState = uiState,
             )
         }
+        composable(SettingScreen.AboutAppScreen.route) {
+            AboutAppScreen(
+                navController = navController,
+                uiState = uiState,
+            )
+        }
     }
 }
 
@@ -171,5 +183,10 @@ sealed class SettingNavigation(
     object ShareApp : SettingNavigation(
         name = R.string.setting_share_app,
         route = SettingScreen.ShareAppScreen.route
+    )
+
+    object AboutApp : SettingNavigation(
+        name = R.string.setting_about_app,
+        route = SettingScreen.AboutAppScreen.route
     )
 }

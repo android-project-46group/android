@@ -82,8 +82,8 @@ fun SettingTopScreen(
                 .background(uiState.themeType.subColor)
         )
 
-        val context = LocalContext.current
         VersionInfo(
+            version = uiState.version,
             borderColor = uiState.themeType.subColor,
         ) {
             viewModel.writeIsDevTrue(context)

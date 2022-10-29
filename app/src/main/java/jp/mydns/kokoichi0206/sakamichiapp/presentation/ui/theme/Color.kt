@@ -17,3 +17,6 @@ val SubColorN = Color(0x99742581)
 // Keyaki
 val BaseColorK = Color(0xFF77c059)
 val SubColorK = Color(0x99b9df90)
+
+// For not important information
+val TextGray = Color(0xFF999999)

@@ -75,6 +75,7 @@
     <string name="setting_report_bugs">Report bugs/opinions</string>
     <string name="setting_set_theme_color">Theme colors</string>
     <string name="setting_share_app">Share this app</string>
+    <string name="setting_about_app">About this app</string>
 
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">Number of correct answers</string>
@@ -111,6 +112,10 @@
     <string name="share_app_apk_link">https://kokoichi0206.mydns.jp/app-debug.apk</string>
     <string name="share_app_intent_title">Share this app.</string>
     <string name="share_app_message">Open another app.</string>
+
+    <!--    Strings for AboutAppScreen-->
+    <string name="about_app_version">version</string>
+    <string name="about_app_user_id">User ID</string>
 
     <!--    Content descriptions-->
     <string name="back_arrow">back arrow</string>
