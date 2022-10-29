@@ -142,9 +142,18 @@ open class MemberListViewModel @Inject constructor(
         if (nKey == NarrowKeys.NONE) {
             _uiState.value.visibleMembers = _apiState.value.members
         } else {
-            _uiState.value.visibleMembers = _apiState.value.members.filter {
-                it.generation == nKey.jname
-            }.toMutableList()
+            val target = when(nKey) {
+                NarrowKeys.FIRST_GEN -> "1期生"
+                NarrowKeys.SECOND_GEN -> "2期生"
+                NarrowKeys.THIRD_GEN -> "3期生"
+                NarrowKeys.FORTH_GEN -> "4期生"
+                else -> null
+            }
+            target?.run {
+                _uiState.value.visibleMembers = _apiState.value.members.filter {
+                    it.generation == target
+                }.toMutableList()
+            }
         }
     }
 

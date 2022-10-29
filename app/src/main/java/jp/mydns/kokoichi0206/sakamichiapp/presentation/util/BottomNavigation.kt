@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -177,12 +178,12 @@ fun BottomNavigationBar(
                 unselectedContentColor = unSelectedColor,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
-                            Icon(
-                                painter = painterResource(id = item.icons),
-                                contentDescription = item.name
-                            )
+                        Icon(
+                            painter = painterResource(id = item.icons),
+                            contentDescription = "${item.name}"
+                        )
                         Text(
-                            text = item.name,
+                            text = stringResource(item.name),
                             textAlign = TextAlign.Center,
                             fontSize = 10.sp,
                             color = if (selected) {
@@ -202,37 +203,37 @@ fun BottomNavigationBar(
  * Information of bottom bar icons.
  */
 sealed class BottomNavItem(
-    val name: String,
+    val name: Int,
     val route: String,
     @DrawableRes val icons: Int,
     val badgeCount: Int = 0,
 ) {
     object Home : BottomNavItem(
-        name = "一覧",
+        name = R.string.bottom_nav_members,
         route = Screen.MemberListScreen.route,
         icons = R.drawable.members,
     )
 
     object Blog : BottomNavItem(
-        name = "ブログ",
+        name = R.string.bottom_nav_blog,
         route = Screen.BlogScreen.route,
         icons = R.drawable.blog,
     )
 
     object Position : BottomNavItem(
-        name = "ポジション",
+        name = R.string.bottom_nav_position,
         route = Screen.PositionScreen.route,
         icons = R.drawable.positions,
     )
 
     object Quiz : BottomNavItem(
-        name = "クイズ",
+        name = R.string.bottom_nav_quiz,
         route = Screen.QuizScreen.route,
         icons = R.drawable.quiz,
     )
 
     object Setting : BottomNavItem(
-        name = "設定",
+        name = R.string.bottom_nav_settings,
         route = Screen.SettingScreen.route,
         icons = R.drawable.settings,
     )

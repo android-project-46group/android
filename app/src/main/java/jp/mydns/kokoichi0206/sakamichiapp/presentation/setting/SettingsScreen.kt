@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages.*
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
@@ -135,7 +136,7 @@ fun SettingsRouting(
 }
 
 sealed class SettingNavigation(
-    val name: String,
+    val name: Int,
     val route: String,
     val badgeCount: Int = 0,
 ) {
@@ -143,32 +144,32 @@ sealed class SettingNavigation(
      * UpdateBlogScreen
      */
     object UpdateBlog : SettingNavigation(
-        name = "Blog 情報を更新する",
+        name = R.string.setting_update_blog,
         route = SettingScreen.UpdateBlogScreen.route,
     )
 
     object QuizResult : SettingNavigation(
-        name = "クイズ成績",
+        name = R.string.setting_quiz_record,
         route = SettingScreen.QuizResultsScreen.route,
     )
 
     object ClearCache : SettingNavigation(
-        name = "キャッシュをクリア",
+        name = R.string.setting_clear_cache,
         route = SettingScreen.ClearCacheScreen.route,
     )
 
     object ReportIssue : SettingNavigation(
-        name = "不具合の報告／意見",
+        name = R.string.setting_report_bugs,
         route = SettingScreen.ReportIssueScreen.route
     )
 
     object SetTheme : SettingNavigation(
-        name = "テーマカラー設定",
+        name = R.string.setting_set_theme_color,
         route = SettingScreen.SetThemeScreen.route
     )
 
     object ShareApp : SettingNavigation(
-        name = "このアプリをシェアする",
+        name = R.string.setting_share_app,
         route = SettingScreen.ShareAppScreen.route
     )
 }

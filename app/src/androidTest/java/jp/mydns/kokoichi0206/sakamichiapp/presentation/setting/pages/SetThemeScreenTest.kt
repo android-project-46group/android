@@ -5,9 +5,11 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.navigation.NavHostController
+import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
@@ -52,7 +54,10 @@ class SetThemeScreenTest {
     @Test
     fun setThemeScreen_display() {
         // Arrange
-        val expectedStr = "テーマカラー"
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val expectedStr = context.resources.getString(
+            R.string.set_theme_title,
+        )
 
         // Act
 

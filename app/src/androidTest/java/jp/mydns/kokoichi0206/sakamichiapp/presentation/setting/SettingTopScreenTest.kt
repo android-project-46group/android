@@ -74,12 +74,13 @@ class SettingTopScreenTest {
     @Test
     fun settingRow_display() {
         // Arrange
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
 
         // Act
 
         // Assert
         composeRule
-            .onNodeWithTag(SettingNavigation.ClearCache.name)
+            .onNodeWithTag(context.getString(SettingNavigation.ClearCache.name))
             .assertExists()
         composeRule
             .onNodeWithContentDescription("right arrow")
@@ -89,13 +90,14 @@ class SettingTopScreenTest {
     @Test
     fun settingRow_canNavigate() {
         // Arrange
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
         verify(exactly = 0) {
             navController.navigate(SettingNavigation.ClearCache.route)
         }
 
         // Act
         composeRule
-            .onNodeWithText(SettingNavigation.ClearCache.name)
+            .onNodeWithText(context.getString(SettingNavigation.ClearCache.name))
             .performClick()
 
         // Assert

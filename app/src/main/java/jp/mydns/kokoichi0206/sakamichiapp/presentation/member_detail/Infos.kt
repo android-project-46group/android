@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -8,7 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.OneInfo
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.RowTags
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components.CustomDevider
@@ -24,6 +27,7 @@ fun Infos(
     uiState: MemberDetailUiState
 ) {
     val member = uiState.member!!
+    val context = LocalContext.current
 
     Column() {
 
@@ -42,15 +46,15 @@ fun Infos(
         Spacer(modifier = Modifier.height(3.dp))
         CustomDevider(MaterialTheme.colors.secondary, 1.dp)
 
-        OneInfo(InfoKeys.HEIGHT.key, member.height)
+        OneInfo(InfoKeys.HEIGHT.getStringResource(context), member.height)
         CustomDevider(MaterialTheme.colors.secondary, 1.dp)
-        OneInfo(InfoKeys.BIRTHDAY.key, member.birthday)
+        OneInfo(InfoKeys.BIRTHDAY.getStringResource(context), member.birthday)
         CustomDevider(MaterialTheme.colors.secondary, 1.dp)
-        OneInfo(InfoKeys.BLOOD_TYPE.key, member.bloodType)
+        OneInfo(InfoKeys.BLOOD_TYPE.getStringResource(context), member.bloodType)
         CustomDevider(MaterialTheme.colors.secondary, 1.dp)
 
         // Experimental
-        OneInfo(InfoKeys.GROUP_NAME.key, member.group!!)
+        OneInfo(InfoKeys.GROUP_NAME.getStringResource(context), member.group!!)
         CustomDevider(MaterialTheme.colors.secondary, 1.dp)
     }
 }
@@ -58,9 +62,13 @@ fun Infos(
 // Enum
 // InfoKeys.BIRTHDAY.name = "BIRTHDAY"
 // InfoKeys.BIRTHDAY.key = "生年月日："
-enum class InfoKeys(val key: String) {
-    BIRTHDAY("生年月日"),
-    HEIGHT("身長"),
-    BLOOD_TYPE("血液型"),
-    GROUP_NAME("グループ名"),
+enum class InfoKeys(val key: Int) {
+    BIRTHDAY(R.string.detail_info_birthday),
+    HEIGHT(R.string.detail_info_height),
+    BLOOD_TYPE(R.string.detail_info_blood),
+    GROUP_NAME(R.string.detail_info_group);
+
+    fun getStringResource(context: Context): String {
+        return context.getString(key)
+    }
 }

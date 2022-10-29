@@ -7,6 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
+import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -17,6 +18,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.sakamichiapp.R
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -53,8 +55,13 @@ class ShareAppScreenTest {
     @Test
     fun shareAppScreen_display() {
         // Arrange
-        val expectedTitleStr = "アプリをシェアする"
-        val expectedMessageStr = "他のアプリを開く"
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val expectedTitleStr = context.resources.getString(
+            R.string.share_app_title,
+        )
+        val expectedMessageStr = context.resources.getString(
+            R.string.share_app_message,
+        )
 
         // Act
 

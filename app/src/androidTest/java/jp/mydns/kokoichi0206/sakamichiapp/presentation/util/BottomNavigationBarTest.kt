@@ -69,8 +69,8 @@ class BottomNavigationBarTest {
             BottomNavItem.Setting,
         )
         items.forEach {
-            composeRule.onNodeWithContentDescription(it.name).assertExists()
-            composeRule.onNodeWithContentDescription(it.name).assertHasClickAction()
+            composeRule.onNodeWithContentDescription("${it.name}").assertExists()
+            composeRule.onNodeWithContentDescription("${it.name}").assertHasClickAction()
         }
     }
 
@@ -93,7 +93,7 @@ class BottomNavigationBarTest {
 
         // Act
         composeRule
-            .onNodeWithContentDescription(targetIcon.name)
+            .onNodeWithContentDescription("${targetIcon.name}")
             .performClick()
 
         // Assert
@@ -127,7 +127,7 @@ class BottomNavigationBarTest {
                 navController.navigate(it.route)
             }
             composeRule
-                .onNodeWithContentDescription(it.name)
+                .onNodeWithContentDescription("${it.name}")
                 .performClick()
             verify {
                 navController.navigate(

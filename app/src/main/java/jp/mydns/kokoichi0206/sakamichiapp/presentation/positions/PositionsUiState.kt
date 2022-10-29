@@ -9,7 +9,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
  */
 data class PositionsUiState(
     var groupName: GroupName = GroupName.HINATAZAKA,
-    var selectedSong: String = "楽曲を選択してください",
+    var selectedSong: String? = null,
     var firstRow: List<Position> = emptyList(),
     var secondRow: List<Position> = emptyList(),
     var thirdRow: List<Position> = emptyList(),
