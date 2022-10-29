@@ -28,6 +28,7 @@ fun SettingsScreen(
 
     val context = LocalContext.current
     LaunchedEffect(key1 = true) {
+        viewModel.readVersion()
         viewModel.readUserID(context)
         viewModel.readThemeFromDataStore(context)
     }

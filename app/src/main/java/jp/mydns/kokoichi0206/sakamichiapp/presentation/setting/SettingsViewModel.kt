@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.other_api.ReportIssueUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.other_api.UpdateBlogUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
@@ -105,6 +106,10 @@ class SettingsViewModel @Inject constructor(
             }
             setThemeType(res.await())
         }
+    }
+
+    fun readVersion() {
+        _uiState.update { it.copy(version = BuildConfig.VERSION_NAME) }
     }
 
     fun setThemeType(typeStr: String) {

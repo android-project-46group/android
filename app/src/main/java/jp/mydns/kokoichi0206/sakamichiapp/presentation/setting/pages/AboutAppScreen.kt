@@ -77,7 +77,7 @@ fun AboutAppScreen(
             color = TextGray,
         )
         Text(
-            text = BuildConfig.VERSION_NAME,
+            text = uiState.version,
             color = TextGray,
         )
 

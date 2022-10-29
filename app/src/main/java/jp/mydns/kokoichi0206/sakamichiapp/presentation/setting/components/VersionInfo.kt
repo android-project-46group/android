@@ -12,7 +12,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.Typography
@@ -27,6 +26,7 @@ import java.time.LocalTime
 
 @Composable
 fun VersionInfo(
+    version: String = "1.0.0",
     borderColor: Color = Color.DarkGray,
     onIsDevChanged: () -> Unit,
 ) {
@@ -95,7 +95,7 @@ fun VersionInfo(
             }
             .padding(SpaceMedium)
             .testTag(TestTags.SETTING_VERSION),
-        text = stringResource(R.string.version_info_in_settings, BuildConfig.VERSION_NAME),
+        text = stringResource(R.string.version_info_in_settings, version),
         style = Typography.body2,
         textAlign = TextAlign.Center,
     )
