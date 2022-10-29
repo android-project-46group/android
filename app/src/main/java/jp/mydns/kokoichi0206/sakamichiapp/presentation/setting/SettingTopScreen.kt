@@ -36,6 +36,8 @@ fun SettingTopScreen(
     viewModel: SettingsViewModel,
     uiState: SettingsUiState,
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,7 +62,7 @@ fun SettingTopScreen(
 
             items(navigationList) { item ->
                 SettingRow(
-                    text = item.name,
+                    text = context.getString(item.name),
                     onclick = {
                         if (navController.currentDestination?.route !in navigationList.map { it.route }) {
                             navController.navigate(item.route)

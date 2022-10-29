@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.Espresso
+import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -73,6 +74,7 @@ class AppEndToEnd {
     fun clickInSettingScreen_onlyOneNavigationStock() {
         // Arrange
         val settingIcon = BottomNavItem.Setting
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
         // Move to SettingsScreen
         composeRule
             .onNodeWithContentDescription("${settingIcon.name}")
@@ -85,7 +87,7 @@ class AppEndToEnd {
         // Click different rows twice
         val row = SettingNavigation.ReportIssue
         composeRule
-            .onNodeWithTag(row.name)
+            .onNodeWithTag(context.getString(row.name))
             .assertExists()
             .performClick()
         composeRule

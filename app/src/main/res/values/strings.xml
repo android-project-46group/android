@@ -69,6 +69,12 @@
     <string name="developer_success_snack_bar_text">You are now a developer!</string>
     <string name="developer_on_the_way_snack_bar_text">You are now %d steps away from being a developer.</string>
     <string name="version_info_in_settings">バージョン情報 %s</string>
+    <string name="setting_update_blog">Blog 情報を更新する</string>
+    <string name="setting_quiz_record">クイズ成績</string>
+    <string name="setting_clear_cache">キャッシュをクリア</string>
+    <string name="setting_report_bugs">不具合の報告／意見</string>
+    <string name="setting_set_theme_color">テーマカラー設定</string>
+    <string name="setting_share_app">このアプリをシェアする</string>
 
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">クイズ正解数</string>
