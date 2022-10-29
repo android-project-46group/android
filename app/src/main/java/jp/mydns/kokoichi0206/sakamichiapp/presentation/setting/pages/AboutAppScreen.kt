@@ -75,10 +75,14 @@ fun AboutAppScreen(
         Text(
             text = context.getString(R.string.about_app_version),
             color = TextGray,
+            modifier = Modifier
+                .testTag(TestTags.ABOUT_APP_VERSION_TITLE),
         )
         Text(
             text = uiState.version,
             color = TextGray,
+            modifier = Modifier
+                .testTag(TestTags.ABOUT_APP_VERSION_CONTENT),
         )
 
         Spacer(modifier = Modifier.height(SpaceLarge))
@@ -87,10 +91,14 @@ fun AboutAppScreen(
         Text(
             text = context.getString(R.string.about_app_user_id),
             color = TextGray,
+            modifier = Modifier
+                .testTag(TestTags.ABOUT_APP_USERID_TITLE),
         )
         Text(
             text = uiState.userId,
             color = TextGray,
+            modifier = Modifier
+                .testTag(TestTags.ABOUT_APP_USERID_CONTENT),
         )
     }
 }
