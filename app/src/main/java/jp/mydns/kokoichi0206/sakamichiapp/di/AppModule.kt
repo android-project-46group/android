@@ -11,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jp.mydns.kokoichi0206.sakamichiapp.data.local.QuizRecordDatabase
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.AddHeaderInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.RetryInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.data.repository.QuizRecordRepositoryImpl
@@ -36,6 +37,7 @@ object AppModule {
         val okHttpClient = OkHttpClient.Builder()
             // サーバー側の設定か、なぜか指定が必要！
             .connectTimeout(777, TimeUnit.MILLISECONDS)
+            .addInterceptor(AddHeaderInterceptor())
             .addInterceptor(LoggingInterceptor())
             .addInterceptor(RetryInterceptor())
             .build()

@@ -25,7 +25,9 @@ fun getJsonFromMember(member: Member): String {
             .replace("?", QUESTION_ENCODED),
         imgUrl = member.imgUrl
             .replace("/", SLASH_ENCODED)
-            .replace("?", QUESTION_ENCODED)
+            .replace("?", QUESTION_ENCODED),
+        birthday = member.birthday
+            .replace("/", SLASH_ENCODED),
     )
     return Gson().toJson(props)
 }
