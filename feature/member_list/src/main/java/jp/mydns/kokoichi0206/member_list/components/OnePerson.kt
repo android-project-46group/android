@@ -1,7 +1,10 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components
+package jp.mydns.kokoichi0206.member_list.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,10 +21,9 @@ import coil.compose.AsyncImage
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
-import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.common.R
 import jp.mydns.kokoichi0206.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.data.remote.RetryInterceptor
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.memberImage
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -61,8 +63,8 @@ fun OnePerson(
                 .crossfade(true)
                 .okHttpClient {
                     OkHttpClient.Builder()
-                        .addInterceptor(jp.mydns.kokoichi0206.data.remote.LoggingInterceptor())
-                        .addInterceptor(jp.mydns.kokoichi0206.data.remote.RetryInterceptor())
+                        .addInterceptor(LoggingInterceptor())
+                        .addInterceptor(RetryInterceptor())
                         // サーバー側の設定か、なぜか指定が必要！
                         .connectTimeout(777, TimeUnit.MILLISECONDS)
                         .build()

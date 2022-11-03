@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
+package jp.mydns.kokoichi0206.member_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,23 +15,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.mydns.kokoichi0206.common.components.GroupBar
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.SkeletonMemberScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.SortBar
+import jp.mydns.kokoichi0206.member_list.components.SkeletonMemberScreen
+import jp.mydns.kokoichi0206.member_list.components.SortBar
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.model.Member
 
 /**
  * Function to display member list.
  */
 @Composable
 fun MemberListScreen(
-    navController: NavController,
-    viewModel: MemberListViewModel = hiltViewModel()
+    viewModel: MemberListViewModel = hiltViewModel(),
+    onPersonClick: (Member) -> Unit,
 ) {
     // Initialize the members when first loaded.
     if (!viewModel.hasInitialized()) {
@@ -42,7 +42,7 @@ fun MemberListScreen(
     val uiState by viewModel.uiState.collectAsState()
     CustomSakaTheme(group = uiState.groupName.jname) {
         MainView(
-            uiState, navController, viewModel
+            uiState, viewModel, onPersonClick
         )
     }
 }
@@ -50,8 +50,8 @@ fun MemberListScreen(
 @Composable
 fun MainView(
     uiState: MemberListUiState,
-    navController: NavController,
-    viewModel: MemberListViewModel
+    viewModel: MemberListViewModel,
+    onPersonClick: (Member) -> Unit,
 ) {
     Column(
         modifier = Modifier.background(MaterialTheme.colors.background)
@@ -77,7 +77,7 @@ fun MainView(
         ) {
             SwipableArea(
                 uiState = uiState,
-                navController = navController,
+                onPersonClick = onPersonClick,
             )
         }
     }
@@ -90,7 +90,7 @@ fun MainView(
 @Composable
 fun SwipableArea(
     uiState: MemberListUiState,
-    navController: NavController,
+    onPersonClick: (Member) -> Unit = {},
 ) {
     Box(
         modifier = Modifier
@@ -116,7 +116,7 @@ fun SwipableArea(
         } else {
             MainColumn(
                 uiState = uiState,
-                navController = navController,
+                onPersonClick = onPersonClick,
             )
         }
     }

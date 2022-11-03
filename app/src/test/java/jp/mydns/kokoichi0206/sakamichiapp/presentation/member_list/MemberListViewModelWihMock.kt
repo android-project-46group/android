@@ -7,7 +7,7 @@ import usecase.get_members.GetMembersUseCase
  */
 class MemberListViewModelWihMock(
     getMembersUseCase: usecase.get_members.GetMembersUseCase
-) : MemberListViewModel(
+) : jp.mydns.kokoichi0206.member_list.MemberListViewModel(
     getMembersUseCase
 ) {
     /**

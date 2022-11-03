@@ -9,7 +9,6 @@ import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.Resource
 import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.MemberListApiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components
+package jp.mydns.kokoichi0206.member_list.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,11 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import jp.mydns.kokoichi0206.common.GroupName
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.*
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.feature.member_list.R
+import jp.mydns.kokoichi0206.member_list.*
 
 /**
  * Bar to change displaying member information.

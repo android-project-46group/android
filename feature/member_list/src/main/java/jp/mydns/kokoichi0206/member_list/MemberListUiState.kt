@@ -1,8 +1,9 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
+package jp.mydns.kokoichi0206.member_list
 
 import android.content.Context
 import jp.mydns.kokoichi0206.common.GroupName
-import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.feature.member_list.R
+import jp.mydns.kokoichi0206.model.Member
 
 /**
  * States for Member List UI.
@@ -17,7 +18,7 @@ data class MemberListUiState(
     var sortKey: MemberListSortKeys = MemberListSortKeys.NONE,
     var sortType: SortOrderType = SortOrderType.ASCENDING,
     var narrowType: NarrowKeys = NarrowKeys.NONE,
-    var visibleMembers: MutableList<jp.mydns.kokoichi0206.model.Member> = mutableListOf(),
+    var visibleMembers: MutableList<Member> = mutableListOf(),
     var formationTitle: String = "",
     var isRefreshing: Boolean = false,
 )

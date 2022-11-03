@@ -26,13 +26,14 @@ import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.MemberDetailScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.MemberListScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.positions.PositionsScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.QuizScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getBaseColorInThemeTypesFromString
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getSubColorInThemeTypesFromString
 import jp.mydns.kokoichi0206.common.components.WebViewWidget
+import jp.mydns.kokoichi0206.member_list.MemberListScreen
+import jp.mydns.kokoichi0206.model.getJsonFromMember
 
 /**
  * Bottom navigation host setup (Register routing).
@@ -56,9 +57,13 @@ fun BottomNavHost(
          * Member List Screen
          */
         composable(Screen.MemberListScreen.route) {
-            MemberListScreen(
-                navController = navHostController,
-            )
+            MemberListScreen { member ->
+                navHostController.navigateUp()
+                navHostController.navigate(
+                    Screen.MemberDetailScreen.route
+                            + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
+                )
+            }
         }
 
         /**
@@ -76,7 +81,10 @@ fun BottomNavHost(
             val memberJson = backStackEntry.arguments?.getString(Constants.NAV_PARAM_MEMBER_PROPS)
 
             // Parse Json to Member class object
-            val member = Gson().fromJson<jp.mydns.kokoichi0206.model.Member>(memberJson, jp.mydns.kokoichi0206.model.Member::class.java)
+            val member = Gson().fromJson<jp.mydns.kokoichi0206.model.Member>(
+                memberJson,
+                jp.mydns.kokoichi0206.model.Member::class.java
+            )
 
             MemberDetailScreen(member)
         }

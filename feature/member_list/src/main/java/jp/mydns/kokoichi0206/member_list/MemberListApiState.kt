@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
+package jp.mydns.kokoichi0206.member_list
 
 /**
  * States for the web API return value.

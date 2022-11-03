@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components
+package jp.mydns.kokoichi0206.member_list.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding

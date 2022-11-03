@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components
+package jp.mydns.kokoichi0206.member_list.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import jp.mydns.kokoichi0206.common.Constants
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.memberImage
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 
 /**

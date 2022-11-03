@@ -41,7 +41,7 @@ class MemberListScreenTest {
         MockKAnnotations.init(this)
 
         composeRule.activity.setContent {
-            MemberListScreen(
+            jp.mydns.kokoichi0206.member_list.MemberListScreen(
                 navController = navController,
             )
         }

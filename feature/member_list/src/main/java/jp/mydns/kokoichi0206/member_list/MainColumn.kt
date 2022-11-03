@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
+package jp.mydns.kokoichi0206.member_list
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -6,14 +6,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import jp.mydns.kokoichi0206.common.Constants
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.OnePerson
+import jp.mydns.kokoichi0206.member_list.components.OnePerson
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
 import jp.mydns.kokoichi0206.common.getGenerationLooper
-import jp.mydns.kokoichi0206.model.getJsonFromMember
+import jp.mydns.kokoichi0206.model.Member
 
 /**
  * Main column to display members list.
@@ -21,18 +19,18 @@ import jp.mydns.kokoichi0206.model.getJsonFromMember
 @Composable
 fun MainColumn(
     uiState: MemberListUiState,
-    navController: NavController
+    onPersonClick: (Member) -> Unit,
 ) {
     when (uiState.visibleStyle) {
         VisibleMemberStyle.DEFAULT, VisibleMemberStyle.BIRTHDAY ->
             DefaultColumn(
                 uiState = uiState,
-                navController = navController
+                onPersonClick = onPersonClick,
             )
         VisibleMemberStyle.LINES ->
             ColumnWithLine(
                 uiState = uiState,
-                navController = navController
+                onPersonClick = onPersonClick,
             )
     }
 }
@@ -40,8 +38,8 @@ fun MainColumn(
 @Composable
 fun DefaultColumn(
     uiState: MemberListUiState,
-    navController: NavController,
     members: MutableList<jp.mydns.kokoichi0206.model.Member> = uiState.visibleMembers,
+    onPersonClick: (Member) -> Unit = {},
 ) {
     LazyColumn(
         contentPadding = Constants.BottomBarPadding,
@@ -55,8 +53,8 @@ fun DefaultColumn(
             MemberRow(
                 rowIndex = it,
                 entries = members,
-                navController = navController,
                 uiState = uiState,
+                onPersonClick = onPersonClick,
             )
         }
     }
@@ -65,7 +63,7 @@ fun DefaultColumn(
 @Composable
 fun ColumnWithLine(
     uiState: MemberListUiState,
-    navController: NavController
+    onPersonClick: (Member) -> Unit = {},
 ) {
     val sameGroupMembers = when (uiState.sortKey) {
         MemberListSortKeys.BLOOD_TYPE ->
@@ -129,8 +127,8 @@ fun ColumnWithLine(
                 MemberRow(
                     rowIndex = it,
                     entries = members,
-                    navController = navController,
                     uiState = uiState,
+                    onPersonClick = onPersonClick,
                 )
             }
 
@@ -147,25 +145,25 @@ fun ColumnWithLine(
 @Composable
 fun MemberRow(
     rowIndex: Int,
-    entries: MutableList<jp.mydns.kokoichi0206.model.Member>,
-    navController: NavController,
+    entries: MutableList<Member>,
     uiState: MemberListUiState,
+    onPersonClick: (Member) -> Unit,
 ) {
     // Three members in one row
     Row {
         WrapOnePerson(
             member = entries[rowIndex * 3],
             modifier = Modifier.weight(1f),
-            navController = navController,
             uiState = uiState,
+            onPersonClick = onPersonClick,
         )
         Spacer(modifier = Modifier.width(SpaceMedium))
         if (entries.size >= rowIndex * 3 + 2) {
             WrapOnePerson(
                 member = entries[rowIndex * 3 + 1],
                 modifier = Modifier.weight(1f),
-                navController = navController,
                 uiState = uiState,
+                onPersonClick = onPersonClick,
             )
         } else {
             Spacer(modifier = Modifier.weight(1f))
@@ -175,8 +173,8 @@ fun MemberRow(
             WrapOnePerson(
                 member = entries[rowIndex * 3 + 2],
                 modifier = Modifier.weight(1f),
-                navController = navController,
                 uiState = uiState,
+                onPersonClick = onPersonClick,
             )
         } else {
             Spacer(modifier = Modifier.weight(1f))
@@ -187,10 +185,10 @@ fun MemberRow(
 
 @Composable
 fun WrapOnePerson(
-    member: jp.mydns.kokoichi0206.model.Member,
+    member: Member,
     modifier: Modifier = Modifier,
-    navController: NavController,
     uiState: MemberListUiState,
+    onPersonClick: (Member) -> Unit,
 ) {
     // Change display information according to selected sortKey.
     val extraInfo = when (uiState.sortKey) {
@@ -205,11 +203,12 @@ fun WrapOnePerson(
         member = member,
         modifier = modifier,
         onclick = {
-            navController.navigateUp()
-            navController.navigate(
-                Screen.MemberDetailScreen.route
-                        + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
-            )
+            onPersonClick(member)
+//            navController.navigateUp()
+//            navController.navigate(
+//                Screen.MemberDetailScreen.route
+//                        + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(member)}"
+//            )
         },
         extraInfo = extraInfo,
     )
