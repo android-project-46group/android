@@ -1,6 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.common.GroupName
 
 /**
  * States for Member List UI.
@@ -41,13 +42,6 @@ enum class PageType {
      * Results page.
      */
     RESULT,
-}
-
-
-enum class GroupName(val jname: String) {
-    NOGIZAKA("乃木坂"),
-    SAKURAZAKA("櫻坂"),
-    HINATAZAKA("日向坂"),
 }
 
 /**

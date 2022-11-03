@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.OneInfo
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.RowTags
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components.CustomDevider
+import jp.mydns.kokoichi0206.common.components.CustomDevider
 
 val PADDING_HORIZONTAL = 10.dp
 val PADDING_VERTICAL = 4.dp

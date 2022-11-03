@@ -19,11 +19,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.*
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceHuge
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 
 /**
  * Bar to change displaying member information.

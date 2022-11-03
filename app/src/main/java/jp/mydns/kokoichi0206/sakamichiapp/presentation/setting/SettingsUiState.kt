@@ -2,7 +2,7 @@ package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
 
 import android.content.Context
 import androidx.compose.ui.graphics.Color
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
+import jp.mydns.kokoichi0206.common.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
 
 data class SettingsUiState(

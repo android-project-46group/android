@@ -16,13 +16,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 
 @Composable

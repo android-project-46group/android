@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.Resource
 import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases

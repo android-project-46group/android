@@ -1,10 +1,10 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme
+package jp.mydns.kokoichi0206.common.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
+import jp.mydns.kokoichi0206.common.GroupName
 
 @Composable
 fun CustomSakaTheme(

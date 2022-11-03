@@ -1,6 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.positions
 
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
+import jp.mydns.kokoichi0206.common.GroupName
 
 /**
  * States for Positions UI.

@@ -30,16 +30,16 @@ import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupBar
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.components.GroupBar
+import jp.mydns.kokoichi0206.common.ui.theme.*
+import jp.mydns.kokoichi0206.model.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.SkeletonBlogScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.blogImage
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 

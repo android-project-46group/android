@@ -62,7 +62,4 @@ object TestTags {
 
     // Setting utils
     const val SETTING_TOP_BAR = "SETTING_TOP_BAR"
-
-    // Utils
-    const val GROUP_BAR = "GROUP_BAR"
 }

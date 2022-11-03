@@ -12,6 +12,8 @@ android {
 dependencies {
     implementation deps.retrofit.gson
     implementation deps.timber
+    implementation deps.okhttp3.okhttp
+    implementation deps.okhttp3.logging_interceptor
 
     // Room
     implementation deps.room.room

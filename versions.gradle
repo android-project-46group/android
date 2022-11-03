@@ -2,6 +2,7 @@ def build_versions = [:]
 build_versions.min_sdk = 26
 build_versions.target_sdk = 33
 build_versions.compose = "1.3.0-rc01"
+build_versions.kotlin = "1.7.1"
 ext.build_versions = build_versions
 
 def versions = [:]

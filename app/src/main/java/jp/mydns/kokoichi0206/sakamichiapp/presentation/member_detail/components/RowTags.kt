@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.PADDING_HORIZONTAL
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.PADDING_VERTICAL
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 
 /**
  * Row of tags

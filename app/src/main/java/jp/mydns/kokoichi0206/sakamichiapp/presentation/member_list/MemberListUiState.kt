@@ -1,6 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
 import android.content.Context
+import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.sakamichiapp.R
 
 /**
@@ -20,12 +21,6 @@ data class MemberListUiState(
     var formationTitle: String = "",
     var isRefreshing: Boolean = false,
 )
-
-enum class GroupName(val jname: String) {
-    NOGIZAKA("乃木坂"),
-    SAKURAZAKA("櫻坂"),
-    HINATAZAKA("日向坂"),
-}
 
 /**
  * Main LazyColumn representing Style.

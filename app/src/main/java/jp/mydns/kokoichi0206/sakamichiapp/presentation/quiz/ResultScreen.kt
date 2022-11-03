@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import jp.mydns.kokoichi0206.common.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
 
 @Composable
 fun ResultScreen(
@@ -26,11 +26,11 @@ fun ResultScreen(
     ) {
         Text(
             text = stringResource(R.string.results_screen_total_quiz_num, uiState.quizNum),
-            style = Typography.h3,
+            style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h3,
         )
         Text(
             text = stringResource(R.string.results_screen_scores, uiState.scores),
-            style = Typography.h2,
+            style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h2,
             color = Color.Red,
         )
         Spacer(modifier = Modifier.height(SpaceSmall))
@@ -49,7 +49,7 @@ fun ResultScreen(
             } else {
                 stringResource(R.string.quiz_result_hide_ans)
             },
-            style = Typography.h6,
+            style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h6,
         )
         if (showAns) {
             CorrectAnswers(
@@ -76,7 +76,7 @@ fun BackToQuizHomeButton(viewModel: QuizViewModel) {
                 }
                 .padding(SpaceMedium),
             text = stringResource(R.string.back_to_quiz_top_page),
-            style = Typography.h4,
+            style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h4,
             color = Color.White,
             textAlign = TextAlign.Center,
         )
@@ -99,17 +99,17 @@ fun CorrectAnswers(
                 Text(
                     modifier = Modifier.weight(2f),
                     text = quiz.correctMember.name,
-                    style = Typography.body1,
+                    style = jp.mydns.kokoichi0206.common.ui.theme.Typography.body1,
                 )
                 Text(
                     modifier = Modifier.padding(SpaceTiny),
                     text = stringResource(R.string.separator_between_name_and_ans),
-                    style = Typography.body1,
+                    style = jp.mydns.kokoichi0206.common.ui.theme.Typography.body1,
                 )
                 Text(
                     modifier = Modifier.weight(3f),
                     text = viewModel.getAnsByQuizType(quiz.correctMember),
-                    style = Typography.body1,
+                    style = jp.mydns.kokoichi0206.common.ui.theme.Typography.body1,
                 )
             }
         }

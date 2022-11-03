@@ -20,10 +20,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.ThemeType
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.IconSizeMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.Typography
+import jp.mydns.kokoichi0206.common.ui.theme.IconSizeMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.common.ui.theme.Typography
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 
 @Composable

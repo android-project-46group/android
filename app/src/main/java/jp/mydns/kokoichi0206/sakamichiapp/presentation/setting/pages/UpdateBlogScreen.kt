@@ -16,10 +16,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import jp.mydns.kokoichi0206.common.Constants.BottomBarPadding
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants.BottomBarPadding
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import kotlinx.coroutines.async

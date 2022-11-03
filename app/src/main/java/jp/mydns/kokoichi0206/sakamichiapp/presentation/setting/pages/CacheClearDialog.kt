@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import java.io.File
 

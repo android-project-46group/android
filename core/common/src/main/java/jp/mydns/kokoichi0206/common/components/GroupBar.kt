@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
+package jp.mydns.kokoichi0206.common.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components.CustomDevider
+import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.TestTags
 
 /**
  * Group selection bar

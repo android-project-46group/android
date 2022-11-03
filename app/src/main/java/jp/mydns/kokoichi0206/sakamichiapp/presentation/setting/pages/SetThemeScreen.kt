@@ -21,12 +21,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import jp.mydns.kokoichi0206.common.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.ThemeType
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.SettingTopBar
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.themeTypes
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 
 @Composable

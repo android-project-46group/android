@@ -15,10 +15,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import jp.mydns.kokoichi0206.sakamichiapp.R
+import kotlin.text.Typography
 
 /**
  * Screen to choose GroupName and QuizType.
@@ -100,7 +102,7 @@ fun OneGroup(
                 modifier = Modifier
                     .weight(2f),
                 text = stringResource(R.string.choose_group_name_text, groupName.jname),
-                style = Typography.h4,
+                style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h4,
                 color = when (groupName) {
                     GroupName.NOGIZAKA ->
                         BaseColorN
@@ -127,7 +129,7 @@ fun ChooseQuizTypePage(viewModel: QuizViewModel) {
                 .fillMaxWidth()
                 .testTag(TestTags.CHOOSE_QUIZ_TYPE_PAGE_TITLE),
             text = stringResource(R.string.choose_quiz_type_title),
-            style = Typography.h5,
+            style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h5,
             textAlign = TextAlign.Center,
         )
         QuizType.values().forEachIndexed { ind, type ->
@@ -152,7 +154,7 @@ fun ChooseQuizTypePage(viewModel: QuizViewModel) {
                         .padding(SpaceMedium)
                         .testTag(TestTags.QUIZ_TYPE_CHOICE),
                     text = type.jname,
-                    style = Typography.h4,
+                    style = jp.mydns.kokoichi0206.common.ui.theme.Typography.h4,
                     textAlign = TextAlign.Center,
                     color = Constants.QuizTypeColors[ind],
                 )

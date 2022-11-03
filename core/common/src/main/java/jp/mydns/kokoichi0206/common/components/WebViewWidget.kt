@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components
+package jp.mydns.kokoichi0206.common.components
 
 import android.webkit.WebView
 import android.webkit.WebViewClient

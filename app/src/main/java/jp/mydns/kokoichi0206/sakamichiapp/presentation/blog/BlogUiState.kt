@@ -1,6 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
+import jp.mydns.kokoichi0206.common.GroupName
 
 /**
  * States for Member List UI.

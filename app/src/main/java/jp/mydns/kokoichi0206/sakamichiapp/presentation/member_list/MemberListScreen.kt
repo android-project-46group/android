@@ -18,11 +18,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import jp.mydns.kokoichi0206.common.components.GroupBar
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.SkeletonMemberScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.SortBar
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.CustomSakaTheme
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 
 /**
  * Function to display member list.

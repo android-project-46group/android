@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -22,10 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
+import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.SettingTopBar
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 
 /**

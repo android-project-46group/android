@@ -22,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
+import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.MemberDetailScreen
@@ -31,7 +32,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.QuizScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getBaseColorInThemeTypesFromString
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getSubColorInThemeTypesFromString
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components.WebViewWidget
+import jp.mydns.kokoichi0206.common.components.WebViewWidget
 
 /**
  * Bottom navigation host setup (Register routing).

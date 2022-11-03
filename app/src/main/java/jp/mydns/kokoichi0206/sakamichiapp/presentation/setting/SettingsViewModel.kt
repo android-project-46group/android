@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.domain.usecase.other_api.ReportIssueUseCase
 import jp.mydns.kokoichi0206.domain.usecase.other_api.UpdateBlogUseCase
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
 import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.GroupName
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

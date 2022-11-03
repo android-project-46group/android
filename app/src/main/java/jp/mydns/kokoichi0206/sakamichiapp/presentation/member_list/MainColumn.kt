@@ -7,13 +7,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.OnePerson
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getGenerationLooper
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getJsonFromMember
+import jp.mydns.kokoichi0206.common.getGenerationLooper
+import jp.mydns.kokoichi0206.model.getJsonFromMember
 
 /**
  * Main column to display members list.

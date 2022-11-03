@@ -15,10 +15,10 @@ import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.Typography
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
+import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.common.ui.theme.Typography
 
 /**
  * Skeleton Screen

@@ -11,10 +11,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceHuge
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components.CustomDevider
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getBaseColor
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.common.components.CustomDevider
+import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.getBaseColor
 
 @Composable
 fun QuizResultsScreen(uiState: SettingsUiState) {

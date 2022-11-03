@@ -20,13 +20,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import jp.mydns.kokoichi0206.common.Constants.BottomPadding
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.VersionInfo
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.IconSizeMedium
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceTiny
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.Typography
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants.BottomPadding
+import jp.mydns.kokoichi0206.common.ui.theme.IconSizeMedium
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
+import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
+import jp.mydns.kokoichi0206.common.ui.theme.Typography
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 
 @Composable
