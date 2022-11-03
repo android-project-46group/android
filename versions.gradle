@@ -1,0 +1,167 @@
+def build_versions = [:]
+build_versions.min_sdk = 26
+build_versions.target_sdk = 33
+build_versions.compose = "1.3.0-rc01"
+ext.build_versions = build_versions
+
+def versions = [:]
+versions.core_ktx = "1.9.0"
+versions.appcompat = "1.5.1"
+versions.compose = "1.3.0-rc01"
+versions.material = "1.7.0"
+versions.runtime_ktx = "2.5.1"
+versions.activity_compose = "1.6.1"
+versions.test = "1.4.0"
+versions.navigation_testing = "2.5.3"
+versions.junit = "4.13.2"
+versions.liifecycle_vm_compose = "2.6.0-alpha03"
+versions.navigation_compose = "2.6.0-alpha03"
+versions.accompanist_flowlayout = "0.17.0"
+
+versions.retrofit = "2.9.0"
+versions.adapter_rxjava = "2.4.0"
+versions.okhttp = "4.10.0"
+versions.logging_interceptor = "4.9.0"
+
+versions.room = "2.4.3"
+versions.timber = "5.0.1"
+
+versions.coroutines = "1.6.4"
+versions.lifecycle_ktx = "2.5.1"
+versions.coil = "2.2.2"
+versions.hilt = "2.42"
+versions.hilt_compiler = "1.0.0"
+versions.hilt_navigation = "1.0.0"
+
+versions.hilt_testing = "2.37"
+
+versions.hamcrest = "1.3"
+versions.arch_core_testing = "2.1.0"
+versions.robolectric = "4.5.1"
+versions.coroutine_test = "1.5.2"
+versions.truth = "1.1.3"
+versions.ext_junit = "1.1.3"
+versions.okhttp_mock = "4.9.1"
+versions.mockk = "1.12.0"
+versions.assertj = "3.21.0"
+versions.espresso = "3.4.0"
+versions.ac_systemuicontroller = "0.17.0"
+versions.ac_navigation_animation = "0.26.5-rc"
+versions.ac_swiperefresh = "0.27.0"
+versions.datastore = "1.0.0"
+versions.jdbc = "3.36.0"
+
+def deps = [:]
+
+def material = [:]
+material.material = "com.google.android.material:material:1.7.0"
+material.compose = "androidx.compose.material:material:1.3.0-rc01"
+deps.material = material
+
+deps.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+deps.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
+
+def compose = [:]
+compose.ui = "androidx.compose.ui:ui:$versions.compose"
+compose.ui_preview = "androidx.compose.ui:ui-tooling-preview:$versions.compose"
+
+compose.debug_tooling = "androidx.compose.ui:ui-tooling:$versions.compose"
+compose.lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-compose:$versions.liifecycle_vm_compose"
+compose.navigation = "androidx.navigation:navigation-compose:$versions.navigation_compose"
+compose.activity = "androidx.activity:activity-compose:$versions.activity_compose"
+
+compose.ui_test_junit4 = "androidx.compose.ui:ui-test-junit4:$versions.compose"
+
+deps.compose = compose
+
+def lifecycle = [:]
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle_ktx"
+lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_ktx"
+deps.lifecycle = lifecycle
+
+def navigation = [:]
+navigation.testing = "androidx.navigation:navigation-testing:$versions.navigation_testing"
+deps.navigation = navigation
+
+def test = [:]
+test.junit = "junit:junit:$versions.junit"
+test.runner = "androidx.test:runner:$versions.test"
+test.core_ktx = "androidx.test:core-ktx:$versions.test"
+test.core = "androidx.test:core:$versions.test"
+test.ext_junit = "androidx.test.ext:junit:$versions.ext_junit"
+deps.test = test
+
+deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
+deps.truth = "com.google.truth:truth:$versions.truth"
+deps.assertj = "org.assertj:assertj-core:$versions.assertj"
+
+def arch = [:]
+arch.core = "androidx.arch.core:core-testing:$versions.arch_core_testing"
+deps.arch = arch
+
+def retrofit = [:]
+retrofit.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.adapter_rxjava"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+
+def okhttp3 = [:]
+okhttp3.okhttp = "com.squareup.okhttp3:okhttp:$versions.okhttp"
+okhttp3.logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$versions.logging_interceptor"
+
+okhttp3.mockwebserver = "com.squareup.okhttp3:mockwebserver:$versions.okhttp_mock"
+deps.okhttp3 = okhttp3
+
+def room = [:]
+room.room = "androidx.room:room-runtime:$versions.room"
+room.kapt = "androidx.room:room-compiler:$versions.room"
+room.room_ktx = "androidx.room:room-ktx:$versions.room"
+deps.room = room
+
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+
+def coroutines = [:]
+coroutines.core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+coroutines.test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine_test"
+deps.coroutines = coroutines
+
+def mockk = [:]
+mockk.mockk = "io.mockk:mockk:$versions.mockk"
+mockk.android = "io.mockk:mockk-android:$versions.mockk"
+deps.mockk = mockk
+
+deps.robolectric = "org.robolectric:robolectric:$versions.robolectric"
+
+deps.coil = "io.coil-kt:coil-compose:$versions.coil"
+
+def hilt = [:]
+hilt.android = "com.google.dagger:hilt-android:$versions.hilt"
+hilt.compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+hilt.kapt = "androidx.hilt:hilt-compiler:$versions.hilt_compiler"
+hilt.navigation = "androidx.hilt:hilt-navigation-compose:$versions.hilt_navigation"
+hilt.testing = "com.google.dagger:hilt-android-testing:$versions.hilt_testing"
+hilt.kapt_android = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+deps.hilt = hilt
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+deps.espresso = espresso
+
+def accompanist = [:]
+accompanist.flowlayout = "com.google.accompanist:accompanist-flowlayout:$versions.accompanist_flowlayout"
+accompanist.systemuicontroller = "com.google.accompanist:accompanist-systemuicontroller:$versions.ac_systemuicontroller"
+accompanist.animation = "com.google.accompanist:accompanist-navigation-animation:$versions.ac_navigation_animation"
+accompanist.swiperefresh = "com.google.accompanist:accompanist-swiperefresh:$versions.ac_swiperefresh"
+
+deps.accompanist = accompanist
+
+def datastore = [:]
+datastore.preferences = "androidx.datastore:datastore-preferences:$versions.datastore"
+datastore.rxjava3 = "androidx.datastore:datastore-preferences-rxjava3:$versions.datastore"
+deps.datastore = datastore
+
+deps.sqlite_jdbc = "org.xerial:sqlite-jdbc:$versions.jdbc"
+
+ext.deps = deps
