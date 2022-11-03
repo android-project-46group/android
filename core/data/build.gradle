@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -10,7 +11,23 @@ android {
 
 dependencies {
     implementation deps.retrofit.gson
+    implementation deps.timber
+
+    // Room
+    implementation deps.room.room
+    kapt deps.room.kapt
+    implementation deps.room.room_ktx
+
+    // hilt dependencies
+    implementation deps.hilt.android
+    kapt deps.hilt.compiler
+    kapt deps.hilt.kapt
+    implementation deps.hilt.navigation
+
+    // Fix sqlite database error in m1 mac
+    kapt deps.sqlite_jdbc
 
     // modules
+    implementation project(":core:common")
     implementation project(":core:model")
 }

@@ -1,14 +1,14 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
+import usecase.get_members.GetMembersUseCase
+import usecase.quiz_record.RecordUseCases
 
 /**
  * Mock ViewModel of MemberList Screen
  */
 class QuizViewModelWihMock(
-    getMembersUseCase: GetMembersUseCase,
-    recordUseCase: RecordUseCases
+    getMembersUseCase: usecase.get_members.GetMembersUseCase,
+    recordUseCase: usecase.quiz_record.RecordUseCases
 ) : QuizViewModel (
     getMembersUseCase, recordUseCase
 ) {

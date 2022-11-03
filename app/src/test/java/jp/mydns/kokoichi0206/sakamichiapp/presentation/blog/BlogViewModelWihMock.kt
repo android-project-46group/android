@@ -1,12 +1,12 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_blogs.GetBlogsUseCase
+import usecase.get_blogs.GetBlogsUseCase
 
 /**
  * Mock ViewModel of MemberList Screen
  */
 class BlogViewModelWihMock(
-    getBlogsUseCase: GetBlogsUseCase
+    getBlogsUseCase: usecase.get_blogs.GetBlogsUseCase
 ) : BlogViewModel (
     getBlogsUseCase
 ) {

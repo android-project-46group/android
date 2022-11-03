@@ -16,13 +16,13 @@ class GetAccuracyRateByGroupTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var usecase: GetAccuracyRateByGroupUseCase
+    lateinit var usecase: usecase.quiz_record.GetAccuracyRateByGroupUseCase
     lateinit var fakeRepo: FakeQuizRecordRepository
 
     @Before
     fun setUp() {
         fakeRepo = FakeQuizRecordRepository()
-        usecase = GetAccuracyRateByGroupUseCase(fakeRepo)
+        usecase = usecase.quiz_record.GetAccuracyRateByGroupUseCase(fakeRepo)
     }
 
     @Test

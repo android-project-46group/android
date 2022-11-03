@@ -1,8 +1,8 @@
-package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_positions
+package jp.mydns.kokoichi0206.domain.usecase.get_positions
 
-import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto.toPosition
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.SakamichiRepository
+import jp.mydns.kokoichi0206.common.Resource
+import jp.mydns.kokoichi0206.data.remote.dto.toPosition
+import jp.mydns.kokoichi0206.data.repository.SakamichiRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

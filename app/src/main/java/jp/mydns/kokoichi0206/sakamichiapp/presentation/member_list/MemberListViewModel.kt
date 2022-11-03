@@ -5,10 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.common.calcBirthdayOrder
-import jp.mydns.kokoichi0206.sakamichiapp.common.calcMonthDayOrder
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
+import jp.mydns.kokoichi0206.common.Resource
+import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -17,7 +15,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 open class MemberListViewModel @Inject constructor(
-    private val getMembersUseCase: GetMembersUseCase
+    private val getMembersUseCase: GetMembersUseCase,
 ) : ViewModel() {
 
     private val _apiState = mutableStateOf(MemberListApiState())
@@ -96,10 +94,10 @@ open class MemberListViewModel @Inject constructor(
                 _uiState.value.visibleMembers.sortBy { it.bloodType }
             }
             MemberListSortKeys.BIRTHDAY -> {
-                _uiState.value.visibleMembers.sortBy { calcBirthdayOrder(it.birthday) }
+                _uiState.value.visibleMembers.sortBy { jp.mydns.kokoichi0206.common.calcBirthdayOrder(it.birthday) }
             }
             MemberListSortKeys.MONTH_DAY -> {
-                _uiState.value.visibleMembers.sortBy { calcMonthDayOrder(it.birthday) }
+                _uiState.value.visibleMembers.sortBy { jp.mydns.kokoichi0206.common.calcMonthDayOrder(it.birthday) }
             }
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortBy { it.height }
@@ -125,10 +123,10 @@ open class MemberListViewModel @Inject constructor(
                 _uiState.value.visibleMembers.sortByDescending { it.bloodType }
             }
             MemberListSortKeys.BIRTHDAY -> {
-                _uiState.value.visibleMembers.sortByDescending { calcBirthdayOrder(it.birthday) }
+                _uiState.value.visibleMembers.sortByDescending { jp.mydns.kokoichi0206.common.calcBirthdayOrder(it.birthday) }
             }
             MemberListSortKeys.MONTH_DAY -> {
-                _uiState.value.visibleMembers.sortByDescending { calcMonthDayOrder(it.birthday) }
+                _uiState.value.visibleMembers.sortByDescending { jp.mydns.kokoichi0206.common.calcMonthDayOrder(it.birthday) }
             }
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortByDescending { it.height }

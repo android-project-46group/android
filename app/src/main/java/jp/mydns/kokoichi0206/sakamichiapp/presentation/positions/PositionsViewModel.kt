@@ -5,16 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_positions.GetPositionsUseCase
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_songs.GetSongsUseCase
+import jp.mydns.kokoichi0206.common.Resource
+import jp.mydns.kokoichi0206.domain.usecase.get_positions.GetPositionsUseCase
+import jp.mydns.kokoichi0206.domain.usecase.get_songs.GetSongsUseCase
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
 open class PositionsViewModel @Inject constructor(
     private val getSongsUseCase: GetSongsUseCase,
-    private val getPositionsUseCase: GetPositionsUseCase
+    private val getPositionsUseCase: GetPositionsUseCase,
 ) : ViewModel() {
     /**
      * State to store songs api return value.

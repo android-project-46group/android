@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
+import jp.mydns.kokoichi0206.common.Resource
+import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
+import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.MemberListApiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 open class QuizViewModel @Inject constructor(
     private val getMembersUseCase: GetMembersUseCase,
-    private val recordUseCase: RecordUseCases,
+    private val recordUseCase: RecordUseCases
 ) : ViewModel() {
 
     private val _apiState = mutableStateOf(MemberListApiState())

@@ -24,14 +24,14 @@ class QuizRecordDaoTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var database: QuizRecordDatabase
-    private lateinit var dao: QuizRecordDao
+    lateinit var database: jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
+    private lateinit var dao: jp.mydns.kokoichi0206.data.local.QuizRecordDao
 
     @Before
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            QuizRecordDatabase::class.java
+            jp.mydns.kokoichi0206.data.local.QuizRecordDatabase::class.java
         ).allowMainThreadQueries().build()
         dao = database.quizRecordDao
     }

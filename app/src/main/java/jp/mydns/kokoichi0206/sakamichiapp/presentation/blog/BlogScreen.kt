@@ -37,8 +37,6 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.RetryInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.SkeletonBlogScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.blogImage
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
@@ -278,8 +276,8 @@ fun OneBlog(
             .crossfade(true)
             .okHttpClient {
                 OkHttpClient.Builder()
-                    .addInterceptor(LoggingInterceptor())
-                    .addInterceptor(RetryInterceptor())
+                    .addInterceptor(jp.mydns.kokoichi0206.data.remote.LoggingInterceptor())
+                    .addInterceptor(jp.mydns.kokoichi0206.data.remote.RetryInterceptor())
                     // サーバー側の設定か、なぜか指定が必要！
                     .connectTimeout(777, TimeUnit.MILLISECONDS)
                     .build()

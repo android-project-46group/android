@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record
+package jp.mydns.kokoichi0206.domain.usecase.quiz_record
 
 data class RecordUseCases(
     val getRecords: GetRecordsUseCase,

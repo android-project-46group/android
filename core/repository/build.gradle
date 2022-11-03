@@ -1,0 +1,13 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'jp.mydns.kokoichi0206.repository'
+    compileSdk build_versions.target_sdk
+}
+
+dependencies {
+    // modules
+}

@@ -1,8 +1,9 @@
-package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.other_api
+package jp.mydns.kokoichi0206.domain.usecase.other_api
 
-import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto.toUpdateBlogResponse
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.SakamichiRepository
+import jp.mydns.kokoichi0206.common.Resource
+import jp.mydns.kokoichi0206.data.remote.dto.toUpdateBlogResponse
+import jp.mydns.kokoichi0206.data.repository.SakamichiRepository
+import jp.mydns.kokoichi0206.model.UpdateBlogResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -10,9 +11,9 @@ import java.io.IOException
 import javax.inject.Inject
 
 class UpdateBlogUseCase @Inject constructor(
-    private val repository: SakamichiRepository
+    private val repository: SakamichiRepository,
 ) {
-    operator fun invoke(): Flow<Resource<jp.mydns.kokoichi0206.model.UpdateBlogResponse>> = flow {
+    operator fun invoke(): Flow<Resource<UpdateBlogResponse>> = flow {
         try {
             emit(Resource.Loading<jp.mydns.kokoichi0206.model.UpdateBlogResponse>())
             val res = repository.updateBlog().toUpdateBlogResponse()

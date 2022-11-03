@@ -1,7 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
-import jp.mydns.kokoichi0206.sakamichiapp.common.calcBirthdayOrder
-import jp.mydns.kokoichi0206.sakamichiapp.common.calcMonthDayOrder
+import jp.mydns.kokoichi0206.common.calcBirthdayOrder
+import jp.mydns.kokoichi0206.common.calcMonthDayOrder
 import io.mockk.mockk
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 
@@ -37,8 +37,8 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcBirthdayOrder(vMembers[i].birthday))
-                .isLessThanOrEqualTo(calcBirthdayOrder(vMembers[i+1].birthday))
+            assertThat(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i].birthday))
+                .isLessThanOrEqualTo(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i + 1].birthday))
         }
     }
 
@@ -54,8 +54,8 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcBirthdayOrder(vMembers[i].birthday))
-                .isGreaterThanOrEqualTo(calcBirthdayOrder(vMembers[i+1].birthday))
+            assertThat(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i].birthday))
+                .isGreaterThanOrEqualTo(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i + 1].birthday))
         }
     }
 
@@ -71,8 +71,8 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcMonthDayOrder(vMembers[i].birthday))
-                .isLessThanOrEqualTo(calcMonthDayOrder(vMembers[i+1].birthday))        }
+            assertThat(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i].birthday))
+                .isLessThanOrEqualTo(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i + 1].birthday))        }
     }
 
     @Test
@@ -87,8 +87,8 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcMonthDayOrder(vMembers[i].birthday))
-                .isGreaterThanOrEqualTo(calcMonthDayOrder(vMembers[i+1].birthday))
+            assertThat(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i].birthday))
+                .isGreaterThanOrEqualTo(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i + 1].birthday))
         }
     }
 

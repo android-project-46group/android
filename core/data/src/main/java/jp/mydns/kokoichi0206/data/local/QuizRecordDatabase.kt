@@ -2,9 +2,10 @@ package jp.mydns.kokoichi0206.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import jp.mydns.kokoichi0206.model.QuizRecord
 
 @Database(
-    entities = [jp.mydns.kokoichi0206.model.QuizRecord::class],
+    entities = [QuizRecord::class],
     version = 1,
     exportSchema = false,
 )

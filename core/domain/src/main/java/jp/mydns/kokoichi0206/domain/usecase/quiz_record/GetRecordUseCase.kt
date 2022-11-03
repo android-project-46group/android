@@ -1,12 +1,12 @@
-package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record
+package jp.mydns.kokoichi0206.domain.usecase.quiz_record
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.QuizRecordRepository
+import jp.mydns.kokoichi0206.data.repository.QuizRecordRepository
 
 /**
  * UseCase of get a quiz records for one group and one specific type.
  */
 class GetRecordUseCase(
-    private val repository: QuizRecordRepository
+    private val repository: QuizRecordRepository,
 ) {
 
     suspend operator fun invoke(
