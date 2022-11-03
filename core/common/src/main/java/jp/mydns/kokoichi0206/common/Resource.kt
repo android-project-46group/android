@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.common
+package jp.mydns.kokoichi0206.common
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : Resource<T>(data)

@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.common
+package jp.mydns.kokoichi0206.common
 
 object Constants {
 

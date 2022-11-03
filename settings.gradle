@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "Sakamichi app"
 include ':app'
 include ':core:model'
+include ':core:common'
