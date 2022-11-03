@@ -1,8 +1,9 @@
-package jp.mydns.kokoichi0206.sakamichiapp.data.repository
+package jp.mydns.kokoichi0206.data.repository
 
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.SakamichiApi
+import jp.mydns.kokoichi0206.data.remote.SakamichiApi
+import jp.mydns.kokoichi0206.data.remote.dto.*
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto.*
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.SakamichiRepository
+import repository.SakamichiRepository
 import javax.inject.Inject
 
 /**
@@ -10,7 +11,7 @@ import javax.inject.Inject
  */
 class SakamichiRepositoryImpl @Inject constructor(
     private val api: SakamichiApi
-) : SakamichiRepository {
+) : repository.SakamichiRepository {
 
     override suspend fun getMembers(groupName: String): MembersDto {
         return api.getMembers(groupName)

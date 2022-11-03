@@ -1,7 +1,6 @@
-package jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto
+package jp.mydns.kokoichi0206.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import jp.mydns.kokoichi0206.model.Member
 
 /**
  * Data class for one member in the API.

@@ -1,14 +1,14 @@
-package jp.mydns.kokoichi0206.sakamichiapp.data.repository
+package jp.mydns.kokoichi0206.data.repository
 
-import jp.mydns.kokoichi0206.sakamichiapp.data.local.QuizRecordDao
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.QuizRecordRepository
+import jp.mydns.kokoichi0206.data.local.QuizRecordDao
+import repository.QuizRecordRepository
 
 /**
  * Implementation of repository interface using actual Database query.
  */
 class QuizRecordRepositoryImpl(
     private val recordDao: QuizRecordDao
-): QuizRecordRepository {
+): repository.QuizRecordRepository {
 
     override suspend fun getRecordsByGroup(group: String): List<jp.mydns.kokoichi0206.model.QuizRecord> {
         return recordDao.getRecordsByGroup(group)

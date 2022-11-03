@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto
+package jp.mydns.kokoichi0206.data.remote.dto
 
 import jp.mydns.kokoichi0206.model.UpdateBlogResponse
 

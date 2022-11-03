@@ -1,5 +1,6 @@
-package jp.mydns.kokoichi0206.sakamichiapp.data.remote
+package jp.mydns.kokoichi0206.data.remote
 
+import jp.mydns.kokoichi0206.data.remote.dto.*
 import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto.*
 import retrofit2.http.Body

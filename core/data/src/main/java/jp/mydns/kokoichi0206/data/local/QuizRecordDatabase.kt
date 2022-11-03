@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.data.local
+package jp.mydns.kokoichi0206.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
