@@ -30,7 +30,6 @@ import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupBar
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.*
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
@@ -212,7 +211,7 @@ fun BlogTopBar(
 
 @Composable
 fun OneBlogRow(
-    row: List<Blog>,
+    row: List<jp.mydns.kokoichi0206.model.Blog>,
     uiState: BlogUiState,
     navController: NavController,
 ) {
@@ -247,8 +246,8 @@ fun OneBlogRow(
 @Composable
 fun OneBlog(
     uiState: BlogUiState,
-    blog: Blog,
-    onclick: (Blog) -> Unit,
+    blog: jp.mydns.kokoichi0206.model.Blog,
+    onclick: (jp.mydns.kokoichi0206.model.Blog) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(

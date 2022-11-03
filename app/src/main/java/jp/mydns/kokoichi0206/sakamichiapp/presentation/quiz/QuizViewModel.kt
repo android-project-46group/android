@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.MemberListApiState
@@ -96,7 +95,7 @@ open class QuizViewModel @Inject constructor(
      * @param member Member data class
      * @return One of the information of Member
      */
-    fun getAnsByQuizType(member: Member): String {
+    fun getAnsByQuizType(member: jp.mydns.kokoichi0206.model.Member): String {
         return when (uiState.value.quizType) {
             QuizType.BIRTHDAY ->
                 member.birthday
@@ -221,7 +220,7 @@ open class QuizViewModel @Inject constructor(
         _uiState.update { it.copy(groupName = groupName) }
     }
 
-    fun setMembers(members: MutableList<Member>) {
+    fun setMembers(members: MutableList<jp.mydns.kokoichi0206.model.Member>) {
         _uiState.update { it.copy(members = members) }
     }
 

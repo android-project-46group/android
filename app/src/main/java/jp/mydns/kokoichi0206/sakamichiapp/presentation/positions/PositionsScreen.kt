@@ -24,7 +24,6 @@ import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.LoggingInterceptor
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.RetryInterceptor
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Position
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -86,7 +85,7 @@ fun PositionsScreen(
 }
 
 @Composable
-fun EachRow(positions: List<Position>) {
+fun EachRow(positions: List<jp.mydns.kokoichi0206.model.Position>) {
     val IMG_SIZE = 60.dp
     val FONT_SIZE = 15.sp
     val IMG_PADDING = 3.dp

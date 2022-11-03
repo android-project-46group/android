@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
 import jp.mydns.kokoichi0206.sakamichiapp.common.calcBirthdayOrder
 import jp.mydns.kokoichi0206.sakamichiapp.common.calcMonthDayOrder
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -216,11 +215,11 @@ open class MemberListViewModel @Inject constructor(
         _uiState.update { it.copy(narrowType = type) }
     }
 
-    fun setVisibleMembers(members: MutableList<Member>) {
+    fun setVisibleMembers(members: MutableList<jp.mydns.kokoichi0206.model.Member>) {
         _uiState.update { it.copy(visibleMembers = members) }
     }
 
-    fun setApiMembers(members: MutableList<Member>) {
+    fun setApiMembers(members: MutableList<jp.mydns.kokoichi0206.model.Member>) {
         _apiState.value = MemberListApiState(members = members)
     }
 }

@@ -1,6 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.QuizRecord
 import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.QuizRecordRepository
 
 /**
@@ -12,7 +11,7 @@ class GetRecordsUseCase(
 
     suspend operator fun invoke(
         group: String
-    ): List<QuizRecord> {
+    ): List<jp.mydns.kokoichi0206.model.QuizRecord> {
         val records = repository.getRecordsByGroup(group)
         return if(records.isEmpty()) {
             emptyList()

@@ -1,6 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_blogs.GetBlogsUseCase
 
 /**
@@ -16,8 +15,8 @@ class BlogViewModelWihMock(
      *
      * @return MutableList of Member data class
      */
-    fun fakeGetBlogsApi(): MutableList<Blog> {
-        val fakeRes = mutableListOf<Blog>()
+    fun fakeGetBlogsApi(): MutableList<jp.mydns.kokoichi0206.model.Blog> {
+        val fakeRes = mutableListOf<jp.mydns.kokoichi0206.model.Blog>()
         val fakeResStr = arrayOf(
             arrayOf("松田好花", "https://blog.example.com", "https://img.url", "2021/10/23 11:12"),
             arrayOf("金村美玖", "https://blog.example.com", "https://img.url", "2021/11/13 13:12"),
@@ -32,7 +31,7 @@ class BlogViewModelWihMock(
         )
         fakeResStr.forEach {
             fakeRes.add(
-                Blog(
+                jp.mydns.kokoichi0206.model.Blog(
                     name = it[0],
                     blogUrl = it[1],
                     lastBlogImg = it[2],

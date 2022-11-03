@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.components.OnePerson
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.SpaceSmall
@@ -42,7 +41,7 @@ fun MainColumn(
 fun DefaultColumn(
     uiState: MemberListUiState,
     navController: NavController,
-    members: MutableList<Member> = uiState.visibleMembers,
+    members: MutableList<jp.mydns.kokoichi0206.model.Member> = uiState.visibleMembers,
 ) {
     LazyColumn(
         contentPadding = Constants.BottomBarPadding,
@@ -115,7 +114,7 @@ fun ColumnWithLine(
             }
 
             val members = if (sameGroupMembers[type] == null) {
-                mutableListOf<Member>()
+                mutableListOf<jp.mydns.kokoichi0206.model.Member>()
             } else {
                 sameGroupMembers[type]!!.toMutableList()
             }
@@ -148,7 +147,7 @@ fun ColumnWithLine(
 @Composable
 fun MemberRow(
     rowIndex: Int,
-    entries: MutableList<Member>,
+    entries: MutableList<jp.mydns.kokoichi0206.model.Member>,
     navController: NavController,
     uiState: MemberListUiState,
 ) {
@@ -188,7 +187,7 @@ fun MemberRow(
 
 @Composable
 fun WrapOnePerson(
-    member: Member,
+    member: jp.mydns.kokoichi0206.model.Member,
     modifier: Modifier = Modifier,
     navController: NavController,
     uiState: MemberListUiState,

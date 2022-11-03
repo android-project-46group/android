@@ -1,6 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
 
 /**
@@ -10,7 +9,7 @@ data class QuizUiState(
     var favorites: Set<String> = emptySet(),
     var loaded: Boolean = false,
     var groupName: GroupName? = null,
-    var members: MutableList<Member> = mutableListOf(),
+    var members: MutableList<jp.mydns.kokoichi0206.model.Member> = mutableListOf(),
     var pageType: PageType = PageType.MODE_SELECTION,
     var quizType: QuizType? = null,
     var quizzes: List<Quiz> = emptyList(),
@@ -65,7 +64,7 @@ enum class QuizType(val jname: String) {
  * Data class for one quiz.
  */
 data class Quiz(
-    val correctMember: Member,
+    val correctMember: jp.mydns.kokoichi0206.model.Member,
     val choices: List<String>,
 )
 

@@ -191,4 +191,7 @@ dependencies {
 
     // Fix sqlite database error in m1 mac
     kapt deps.sqlite_jdbc
+
+    // modules
+    implementation project(":core:model")
 }

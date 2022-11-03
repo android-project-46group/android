@@ -9,7 +9,6 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
@@ -69,7 +68,7 @@ class MemberListScreenTest {
     @Test
     fun memberImage_canTapCorrectly() {
         // Arrange
-        val targetMember = Member(
+        val targetMember = jp.mydns.kokoichi0206.model.Member(
             name = "秋元 真夏 0",
             birthday = "1993年8月20日",
             height = "154cm",
@@ -98,7 +97,7 @@ class MemberListScreenTest {
     @Test
     fun memberImage_canTapOnlyOnce() {
         // Arrange
-        val targetMember = Member(
+        val targetMember = jp.mydns.kokoichi0206.model.Member(
             name = "秋元 真夏 0",
             birthday = "1993年8月20日",
             height = "154cm",

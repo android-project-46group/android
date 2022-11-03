@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.domain.model
+package jp.mydns.kokoichi0206.model
 
 /**
  * Data class for report issue api return.

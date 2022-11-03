@@ -1,7 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
+import jp.mydns.kokoichi0206.model.Member
 
 /**
  * Data class for one member in the API.
@@ -22,8 +22,8 @@ data class MemberDto(
     val nameName: String
 )
 
-fun MemberDto.toMember(): Member {
-    return Member(
+fun MemberDto.toMember(): jp.mydns.kokoichi0206.model.Member {
+    return jp.mydns.kokoichi0206.model.Member(
         blogUrl = blogUrl,
         bloodType = bloodType,
         generation = generation,

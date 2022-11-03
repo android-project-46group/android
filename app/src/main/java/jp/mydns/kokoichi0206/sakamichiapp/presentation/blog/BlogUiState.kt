@@ -1,6 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
 
 /**
@@ -11,7 +10,7 @@ data class BlogUiState(
     var isLoading: Boolean = false,
     var error: String = "",
     var groupName: GroupName = GroupName.NOGIZAKA,
-    var blogs: List<Blog> = emptyList(),
+    var blogs: List<jp.mydns.kokoichi0206.model.Blog> = emptyList(),
     // Sort blogs by lastUpdatedTime or memberName.
     // If this flag is true, it means by lastUpdatedTime.
     var isSortTime: Boolean = false,

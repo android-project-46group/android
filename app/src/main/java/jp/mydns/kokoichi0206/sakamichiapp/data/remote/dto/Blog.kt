@@ -1,7 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
+import jp.mydns.kokoichi0206.model.Blog
 
 /**
  * Data class for one blog in the API.
@@ -16,8 +16,8 @@ data class BlogDto(
     val name: String
 )
 
-fun BlogDto.toBlog(): Blog {
-    return Blog(
+fun BlogDto.toBlog(): jp.mydns.kokoichi0206.model.Blog {
+    return jp.mydns.kokoichi0206.model.Blog(
         name = name,
         blogUrl = blogUrl,
         lastBlogImg = lastBlogImg,

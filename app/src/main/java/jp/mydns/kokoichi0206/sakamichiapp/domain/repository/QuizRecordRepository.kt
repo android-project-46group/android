@@ -1,12 +1,10 @@
 package jp.mydns.kokoichi0206.sakamichiapp.domain.repository
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.QuizRecord
-
 interface QuizRecordRepository {
 
-    suspend fun getRecordsByGroup(group: String): List<QuizRecord>
+    suspend fun getRecordsByGroup(group: String): List<jp.mydns.kokoichi0206.model.QuizRecord>
 
-    suspend fun getRecordByGroupAndType(group: String, type: String): QuizRecord?
+    suspend fun getRecordByGroupAndType(group: String, type: String): jp.mydns.kokoichi0206.model.QuizRecord?
 
-    suspend fun insertRecord(record: QuizRecord)
+    suspend fun insertRecord(record: jp.mydns.kokoichi0206.model.QuizRecord)
 }

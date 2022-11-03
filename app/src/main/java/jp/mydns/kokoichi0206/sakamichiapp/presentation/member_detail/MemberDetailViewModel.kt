@@ -2,7 +2,6 @@ package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -18,7 +17,7 @@ class MemberDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(MemberDetailUiState())
     var uiState: StateFlow<MemberDetailUiState> = _uiState
 
-    fun setMember(member: Member) {
+    fun setMember(member: jp.mydns.kokoichi0206.model.Member) {
         _uiState.update { it.copy(member = member) }
     }
 

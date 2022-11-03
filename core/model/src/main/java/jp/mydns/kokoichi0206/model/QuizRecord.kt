@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.domain.model
+package jp.mydns.kokoichi0206.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

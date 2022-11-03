@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_blogs.GetBlogsUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.GroupName
 import kotlinx.coroutines.flow.*
@@ -76,7 +75,7 @@ open class BlogViewModel @Inject constructor(
         getBlogs(uiState.value.groupName)
     }
 
-    fun setBlogs(blogs: List<Blog>) {
+    fun setBlogs(blogs: List<jp.mydns.kokoichi0206.model.Blog>) {
         _uiState.update { it.copy(blogs = blogs) }
     }
 

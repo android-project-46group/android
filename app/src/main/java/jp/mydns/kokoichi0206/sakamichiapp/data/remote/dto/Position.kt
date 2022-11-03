@@ -1,7 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Position
+import jp.mydns.kokoichi0206.model.Position
 
 /**
  * Data class for one position in the API.
@@ -17,8 +17,8 @@ data class PositionDto(
     val position: String
 )
 
-fun PositionDto.toPosition(): Position {
-    return Position(
+fun PositionDto.toPosition(): jp.mydns.kokoichi0206.model.Position {
+    return jp.mydns.kokoichi0206.model.Position(
         imgUrl = imgUrl,
         isCenter = isCenter,
         memberName = memberName,

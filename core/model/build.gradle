@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'jp.mydns.kokoichi0206.model'
+    compileSdk build_versions.target_sdk
+}
+
+dependencies {
+    implementation deps.room.room
+}

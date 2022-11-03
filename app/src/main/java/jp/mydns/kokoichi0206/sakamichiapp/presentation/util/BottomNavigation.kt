@@ -23,7 +23,6 @@ import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
 import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.MemberDetailScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.MemberListScreen
@@ -76,7 +75,7 @@ fun BottomNavHost(
             val memberJson = backStackEntry.arguments?.getString(Constants.NAV_PARAM_MEMBER_PROPS)
 
             // Parse Json to Member class object
-            val member = Gson().fromJson<Member>(memberJson, Member::class.java)
+            val member = Gson().fromJson<jp.mydns.kokoichi0206.model.Member>(memberJson, jp.mydns.kokoichi0206.model.Member::class.java)
 
             MemberDetailScreen(member)
         }

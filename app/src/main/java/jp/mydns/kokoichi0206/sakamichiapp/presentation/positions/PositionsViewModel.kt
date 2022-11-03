@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.mydns.kokoichi0206.sakamichiapp.common.Resource
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Position
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_positions.GetPositionsUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_songs.GetSongsUseCase
 import kotlinx.coroutines.flow.*
@@ -93,7 +92,7 @@ open class PositionsViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun setEachRow(positions: List<Position>) {
+    private fun setEachRow(positions: List<jp.mydns.kokoichi0206.model.Position>) {
         _uiState.update { it.copy(firstRow = getFirstRow(positions)) }
         _uiState.update { it.copy(secondRow = getSecondRow(positions)) }
         _uiState.update { it.copy(thirdRow = getThirdRow(positions)) }
@@ -106,7 +105,7 @@ open class PositionsViewModel @Inject constructor(
      * @param positions List of Position data class
      * @return List of Position data class
      */
-    fun getFirstRow(positions: List<Position>): List<Position> {
+    fun getFirstRow(positions: List<jp.mydns.kokoichi0206.model.Position>): List<jp.mydns.kokoichi0206.model.Position> {
         return positions
             .filter {
                 it.position.substring(2, 3).contains("[1-9]".toRegex())
@@ -123,7 +122,7 @@ open class PositionsViewModel @Inject constructor(
      * @param positions List of Position data class
      * @return List of Position data class
      */
-    fun getSecondRow(positions: List<Position>): List<Position> {
+    fun getSecondRow(positions: List<jp.mydns.kokoichi0206.model.Position>): List<jp.mydns.kokoichi0206.model.Position> {
         return positions
             .filter {
                 it.position.substring(1, 2).contains("[1-9]".toRegex())
@@ -140,7 +139,7 @@ open class PositionsViewModel @Inject constructor(
      * @param positions List of Position data class
      * @return List of Position data class
      */
-    fun getThirdRow(positions: List<Position>): List<Position> {
+    fun getThirdRow(positions: List<jp.mydns.kokoichi0206.model.Position>): List<jp.mydns.kokoichi0206.model.Position> {
         return positions
             .filter {
                 it.position.substring(0, 1).contains("[1-9]".toRegex())

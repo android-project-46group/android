@@ -2,8 +2,6 @@ package jp.mydns.kokoichi0206.sakamichiapp.presentation.util
 
 import androidx.compose.ui.graphics.Color
 import com.google.gson.Gson
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Blog
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.GroupName
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.BaseColorH
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.ui.theme.BaseColorN
@@ -18,7 +16,7 @@ import java.time.LocalTime
  * @param member Member data class object
  * @return Json string
  */
-fun getJsonFromMember(member: Member): String {
+fun getJsonFromMember(member: jp.mydns.kokoichi0206.model.Member): String {
     val props = member.copy(
         blogUrl = member.blogUrl
             .replace("/", SLASH_ENCODED)
@@ -38,7 +36,7 @@ fun getJsonFromMember(member: Member): String {
  * @param blog Blog data class object
  * @return Encoded URL string
  */
-fun getBlogUrlProps(blog: Blog): String {
+fun getBlogUrlProps(blog: jp.mydns.kokoichi0206.model.Blog): String {
     var url = blog.blogUrl
     // Add a "trading slash" for nogi member's url
     if (url.contains("nogizaka")) {

@@ -1,6 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.QuizRecord
 import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.QuizRecordRepository
 
 /**
@@ -13,10 +12,10 @@ class GetRecordUseCase(
     suspend operator fun invoke(
         group: String,
         type: String
-    ): QuizRecord {
+    ): jp.mydns.kokoichi0206.model.QuizRecord {
         return repository.getRecordByGroupAndType(
             group = group, type = type
-        ) ?: QuizRecord(
+        ) ?: jp.mydns.kokoichi0206.model.QuizRecord(
             groupName = group,
             type = type,
             correctNum = 0,
