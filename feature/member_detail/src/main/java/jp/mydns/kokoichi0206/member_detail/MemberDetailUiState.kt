@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail
+package jp.mydns.kokoichi0206.member_detail
 
 /**
  * States for Member Detail UI.

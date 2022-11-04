@@ -25,7 +25,7 @@ import com.google.gson.Gson
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.MemberDetailScreen
+import jp.mydns.kokoichi0206.member_detail.MemberDetailScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.positions.PositionsScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.QuizScreen
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsScreen

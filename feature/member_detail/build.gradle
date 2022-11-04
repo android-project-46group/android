@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'jp.mydns.kokoichi0206.feature.member_list'
+    namespace 'jp.mydns.kokoichi0206.feature.member_detail'
     compileSdk build_versions.target_sdk
 
     defaultConfig {

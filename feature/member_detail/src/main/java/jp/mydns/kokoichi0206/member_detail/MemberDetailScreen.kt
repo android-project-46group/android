@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail
+package jp.mydns.kokoichi0206.member_detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,6 +9,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
+import jp.mydns.kokoichi0206.member_detail.Infos
+import jp.mydns.kokoichi0206.member_detail.MemberDetailViewModel
+import jp.mydns.kokoichi0206.member_detail.MemberImage
 
 /**
  * Function to display member detail page.

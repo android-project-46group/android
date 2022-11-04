@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail
+package jp.mydns.kokoichi0206.member_detail
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.OneInfo
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components.RowTags
+import jp.mydns.kokoichi0206.member_detail.components.OneInfo
+import jp.mydns.kokoichi0206.member_detail.components.RowTags
 import jp.mydns.kokoichi0206.common.components.CustomDevider
+import jp.mydns.kokoichi0206.feature.member_detail.R
 
 val PADDING_HORIZONTAL = 10.dp
 val PADDING_VERTICAL = 4.dp

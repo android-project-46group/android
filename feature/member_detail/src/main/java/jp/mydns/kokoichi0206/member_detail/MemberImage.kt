@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail
+package jp.mydns.kokoichi0206.member_detail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +15,7 @@ import coil.compose.AsyncImage
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.data.remote.LoggingInterceptor
+import jp.mydns.kokoichi0206.feature.member_detail.R
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 

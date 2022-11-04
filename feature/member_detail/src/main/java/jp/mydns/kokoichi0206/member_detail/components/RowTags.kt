@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.components
+package jp.mydns.kokoichi0206.member_detail.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.PADDING_HORIZONTAL
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.PADDING_VERTICAL
+import jp.mydns.kokoichi0206.member_detail.PADDING_HORIZONTAL
+import jp.mydns.kokoichi0206.member_detail.PADDING_VERTICAL
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 
