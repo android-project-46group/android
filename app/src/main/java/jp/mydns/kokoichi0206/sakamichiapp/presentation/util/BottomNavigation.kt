@@ -24,7 +24,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.gson.Gson
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
+import jp.mydns.kokoichi0206.blog.BlogScreenWithCustomTheme
 import jp.mydns.kokoichi0206.member_detail.MemberDetailScreen
 import jp.mydns.kokoichi0206.positions.PositionsScreen
 import jp.mydns.kokoichi0206.quiz.QuizScreen
@@ -33,6 +33,7 @@ import jp.mydns.kokoichi0206.settings.getBaseColorInThemeTypesFromString
 import jp.mydns.kokoichi0206.settings.getSubColorInThemeTypesFromString
 import jp.mydns.kokoichi0206.common.components.WebViewWidget
 import jp.mydns.kokoichi0206.member_list.MemberListScreen
+import jp.mydns.kokoichi0206.model.getBlogUrlProps
 import jp.mydns.kokoichi0206.model.getJsonFromMember
 
 /**
@@ -95,9 +96,11 @@ fun BottomNavHost(
         composable(
             Screen.BlogScreen.route
         ) {
-            BlogScreenWithCustomTheme(
-                navController = navHostController,
-            )
+            BlogScreenWithCustomTheme {
+                val navPath = "${Screen.WebViewScreen.route}/" +
+                        "${Constants.NAV_PARAM_WEBVIEW_PROPS}=${getBlogUrlProps(it)}"
+                navHostController.navigate(navPath)
+            }
         }
 
         /**

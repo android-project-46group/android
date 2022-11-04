@@ -179,8 +179,6 @@ dependencies {
 
     // Action bar helper
     implementation deps.accompanist.systemuicontroller
-    // Swipe to refresh
-    implementation deps.accompanist.swiperefresh
 
     // DataStore
     implementation deps.datastore.preferences
@@ -197,6 +195,7 @@ dependencies {
     implementation project(":core:domain")
     implementation project(":feature:member_list")
     implementation project(":feature:member_detail")
+    implementation project(":feature:blog")
     implementation project(":feature:positions")
     implementation project(":feature:quiz")
     implementation project(":feature:settings")

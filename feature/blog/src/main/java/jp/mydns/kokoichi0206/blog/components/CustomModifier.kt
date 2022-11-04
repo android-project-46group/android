@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components
+package jp.mydns.kokoichi0206.blog.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size

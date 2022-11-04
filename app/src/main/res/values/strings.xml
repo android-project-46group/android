@@ -8,34 +8,6 @@
     <string name="bottom_nav_quiz">クイズ</string>
     <string name="bottom_nav_settings">設定</string>
 
-    <!--    Strings for MemberListScreen-->
-    <string name="member_list_sort_key">並びかえ</string>
-    <string name="member_list_narrow_down_key">絞り込み</string>
-
-    <string name="sort_key_none">なし</string>
-    <string name="sort_key_name">名前</string>
-    <string name="sort_key_generation">期別</string>
-    <string name="sort_key_blood_type">血液型</string>
-    <string name="sort_key_birthday">生年月日</string>
-    <string name="sort_key_day">月日</string>
-    <string name="sort_key_height">身長</string>
-
-    <string name="narrow_key_none">なし</string>
-    <string name="narrow_key_1st">1期生</string>
-    <string name="narrow_key_2nd">2期生</string>
-    <string name="narrow_key_3rd">3期生</string>
-    <string name="narrow_key_4th">4期生</string>
-
-    <string name="detail_info_birthday">生年月日</string>
-    <string name="detail_info_height">身長</string>
-    <string name="detail_info_blood">血液型</string>
-    <string name="detail_info_group">グループ名</string>
-
-    <!--    Strings for BlogScreen-->
-    <string name="blog_screen_title">Blogs</string>
-    <string name="blog_sort_key_time">Date updated</string>
-    <string name="blog_sort_key_name">Name</string>
-
     <!--    Content descriptions-->
     <string name="back_arrow">back arrow</string>
     <string name="right_arrow">right arrow</string>

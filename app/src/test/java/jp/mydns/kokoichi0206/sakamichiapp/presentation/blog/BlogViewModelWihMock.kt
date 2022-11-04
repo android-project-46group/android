@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
 
+import jp.mydns.kokoichi0206.blog.BlogViewModel
 import usecase.get_blogs.GetBlogsUseCase
 
 /**
@@ -7,7 +8,7 @@ import usecase.get_blogs.GetBlogsUseCase
  */
 class BlogViewModelWihMock(
     getBlogsUseCase: usecase.get_blogs.GetBlogsUseCase
-) : BlogViewModel (
+) : BlogViewModel(
     getBlogsUseCase
 ) {
     /**

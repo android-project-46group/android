@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
+package jp.mydns.kokoichi0206.blog
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -22,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.disk.DiskCache
@@ -36,35 +35,34 @@ import jp.mydns.kokoichi0206.common.components.GroupBar
 import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
 import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import jp.mydns.kokoichi0206.common.ui.theme.*
-import jp.mydns.kokoichi0206.model.getBlogUrlProps
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.SkeletonBlogScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.components.blogImage
+import jp.mydns.kokoichi0206.blog.components.SkeletonBlogScreen
+import jp.mydns.kokoichi0206.blog.components.blogImage
+import jp.mydns.kokoichi0206.feature.blog.R
+import jp.mydns.kokoichi0206.model.Blog
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
 @Composable
 fun BlogScreenWithCustomTheme(
-    navController: NavController,
-    viewModel: BlogViewModel = hiltViewModel()
+    viewModel: BlogViewModel = hiltViewModel(),
+
+    onClick: (Blog) -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsState()
     CustomSakaTheme(group = uiState.groupName.jname) {
         BlogScreen(
-            navController = navController,
             uiState = uiState,
             viewModel = viewModel,
+            onClick = onClick,
         )
     }
 }
 
 @Composable
 fun BlogScreen(
-    navController: NavController,
     uiState: BlogUiState,
     viewModel: BlogViewModel,
+    onClick: (Blog) -> Unit,
 ) {
     if (!uiState.loaded) {
         viewModel.setApiBlogs()
@@ -93,8 +91,8 @@ fun BlogScreen(
             onRefresh = { viewModel.setApiBlogs() }
         ) {
             SwipableBlogArea(
-                navController = navController,
                 uiState = uiState,
+                onClick = onClick,
             )
         }
     }
@@ -102,8 +100,8 @@ fun BlogScreen(
 
 @Composable
 fun SwipableBlogArea(
-    navController: NavController,
     uiState: BlogUiState,
+    onClick: (Blog) -> Unit,
 ) {
     if (uiState.isLoading) {
         SkeletonBlogScreen()
@@ -128,7 +126,7 @@ fun SwipableBlogArea(
                 OneBlogRow(
                     row = row,
                     uiState = uiState,
-                    navController = navController,
+                    onClick = onClick,
                 )
             }
         }
@@ -138,7 +136,7 @@ fun SwipableBlogArea(
 @Composable
 fun BlogTopBar(
     uiState: BlogUiState,
-    viewModel: BlogViewModel
+    viewModel: BlogViewModel,
 ) {
     // Box to cancel the column (upper level)
     Box(
@@ -211,9 +209,9 @@ fun BlogTopBar(
 
 @Composable
 fun OneBlogRow(
-    row: List<jp.mydns.kokoichi0206.model.Blog>,
+    row: List<Blog>,
     uiState: BlogUiState,
-    navController: NavController,
+    onClick: (Blog) -> Unit = {},
 ) {
     Row(
         modifier = Modifier
@@ -226,9 +224,7 @@ fun OneBlogRow(
                     uiState = uiState,
                     blog = row[i],
                     onclick = { blog ->
-                        val navPath = "${Screen.WebViewScreen.route}/" +
-                                "${Constants.NAV_PARAM_WEBVIEW_PROPS}=${getBlogUrlProps(blog)}"
-                        navController.navigate(navPath)
+                        onClick(blog)
                     },
                     modifier = Modifier
                         .weight(1f)

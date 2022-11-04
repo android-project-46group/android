@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.blog
+package jp.mydns.kokoichi0206.blog
 
 import jp.mydns.kokoichi0206.common.GroupName
 
