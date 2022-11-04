@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.positions
 
+import jp.mydns.kokoichi0206.positions.PositionsViewModel
 import usecase.get_positions.GetPositionsUseCase
 import usecase.get_songs.GetSongsUseCase
 

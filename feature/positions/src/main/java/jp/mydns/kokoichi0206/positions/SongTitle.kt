@@ -1,6 +1,8 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.positions
+package jp.mydns.kokoichi0206.positions
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -11,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.feature.positions.R
 
 @Composable
 fun SongTitle(

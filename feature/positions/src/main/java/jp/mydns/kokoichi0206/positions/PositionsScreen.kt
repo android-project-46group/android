@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.positions
+package jp.mydns.kokoichi0206.positions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,9 +21,7 @@ import coil.compose.AsyncImage
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.data.remote.LoggingInterceptor
-import jp.mydns.kokoichi0206.data.remote.RetryInterceptor
+import jp.mydns.kokoichi0206.feature.positions.R
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
