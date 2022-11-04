@@ -26,13 +26,11 @@ import jp.mydns.kokoichi0206.blog.navigation.blogScreen
 import jp.mydns.kokoichi0206.common.components.WebViewWidget
 import jp.mydns.kokoichi0206.common.components.webViewProps
 import jp.mydns.kokoichi0206.common.components.webViewRoute
-import jp.mydns.kokoichi0206.member_detail.navigation.memberDetailRoute
 import jp.mydns.kokoichi0206.member_detail.navigation.memberDetailScreen
-import jp.mydns.kokoichi0206.member_detail.navigation.memberJson
+import jp.mydns.kokoichi0206.member_detail.navigation.navigateToMemberDetail
 import jp.mydns.kokoichi0206.member_list.navigation.memberListRoute
 import jp.mydns.kokoichi0206.member_list.navigation.memberListScreen
 import jp.mydns.kokoichi0206.model.getBlogUrlProps
-import jp.mydns.kokoichi0206.model.getJsonFromMember
 import jp.mydns.kokoichi0206.positions.navigation.positionsRoute
 import jp.mydns.kokoichi0206.positions.navigation.positionsScreen
 import jp.mydns.kokoichi0206.quiz.navigation.quizRoute
@@ -63,11 +61,7 @@ fun BottomNavHost(
         startDestination = BottomNavItem.Home.route
     ) {
         memberListScreen {
-            navHostController.navigateUp()
-            navHostController.navigate(
-                memberDetailRoute
-                        + "/$memberJson=${getJsonFromMember(it)}"
-            )
+            navHostController.navigateToMemberDetail(it)
         }
 
         memberDetailScreen()
