@@ -90,9 +90,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBuildConfigWrapper() : BuildConfigWrapper {
+    fun provideBuildConfigWrapper(): BuildConfigWrapper {
         return BuildConfigWrapper(
-            API_KEY = BuildConfig.API_KEY
+            API_KEY = BuildConfig.API_KEY,
+            VERSION = BuildConfig.VERSION_NAME,
         )
     }
 }

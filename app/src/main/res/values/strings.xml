@@ -36,65 +36,6 @@
     <string name="blog_sort_key_time">Date updated</string>
     <string name="blog_sort_key_name">Name</string>
 
-    <!--    Strings for SettingScreen-->
-    <string name="setting_screen_title">設定</string>
-    <string name="clear_cache_title">キャッシュ情報を削除しますか？</string>
-    <string name="clear_cache_body">一時的な情報を削除することでストレージに多少の余裕を持たせることができます。</string>
-    <string name="clear_cache_ok">削除</string>
-    <string name="clear_cache_cancel">キャンセル</string>
-
-    <!--    Strings for SettingTopScreen-->
-    <string name="developer_success_snack_bar_text">You are now a developer!</string>
-    <string name="developer_on_the_way_snack_bar_text">You are now %d steps away from being a developer.</string>
-    <string name="version_info_in_settings">バージョン情報 %s</string>
-    <string name="setting_update_blog">Blog 情報を更新する</string>
-    <string name="setting_quiz_record">クイズ成績</string>
-    <string name="setting_clear_cache">キャッシュをクリア</string>
-    <string name="setting_report_bugs">不具合の報告／意見</string>
-    <string name="setting_set_theme_color">テーマカラー設定</string>
-    <string name="setting_share_app">このアプリをシェアする</string>
-    <string name="setting_about_app">アプリについて</string>
-
-    <!--    Strings for QuizResultsScreen-->
-    <string name="quiz_result_screen_title">クイズ正解数</string>
-    <string name="column_name_group">グループ</string>
-    <string name="column_name_correct">正解</string>
-    <string name="column_name_total">総数</string>
-
-    <!--    Strings for UpdateBlogScreen-->
-    <string name="update_blog_title">ブログ情報の更新</string>
-    <string name="update_blog_body">頻繁に更新処理をかけるとサーバーに負担をかけることになるため、不必要な更新はおやめください。本当に更新処理をかけますか？</string>
-    <string name="update_blog_button_ok">更新する</string>
-    <string name="update_blog_button_cancel">キャンセル</string>
-    <string name="update_blog_success_dialog_title">更新成功</string>
-    <string name="update_blog_success_dialog_body">更新処理の通知を正常に送ることができました</string>
-    <string name="update_blog_failure_dialog_title">更新失敗</string>
-    <string name="update_blog_failure_dialog_body">更新処理の通知を送ることができませんでした。必要な権限があるか管理者にお問い合わせください。</string>
-    <string name="update_blog_dialog_button">OK</string>
-
-    <!--    Strings for ReportIssueScreen-->
-    <string name="report_issue_title">不具合の報告／意見</string>
-    <string name="report_issue_text_placeholder">詳細内容</string>
-    <string name="report_issue_submit_button">送信</string>
-    <string name="report_issue_dialog_title">送信</string>
-    <string name="report_issue_dialog_body">内容をご確認ください</string>
-    <string name="report_issue_dialog_button_ok">送信</string>
-    <string name="report_issue_dialog_button_cancel">キャンセル</string>
-
-    <!--    Strings for SetThemeScreen-->
-    <string name="set_theme_title">テーマカラー</string>
-
-    <!--    Strings for ShareAppScreen-->
-    <string name="share_app_title">アプリをシェアする</string>
-    <string name="share_app_intent_text">%s を利用すると坂道グループに関する様々な情報を入手できます。</string>
-    <string name="share_app_apk_link">https://kokoichi0206.mydns.jp/app-debug.apk</string>
-    <string name="share_app_intent_title">このアプリを他の人に共有します</string>
-    <string name="share_app_message">他のアプリを開く</string>
-
-    <!--    Strings for AboutAppScreen-->
-    <string name="about_app_version">version</string>
-    <string name="about_app_user_id">User ID</string>
-
     <!--    Content descriptions-->
     <string name="back_arrow">back arrow</string>
     <string name="right_arrow">right arrow</string>

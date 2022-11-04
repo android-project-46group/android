@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import kotlinx.coroutines.async
 
 /**

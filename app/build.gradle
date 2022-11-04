@@ -179,8 +179,6 @@ dependencies {
 
     // Action bar helper
     implementation deps.accompanist.systemuicontroller
-    // Animated navigation
-    implementation deps.accompanist.animation
     // Swipe to refresh
     implementation deps.accompanist.swiperefresh
 
@@ -201,4 +199,5 @@ dependencies {
     implementation project(":feature:member_detail")
     implementation project(":feature:positions")
     implementation project(":feature:quiz")
+    implementation project(":feature:settings")
 }

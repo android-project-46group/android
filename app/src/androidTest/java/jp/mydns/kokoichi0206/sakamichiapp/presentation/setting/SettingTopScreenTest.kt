@@ -17,6 +17,9 @@ import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
 import io.mockk.verify
+import jp.mydns.kokoichi0206.settings.SettingNavigation
+import jp.mydns.kokoichi0206.settings.SettingTopScreen
+import jp.mydns.kokoichi0206.settings.SettingsUiState
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

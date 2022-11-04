@@ -12,12 +12,13 @@ import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.ThemeType
+import jp.mydns.kokoichi0206.settings.SettingsViewModel
+import jp.mydns.kokoichi0206.settings.ThemeType
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.settings.pages.SetThemeScreen
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

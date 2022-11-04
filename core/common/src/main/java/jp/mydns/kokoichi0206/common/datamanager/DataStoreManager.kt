@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.util
+package jp.mydns.kokoichi0206.common.datamanager
 
 import android.content.Context
 import androidx.datastore.core.DataStore

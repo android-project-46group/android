@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
+package jp.mydns.kokoichi0206.settings.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -9,12 +9,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
+import jp.mydns.kokoichi0206.settings.SettingsUiState
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.components.CustomDevider
-import jp.mydns.kokoichi0206.quiz.getBaseColor
+import jp.mydns.kokoichi0206.common.getBaseColor
+import jp.mydns.kokoichi0206.feature.settings.R
 
 @Composable
 fun QuizResultsScreen(uiState: SettingsUiState) {

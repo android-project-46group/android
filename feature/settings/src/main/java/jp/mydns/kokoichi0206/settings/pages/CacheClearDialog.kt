@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
+package jp.mydns.kokoichi0206.settings.pages
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -20,11 +20,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
+import jp.mydns.kokoichi0206.settings.SettingsUiState
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.feature.settings.R
+import jp.mydns.kokoichi0206.settings.TestTags
 import java.io.File
 
 @Composable

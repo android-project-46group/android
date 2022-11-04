@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
+package jp.mydns.kokoichi0206.settings.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,14 +16,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import jp.mydns.kokoichi0206.common.Constants
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.SettingTopBar
+import jp.mydns.kokoichi0206.settings.SettingsUiState
+import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceLarge
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.TextGray
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.feature.settings.R
+import jp.mydns.kokoichi0206.settings.TestTags
 
 /**
  * Screen to share this application.

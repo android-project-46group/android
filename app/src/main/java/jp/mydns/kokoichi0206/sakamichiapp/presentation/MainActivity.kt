@@ -7,7 +7,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
+import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Navigation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

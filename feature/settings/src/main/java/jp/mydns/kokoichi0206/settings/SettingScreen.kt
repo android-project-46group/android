@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
+package jp.mydns.kokoichi0206.settings
 
 /**
  * Navigation-routing path.

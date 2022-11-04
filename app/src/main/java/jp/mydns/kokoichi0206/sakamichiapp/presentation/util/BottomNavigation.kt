@@ -28,9 +28,9 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustom
 import jp.mydns.kokoichi0206.member_detail.MemberDetailScreen
 import jp.mydns.kokoichi0206.positions.PositionsScreen
 import jp.mydns.kokoichi0206.quiz.QuizScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getBaseColorInThemeTypesFromString
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getSubColorInThemeTypesFromString
+import jp.mydns.kokoichi0206.settings.SettingsScreen
+import jp.mydns.kokoichi0206.settings.getBaseColorInThemeTypesFromString
+import jp.mydns.kokoichi0206.settings.getSubColorInThemeTypesFromString
 import jp.mydns.kokoichi0206.common.components.WebViewWidget
 import jp.mydns.kokoichi0206.member_list.MemberListScreen
 import jp.mydns.kokoichi0206.model.getJsonFromMember

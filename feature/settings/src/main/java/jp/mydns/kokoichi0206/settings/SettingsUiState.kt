@@ -1,9 +1,9 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
+package jp.mydns.kokoichi0206.settings
 
 import android.content.Context
 import androidx.compose.ui.graphics.Color
+import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.common.ui.theme.*
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
 
 data class SettingsUiState(
     val records: MutableList<Record> = mutableListOf(),

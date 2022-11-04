@@ -29,5 +29,10 @@ dependencies {
 
     implementation deps.timber
 
+    // DataStore
+    implementation deps.datastore.preferences
+    // optional - RxJava3 support
+    implementation deps.datastore.rxjava3
+
     // modules
 }

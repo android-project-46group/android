@@ -14,7 +14,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingNavigation
+import jp.mydns.kokoichi0206.settings.SettingNavigation
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.BottomNavItem
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Navigation
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags

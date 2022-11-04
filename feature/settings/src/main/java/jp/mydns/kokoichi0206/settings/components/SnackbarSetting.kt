@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.settings.TestTags
 
 @Composable
 fun SnackbarSetting(

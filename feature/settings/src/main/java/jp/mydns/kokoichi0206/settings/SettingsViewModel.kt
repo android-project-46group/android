@@ -1,15 +1,15 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
+package jp.mydns.kokoichi0206.settings
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.mydns.kokoichi0206.common.BuildConfigWrapper
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.domain.usecase.other_api.ReportIssueUseCase
 import jp.mydns.kokoichi0206.domain.usecase.other_api.UpdateBlogUseCase
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
-import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.DataStoreManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +23,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val updateBlogUseCase: UpdateBlogUseCase,
     private val reportIssueUseCase: ReportIssueUseCase,
-    private val recordUseCase: RecordUseCases
+    private val recordUseCase: RecordUseCases,
+    private val buildConfigWrapper: BuildConfigWrapper,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SettingsUiState())
@@ -109,7 +110,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun readVersion() {
-        _uiState.update { it.copy(version = BuildConfig.VERSION_NAME) }
+        _uiState.update { it.copy(version = buildConfigWrapper.VERSION) }
     }
 
     fun setThemeType(typeStr: String) {

@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
+package jp.mydns.kokoichi0206.settings
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -14,9 +14,9 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import jp.mydns.kokoichi0206.common.Constants
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages.*
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
+import jp.mydns.kokoichi0206.feature.settings.R
+import jp.mydns.kokoichi0206.settings.pages.*
 
 @ExperimentalAnimationApi
 @Composable

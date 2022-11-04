@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.pages
+package jp.mydns.kokoichi0206.settings.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,12 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import jp.mydns.kokoichi0206.common.ui.theme.*
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsViewModel
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.ThemeType
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.SettingTopBar
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.themeTypes
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.feature.settings.R
+import jp.mydns.kokoichi0206.settings.SettingsViewModel
+import jp.mydns.kokoichi0206.settings.ThemeType
+import jp.mydns.kokoichi0206.settings.components.SettingTopBar
+import jp.mydns.kokoichi0206.settings.TestTags
+import jp.mydns.kokoichi0206.settings.themeTypes
 
 @Composable
 fun SetThemeScreen(

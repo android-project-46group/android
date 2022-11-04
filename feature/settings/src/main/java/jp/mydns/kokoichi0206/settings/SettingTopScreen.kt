@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting
+package jp.mydns.kokoichi0206.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,13 +21,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import jp.mydns.kokoichi0206.common.Constants.BottomPadding
-import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.VersionInfo
 import jp.mydns.kokoichi0206.common.ui.theme.IconSizeMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 import jp.mydns.kokoichi0206.common.ui.theme.Typography
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.feature.settings.R
 
 @Composable
 fun SettingTopScreen(
