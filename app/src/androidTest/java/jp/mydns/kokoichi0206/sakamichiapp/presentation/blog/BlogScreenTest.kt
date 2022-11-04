@@ -15,6 +15,8 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import jp.mydns.kokoichi0206.blog.BlogScreenWithCustomTheme
+import jp.mydns.kokoichi0206.blog.TestTags
+import jp.mydns.kokoichi0206.common.TestTags as CommonTestTags
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -41,9 +43,7 @@ class BlogScreenTest {
         MockKAnnotations.init(this)
 
         composeRule.activity.setContent {
-            BlogScreenWithCustomTheme(
-                navController = navController,
-            )
+            BlogScreenWithCustomTheme()
         }
     }
 
@@ -56,7 +56,7 @@ class BlogScreenTest {
         // Assert
         composeRule.onNodeWithTag(TestTags.BLOG_TITLE).assertExists()
         composeRule.onNodeWithTag(TestTags.BLOG_SORT_BUTTON).assertExists()
-        composeRule.onNodeWithTag(TestTags.GROUP_BAR).assertExists()
+        composeRule.onNodeWithTag(CommonTestTags.GROUP_BAR).assertExists()
         composeRule.onAllNodesWithTag(TestTags.BLOG_ONE_BOX)[0].assertExists()
     }
 

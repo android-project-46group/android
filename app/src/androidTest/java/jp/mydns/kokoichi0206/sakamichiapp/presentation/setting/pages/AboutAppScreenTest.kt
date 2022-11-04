@@ -19,6 +19,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
 import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.settings.TestTags
 import jp.mydns.kokoichi0206.settings.pages.AboutAppScreen
 import org.junit.Before
 import org.junit.Rule

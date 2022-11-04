@@ -137,7 +137,7 @@ class MockSakamichiApi(
             )
         )
         counter++
-        return delegate.returningResponse(blogsDto).getBlogs(groupName)
+        return delegate.returningResponse(blogsDto).getBlogs(groupName, "test")
     }
 
     override suspend fun getSongs(groupName: String, apiKey: String): SongsDto {

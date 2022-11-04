@@ -31,7 +31,7 @@ import jp.mydns.kokoichi0206.model.Member
 @Composable
 fun MemberListScreen(
     viewModel: MemberListViewModel = hiltViewModel(),
-    onPersonClick: (Member) -> Unit,
+    onPersonClick: (Member) -> Unit = {},
 ) {
     // Initialize the members when first loaded.
     if (!viewModel.hasInitialized()) {

@@ -2,6 +2,7 @@ package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import jp.mydns.kokoichi0206.domain.usecase.quiz_record.GetAccuracyRateByGroupUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.data.repository.FakeQuizRecordRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -16,13 +17,13 @@ class GetAccuracyRateByGroupTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var usecase: usecase.quiz_record.GetAccuracyRateByGroupUseCase
+    lateinit var usecase: GetAccuracyRateByGroupUseCase
     lateinit var fakeRepo: FakeQuizRecordRepository
 
     @Before
     fun setUp() {
         fakeRepo = FakeQuizRecordRepository()
-        usecase = usecase.quiz_record.GetAccuracyRateByGroupUseCase(fakeRepo)
+        usecase = GetAccuracyRateByGroupUseCase(fakeRepo)
     }
 
     @Test

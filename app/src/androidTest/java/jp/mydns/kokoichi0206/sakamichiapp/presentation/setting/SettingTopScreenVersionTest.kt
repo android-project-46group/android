@@ -17,6 +17,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.VersionInfo
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
+import jp.mydns.kokoichi0206.settings.TestTags
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule

@@ -8,8 +8,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.quiz.QuizScreen
 import jp.mydns.kokoichi0206.quiz.QuizType
+import jp.mydns.kokoichi0206.quiz.TestTags
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity

@@ -10,10 +10,12 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getJsonFromMember
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.member_detail.navigation.memberDetailRoute
+import jp.mydns.kokoichi0206.member_detail.navigation.memberJson
+import jp.mydns.kokoichi0206.model.getJsonFromMember
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -40,9 +42,9 @@ class MemberListScreenTest {
         MockKAnnotations.init(this)
 
         composeRule.activity.setContent {
-            jp.mydns.kokoichi0206.member_list.MemberListScreen(
-                navController = navController,
-            )
+            jp.mydns.kokoichi0206.member_list.MemberListScreen {
+                navController.navigateUp()
+            }
         }
     }
 
@@ -85,10 +87,6 @@ class MemberListScreenTest {
         // Assert
         verify(exactly = 2) {
             navController.navigateUp()
-            navController.navigate(
-                Screen.MemberDetailScreen.route
-                        + "/${Constants.NAV_PARAM_MEMBER_PROPS}=${getJsonFromMember(targetMember)}"
-            )
         }
     }
 

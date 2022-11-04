@@ -1,12 +1,12 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
-import usecase.get_members.GetMembersUseCase
+import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 
 /**
  * Mock ViewModel of MemberList Screen
  */
 class MemberListViewModelWihMock(
-    getMembersUseCase: usecase.get_members.GetMembersUseCase
+    getMembersUseCase: GetMembersUseCase
 ) : jp.mydns.kokoichi0206.member_list.MemberListViewModel(
     getMembersUseCase
 ) {

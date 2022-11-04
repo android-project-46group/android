@@ -19,6 +19,7 @@ import io.mockk.verify
 import jp.mydns.kokoichi0206.settings.SettingNavigation
 import jp.mydns.kokoichi0206.settings.SettingTopScreen
 import jp.mydns.kokoichi0206.settings.SettingsUiState
+import jp.mydns.kokoichi0206.settings.TestTags
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

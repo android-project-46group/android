@@ -1,12 +1,12 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.positions
 
+import jp.mydns.kokoichi0206.domain.usecase.get_positions.GetPositionsUseCase
+import jp.mydns.kokoichi0206.domain.usecase.get_songs.GetSongsUseCase
 import jp.mydns.kokoichi0206.positions.PositionsViewModel
-import usecase.get_positions.GetPositionsUseCase
-import usecase.get_songs.GetSongsUseCase
 
 class PositionsViewModelWithMock(
-    getPositionsUseCase: usecase.get_positions.GetPositionsUseCase,
-    getSongsUseCase: usecase.get_songs.GetSongsUseCase,
+    getPositionsUseCase: GetPositionsUseCase,
+    getSongsUseCase: GetSongsUseCase,
 ) : PositionsViewModel(
     getPositionsUseCase = getPositionsUseCase,
     getSongsUseCase = getSongsUseCase,

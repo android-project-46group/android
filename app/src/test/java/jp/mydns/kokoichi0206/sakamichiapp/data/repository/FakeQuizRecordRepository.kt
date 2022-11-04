@@ -1,8 +1,8 @@
 package jp.mydns.kokoichi0206.sakamichiapp.data.repository
 
-import repository.QuizRecordRepository
+import jp.mydns.kokoichi0206.data.repository.QuizRecordRepository
 
-class FakeQuizRecordRepository : repository.QuizRecordRepository {
+class FakeQuizRecordRepository : QuizRecordRepository {
 
     private val recordItems = mutableListOf<jp.mydns.kokoichi0206.model.QuizRecord>()
 
