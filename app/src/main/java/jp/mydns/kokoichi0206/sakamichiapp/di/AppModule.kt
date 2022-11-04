@@ -9,9 +9,9 @@ import dagger.hilt.components.SingletonComponent
 import jp.mydns.kokoichi0206.common.BuildConfigWrapper
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
-import jp.mydns.kokoichi0206.data.remote.AddHeaderInterceptor
-import jp.mydns.kokoichi0206.data.remote.LoggingInterceptor
-import jp.mydns.kokoichi0206.data.remote.RetryInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.AddHeaderInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import jp.mydns.kokoichi0206.data.remote.SakamichiApi
 import jp.mydns.kokoichi0206.data.repository.QuizRecordRepository
 import jp.mydns.kokoichi0206.data.repository.QuizRecordRepositoryImpl

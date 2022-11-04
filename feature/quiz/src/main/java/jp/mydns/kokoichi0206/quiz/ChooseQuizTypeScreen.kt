@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
+package jp.mydns.kokoichi0206.quiz
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -18,9 +18,7 @@ import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.ui.theme.*
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
-import jp.mydns.kokoichi0206.sakamichiapp.R
-import kotlin.text.Typography
+import jp.mydns.kokoichi0206.feature.quiz.R
 
 /**
  * Screen to choose GroupName and QuizType.
@@ -89,11 +87,11 @@ fun OneGroup(
                 painter = painterResource(
                     id = when (groupName) {
                         GroupName.NOGIZAKA ->
-                            R.drawable.nogizaka_official_icon
+                            jp.mydns.kokoichi0206.common.R.drawable.nogizaka_official_icon
                         GroupName.SAKURAZAKA ->
-                            R.drawable.sakurazaka_official_icon
+                            jp.mydns.kokoichi0206.common.R.drawable.sakurazaka_official_icon
                         GroupName.HINATAZAKA ->
-                            R.drawable.hinata_official_icon
+                            jp.mydns.kokoichi0206.common.R.drawable.hinata_official_icon
                     }
                 ),
                 contentDescription = groupName.name,

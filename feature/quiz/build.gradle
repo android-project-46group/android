@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'jp.mydns.kokoichi0206.feature.positions'
+    namespace 'jp.mydns.kokoichi0206.feature.quiz'
     compileSdk build_versions.target_sdk
 
     defaultConfig {
@@ -21,6 +21,7 @@ android {
 
 dependencies {
     implementation deps.compose.ui
+    implementation deps.compose.ui_preview
     implementation deps.material.compose
     implementation deps.material.material
 

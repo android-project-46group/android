@@ -22,8 +22,8 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.common.R
-import jp.mydns.kokoichi0206.data.remote.LoggingInterceptor
-import jp.mydns.kokoichi0206.data.remote.RetryInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 

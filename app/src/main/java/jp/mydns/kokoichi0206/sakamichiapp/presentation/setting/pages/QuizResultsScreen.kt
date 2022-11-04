@@ -14,7 +14,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.components.CustomDevider
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.getBaseColor
+import jp.mydns.kokoichi0206.quiz.getBaseColor
 
 @Composable
 fun QuizResultsScreen(uiState: SettingsUiState) {

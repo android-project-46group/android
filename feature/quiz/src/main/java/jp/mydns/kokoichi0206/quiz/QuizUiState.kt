@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
+package jp.mydns.kokoichi0206.quiz
 
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.GroupName

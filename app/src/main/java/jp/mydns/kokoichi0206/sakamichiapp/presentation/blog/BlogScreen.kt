@@ -33,6 +33,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.components.GroupBar
+import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import jp.mydns.kokoichi0206.common.ui.theme.*
 import jp.mydns.kokoichi0206.model.getBlogUrlProps
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.Screen
@@ -276,8 +278,8 @@ fun OneBlog(
             .crossfade(true)
             .okHttpClient {
                 OkHttpClient.Builder()
-                    .addInterceptor(jp.mydns.kokoichi0206.data.remote.LoggingInterceptor())
-                    .addInterceptor(jp.mydns.kokoichi0206.data.remote.RetryInterceptor())
+                    .addInterceptor(LoggingInterceptor())
+                    .addInterceptor(RetryInterceptor())
                     // サーバー側の設定か、なぜか指定が必要！
                     .connectTimeout(777, TimeUnit.MILLISECONDS)
                     .build()

@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
+package jp.mydns.kokoichi0206.quiz
 
 import androidx.compose.ui.graphics.Color
 import jp.mydns.kokoichi0206.common.GroupName

@@ -24,5 +24,10 @@ dependencies {
     implementation deps.material.compose
     implementation deps.material.material
 
+    implementation deps.okhttp3.okhttp
+    implementation deps.okhttp3.logging_interceptor
+
+    implementation deps.timber
+
     // modules
 }

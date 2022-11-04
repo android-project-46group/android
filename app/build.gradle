@@ -200,4 +200,5 @@ dependencies {
     implementation project(":feature:member_list")
     implementation project(":feature:member_detail")
     implementation project(":feature:positions")
+    implementation project(":feature:quiz")
 }

@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
+package jp.mydns.kokoichi0206.quiz
 
 /**
  * States for the web API return value.

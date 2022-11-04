@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
+package jp.mydns.kokoichi0206.quiz
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import jp.mydns.kokoichi0206.common.ui.theme.*
-import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.feature.quiz.R
 
 @Composable
 fun ResultScreen(

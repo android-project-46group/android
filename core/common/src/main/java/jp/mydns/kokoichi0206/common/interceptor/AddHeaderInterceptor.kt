@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.data.remote
+package jp.mydns.kokoichi0206.common.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response

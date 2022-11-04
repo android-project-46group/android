@@ -21,6 +21,8 @@ import coil.compose.AsyncImage
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
+import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import jp.mydns.kokoichi0206.feature.positions.R
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -105,8 +107,8 @@ fun EachRow(positions: List<jp.mydns.kokoichi0206.model.Position>) {
                     .crossfade(true)
                     .okHttpClient {
                         OkHttpClient.Builder()
-                            .addInterceptor(jp.mydns.kokoichi0206.data.remote.LoggingInterceptor())
-                            .addInterceptor(jp.mydns.kokoichi0206.data.remote.RetryInterceptor())
+                            .addInterceptor(LoggingInterceptor())
+                            .addInterceptor(RetryInterceptor())
                             // サーバー側の設定か、なぜか指定が必要！
                             .connectTimeout(777, TimeUnit.MILLISECONDS)
                             .build()

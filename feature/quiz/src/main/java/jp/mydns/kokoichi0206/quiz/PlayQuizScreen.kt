@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
+package jp.mydns.kokoichi0206.quiz
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,11 +28,12 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import jp.mydns.kokoichi0206.common.GroupName
-import jp.mydns.kokoichi0206.sakamichiapp.R
+import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.Typography
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.feature.quiz.R
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
@@ -157,8 +158,8 @@ fun OneQuiz(
                         .crossfade(true)
                         .okHttpClient {
                             OkHttpClient.Builder()
-                                .addInterceptor(jp.mydns.kokoichi0206.data.remote.LoggingInterceptor())
-                                .addInterceptor(jp.mydns.kokoichi0206.data.remote.RetryInterceptor())
+                                .addInterceptor(LoggingInterceptor())
+                                .addInterceptor(RetryInterceptor())
                                 // サーバー側の設定か、なぜか指定が必要！
                                 .connectTimeout(777, TimeUnit.MILLISECONDS)
                                 .build()

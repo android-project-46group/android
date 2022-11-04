@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/feature/member_detail" />
             <option value="$PROJECT_DIR$/feature/member_list" />
             <option value="$PROJECT_DIR$/feature/positions" />
+            <option value="$PROJECT_DIR$/feature/quiz" />
           </set>
         </option>
       </GradleProjectSettings>

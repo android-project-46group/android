@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
+import jp.mydns.kokoichi0206.quiz.QuizViewModel
 import usecase.get_members.GetMembersUseCase
 import usecase.quiz_record.RecordUseCases
 
@@ -9,7 +10,7 @@ import usecase.quiz_record.RecordUseCases
 class QuizViewModelWihMock(
     getMembersUseCase: usecase.get_members.GetMembersUseCase,
     recordUseCase: usecase.quiz_record.RecordUseCases
-) : QuizViewModel (
+) : QuizViewModel(
     getMembersUseCase, recordUseCase
 ) {
     /**
