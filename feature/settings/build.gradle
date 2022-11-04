@@ -17,6 +17,10 @@ android {
     buildFeatures {
         compose true
     }
+
+    libraryVariants.all {
+        it.generateBuildConfig.enabled = false
+    }
 }
 
 dependencies {

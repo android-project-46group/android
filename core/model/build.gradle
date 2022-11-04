@@ -7,6 +7,10 @@ plugins {
 android {
     namespace 'jp.mydns.kokoichi0206.model'
     compileSdk build_versions.target_sdk
+
+    libraryVariants.all {
+        it.generateBuildConfig.enabled = false
+    }
 }
 
 dependencies {
