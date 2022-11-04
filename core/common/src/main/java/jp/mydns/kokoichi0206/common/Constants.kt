@@ -18,12 +18,6 @@ object Constants {
     const val SLASH_ENCODED = "%2F"
     const val QUESTION_ENCODED = "%3F"
 
-    /**
-     * Navigation parameter (MemberDetailScreen)
-     */
-    const val NAV_PARAM_MEMBER_PROPS = "memberJson"
-    const val NAV_PARAM_WEBVIEW_PROPS = "url"
-
     // =========== MemberList Screen ===========
     val BLOOD_TYPE_LIST = listOf<String>(
         "A型", "B型", "O型", "AB型", "不明",

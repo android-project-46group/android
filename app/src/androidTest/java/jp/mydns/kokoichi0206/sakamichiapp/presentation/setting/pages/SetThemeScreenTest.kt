@@ -14,7 +14,6 @@ import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.settings.SettingsViewModel
 import jp.mydns.kokoichi0206.settings.ThemeType
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify

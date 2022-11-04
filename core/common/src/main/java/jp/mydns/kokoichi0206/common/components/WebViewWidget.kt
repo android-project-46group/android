@@ -5,6 +5,10 @@ import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
 
+
+const val webViewRoute = "web_view_route"
+const val webViewProps = "url"
+
 @Composable
 fun WebViewWidget(
     contentUrl: String
