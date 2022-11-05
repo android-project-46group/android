@@ -8,3 +8,13 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Sakamichi app"
 include ':app'
+include ':core:model'
+include ':core:common'
+include ':core:data'
+include ':core:domain'
+include ':feature:member_list'
+include ':feature:member_detail'
+include ':feature:positions'
+include ':feature:quiz'
+include ':feature:settings'
+include ':feature:blog'

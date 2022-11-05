@@ -1,7 +1,5 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list
 
-import jp.mydns.kokoichi0206.sakamichiapp.common.calcBirthdayOrder
-import jp.mydns.kokoichi0206.sakamichiapp.common.calcMonthDayOrder
 import io.mockk.mockk
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 
@@ -28,8 +26,8 @@ class MemberListViewModelWithMockTest {
     @Test
     fun `Order visibleMembers by birthday ascending, correct order`() {
         // Arrange
-        viewModel.setSortType(SortOrderType.ASCENDING)
-        viewModel.setSortKey(MemberListSortKeys.BIRTHDAY)
+        viewModel.setSortType(jp.mydns.kokoichi0206.member_list.SortOrderType.ASCENDING)
+        viewModel.setSortKey(jp.mydns.kokoichi0206.member_list.MemberListSortKeys.BIRTHDAY)
 
         // Act
         viewModel.sortMembers()
@@ -37,16 +35,16 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcBirthdayOrder(vMembers[i].birthday))
-                .isLessThanOrEqualTo(calcBirthdayOrder(vMembers[i+1].birthday))
+            assertThat(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i].birthday))
+                .isLessThanOrEqualTo(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i + 1].birthday))
         }
     }
 
     @Test
     fun `Order visibleMembers by birthday descending, correct order`() {
         // Arrange
-        viewModel.setSortType(SortOrderType.DESCENDING)
-        viewModel.setSortKey(MemberListSortKeys.BIRTHDAY)
+        viewModel.setSortType(jp.mydns.kokoichi0206.member_list.SortOrderType.DESCENDING)
+        viewModel.setSortKey(jp.mydns.kokoichi0206.member_list.MemberListSortKeys.BIRTHDAY)
 
         // Act
         viewModel.sortMembers()
@@ -54,16 +52,16 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcBirthdayOrder(vMembers[i].birthday))
-                .isGreaterThanOrEqualTo(calcBirthdayOrder(vMembers[i+1].birthday))
+            assertThat(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i].birthday))
+                .isGreaterThanOrEqualTo(jp.mydns.kokoichi0206.common.calcBirthdayOrder(vMembers[i + 1].birthday))
         }
     }
 
     @Test
     fun `Order visibleMembers by (month+day) ascending, correct order`() {
         // Arrange
-        viewModel.setSortType(SortOrderType.ASCENDING)
-        viewModel.setSortKey(MemberListSortKeys.MONTH_DAY)
+        viewModel.setSortType(jp.mydns.kokoichi0206.member_list.SortOrderType.ASCENDING)
+        viewModel.setSortKey(jp.mydns.kokoichi0206.member_list.MemberListSortKeys.MONTH_DAY)
 
         // Act
         viewModel.sortMembers()
@@ -71,15 +69,15 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcMonthDayOrder(vMembers[i].birthday))
-                .isLessThanOrEqualTo(calcMonthDayOrder(vMembers[i+1].birthday))        }
+            assertThat(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i].birthday))
+                .isLessThanOrEqualTo(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i + 1].birthday))        }
     }
 
     @Test
     fun `Order visibleMembers by (month+day) descending, correct order`() {
         // Arrange
-        viewModel.setSortType(SortOrderType.DESCENDING)
-        viewModel.setSortKey(MemberListSortKeys.MONTH_DAY)
+        viewModel.setSortType(jp.mydns.kokoichi0206.member_list.SortOrderType.DESCENDING)
+        viewModel.setSortKey(jp.mydns.kokoichi0206.member_list.MemberListSortKeys.MONTH_DAY)
 
         // Act
         viewModel.sortMembers()
@@ -87,16 +85,16 @@ class MemberListViewModelWithMockTest {
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
         for (i in 0..vMembers.size - 2) {
-            assertThat(calcMonthDayOrder(vMembers[i].birthday))
-                .isGreaterThanOrEqualTo(calcMonthDayOrder(vMembers[i+1].birthday))
+            assertThat(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i].birthday))
+                .isGreaterThanOrEqualTo(jp.mydns.kokoichi0206.common.calcMonthDayOrder(vMembers[i + 1].birthday))
         }
     }
 
     @Test
     fun `Order visibleMembers by height ascending, correct order`() {
         // Arrange
-        viewModel.setSortType(SortOrderType.ASCENDING)
-        viewModel.setSortKey(MemberListSortKeys.HEIGHT)
+        viewModel.setSortType(jp.mydns.kokoichi0206.member_list.SortOrderType.ASCENDING)
+        viewModel.setSortKey(jp.mydns.kokoichi0206.member_list.MemberListSortKeys.HEIGHT)
 
         // Act
         viewModel.sortMembers()
@@ -111,8 +109,8 @@ class MemberListViewModelWithMockTest {
     @Test
     fun `Order visibleMembers by height descending, correct order`() {
         // Arrange
-        viewModel.setSortType(SortOrderType.DESCENDING)
-        viewModel.setSortKey(MemberListSortKeys.HEIGHT)
+        viewModel.setSortType(jp.mydns.kokoichi0206.member_list.SortOrderType.DESCENDING)
+        viewModel.setSortKey(jp.mydns.kokoichi0206.member_list.MemberListSortKeys.HEIGHT)
 
         // Act
         viewModel.sortMembers()
@@ -130,7 +128,7 @@ class MemberListViewModelWithMockTest {
         viewModel.setApiMembers(members = viewModel.uiState.value.visibleMembers)
 
         // Act
-        viewModel.narrowDownVisibleMembers(NarrowKeys.FIRST_GEN)
+        viewModel.narrowDownVisibleMembers(jp.mydns.kokoichi0206.member_list.NarrowKeys.FIRST_GEN)
 
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
@@ -145,7 +143,7 @@ class MemberListViewModelWithMockTest {
         viewModel.setApiMembers(members = viewModel.uiState.value.visibleMembers)
 
         // Act
-        viewModel.narrowDownVisibleMembers(NarrowKeys.FIRST_GEN)
+        viewModel.narrowDownVisibleMembers(jp.mydns.kokoichi0206.member_list.NarrowKeys.FIRST_GEN)
 
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
@@ -160,7 +158,7 @@ class MemberListViewModelWithMockTest {
         viewModel.setApiMembers(members = viewModel.uiState.value.visibleMembers)
 
         // Act
-        viewModel.narrowDownVisibleMembers(NarrowKeys.SECOND_GEN)
+        viewModel.narrowDownVisibleMembers(jp.mydns.kokoichi0206.member_list.NarrowKeys.SECOND_GEN)
 
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers
@@ -175,7 +173,7 @@ class MemberListViewModelWithMockTest {
         viewModel.setApiMembers(members = viewModel.uiState.value.visibleMembers)
 
         // Act
-        viewModel.narrowDownVisibleMembers(NarrowKeys.SECOND_GEN)
+        viewModel.narrowDownVisibleMembers(jp.mydns.kokoichi0206.member_list.NarrowKeys.SECOND_GEN)
 
         // Assert
         val vMembers = viewModel.uiState.value.visibleMembers

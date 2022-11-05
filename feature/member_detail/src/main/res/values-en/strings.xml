@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="detail_info_birthday">Birthday</string>
+    <string name="detail_info_height">Height</string>
+    <string name="detail_info_blood">Blood</string>
+    <string name="detail_info_group">Group</string>
+
+</resources>

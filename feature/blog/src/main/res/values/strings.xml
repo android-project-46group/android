@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="blog_screen_title">Blogs</string>
+    <string name="blog_sort_key_time">Date updated</string>
+    <string name="blog_sort_key_name">Name</string>
+
+</resources>

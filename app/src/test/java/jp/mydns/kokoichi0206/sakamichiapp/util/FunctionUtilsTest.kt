@@ -1,7 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.util
 
 import com.google.common.truth.Truth.assertThat
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.getMilliSecFromLocalTime
+import jp.mydns.kokoichi0206.common.getMilliSecFromLocalTime
 import org.junit.Test
 import java.time.*
 

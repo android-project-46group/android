@@ -1,0 +1,67 @@
+<resources>
+
+    <!--    Strings for SettingScreen-->
+    <string name="setting_screen_title">Settings</string>
+    <string name="clear_cache_title">Clear cache？</string>
+    <string name="clear_cache_body">Deleting cache data will create space on your system.</string>
+    <string name="clear_cache_ok">Clear</string>
+    <string name="clear_cache_cancel">Cancel</string>
+
+    <!--    Strings for SettingTopScreen-->
+    <string name="developer_success_snack_bar_text">You are now a developer!</string>
+    <string name="developer_on_the_way_snack_bar_text">You are now %d steps away from being a developer.</string>
+    <string name="version_info_in_settings">version %s</string>
+    <string name="setting_update_blog">Update blog info</string>
+    <string name="setting_quiz_record">Quiz record</string>
+    <string name="setting_clear_cache">Clear cache</string>
+    <string name="setting_report_bugs">Report bugs/opinions</string>
+    <string name="setting_set_theme_color">Theme colors</string>
+    <string name="setting_share_app">Share this app</string>
+    <string name="setting_about_app">About this app</string>
+
+    <!--    Strings for QuizResultsScreen-->
+    <string name="quiz_result_screen_title">Number of correct answers</string>
+    <string name="column_name_group">Group</string>
+    <string name="column_name_correct">Got</string>
+    <string name="column_name_total">Total</string>
+
+    <!--    Strings for UpdateBlogScreen-->
+    <string name="update_blog_title">Update blog information</string>
+    <string name="update_blog_body">Frequently updates overload the server, so please stop unnecessary update. Are you sure you want to update?</string>
+    <string name="update_blog_button_ok">Update</string>
+    <string name="update_blog_button_cancel">Cancel</string>
+    <string name="update_blog_success_dialog_title">Success</string>
+    <string name="update_blog_success_dialog_body">Sent update notification successfully.</string>
+    <string name="update_blog_failure_dialog_title">Failed</string>
+    <string name="update_blog_failure_dialog_body">Failed to send update notification. Please contact the administrator if you have the appropriate permission.</string>
+    <string name="update_blog_dialog_button">OK</string>
+
+    <!--    Strings for ReportIssueScreen-->
+    <string name="report_issue_title">Report bugs/ideas</string>
+    <string name="report_issue_text_placeholder">Detail information</string>
+    <string name="report_issue_submit_button">Send</string>
+    <string name="report_issue_dialog_title">Send</string>
+    <string name="report_issue_dialog_body">Please check the contents</string>
+    <string name="report_issue_dialog_button_ok">Send</string>
+    <string name="report_issue_dialog_button_cancel">Cancel</string>
+
+    <!--    Strings for SetThemeScreen-->
+    <string name="set_theme_title">Theme color</string>
+
+    <!--    Strings for ShareAppScreen-->
+    <string name="share_app_title">Share this app</string>
+    <string name="share_app_intent_text">When using %s, you can get various information about Sakamichi group.</string>
+    <string name="share_app_apk_link">https://kokoichi0206.mydns.jp/app-debug.apk</string>
+    <string name="share_app_intent_title">Share this app.</string>
+    <string name="share_app_message">Open another app.</string>
+
+    <!--    Strings for AboutAppScreen-->
+    <string name="about_app_version">version</string>
+    <string name="about_app_user_id">User ID</string>
+
+    <!--    Content descriptions-->
+    <string name="back_arrow">back arrow</string>
+    <string name="right_arrow">right arrow</string>
+    <string name="check">check</string>
+    <string name="url_link">link for apk</string>
+</resources>

@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'jp.mydns.kokoichi0206.common'
+    compileSdk build_versions.target_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion build_versions.compose
+    }
+    buildFeatures {
+        compose true
+    }
+
+    libraryVariants.all {
+        it.generateBuildConfig.enabled = false
+    }
+}
+
+dependencies {
+    implementation deps.compose.ui
+    implementation deps.material.compose
+    implementation deps.material.material
+
+    implementation deps.okhttp3.okhttp
+    implementation deps.okhttp3.logging_interceptor
+
+    implementation deps.timber
+
+    // DataStore
+    implementation deps.datastore.preferences
+    // optional - RxJava3 support
+    implementation deps.datastore.rxjava3
+
+    // modules
+}

@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'jp.mydns.kokoichi0206.domain'
+    compileSdk build_versions.target_sdk
+
+    defaultConfig {
+        minSdk build_versions.min_sdk
+    }
+    libraryVariants.all {
+        it.generateBuildConfig.enabled = false
+    }
+}
+
+dependencies {
+    implementation deps.retrofit.retrofit
+
+    // hilt dependencies
+    implementation deps.hilt.android
+    kapt deps.hilt.compiler
+    kapt deps.hilt.kapt
+    implementation deps.hilt.navigation
+
+    implementation deps.coroutines.core
+    implementation deps.retrofit.gson
+    implementation deps.room.room
+
+    // modules dependency
+    implementation project(":core:common")
+    implementation project(":core:model")
+    implementation project(":core:data")
+}

@@ -6,15 +6,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import jp.mydns.kokoichi0206.sakamichiapp.common.Constants
-import jp.mydns.kokoichi0206.sakamichiapp.data.local.QuizRecordDatabase
+import jp.mydns.kokoichi0206.common.BuildConfigWrapper
+import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.MockSakamichiApi
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.SakamichiApi
-import jp.mydns.kokoichi0206.sakamichiapp.data.repository.QuizRecordRepositoryImpl
-import jp.mydns.kokoichi0206.sakamichiapp.data.repository.SakamichiRepositoryImpl
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.QuizRecordRepository
-import jp.mydns.kokoichi0206.sakamichiapp.domain.repository.SakamichiRepository
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.*
+import jp.mydns.kokoichi0206.data.remote.SakamichiApi
+import jp.mydns.kokoichi0206.data.repository.QuizRecordRepository
+import jp.mydns.kokoichi0206.data.repository.QuizRecordRepositoryImpl
+import jp.mydns.kokoichi0206.data.repository.SakamichiRepository
+import jp.mydns.kokoichi0206.data.repository.SakamichiRepositoryImpl
+import jp.mydns.kokoichi0206.domain.usecase.quiz_record.*
+import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.mock.MockRetrofit
@@ -52,8 +54,8 @@ object TestAppModule {
 
     @Provides
     @Singleton
-    fun provideSakamichiRepository(api: SakamichiApi): SakamichiRepository {
-        return SakamichiRepositoryImpl(api)
+    fun provideSakamichiRepository(api: SakamichiApi, config: BuildConfigWrapper): SakamichiRepository {
+        return SakamichiRepositoryImpl(api, config)
     }
 
     @Provides
@@ -79,6 +81,15 @@ object TestAppModule {
             getRecord = GetRecordUseCase(repository),
             getAccuracy = GetAccuracyRateByGroupUseCase(repository),
             insertRecord = InsertRecordUseCase(repository),
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideBuildConfigWrapper(): BuildConfigWrapper {
+        return BuildConfigWrapper(
+            API_KEY = "test_api_key",
+            VERSION = "1.0.3",
         )
     }
 }

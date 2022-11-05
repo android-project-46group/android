@@ -1,14 +1,14 @@
 package jp.mydns.kokoichi0206.sakamichiapp.data.remote
 
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.dto.*
+import jp.mydns.kokoichi0206.data.remote.dto.*
 import retrofit2.mock.BehaviorDelegate
 
 /**
  * Mock interface for accessing the APIs with Retrofit.
  */
 class MockSakamichiApi(
-    private val delegate: BehaviorDelegate<SakamichiApi>
-) : SakamichiApi {
+    private val delegate: BehaviorDelegate<jp.mydns.kokoichi0206.data.remote.SakamichiApi>
+) : jp.mydns.kokoichi0206.data.remote.SakamichiApi {
 
     /**
      * 呼び出し回数を保持するためのカウンター。
@@ -137,7 +137,7 @@ class MockSakamichiApi(
             )
         )
         counter++
-        return delegate.returningResponse(blogsDto).getBlogs(groupName)
+        return delegate.returningResponse(blogsDto).getBlogs(groupName, "test")
     }
 
     override suspend fun getSongs(groupName: String, apiKey: String): SongsDto {

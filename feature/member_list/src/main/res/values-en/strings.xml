@@ -1,0 +1,28 @@
+<resources>
+
+    <!--    Bottom Navigation Title-->
+    <string name="bottom_nav_members">Members</string>
+    <string name="bottom_nav_blog">Blog</string>
+    <string name="bottom_nav_position">Position</string>
+    <string name="bottom_nav_quiz">Quiz</string>
+    <string name="bottom_nav_settings">Settings</string>
+
+    <!--    Strings for MemberListScreen-->
+    <string name="member_list_sort_key">Sort</string>
+    <string name="member_list_narrow_down_key">Narrow</string>
+
+    <string name="sort_key_none">None</string>
+    <string name="sort_key_name">Name</string>
+    <string name="sort_key_generation">Generation</string>
+    <string name="sort_key_blood_type">Blood</string>
+    <string name="sort_key_birthday">Birthday</string>
+    <string name="sort_key_day">Day</string>
+    <string name="sort_key_height">Height</string>
+
+    <string name="narrow_key_none">None</string>
+    <string name="narrow_key_1st">1st</string>
+    <string name="narrow_key_2nd">2nd</string>
+    <string name="narrow_key_3rd">3rd</string>
+    <string name="narrow_key_4th">4th</string>
+
+</resources>

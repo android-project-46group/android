@@ -19,7 +19,7 @@ class UtilsTest {
             "2000年2月24日" to 224
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -27,7 +27,7 @@ class UtilsTest {
 
     @Test
     fun `calcMonthDayOrder() test, empty birthday returns 0`() {
-        val result = calcMonthDayOrder("")
+        val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder("")
         assertEquals(0, result)
     }
 
@@ -42,7 +42,7 @@ class UtilsTest {
             "204年2月24日" to 0,
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -57,7 +57,7 @@ class UtilsTest {
             "+1995年11月2日" to 0,
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -71,7 +71,7 @@ class UtilsTest {
             "2004年012月17日" to 0,
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -86,7 +86,7 @@ class UtilsTest {
             "1995年1?月2日" to 0,
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -100,7 +100,7 @@ class UtilsTest {
             "2004年012月日" to 0,
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -115,7 +115,7 @@ class UtilsTest {
             "1995年1月2??2日" to 0,
         )
         for (key in map.keys) {
-            val result = calcMonthDayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcMonthDayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }
@@ -135,7 +135,7 @@ class UtilsTest {
             "2000年2月24日" to 100224
         )
         for (key in map.keys) {
-            val result = calcBirthdayOrder(key)
+            val result = jp.mydns.kokoichi0206.common.calcBirthdayOrder(key)
             val expected = map[key]
             assertEquals(expected, result)
         }

@@ -1,16 +1,16 @@
 package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.get_members.GetMembersUseCase
-import jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record.RecordUseCases
+import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
+import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
+import jp.mydns.kokoichi0206.quiz.QuizViewModel
 
 /**
  * Mock ViewModel of MemberList Screen
  */
 class QuizViewModelWihMock(
     getMembersUseCase: GetMembersUseCase,
-    recordUseCase: RecordUseCases
-) : QuizViewModel (
+    recordUseCase: RecordUseCases,
+) : QuizViewModel(
     getMembersUseCase, recordUseCase
 ) {
     /**
@@ -18,8 +18,8 @@ class QuizViewModelWihMock(
      *
      * @return MutableList of Member data class
      */
-    fun fakeGetMembersApi(): MutableList<Member> {
-        val fakeRes = mutableListOf<Member>()
+    fun fakeGetMembersApi(): MutableList<jp.mydns.kokoichi0206.model.Member> {
+        val fakeRes = mutableListOf<jp.mydns.kokoichi0206.model.Member>()
         val fakeResStr = arrayOf(
             arrayOf("A型", "2期生", "157.5cm", "松田好花", "1999年4月27日"),
             arrayOf("O型", "2期生", "163.5cm", "金村美玖", "2002年9月10日"),
@@ -34,7 +34,7 @@ class QuizViewModelWihMock(
         )
         fakeResStr.forEach {
             fakeRes.add(
-                Member(
+                jp.mydns.kokoichi0206.model.Member(
                     blogUrl = "https://example.com",
                     bloodType = it[0],
                     generation = it[1],

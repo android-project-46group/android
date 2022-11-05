@@ -2,8 +2,8 @@ package jp.mydns.kokoichi0206.sakamichiapp.domain.usecase.quiz_record
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import jp.mydns.kokoichi0206.domain.usecase.quiz_record.GetAccuracyRateByGroupUseCase
 import jp.mydns.kokoichi0206.sakamichiapp.data.repository.FakeQuizRecordRepository
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.QuizRecord
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -30,7 +30,7 @@ class GetAccuracyRateByGroupTest {
     fun `GetAccuracyUseCase() for one record returns correct`() = runBlockingTest {
         // Arrange
         fakeRepo.insertRecord(
-            QuizRecord("NOGIZAKA", "BIRTHDAY", 1, 5)
+            jp.mydns.kokoichi0206.model.QuizRecord("NOGIZAKA", "BIRTHDAY", 1, 5)
         )
 
         // Act
@@ -46,10 +46,10 @@ class GetAccuracyRateByGroupTest {
     fun `GetAccuracyUseCase() for records returns correct`() = runBlockingTest {
         // Arrange
         fakeRepo.insertRecord(
-            QuizRecord("NOGIZAKA", "BIRTHDAY", 1, 5)
+            jp.mydns.kokoichi0206.model.QuizRecord("NOGIZAKA", "BIRTHDAY", 1, 5)
         )
         fakeRepo.insertRecord(
-            QuizRecord("NOGIZAKA", "BIRTHDAY", 4, 5)
+            jp.mydns.kokoichi0206.model.QuizRecord("NOGIZAKA", "BIRTHDAY", 4, 5)
         )
 
         // Act

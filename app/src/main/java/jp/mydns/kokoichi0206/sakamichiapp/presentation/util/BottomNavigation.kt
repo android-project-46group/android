@@ -21,18 +21,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.google.gson.Gson
+import jp.mydns.kokoichi0206.blog.navigation.blogRoute
+import jp.mydns.kokoichi0206.blog.navigation.blogScreen
+import jp.mydns.kokoichi0206.common.components.WebViewWidget
+import jp.mydns.kokoichi0206.common.components.webViewProps
+import jp.mydns.kokoichi0206.common.components.webViewRoute
+import jp.mydns.kokoichi0206.member_detail.navigation.memberDetailScreen
+import jp.mydns.kokoichi0206.member_detail.navigation.navigateToMemberDetail
+import jp.mydns.kokoichi0206.member_list.navigation.memberListRoute
+import jp.mydns.kokoichi0206.member_list.navigation.memberListScreen
+import jp.mydns.kokoichi0206.model.getBlogUrlProps
+import jp.mydns.kokoichi0206.positions.navigation.positionsRoute
+import jp.mydns.kokoichi0206.positions.navigation.positionsScreen
+import jp.mydns.kokoichi0206.quiz.navigation.quizRoute
+import jp.mydns.kokoichi0206.quiz.navigation.quizScreen
 import jp.mydns.kokoichi0206.sakamichiapp.R
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.Member
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.blog.BlogScreenWithCustomTheme
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_detail.MemberDetailScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.member_list.MemberListScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.positions.PositionsScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz.QuizScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsScreen
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getBaseColorInThemeTypesFromString
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.getSubColorInThemeTypesFromString
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.components.WebViewWidget
+import jp.mydns.kokoichi0206.settings.getBaseColorInThemeTypesFromString
+import jp.mydns.kokoichi0206.settings.getSubColorInThemeTypesFromString
+import jp.mydns.kokoichi0206.settings.navigation.settingsRoute
+import jp.mydns.kokoichi0206.settings.navigation.settingsScreen
 
 /**
  * Bottom navigation host setup (Register routing).
@@ -48,91 +55,41 @@ fun BottomNavHost(
     systemUiController.setSystemBarsColor(
         color = Color.White,
     )
+
     NavHost(
         navController = navHostController,
         startDestination = BottomNavItem.Home.route
     ) {
-        /**
-         * Member List Screen
-         */
-        composable(Screen.MemberListScreen.route) {
-            MemberListScreen(
-                navController = navHostController,
-            )
+        memberListScreen {
+            navHostController.navigateToMemberDetail(it)
         }
 
-        /**
-         * Member Detail Screen
-         */
-        composable(
-            Screen.MemberDetailScreen.route
-                    + "/${Constants.NAV_PARAM_MEMBER_PROPS}={${Constants.NAV_PARAM_MEMBER_PROPS}}",
-            arguments = listOf(
-                navArgument(
-                    Constants.NAV_PARAM_MEMBER_PROPS
-                ) { type = NavType.StringType })
-        ) { backStackEntry ->
+        memberDetailScreen()
 
-            val memberJson = backStackEntry.arguments?.getString(Constants.NAV_PARAM_MEMBER_PROPS)
-
-            // Parse Json to Member class object
-            val member = Gson().fromJson<Member>(memberJson, Member::class.java)
-
-            MemberDetailScreen(member)
+        blogScreen {
+            val navPath = webViewRoute +
+                    "/$webViewProps=${getBlogUrlProps(it)}"
+            navHostController.navigate(navPath)
         }
 
-        /**
-         * Blog Screen
-         */
-        composable(
-            Screen.BlogScreen.route
-        ) {
-            BlogScreenWithCustomTheme(
-                navController = navHostController,
-            )
-        }
+        positionsScreen()
 
-        /**
-         * Position Screen
-         */
-        composable(
-            Screen.PositionScreen.route
-        ) {
-            PositionsScreen()
-        }
+        quizScreen()
 
-        /**
-         * Quiz Screen
-         */
-        composable(
-            Screen.QuizScreen.route
-        ) {
-            QuizScreen()
-        }
-
-        /**
-         * Settings Screen
-         */
-        composable(
-            Screen.SettingScreen.route
-        ) {
-            SettingsScreen(
-                onThemeChanged = onThemeChanged,
-            )
-        }
+        settingsScreen(onThemeChanged)
 
         /**
          * WebView composable (util)
          */
         composable(
-            Screen.WebViewScreen.route
-                    + "/${Constants.NAV_PARAM_WEBVIEW_PROPS}={${Constants.NAV_PARAM_WEBVIEW_PROPS}}",
+            webViewRoute
+                    + "/$webViewProps={$webViewProps}",
             arguments = listOf(
-                navArgument(Constants.NAV_PARAM_WEBVIEW_PROPS) {
+                navArgument(webViewProps) {
                     type = NavType.StringType
                 })
         ) { backStackEntry ->
-            var url = backStackEntry.arguments?.getString(Constants.NAV_PARAM_WEBVIEW_PROPS)
+            var url = backStackEntry.arguments?.getString(webViewProps)
             if (url == null) {
                 // Default URL
                 url = "https://blog.nogizaka46.com/"
@@ -206,35 +163,34 @@ sealed class BottomNavItem(
     val name: Int,
     val route: String,
     @DrawableRes val icons: Int,
-    val badgeCount: Int = 0,
 ) {
     object Home : BottomNavItem(
         name = R.string.bottom_nav_members,
-        route = Screen.MemberListScreen.route,
+        route = memberListRoute,
         icons = R.drawable.members,
     )
 
     object Blog : BottomNavItem(
         name = R.string.bottom_nav_blog,
-        route = Screen.BlogScreen.route,
+        route = blogRoute,
         icons = R.drawable.blog,
     )
 
     object Position : BottomNavItem(
         name = R.string.bottom_nav_position,
-        route = Screen.PositionScreen.route,
+        route = positionsRoute,
         icons = R.drawable.positions,
     )
 
     object Quiz : BottomNavItem(
         name = R.string.bottom_nav_quiz,
-        route = Screen.QuizScreen.route,
+        route = quizRoute,
         icons = R.drawable.quiz,
     )
 
     object Setting : BottomNavItem(
         name = R.string.bottom_nav_settings,
-        route = Screen.SettingScreen.route,
+        route = settingsRoute,
         icons = R.drawable.settings,
     )
 }

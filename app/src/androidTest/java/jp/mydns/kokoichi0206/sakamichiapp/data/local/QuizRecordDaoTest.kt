@@ -6,7 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
-import jp.mydns.kokoichi0206.sakamichiapp.domain.model.QuizRecord
 import junit.framework.Assert.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -25,14 +24,14 @@ class QuizRecordDaoTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var database: QuizRecordDatabase
-    private lateinit var dao: QuizRecordDao
+    lateinit var database: jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
+    private lateinit var dao: jp.mydns.kokoichi0206.data.local.QuizRecordDao
 
     @Before
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            QuizRecordDatabase::class.java
+            jp.mydns.kokoichi0206.data.local.QuizRecordDatabase::class.java
         ).allowMainThreadQueries().build()
         dao = database.quizRecordDao
     }
@@ -45,7 +44,7 @@ class QuizRecordDaoTest {
     @Test
     fun getRecordsByGroup() = runBlockingTest {
         // Arrange
-        val record = QuizRecord(
+        val record = jp.mydns.kokoichi0206.model.QuizRecord(
             groupName = "NOGIZAKA",
             type = "BIRTHDAY",
             correctNum = 1,
@@ -78,7 +77,7 @@ class QuizRecordDaoTest {
     @Test
     fun getRecordByGroupAndTag() = runBlockingTest {
         // Arrange
-        val record = QuizRecord(
+        val record = jp.mydns.kokoichi0206.model.QuizRecord(
             groupName = "NOGIZAKA",
             type = "BIRTHDAY",
             correctNum = 1,

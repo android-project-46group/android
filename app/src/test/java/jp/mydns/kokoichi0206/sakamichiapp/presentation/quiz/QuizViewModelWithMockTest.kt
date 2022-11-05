@@ -2,6 +2,7 @@ package jp.mydns.kokoichi0206.sakamichiapp.presentation.quiz
 
 import com.google.common.truth.Truth.assertThat
 import io.mockk.mockk
+import jp.mydns.kokoichi0206.quiz.QuizType
 import org.junit.Before
 import org.junit.Test
 

@@ -14,11 +14,12 @@ import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.SettingsUiState
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.util.TestTags
+import jp.mydns.kokoichi0206.settings.SettingsUiState
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.settings.TestTags
+import jp.mydns.kokoichi0206.settings.pages.CacheClearDialog
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
