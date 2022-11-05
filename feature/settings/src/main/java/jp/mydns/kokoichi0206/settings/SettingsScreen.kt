@@ -219,9 +219,9 @@ fun SettingsScreenPreview() {
     val uiState = SettingsUiState(
         version = "1.0.9",
     )
-        Box(modifier = Modifier.background(Color.White)){
-            SettingsRouting(uiState = uiState)
-        }
+    Box(modifier = Modifier.background(Color.White)) {
+        SettingsRouting(uiState = uiState)
+    }
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -232,7 +232,7 @@ fun SettingsScreenWithThemePreview() {
         version = "1.0.9",
         themeType = ThemeType.Sakurazaka,
     )
-        Box(modifier = Modifier.background(Color.White)){
-            SettingsRouting(uiState = uiState)
-        }
+    Box(modifier = Modifier.background(Color.White)) {
+        SettingsRouting(uiState = uiState)
+    }
 }
