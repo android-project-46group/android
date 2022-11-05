@@ -47,7 +47,9 @@ class SetThemeScreenTest {
         composeRule.activity.setContent {
             SetThemeScreen(
                 navController = navController,
-                viewModel = viewModel,
+                setThemeType = {
+                    viewModel.setThemeType(ThemeType.Sakurazaka)
+                },
             )
         }
     }

@@ -49,8 +49,10 @@ class ReportIssueScreenTest {
 
         composeRule.activity.setContent {
             ReportIssueScreen(
-                viewModel = viewModel,
                 uiState = uiState,
+                reportIssue = {
+                    viewModel.reportIssue("Some Text Here")
+                }
             )
         }
     }
@@ -220,7 +222,7 @@ class ReportIssueScreenTest {
 
         // Assert
         verify(exactly = 1) {
-            viewModel.reportIssue(sendMessage)
+            viewModel.reportIssue("Some Text Here")
         }
     }
 

@@ -50,8 +50,10 @@ class UpdateBlogScreenTest {
         composeRule.activity.setContent {
             UpdateBlogScreen(
                 navController = navController,
-                viewModel = viewModel,
                 uiState = uiState,
+                onUpdateClicked = {
+
+                },
             )
         }
     }

@@ -14,7 +14,6 @@ import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
 import io.mockk.verify
 import jp.mydns.kokoichi0206.settings.SettingNavigation
 import jp.mydns.kokoichi0206.settings.SettingTopScreen
@@ -53,8 +52,10 @@ class SettingTopScreenTest {
             SettingTopScreen(
                 navController = navController,
                 navigationList = navigation,
-                viewModel = mockk(),
                 uiState = uiState,
+                onIsDevChanged = {
+                    navController.navigate(SettingNavigation.ClearCache.route)
+                },
             )
         }
     }
