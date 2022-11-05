@@ -79,11 +79,8 @@ android {
             force 'junit:junit:4.13.2'
         }
     }
-    lint {
-        checkDependencies true
-        baseline = file("lint-baseline.xml")
-    }
     lintOptions {
+        checkDependencies true
         baseline file("lint-baseline.xml")
     }
 }
