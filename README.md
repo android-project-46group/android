@@ -20,3 +20,28 @@
 | <br>**Position Screen**<br><br>You can get formations of 日向坂46's songs<br><br> **[> Browse](app/src/main/java/jp/mydns/kokoichi0206/sakamichiapp/presentation/positions/)** | <img src="readme/screenshots/position.png" width="320"> |  
 | <br>**Quiz Screen**<br><br>You can take a quiz about the members.<br><br> • Four kinds of quizzes<br><br>**[> Browse](app/src/main/java/jp/mydns/kokoichi0206/sakamichiapp/presentation/quiz/)** | <img src="readme/quiz.gif" width="160"> |  
 | <br>**Setting Screen**<br><br>In this screen, you can...<br> • Update blogs anytime<br> • Check your quiz results<br> • Clear cache of your phone<br> • Report issues to us<br> • Set your custom theme<br> • Share this app to other people<br><br>**[> Browse](app/src/main/java/jp/mydns/kokoichi0206/sakamichiapp/presentation/setting/)** | <img src="readme/settings.gif" width="160"> |  
+
+## Directory Structure
+
+Especially about module structures.
+
+<pre>
+.
+├── app                 : main application
+├── build.gradle
+├── core                : core modules
+│   ├── common
+│   ├── data
+│   ├── domain
+│   └── model
+├── feature             : modules separated by views
+│   ├── blog
+│   ├── member_detail
+│   ├── member_list
+│   ├── positions
+│   ├── quiz
+│   └── settings
+├── settings.gradle
+└── versions.gradle
+</pre>
+
