@@ -1,6 +1,7 @@
 package jp.mydns.kokoichi0206.sakamichiapp.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -19,6 +20,7 @@ import jp.mydns.kokoichi0206.data.repository.SakamichiRepository
 import jp.mydns.kokoichi0206.data.repository.SakamichiRepositoryImpl
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.*
 import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
+import jp.mydns.kokoichi0206.sakamichiapp.R
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -94,6 +96,7 @@ object AppModule {
         return BuildConfigWrapper(
             API_KEY = BuildConfig.API_KEY,
             VERSION = BuildConfig.VERSION_NAME,
+            APP_NAME = BuildConfig.APP_NAME,
         )
     }
 }

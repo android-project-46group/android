@@ -119,9 +119,7 @@ fun SwipableBlogArea(
         }
     } else {
         val rows = uiState.blogs.chunked(Constants.BLOG_ONE_ROW_NUM)
-        LazyColumn(
-            contentPadding = Constants.BottomBarPadding,
-        ) {
+        LazyColumn {
             items(rows) { row ->
                 OneBlogRow(
                     row = row,

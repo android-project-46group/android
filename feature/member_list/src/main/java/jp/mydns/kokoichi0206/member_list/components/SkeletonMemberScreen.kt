@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 
 /**
@@ -25,9 +24,7 @@ import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
  */
 @Composable
 fun SkeletonMemberScreen() {
-    LazyColumn(
-        contentPadding = Constants.BottomBarPadding,
-    ) {
+    LazyColumn {
         items(8) {
             Row {
                 SkeletonPart()

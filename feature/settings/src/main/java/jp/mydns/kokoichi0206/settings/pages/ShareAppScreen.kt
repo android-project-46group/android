@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
-import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.settings.SettingsUiState
 import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
@@ -53,7 +52,6 @@ fun ShareAppScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(Constants.BottomBarPadding)
             .padding(SpaceSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -63,7 +61,7 @@ fun ShareAppScreen(
         val chooserMessage =
             stringResource(
                 id = R.string.share_app_intent_text,
-                stringResource(id = R.string.app_name)
+                uiState.appName,
             ) + "\n" + stringResource(id = R.string.share_app_apk_link)
         // QR code
         Image(

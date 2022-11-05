@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
 import jp.mydns.kokoichi0206.common.ui.theme.Typography
@@ -26,9 +25,7 @@ import jp.mydns.kokoichi0206.common.ui.theme.Typography
  */
 @Composable
 fun SkeletonBlogScreen() {
-    LazyColumn(
-        contentPadding = Constants.BottomBarPadding,
-    ) {
+    LazyColumn {
         items(8) {
             Row {
                 Box(modifier = Modifier.weight(1f))

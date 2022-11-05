@@ -45,12 +45,6 @@ object Constants {
     // =========== Blog Screen ===========
     const val MAX_QUIZ_COUNT = 5
 
-    // Padding or composable size.
-    val BottomBarPadding = PaddingValues(
-        top = 10.dp, bottom = 56.dp, start = 5.dp, end = 5.dp
-    )
-    val BottomPadding = 56.dp
-
     const val BLOG_ONE_ROW_NUM = 3
 
     // =========== Setting Screen ===========

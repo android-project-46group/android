@@ -41,9 +41,7 @@ fun DefaultColumn(
     members: MutableList<jp.mydns.kokoichi0206.model.Member> = uiState.visibleMembers,
     onPersonClick: (Member) -> Unit = {},
 ) {
-    LazyColumn(
-        contentPadding = Constants.BottomBarPadding,
-    ) {
+    LazyColumn {
         val itemCount = if (members.size % 3 == 0) {
             members.size / 3
         } else {
@@ -93,9 +91,7 @@ fun ColumnWithLine(
         else ->
             getGenerationLooper(uiState.groupName.jname)
     }
-    LazyColumn(
-        contentPadding = Constants.BottomBarPadding,
-    ) {
+    LazyColumn {
         for (type in looperStr) {
             item {
                 Text(

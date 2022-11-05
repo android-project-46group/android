@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Sakamichi app</string>
 
     <!--    Bottom Navigation Title-->
     <string name="bottom_nav_members">Members</string>
@@ -25,10 +24,5 @@
     <string name="narrow_key_2nd">2nd</string>
     <string name="narrow_key_3rd">3rd</string>
     <string name="narrow_key_4th">4th</string>
-
-<!--    <string name="detail_info_birthday">Birthday</string>-->
-<!--    <string name="detail_info_height">Height</string>-->
-<!--    <string name="detail_info_blood">Blood</string>-->
-<!--    <string name="detail_info_group">Group</string>-->
 
 </resources>

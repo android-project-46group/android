@@ -15,7 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.settings.SettingsUiState
 import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceLarge
@@ -51,7 +50,6 @@ fun AboutAppScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(Constants.BottomBarPadding)
             .padding(SpaceSmall),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,

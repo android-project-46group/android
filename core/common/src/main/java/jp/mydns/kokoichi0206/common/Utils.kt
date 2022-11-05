@@ -15,9 +15,9 @@ fun calcBirthdayOrder(birthdayStr: String): Int {
     return if (matchResult == null || matchResult.groupValues.size != 4) {
         0
     } else {
-        val year = matchResult.groupValues!![1].toInt()
-        val month = matchResult.groupValues!![2].toInt()
-        val day = matchResult?.groupValues!![3].toInt()
+        val year = matchResult.groupValues[1].toInt()
+        val month = matchResult.groupValues[2].toInt()
+        val day = matchResult.groupValues[3].toInt()
         (year - 1990) * 10000 + 100 * month + day
     }
 }
@@ -36,8 +36,8 @@ fun calcMonthDayOrder(birthdayStr: String): Int {
     return if (matchResult == null || matchResult.groupValues.size != 4) {
         0
     } else {
-        val month = matchResult.groupValues!![2].toInt()
-        val day = matchResult?.groupValues!![3].toInt()
+        val month = matchResult.groupValues[2].toInt()
+        val day = matchResult.groupValues[3].toInt()
         100 * month + day
     }
 }

@@ -10,6 +10,7 @@ data class SettingsUiState(
     val themeType: ThemeType = ThemeType.BasicNight,
     val version: String = "1.0.0",
     val userId: String = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    val appName: String = "my.app",
 )
 
 data class Record(

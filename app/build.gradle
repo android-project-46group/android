@@ -48,10 +48,12 @@ android {
         release {
             signingConfig signingConfigs.release
             buildConfigField("String", "API_KEY", "\"${System.getenv('ENV_API_KEY')}\"")
+            buildConfigField("String", "APP_NAME", "\"$applicationName\"")
         }
         debug {
             // Get API_KEY from gradle.properties
             buildConfigField("String", "API_KEY", API_KEY)
+            buildConfigField("String", "APP_NAME", "\"$applicationName\"")
         }
     }
     compileOptions {
@@ -78,7 +80,11 @@ android {
         }
     }
     lint {
+        checkDependencies true
         baseline = file("lint-baseline.xml")
+    }
+    lintOptions {
+        baseline file("lint-baseline.xml")
     }
 }
 

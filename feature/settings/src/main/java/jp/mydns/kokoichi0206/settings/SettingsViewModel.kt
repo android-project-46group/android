@@ -113,6 +113,10 @@ class SettingsViewModel @Inject constructor(
         _uiState.update { it.copy(version = buildConfigWrapper.VERSION) }
     }
 
+    fun readAppName() {
+        _uiState.update { it.copy(appName = buildConfigWrapper.APP_NAME) }
+    }
+
     fun setThemeType(typeStr: String) {
         val type = themeTypes
             .firstOrNull { it.name == typeStr }

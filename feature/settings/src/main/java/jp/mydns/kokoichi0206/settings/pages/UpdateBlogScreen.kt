@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import jp.mydns.kokoichi0206.common.Constants.BottomBarPadding
 import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.feature.settings.R
 import jp.mydns.kokoichi0206.settings.SettingsUiState
@@ -45,87 +44,82 @@ fun UpdateBlogScreen(
     // Outer Box
     Box(
         modifier = Modifier
-            .padding(BottomBarPadding),
+            .fillMaxSize()
+            .padding(20.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(uiState.themeType.subColor)
+            .padding(10.dp)
     ) {
-        Box(
+        Column {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(TestTags.UPDATE_BLOG_TITLE),
+                text = stringResource(R.string.update_blog_title),
+                style = MaterialTheme.typography.h4,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(
+                modifier = Modifier
+                    .height(10.dp)
+            )
+            Text(
+                modifier = Modifier
+                    .testTag(TestTags.UPDATE_BLOG_BODY),
+                text = stringResource(R.string.update_blog_body),
+                style = MaterialTheme.typography.h5,
+            )
+        }
+
+        val buttonPaddingValue = 8.dp
+        val buttonShape = RoundedCornerShape(5.dp)
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp)
-                .clip(RoundedCornerShape(20.dp))
-                .background(uiState.themeType.subColor)
-                .padding(10.dp)
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
         ) {
-            Column {
+            TextButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .clip(buttonShape)
+                    .background(Color.White)
+                    .border(
+                        width = 1.dp,
+                        color = uiState.themeType.baseColor,
+                        shape = buttonShape
+                    )
+                    .testTag(TestTags.UPDATE_BLOG_OK_BUTTON),
+                onClick = {
+                    openDialog = true
+                },
+            ) {
                 Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag(TestTags.UPDATE_BLOG_TITLE),
-                    text = stringResource(R.string.update_blog_title),
-                    style = MaterialTheme.typography.h4,
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(
-                    modifier = Modifier
-                        .height(10.dp)
-                )
-                Text(
-                    modifier = Modifier
-                        .testTag(TestTags.UPDATE_BLOG_BODY),
-                    text = stringResource(R.string.update_blog_body),
-                    style = MaterialTheme.typography.h5,
+                    text = stringResource(R.string.update_blog_button_ok),
+                    color = uiState.themeType.baseColor,
                 )
             }
 
-            val buttonPaddingValue = 8.dp
-            val buttonShape = RoundedCornerShape(5.dp)
-            Row(
+            Spacer(modifier = Modifier.width(buttonPaddingValue))
+
+            TextButton(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter),
+                    .weight(1f)
+                    .clip(buttonShape)
+                    .testTag(TestTags.UPDATE_BLOG_CANCEL_BUTTON)
+                    .background(Color.White)
+                    .border(
+                        width = 1.dp,
+                        color = uiState.themeType.baseColor,
+                        shape = buttonShape
+                    ),
+                onClick = {
+                    navController.popBackStack()
+                },
             ) {
-                TextButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clip(buttonShape)
-                        .background(Color.White)
-                        .border(
-                            width = 1.dp,
-                            color = uiState.themeType.baseColor,
-                            shape = buttonShape
-                        )
-                        .testTag(TestTags.UPDATE_BLOG_OK_BUTTON),
-                    onClick = {
-                        openDialog = true
-                    },
-                ) {
-                    Text(
-                        text = stringResource(R.string.update_blog_button_ok),
-                        color = uiState.themeType.baseColor,
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(buttonPaddingValue))
-
-                TextButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clip(buttonShape)
-                        .testTag(TestTags.UPDATE_BLOG_CANCEL_BUTTON)
-                        .background(Color.White)
-                        .border(
-                            width = 1.dp,
-                            color = uiState.themeType.baseColor,
-                            shape = buttonShape
-                        ),
-                    onClick = {
-                        navController.popBackStack()
-                    },
-                ) {
-                    Text(
-                        text = stringResource(R.string.update_blog_button_cancel),
-                        color = uiState.themeType.baseColor,
-                    )
-                }
+                Text(
+                    text = stringResource(R.string.update_blog_button_cancel),
+                    color = uiState.themeType.baseColor,
+                )
             }
         }
     }
