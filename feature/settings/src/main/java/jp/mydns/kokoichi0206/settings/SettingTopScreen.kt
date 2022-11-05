@@ -31,8 +31,8 @@ import jp.mydns.kokoichi0206.feature.settings.R
 fun SettingTopScreen(
     navController: NavController,
     navigationList: List<SettingNavigation>,
-    viewModel: SettingsViewModel,
     uiState: SettingsUiState,
+    onIsDevChanged: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -83,7 +83,7 @@ fun SettingTopScreen(
             version = uiState.version,
             borderColor = uiState.themeType.subColor,
         ) {
-            viewModel.writeIsDevTrue(context)
+            onIsDevChanged()
         }
     }
 }

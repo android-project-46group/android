@@ -2,18 +2,23 @@ package jp.mydns.kokoichi0206.settings
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.feature.settings.R
 import jp.mydns.kokoichi0206.settings.pages.*
@@ -36,9 +41,21 @@ fun SettingsScreen(
 
     CustomSakaTheme {
         SettingsRouting(
-            viewModel = viewModel,
             uiState = uiState,
             onThemeChanged = onThemeChanged,
+            onIsDevChanged = {
+                viewModel.writeIsDevTrue(context)
+            },
+            onUpdateClicked = {
+                viewModel.updateBlog()
+            },
+            reportIssue = {
+                viewModel.reportIssue(it)
+            },
+            setThemeType = { type ->
+                viewModel.setThemeType(type)
+                viewModel.writeTheme(context, type.name)
+            }
         )
     }
 }
@@ -46,9 +63,12 @@ fun SettingsScreen(
 @ExperimentalAnimationApi
 @Composable
 fun SettingsRouting(
-    viewModel: SettingsViewModel,
     uiState: SettingsUiState,
     onThemeChanged: (String) -> Unit = {},
+    onIsDevChanged: () -> Unit = {},
+    onUpdateClicked: () -> Unit = {},
+    reportIssue: (String) -> Unit = {},
+    setThemeType: (ThemeType) -> Unit = {},
 ) {
     val navController = rememberAnimatedNavController()
 
@@ -97,15 +117,15 @@ fun SettingsRouting(
             SettingTopScreen(
                 navController = navController,
                 navigationList = navigation,
-                viewModel = viewModel,
                 uiState = uiState,
+                onIsDevChanged = onIsDevChanged,
             )
         }
         composable(SettingScreen.UpdateBlogScreen.route) {
             UpdateBlogScreen(
                 navController = navController,
-                viewModel = viewModel,
                 uiState = uiState,
+                onUpdateClicked = onUpdateClicked,
             )
         }
         composable(SettingScreen.QuizResultsScreen.route) {
@@ -121,16 +141,16 @@ fun SettingsRouting(
         }
         composable(SettingScreen.ReportIssueScreen.route) {
             ReportIssueScreen(
-                viewModel = viewModel,
                 uiState = uiState,
+                reportIssue = reportIssue,
             )
         }
         composable(SettingScreen.SetThemeScreen.route) {
             SetThemeScreen(
                 navController = navController,
-                viewModel = viewModel,
                 selected = uiState.themeType.name,
                 onThemeChanged = onThemeChanged,
+                setThemeType = setThemeType,
             )
         }
         composable(SettingScreen.ShareAppScreen.route) {
@@ -190,4 +210,29 @@ sealed class SettingNavigation(
         name = R.string.setting_about_app,
         route = SettingScreen.AboutAppScreen.route
     )
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+    val uiState = SettingsUiState(
+        version = "1.0.9",
+    )
+        Box(modifier = Modifier.background(Color.White)){
+            SettingsRouting(uiState = uiState)
+        }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+@Preview
+@Composable
+fun SettingsScreenWithThemePreview() {
+    val uiState = SettingsUiState(
+        version = "1.0.9",
+        themeType = ThemeType.Sakurazaka,
+    )
+        Box(modifier = Modifier.background(Color.White)){
+            SettingsRouting(uiState = uiState)
+        }
 }

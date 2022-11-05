@@ -19,15 +19,14 @@ import androidx.navigation.NavHostController
 import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.feature.settings.R
 import jp.mydns.kokoichi0206.settings.SettingsUiState
-import jp.mydns.kokoichi0206.settings.SettingsViewModel
 import jp.mydns.kokoichi0206.settings.TestTags
 import kotlinx.coroutines.async
 
 @Composable
 fun UpdateBlogScreen(
     navController: NavHostController,
-    viewModel: SettingsViewModel,
     uiState: SettingsUiState,
+    onUpdateClicked: () -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -126,7 +125,7 @@ fun UpdateBlogScreen(
     if (openDialog) {
         if (isDeveloper) {
             // If you are the developer, you can update the blog.
-            viewModel.updateBlog()
+            onUpdateClicked()
             // Show dialog
             CheckDialog(
                 title = stringResource(R.string.update_blog_success_dialog_title),

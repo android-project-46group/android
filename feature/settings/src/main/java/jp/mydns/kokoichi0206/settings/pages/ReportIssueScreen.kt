@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.feature.settings.R
 import jp.mydns.kokoichi0206.settings.SettingsUiState
-import jp.mydns.kokoichi0206.settings.SettingsViewModel
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
@@ -27,8 +26,8 @@ import jp.mydns.kokoichi0206.settings.TestTags
 
 @Composable
 fun ReportIssueScreen(
-    viewModel: SettingsViewModel,
     uiState: SettingsUiState,
+    reportIssue: (String) -> Unit,
 ) {
     var isDialogOpen by remember { mutableStateOf(false) }
 
@@ -131,7 +130,7 @@ fun ReportIssueScreen(
                             .testTag(TestTags.REPORT_ISSUE_DIALOG_OK),
                         onClick = {
                             isDialogOpen = false
-                            viewModel.reportIssue(text)
+                            reportIssue(text)
                             text = ""
                         }
                     ) {
