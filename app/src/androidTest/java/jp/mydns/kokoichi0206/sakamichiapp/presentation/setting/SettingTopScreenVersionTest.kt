@@ -44,7 +44,9 @@ class SettingTopScreenVersionTest {
         MockKAnnotations.init(this)
 
         composeRule.activity.setContent {
-            VersionInfo {
+            VersionInfo(
+                version = "1.0.3",
+            ) {
             }
         }
     }
@@ -59,6 +61,7 @@ class SettingTopScreenVersionTest {
         composeRule
             .onNodeWithTag(TestTags.SETTING_VERSION)
             .assertExists()
+            .assertTextEquals("version 1.0.3")
     }
 
     @Test

@@ -90,6 +90,7 @@ object TestAppModule {
         return BuildConfigWrapper(
             API_KEY = "test_api_key",
             VERSION = "1.0.3",
+            APP_NAME = "this app"
         )
     }
 }
