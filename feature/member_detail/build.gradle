@@ -25,8 +25,10 @@ android {
 
 dependencies {
     implementation deps.compose.ui
+    implementation deps.compose.ui_preview
     implementation deps.material.compose
     implementation deps.material.material
+    debugImplementation deps.compose.debug_tooling
 
     implementation deps.lifecycle.runtime
 

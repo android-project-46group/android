@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import jp.mydns.kokoichi0206.common.ui.theme.*
 import jp.mydns.kokoichi0206.feature.settings.R
-import jp.mydns.kokoichi0206.settings.SettingsViewModel
 import jp.mydns.kokoichi0206.settings.ThemeType
 import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 import jp.mydns.kokoichi0206.settings.TestTags
@@ -32,9 +31,9 @@ import jp.mydns.kokoichi0206.settings.themeTypes
 @Composable
 fun SetThemeScreen(
     navController: NavHostController,
-    viewModel: SettingsViewModel,
     selected: String = ThemeType.BasicNight.name,
     onThemeChanged: (String) -> Unit = {},
+    setThemeType: (ThemeType) -> Unit = {},
 ) {
     var selectedItem by remember { mutableStateOf(selected) }
 
@@ -54,8 +53,7 @@ fun SetThemeScreen(
             colorTypes = themeTypes,
             onclick = { type ->
                 selectedItem = type.name
-                viewModel.setThemeType(type)
-                viewModel.writeTheme(context, type.name)
+                setThemeType(type)
                 onThemeChanged(type.name)
             }
         )

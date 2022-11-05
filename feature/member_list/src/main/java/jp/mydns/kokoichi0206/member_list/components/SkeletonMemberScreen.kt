@@ -14,8 +14,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush.Companion.linearGradient
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
 
 /**
@@ -88,5 +91,25 @@ fun SkeletonPart() {
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(12.dp))
+    }
+}
+
+@Preview
+@Composable
+fun SkeletonMemberScreenPreview() {
+    CustomSakaTheme(group = GroupName.NOGIZAKA.jname) {
+        Box(modifier = Modifier.background(Color.White)) {
+            SkeletonMemberScreen()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SkeletonMemberScreenWithSakuraPreview() {
+    CustomSakaTheme(group = GroupName.SAKURAZAKA.jname) {
+        Box(modifier = Modifier.background(Color.White)) {
+            SkeletonMemberScreen()
+        }
     }
 }
