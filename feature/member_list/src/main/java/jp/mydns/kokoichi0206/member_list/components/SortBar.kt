@@ -17,9 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
@@ -32,7 +35,9 @@ import jp.mydns.kokoichi0206.member_list.*
 @Composable
 fun SortBar(
     uiState: MemberListUiState,
-    viewModel: MemberListViewModel,
+    onSortClicked: (MemberListSortKeys) -> Unit = {},
+    onSortTypeClicked: () -> Unit = {},
+    onNarrowClicked: (NarrowKeys) -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -86,10 +91,7 @@ fun SortBar(
                 DropdownMenuItem(
                     onClick = {
                         sortExpanded = false
-                        viewModel.setSortKey(sortKey)
-                        viewModel.sortMembers()
-                        // Change the visible(show) style
-                        viewModel.setVisibleStyle(sortKey)
+                        onSortClicked(sortKey)
                     }
                 ) {
                     Text(
@@ -125,16 +127,7 @@ fun SortBar(
                     .size(length)
                     .clip(CutCornerShape(5.dp))
                     .clickable {
-                        viewModel.setSortType(
-                            when (uiState.sortType) {
-                                SortOrderType.ASCENDING ->
-                                    SortOrderType.DESCENDING
-                                SortOrderType.DESCENDING ->
-                                    SortOrderType.ASCENDING
-                            }
-                        )
-                        // Notify viewModel to re-sort
-                        viewModel.sortMembers()
+                        onSortTypeClicked()
                     },
                 contentScale = ContentScale.Crop
             )
@@ -194,10 +187,7 @@ fun SortBar(
                             onClick = {
                                 expanded = false
 
-                                // narrow down the visible members
-                                viewModel.setNarrowType(NarrowKeys.valueOf(nKey.toString()))
-
-                                viewModel.narrowDownVisibleMembers(nKey)
+                                onNarrowClicked(nKey)
                             }
                         ) {
                             Text(
@@ -208,6 +198,30 @@ fun SortBar(
                     }
                 }
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SortBarPreview() {
+    val uiState = MemberListUiState()
+    CustomSakaTheme(group = GroupName.NOGIZAKA.jname) {
+        Box(modifier = Modifier.background(Color.White)) {
+            SortBar(uiState = uiState)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SortBarWithSakuraPreview() {
+    val uiState = MemberListUiState(
+        sortKey = MemberListSortKeys.BIRTHDAY,
+    )
+    CustomSakaTheme(group = GroupName.SAKURAZAKA.jname) {
+        Box(modifier = Modifier.background(Color.White)) {
+            SortBar(uiState = uiState)
         }
     }
 }
