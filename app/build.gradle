@@ -16,8 +16,8 @@ android {
         minSdk build_versions.min_sdk
         targetSdk build_versions.target_sdk
 
-        versionCode 1
-        versionName "1.1.9"
+        versionCode 10200
+        versionName "1.2.0"
 
         testApplicationId "jp.mydns.kokoichi0206.sakamichiapp.test"
         testInstrumentationRunner "jp.mydns.kokoichi0206.sakamichiapp.HiltTestRunner"
