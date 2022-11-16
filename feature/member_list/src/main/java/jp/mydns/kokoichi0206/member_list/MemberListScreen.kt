@@ -46,7 +46,7 @@ fun MemberListScreen(
         MainView(
             uiState,
             onRefresh = {
-                viewModel.setApiMembers()
+                viewModel.setApiMembers(force = true)
             },
             onPersonClick,
             onGroupClicked = { gn ->

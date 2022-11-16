@@ -32,9 +32,9 @@ open class MemberListViewModel @Inject constructor(
      *
      * @param groupName group name (one of the GroupName enum)
      */
-    fun getMembers(groupName: GroupName) {
+    fun getMembers(groupName: GroupName, force: Boolean = false) {
         _uiState.update { it.copy(isLoading = true, error = "") }
-        getMembersUseCase(groupName.name.lowercase()).onEach { result ->
+        getMembersUseCase(groupName.name.lowercase(), force).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _apiState.value =
@@ -140,7 +140,7 @@ open class MemberListViewModel @Inject constructor(
         if (nKey == NarrowKeys.NONE) {
             _uiState.value.visibleMembers = _apiState.value.members
         } else {
-            val target = when(nKey) {
+            val target = when (nKey) {
                 NarrowKeys.FIRST_GEN -> "1期生"
                 NarrowKeys.SECOND_GEN -> "2期生"
                 NarrowKeys.THIRD_GEN -> "3期生"
@@ -186,9 +186,9 @@ open class MemberListViewModel @Inject constructor(
     /**
      * Reset the members (in apiState) using groupName (in uiState).
      */
-    fun setApiMembers() {
+    fun setApiMembers(force: Boolean = false) {
         setVisibleMembers(mutableListOf())
-        getMembers(uiState.value.groupName)
+        getMembers(uiState.value.groupName, force)
 
         // TODO: Consider what logic is the best.
         resetOptions()

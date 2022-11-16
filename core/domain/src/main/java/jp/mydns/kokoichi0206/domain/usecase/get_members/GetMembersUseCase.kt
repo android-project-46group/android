@@ -20,20 +20,27 @@ class GetMembersUseCase @Inject constructor(
     private val repository: SakamichiRepository,
     private val dbRepository: MembersRepository,
 ) {
+    companion object {
+        private val TAG = GetMembersUseCase::class.java.simpleName
+    }
+
     // ここで Members -> List<Member> に変えている
-    operator fun invoke(groupName: String): Flow<Resource<List<Member>>> = flow {
+    operator fun invoke(groupName: String, force: Boolean = false): Flow<Resource<List<Member>>> = flow {
         try {
-            dbRepository.getMembersByGroup(groupName).map {
-                it.asExternalModel()
-            }.let { members ->
-                if (members.isNotEmpty()) {
-                    Log.d("hoge", members.toString())
-                    emit(Resource.Success(members))
-                    return@flow
+            if (!force) {
+                dbRepository.getMembersByGroup(groupName).map {
+                    it.asExternalModel()
+                }.let { members ->
+                    if (members.isNotEmpty()) {
+                        Log.d("hoge", members.toString())
+                        emit(Resource.Success(members))
+                        return@flow
+                    }
                 }
             }
             emit(Resource.Loading())
             val members = repository.getMembers(groupName).members.map { it.toMember() }
+            Log.d(TAG, "API repository.getMembers($groupName) called")
             emit(Resource.Success(members))
             dbRepository.insertMembers(
                 members.map {
