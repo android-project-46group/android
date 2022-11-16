@@ -1,10 +1,15 @@
 package jp.mydns.kokoichi0206.data.local.model
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import jp.mydns.kokoichi0206.model.Member
 
-@Entity
+@Entity(
+    indices = [
+        Index(value = ["name"], unique = true),
+    ],
+)
 data class MemberEntity(
     val blogUrl: String,
     val bloodType: String,
