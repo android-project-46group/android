@@ -8,4 +8,6 @@ interface MembersRepository {
     suspend fun getMembersByGroup(group: String): List<MemberEntity>
 
     suspend fun insertMembers(members: List<Member>)
+
+    suspend fun deleteMembers(group: String)
 }

@@ -29,4 +29,8 @@ class MembersRepositoryImpl(
             )
         })
     }
+
+    override suspend fun deleteMembers(group: String) {
+        return membersDao.deleteMembers(group)
+    }
 }

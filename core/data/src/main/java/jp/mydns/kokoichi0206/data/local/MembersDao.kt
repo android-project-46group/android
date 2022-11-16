@@ -14,4 +14,12 @@ interface MembersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMembers(membersDao: List<MemberEntity>)
+
+    @Query(
+        value = """
+            DELETE FROM MemberEntity
+            WHERE groupName = :groupName
+        """
+    )
+    suspend fun deleteMembers(groupName: String)
 }
