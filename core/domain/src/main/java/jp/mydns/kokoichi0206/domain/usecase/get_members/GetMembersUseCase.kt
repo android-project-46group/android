@@ -32,7 +32,7 @@ class GetMembersUseCase @Inject constructor(
                     it.asExternalModel()
                 }.let { members ->
                     if (members.isNotEmpty()) {
-                        Log.d("hoge", members.toString())
+                        Log.d(TAG, "Members of $groupName already exist.")
                         emit(Resource.Success(members))
                         return@flow
                     }
