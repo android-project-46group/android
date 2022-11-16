@@ -11,12 +11,10 @@ import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.interceptor.AddHeaderInterceptor
 import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
 import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
+import jp.mydns.kokoichi0206.data.local.MembersDatabase
 import jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
 import jp.mydns.kokoichi0206.data.remote.SakamichiApi
-import jp.mydns.kokoichi0206.data.repository.QuizRecordRepository
-import jp.mydns.kokoichi0206.data.repository.QuizRecordRepositoryImpl
-import jp.mydns.kokoichi0206.data.repository.SakamichiRepository
-import jp.mydns.kokoichi0206.data.repository.SakamichiRepositoryImpl
+import jp.mydns.kokoichi0206.data.repository.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -73,5 +71,22 @@ object DataModule {
     @Singleton
     fun provideQuizRecordRepository(db: QuizRecordDatabase): QuizRecordRepository {
         return QuizRecordRepositoryImpl(db.quizRecordDao)
+    }
+
+    // Database
+    @Provides
+    @Singleton
+    fun provideMembersDatabase(app: Application): MembersDatabase {
+        return Room.databaseBuilder(
+            app,
+            MembersDatabase::class.java,
+            MembersDatabase.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMembersRepository(db: MembersDatabase): MembersRepository {
+        return MembersRepositoryImpl(db.membersDao)
     }
 }
