@@ -15,6 +15,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.settings.SettingNavigation
 import jp.mydns.kokoichi0206.settings.SettingTopScreen
 import jp.mydns.kokoichi0206.settings.SettingsUiState
@@ -25,7 +26,7 @@ import org.junit.Test
 
 @ExperimentalMaterialApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class SettingTopScreenTest {
 
     @get:Rule(order = 0)

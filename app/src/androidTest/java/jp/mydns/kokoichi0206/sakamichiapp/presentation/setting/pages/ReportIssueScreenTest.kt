@@ -19,6 +19,7 @@ import jp.mydns.kokoichi0206.settings.SettingsViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.settings.TestTags
 import jp.mydns.kokoichi0206.settings.pages.ReportIssueScreen
 import org.junit.Before
@@ -27,7 +28,7 @@ import org.junit.Test
 
 @ExperimentalMaterialApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class ReportIssueScreenTest {
 
     @get:Rule(order = 0)

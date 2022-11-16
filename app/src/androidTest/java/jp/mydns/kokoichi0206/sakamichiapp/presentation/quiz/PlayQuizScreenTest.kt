@@ -9,6 +9,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.quiz.QuizScreen
 import jp.mydns.kokoichi0206.quiz.QuizType
 import jp.mydns.kokoichi0206.quiz.TestTags
@@ -23,7 +24,7 @@ import org.junit.Test
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class PlayQuizScreenTest {
 
     @get:Rule(order = 0)

@@ -17,6 +17,7 @@ import jp.mydns.kokoichi0206.settings.ThemeType
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.settings.TestTags
 import jp.mydns.kokoichi0206.settings.pages.SetThemeScreen
 import org.junit.Before
@@ -25,7 +26,7 @@ import org.junit.Test
 
 @ExperimentalMaterialApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class SetThemeScreenTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)

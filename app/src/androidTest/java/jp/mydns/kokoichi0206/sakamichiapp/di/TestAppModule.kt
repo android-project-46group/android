@@ -8,15 +8,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jp.mydns.kokoichi0206.common.BuildConfigWrapper
 import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.data.local.MembersDatabase
 import jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.MockSakamichiApi
 import jp.mydns.kokoichi0206.data.remote.SakamichiApi
-import jp.mydns.kokoichi0206.data.repository.QuizRecordRepository
-import jp.mydns.kokoichi0206.data.repository.QuizRecordRepositoryImpl
-import jp.mydns.kokoichi0206.data.repository.SakamichiRepository
-import jp.mydns.kokoichi0206.data.repository.SakamichiRepositoryImpl
+import jp.mydns.kokoichi0206.data.repository.*
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.*
-import jp.mydns.kokoichi0206.sakamichiapp.BuildConfig
+import jp.mydns.kokoichi0206.sakamichiapp.data.remote.MockSakamichiApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.mock.MockRetrofit
@@ -71,6 +68,22 @@ object TestAppModule {
     @Singleton
     fun provideQuizRecordRepository(db: QuizRecordDatabase): QuizRecordRepository {
         return QuizRecordRepositoryImpl(db.quizRecordDao)
+    }
+
+    // Database
+    @Provides
+    @Singleton
+    fun provideMembersDatabase(app: Application): MembersDatabase {
+        return Room.inMemoryDatabaseBuilder(
+            app,
+            MembersDatabase::class.java,
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMembersRepository(db: MembersDatabase): MembersRepository {
+        return MembersRepositoryImpl(db.membersDao)
     }
 
     @Provides
