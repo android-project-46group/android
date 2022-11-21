@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.di
+package jp.mydns.kokoichi0206.data.di
 
 import android.app.Application
 import androidx.room.Room
@@ -8,59 +8,62 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import jp.mydns.kokoichi0206.common.BuildConfigWrapper
 import jp.mydns.kokoichi0206.common.Constants
+import jp.mydns.kokoichi0206.common.interceptor.AddHeaderInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.LoggingInterceptor
+import jp.mydns.kokoichi0206.common.interceptor.RetryInterceptor
 import jp.mydns.kokoichi0206.data.local.MembersDatabase
 import jp.mydns.kokoichi0206.data.local.QuizRecordDatabase
 import jp.mydns.kokoichi0206.data.remote.SakamichiApi
 import jp.mydns.kokoichi0206.data.repository.*
-import jp.mydns.kokoichi0206.domain.usecase.quiz_record.*
-import jp.mydns.kokoichi0206.sakamichiapp.data.remote.MockSakamichiApi
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.mock.MockRetrofit
-import retrofit2.mock.NetworkBehavior
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ * Dependency injection with Hilt.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
-object TestAppModule {
+object DataModule {
 
+    // API
     @Provides
     @Singleton
     fun provideSakamichiApi(): SakamichiApi {
-        val retrofit = Retrofit.Builder()
+        val okHttpClient = OkHttpClient.Builder()
+            // サーバー側の設定か、なぜか指定が必要！
+            .connectTimeout(777, TimeUnit.MILLISECONDS)
+            .addInterceptor(AddHeaderInterceptor())
+            .addInterceptor(LoggingInterceptor())
+            .addInterceptor(RetryInterceptor())
+            .build()
+        return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        val behavior = NetworkBehavior.create()
-
-        behavior.setDelay(0, TimeUnit.MILLISECONDS)
-        behavior.setVariancePercent(0)
-        behavior.setFailurePercent(0)
-        behavior.setErrorPercent(0)
-
-        val mockRetrofit = MockRetrofit.Builder(retrofit)
-            .networkBehavior(behavior)
-            .build()
-
-        val delegate = mockRetrofit.create(SakamichiApi::class.java)
-
-        return MockSakamichiApi(delegate)
+            .create(SakamichiApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideSakamichiRepository(api: SakamichiApi, config: BuildConfigWrapper): SakamichiRepository {
-        return SakamichiRepositoryImpl(api, config)
+    fun provideSakamichiRepository(
+        api: SakamichiApi,
+        buildConfig: BuildConfigWrapper,
+    ): SakamichiRepository {
+        return SakamichiRepositoryImpl(api, buildConfig)
     }
 
+    // Database
     @Provides
     @Singleton
     fun provideQuizRecordDatabase(app: Application): QuizRecordDatabase {
-        return Room.inMemoryDatabaseBuilder(
+        return Room.databaseBuilder(
             app,
             QuizRecordDatabase::class.java,
+            QuizRecordDatabase.DATABASE_NAME
         ).build()
     }
 
@@ -74,9 +77,10 @@ object TestAppModule {
     @Provides
     @Singleton
     fun provideMembersDatabase(app: Application): MembersDatabase {
-        return Room.inMemoryDatabaseBuilder(
+        return Room.databaseBuilder(
             app,
             MembersDatabase::class.java,
+            MembersDatabase.DATABASE_NAME
         ).build()
     }
 
@@ -84,26 +88,5 @@ object TestAppModule {
     @Singleton
     fun provideMembersRepository(db: MembersDatabase): MembersRepository {
         return MembersRepositoryImpl(db.membersDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideQuizRecordUseCases(repository: QuizRecordRepository): RecordUseCases {
-        return RecordUseCases(
-            getRecords = GetRecordsUseCase(repository),
-            getRecord = GetRecordUseCase(repository),
-            getAccuracy = GetAccuracyRateByGroupUseCase(repository),
-            insertRecord = InsertRecordUseCase(repository),
-        )
-    }
-
-    @Provides
-    @Singleton
-    fun provideBuildConfigWrapper(): BuildConfigWrapper {
-        return BuildConfigWrapper(
-            API_KEY = "test_api_key",
-            VERSION = "1.0.3",
-            APP_NAME = "this app"
-        )
     }
 }

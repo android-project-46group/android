@@ -13,9 +13,7 @@ import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
-import jp.mydns.kokoichi0206.member_detail.navigation.memberDetailRoute
-import jp.mydns.kokoichi0206.member_detail.navigation.memberJson
-import jp.mydns.kokoichi0206.model.getJsonFromMember
+import jp.mydns.kokoichi0206.data.di.DataModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -24,7 +22,7 @@ import org.junit.Test
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class MemberListScreenTest {
 
     @get:Rule(order = 0)

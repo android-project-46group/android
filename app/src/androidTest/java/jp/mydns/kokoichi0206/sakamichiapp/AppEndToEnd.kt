@@ -12,6 +12,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
 import jp.mydns.kokoichi0206.settings.SettingNavigation
@@ -30,7 +31,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class AppEndToEnd {
 
     @get:Rule(order = 0)

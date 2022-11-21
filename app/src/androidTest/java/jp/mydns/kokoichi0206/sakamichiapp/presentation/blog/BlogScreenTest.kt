@@ -16,6 +16,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import jp.mydns.kokoichi0206.blog.BlogScreenWithCustomTheme
 import jp.mydns.kokoichi0206.blog.TestTags
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.common.TestTags as CommonTestTags
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -25,7 +26,7 @@ import org.junit.Test
 @ExperimentalMaterialApi
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class BlogScreenTest {
 
     @get:Rule(order = 0)

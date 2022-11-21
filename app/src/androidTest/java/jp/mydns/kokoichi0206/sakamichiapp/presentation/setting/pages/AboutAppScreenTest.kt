@@ -18,6 +18,7 @@ import jp.mydns.kokoichi0206.settings.SettingsUiState
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import jp.mydns.kokoichi0206.data.di.DataModule
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.settings.TestTags
 import jp.mydns.kokoichi0206.settings.pages.AboutAppScreen
@@ -27,7 +28,7 @@ import org.junit.Test
 
 @ExperimentalMaterialApi
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
+@UninstallModules(AppModule::class, DataModule::class)
 class AboutAppScreenTest {
     @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)

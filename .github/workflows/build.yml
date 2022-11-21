@@ -112,7 +112,7 @@ jobs:
           target: ${{ env.env_target }}
           arch: x86
           profile: Galaxy Nexus
-          script: ./gradlew connectedCheck --stacktrace
+          script: ./gradlew :app:connectedCheck --stacktrace 
 
       # Upload results as a artifact even if the test failed
       - name: Upload Reports
