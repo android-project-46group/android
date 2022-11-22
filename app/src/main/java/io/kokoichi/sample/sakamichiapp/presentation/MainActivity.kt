@@ -1,9 +1,18 @@
-package io.kokoichi.sample.sakamichiapp
+package io.kokoichi.sample.sakamichiapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.kokoichi.sample.sakamichiapp.presentation.member_list.MemberListViewModel
+import io.kokoichi.sample.sakamichiapp.presentation.ui.theme.SakamichiAppTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -21,7 +30,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
+fun Greeting(
+    name: String,
+    viewModel: MemberListViewModel = hiltViewModel(),
+) {
     Text(text = "Hello $name!")
 }
 

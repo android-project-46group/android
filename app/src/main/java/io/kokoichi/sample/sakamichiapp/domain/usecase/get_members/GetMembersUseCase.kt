@@ -1,5 +1,6 @@
 package io.kokoichi.sample.sakamichiapp.domain.usecase.get_members
 
+import android.util.Log
 import io.kokoichi.sample.sakamichiapp.common.Resource
 import io.kokoichi.sample.sakamichiapp.data.remote.dto.toMember
 import io.kokoichi.sample.sakamichiapp.domain.model.Member
@@ -20,6 +21,7 @@ class GetMembersUseCase @Inject constructor(
     operator fun invoke(groupName: String): Flow<Resource<List<Member>>> = flow {
         try {
             emit(Resource.Loading<List<Member>>())
+            Log.d("hoge", repository.getMembers(groupName).members.toString())
             val members = repository.getMembers(groupName).members.map { it.toMember() }
             emit(Resource.Success<List<Member>>(members))
         } catch (e: HttpException) {

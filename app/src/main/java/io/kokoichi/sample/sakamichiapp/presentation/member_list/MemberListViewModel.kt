@@ -29,6 +29,9 @@ open class MemberListViewModel @Inject constructor(
 //    private val _uiState = mutableStateOf(MemberListUiState())
 //    var uiState: State<MemberListUiState> = _uiState
 
+    init {
+        getMembers("hinatazaka")
+    }
     /**
      * Get members from WebAPI and set them as members (in apiState).
      *
