@@ -29,6 +29,7 @@ dependencies {
     implementation deps.material.compose
     implementation deps.material.material
     debugImplementation deps.compose.debug_tooling
+    implementation deps.retrofit.moshi
 
     implementation deps.lifecycle.runtime
 

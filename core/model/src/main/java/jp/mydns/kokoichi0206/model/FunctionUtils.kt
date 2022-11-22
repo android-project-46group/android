@@ -1,6 +1,6 @@
 package jp.mydns.kokoichi0206.model
 
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import jp.mydns.kokoichi0206.common.Constants
 
 /**
@@ -20,7 +20,9 @@ fun getJsonFromMember(member: Member): String {
         birthday = member.birthday
             .replace("/", Constants.SLASH_ENCODED),
     )
-    return Gson().toJson(props)
+    val moshi = Moshi.Builder().build()
+    val jsonAdapter = moshi.adapter(Member::class.java)
+    return jsonAdapter.toJson(props)
 }
 
 /**
