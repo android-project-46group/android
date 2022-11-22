@@ -1,6 +1,7 @@
 package jp.mydns.kokoichi0206.domain.usecase.get_members
 
 import android.util.Log
+import com.squareup.moshi.JsonDataException
 import jp.mydns.kokoichi0206.common.Resource
 import jp.mydns.kokoichi0206.data.local.model.asExternalModel
 import jp.mydns.kokoichi0206.data.remote.dto.toMember
@@ -54,7 +55,9 @@ class GetMembersUseCase @Inject constructor(
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred."))
         } catch (e: IOException) {
-            emit(Resource.Error("Couldn't reach server. Check your network connection"))
+            emit(Resource.Error("Couldn't reach server. Check your network connection."))
+        } catch (e: JsonDataException) {
+            emit(Resource.Error("Something unexpected happened at server.\nPlease report to us."))
         }
     }
 }

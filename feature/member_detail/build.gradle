@@ -51,8 +51,6 @@ dependencies {
     // Coil
     implementation deps.coil
 
-    implementation deps.retrofit.gson
-
     // Inject
     implementation deps.hilt.android
 

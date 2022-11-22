@@ -1,19 +1,18 @@
 package jp.mydns.kokoichi0206.data.remote.dto
 
-import com.google.gson.annotations.SerializedName
-import jp.mydns.kokoichi0206.model.Position
+import com.squareup.moshi.Json
 
 /**
  * Data class for one position in the API.
  */
 data class PositionDto(
-    @SerializedName("img_url")
+    @field:Json(name = "img_url")
     val imgUrl: String,
-    @SerializedName("is_center")
+    @field:Json(name = "is_center")
     val isCenter: Boolean,
-    @SerializedName("member_name")
+    @field:Json(name = "member_name")
     val memberName: String,
-    @SerializedName("position")
+    @field:Json(name = "position")
     val position: String
 )
 
