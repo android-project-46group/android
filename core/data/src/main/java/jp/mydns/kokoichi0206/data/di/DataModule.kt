@@ -17,7 +17,7 @@ import jp.mydns.kokoichi0206.data.remote.SakamichiApi
 import jp.mydns.kokoichi0206.data.repository.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -42,7 +42,7 @@ object DataModule {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create().failOnUnknown())
             .build()
             .create(SakamichiApi::class.java)
     }

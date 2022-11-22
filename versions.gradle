@@ -102,7 +102,7 @@ deps.arch = arch
 
 def retrofit = [:]
 retrofit.retrofit = "com.squareup.retrofit2:retrofit:$versions.retrofit"
-retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.moshi = "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
 retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.adapter_rxjava"
 retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
 deps.retrofit = retrofit

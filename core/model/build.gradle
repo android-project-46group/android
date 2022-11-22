@@ -18,7 +18,6 @@ android {
 
 dependencies {
     implementation deps.room.room
-    implementation deps.retrofit.gson
 
     // modules
     implementation project(":core:common")
