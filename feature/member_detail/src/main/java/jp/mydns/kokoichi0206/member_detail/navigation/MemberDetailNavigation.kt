@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
 import jp.mydns.kokoichi0206.member_detail.MemberDetailScreen
 import jp.mydns.kokoichi0206.model.Member
 import jp.mydns.kokoichi0206.model.getJsonFromMember
@@ -36,11 +36,16 @@ fun NavGraphBuilder.memberDetailScreen() {
         val memberJson = backStackEntry.arguments?.getString(memberJson)
 
         // Parse Json to Member class object
-        val member = Gson().fromJson(
-            memberJson,
-            Member::class.java
-        )
+        memberJson?.let {
+            // Parse Json to Member class object
+            val moshi = Moshi.Builder().build()
+            val jsonAdapter = moshi.adapter(Member::class.java)
 
-        MemberDetailScreen(member)
+            val member = jsonAdapter.fromJson(memberJson)
+
+            member?.let {
+                MemberDetailScreen(member)
+            }
+        }
     }
 }
