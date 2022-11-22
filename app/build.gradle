@@ -122,7 +122,6 @@ dependencies {
 
     // Retrofit
     implementation deps.retrofit.retrofit
-    implementation deps.retrofit.gson
     implementation deps.retrofit.rxjava2
     implementation deps.retrofit.mock
     implementation deps.okhttp3.okhttp

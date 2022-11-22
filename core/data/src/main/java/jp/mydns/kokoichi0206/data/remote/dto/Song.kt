@@ -1,7 +1,5 @@
 package jp.mydns.kokoichi0206.data.remote.dto
 
-import jp.mydns.kokoichi0206.model.Song
-
 /**
  * Data class for one song in the API.
  */

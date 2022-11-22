@@ -1,23 +1,23 @@
 package jp.mydns.kokoichi0206.data.remote.dto
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 /**
  * Data class for one member in the API.
  */
 data class MemberDto(
     val birthday: String,
-    @SerializedName("blog_url")
+    @field:Json(name = "blog_url")
     val blogUrl: String,
-    @SerializedName("blood_type")
+    @field:Json(name = "blood_type")
     val bloodType: String,
     val generation: String,
     val height: String,
-    @SerializedName("img_url")
+    @field:Json(name = "img_url")
     val imgUrl: String,
-    @SerializedName("user_id")
+    @field:Json(name = "user_id")
     val userId: Int,
-    @SerializedName("user_name")
+    @field:Json(name = "user_name")
     val nameName: String
 )
 
