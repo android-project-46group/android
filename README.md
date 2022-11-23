@@ -45,3 +45,6 @@ Especially about module structures.
 └── versions.gradle
 </pre>
 
+## License
+
+This repository is under [MIT License](./LICENSE).
