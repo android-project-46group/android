@@ -1,5 +1,12 @@
 # Sakamichi app
 
+[![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+
+[![](https://img.shields.io/badge/android-555.svg?logo=kotlin)](https://github.com/android-project-46group/android)
+[![](https://img.shields.io/badge/server-555.svg?logo=go)](https://github.com/android-project-46group/api-server)
+[![](https://img.shields.io/badge/crawler-555.svg?logo=python)](https://github.com/android-project-46group/api)
+[![](https://img.shields.io/badge/ios-555.svg?logo=swift)](https://github.com/android-project-46group/ios)
+
 ## How to get this App
 ------------
 
@@ -45,3 +52,6 @@ Especially about module structures.
 └── versions.gradle
 </pre>
 
+## License
+
+This repository is under [MIT License](./LICENSE).
