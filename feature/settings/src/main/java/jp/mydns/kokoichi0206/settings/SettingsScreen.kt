@@ -18,7 +18,6 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import jp.mydns.kokoichi0206.common.Constants
-import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.feature.settings.R
 import jp.mydns.kokoichi0206.settings.pages.*
