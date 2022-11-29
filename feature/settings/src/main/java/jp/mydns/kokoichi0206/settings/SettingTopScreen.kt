@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.VersionInfo
+import jp.mydns.kokoichi0206.settings.components.VersionInfo
 import jp.mydns.kokoichi0206.common.ui.theme.IconSizeMedium
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceTiny
@@ -71,19 +71,15 @@ fun SettingTopScreen(
                     thickness = 1.dp
                 )
             }
-        }
-        Spacer(
-            modifier = Modifier
-                .height(100.dp)
-                .fillMaxWidth()
-                .background(uiState.themeType.subColor)
-        )
 
-        VersionInfo(
-            version = uiState.version,
-            borderColor = uiState.themeType.subColor,
-        ) {
-            onIsDevChanged()
+            item {
+                VersionInfo(
+                    version = uiState.version,
+                    borderColor = uiState.themeType.subColor,
+                ) {
+                    onIsDevChanged()
+                }
+            }
         }
     }
 }
