@@ -15,7 +15,7 @@ import jp.mydns.kokoichi0206.data.repository.*
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.*
 import jp.mydns.kokoichi0206.sakamichiapp.data.remote.MockSakamichiApi
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.mock.MockRetrofit
 import retrofit2.mock.NetworkBehavior
 import java.util.concurrent.TimeUnit
@@ -30,7 +30,7 @@ object TestAppModule {
     fun provideSakamichiApi(): SakamichiApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create().failOnUnknown())
             .build()
 
         val behavior = NetworkBehavior.create()
