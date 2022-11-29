@@ -14,7 +14,7 @@ import dagger.hilt.android.testing.UninstallModules
 import jp.mydns.kokoichi0206.sakamichiapp.R
 import jp.mydns.kokoichi0206.sakamichiapp.di.AppModule
 import jp.mydns.kokoichi0206.sakamichiapp.presentation.MainActivity
-import jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components.VersionInfo
+import jp.mydns.kokoichi0206.settings.components.VersionInfo
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import jp.mydns.kokoichi0206.data.di.DataModule

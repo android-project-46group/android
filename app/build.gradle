@@ -126,6 +126,7 @@ dependencies {
     implementation deps.retrofit.mock
     implementation deps.okhttp3.okhttp
     implementation deps.okhttp3.logging_interceptor
+    implementation deps.retrofit.moshi
     // Room
     implementation deps.room.room
     kapt deps.room.kapt

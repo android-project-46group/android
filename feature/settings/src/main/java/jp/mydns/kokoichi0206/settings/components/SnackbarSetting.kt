@@ -1,4 +1,4 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components
+package jp.mydns.kokoichi0206.settings.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -18,10 +18,10 @@ import jp.mydns.kokoichi0206.settings.TestTags
 fun SnackbarSetting(
     snackbarHostState: SnackbarHostState,
     borderColor: Color,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier,
     ) {
         SnackbarHost(
             modifier = Modifier.align(Alignment.BottomCenter),

@@ -1,8 +1,8 @@
-package jp.mydns.kokoichi0206.sakamichiapp.presentation.setting.components
+package jp.mydns.kokoichi0206.settings.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceMedium
@@ -87,6 +88,15 @@ fun VersionInfo(
         }
     }
 
+    SnackbarSetting(
+        snackbarHostState = snackbarHostState,
+        borderColor = borderColor,
+        modifier = Modifier
+            .height(100.dp)
+            .fillMaxWidth()
+            .background(borderColor),
+    )
+
     Text(
         modifier = Modifier
             .fillMaxWidth()
@@ -98,10 +108,5 @@ fun VersionInfo(
         text = stringResource(R.string.version_info_in_settings, version),
         style = Typography.body2,
         textAlign = TextAlign.Center,
-    )
-
-    SnackbarSetting(
-        snackbarHostState = snackbarHostState,
-        borderColor = borderColor,
     )
 }
