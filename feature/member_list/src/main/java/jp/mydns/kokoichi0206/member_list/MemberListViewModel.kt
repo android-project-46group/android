@@ -145,6 +145,7 @@ open class MemberListViewModel @Inject constructor(
                 NarrowKeys.SECOND_GEN -> "2期生"
                 NarrowKeys.THIRD_GEN -> "3期生"
                 NarrowKeys.FORTH_GEN -> "4期生"
+                NarrowKeys.FIFTH_GEN -> "5期生"
                 else -> null
             }
             target?.run {

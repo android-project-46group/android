@@ -68,7 +68,8 @@ enum class NarrowKeys(val nameId: Int) {
     FIRST_GEN(R.string.narrow_key_1st),
     SECOND_GEN(R.string.narrow_key_2nd),
     THIRD_GEN(R.string.narrow_key_3rd),
-    FORTH_GEN(R.string.narrow_key_4th);
+    FORTH_GEN(R.string.narrow_key_4th),
+    FIFTH_GEN(R.string.narrow_key_5th);
 
     fun getStringResource(context: Context): String {
         return context.getString(nameId)
