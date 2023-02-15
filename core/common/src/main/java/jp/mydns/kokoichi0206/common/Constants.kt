@@ -24,13 +24,13 @@ object Constants {
     )
 
     val POSSIBLE_GENERATIONS_N = listOf<String>(
-        "1期生", "2期生", "3期生", "4期生",
+        "1期生", "2期生", "3期生", "4期生", "5期生",
     )
     val POSSIBLE_GENERATIONS_S = listOf<String>(
-        "1期生", "2期生",
+        "1期生", "2期生", "3期生",
     )
     val POSSIBLE_GENERATIONS_H = listOf<String>(
-        "1期生", "2期生", "3期生",
+        "1期生", "2期生", "3期生", "4期生",
     )
 
     // =========== Quiz Screen ===========

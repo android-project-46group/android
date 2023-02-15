@@ -4,5 +4,6 @@
     <string name="detail_info_height">身長</string>
     <string name="detail_info_blood">血液型</string>
     <string name="detail_info_group">グループ名</string>
+    <string name="detail_info_blog">ブログ</string>
 
 </resources>
