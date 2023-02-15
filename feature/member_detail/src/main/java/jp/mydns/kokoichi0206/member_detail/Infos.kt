@@ -1,20 +1,20 @@
 package jp.mydns.kokoichi0206.member_detail
 
 import android.content.Context
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import jp.mydns.kokoichi0206.member_detail.components.OneInfo
-import jp.mydns.kokoichi0206.member_detail.components.RowTags
 import jp.mydns.kokoichi0206.common.components.CustomDevider
 import jp.mydns.kokoichi0206.feature.member_detail.R
+import jp.mydns.kokoichi0206.member_detail.components.OneInfo
+import jp.mydns.kokoichi0206.member_detail.components.RowTags
 
 val PADDING_HORIZONTAL = 10.dp
 val PADDING_VERTICAL = 4.dp
@@ -56,6 +56,22 @@ fun Infos(
         // Experimental
         OneInfo(InfoKeys.GROUP_NAME.getStringResource(context), member.group!!)
         CustomDevider(MaterialTheme.colors.secondary, 1.dp)
+
+        Row(
+            modifier = Modifier
+                .padding(PADDING_HORIZONTAL, PADDING_VERTICAL)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            Text(
+                modifier = Modifier
+                    .clickable {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(member.blogUrl))
+                        context.startActivity(browserIntent)
+                    },
+                text = context.getString(R.string.detail_info_blog),
+            )
+        }
     }
 }
 
