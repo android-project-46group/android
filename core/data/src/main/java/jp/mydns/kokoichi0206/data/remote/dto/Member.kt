@@ -15,9 +15,9 @@ data class MemberDto(
     val height: String,
     @field:Json(name = "img_url")
     val imgUrl: String,
-    @field:Json(name = "user_id")
+    @field:Json(name = "id")
     val userId: Int,
-    @field:Json(name = "user_name")
+    @field:Json(name = "name")
     val nameName: String
 )
 
