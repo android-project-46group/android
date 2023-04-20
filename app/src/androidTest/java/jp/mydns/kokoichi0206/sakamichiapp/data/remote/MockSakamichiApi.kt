@@ -21,6 +21,7 @@ class MockSakamichiApi(
         apiKey: String
     ): MembersDto {
         val membersDto = MembersDto(
+            counts = 5,
             members = listOf(
                 MemberDto(
                     userId = 1,
@@ -91,6 +92,7 @@ class MockSakamichiApi(
 
     override suspend fun getBlogs(groupName: String, apiKey: String): BlogsDto {
         val blogsDto = BlogsDto(
+            counts = 7,
             blogs = listOf(
                 BlogDto(
                     name = "秋元 真夏 $counter",
