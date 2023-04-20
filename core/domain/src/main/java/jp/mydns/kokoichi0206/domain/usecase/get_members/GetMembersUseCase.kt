@@ -43,6 +43,10 @@ class GetMembersUseCase @Inject constructor(
             // Call API
             val members = repository.getMembers(groupName).members.map { it.toMember() }
             Log.d(TAG, "API repository.getMembers($groupName) called")
+            if (members.isEmpty()) {
+                emit(Resource.Error("members from api is empty."))
+                return@flow
+            }
             // Delete all data from local db
             dbRepository.deleteMembers(groupName)
             emit(Resource.Success(members))
