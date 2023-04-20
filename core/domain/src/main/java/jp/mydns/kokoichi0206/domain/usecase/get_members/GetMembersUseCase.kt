@@ -40,11 +40,11 @@ class GetMembersUseCase @Inject constructor(
                 }
             }
             emit(Resource.Loading())
-            // Delete all data from local db
-            dbRepository.deleteMembers(groupName)
             // Call API
             val members = repository.getMembers(groupName).members.map { it.toMember() }
             Log.d(TAG, "API repository.getMembers($groupName) called")
+            // Delete all data from local db
+            dbRepository.deleteMembers(groupName)
             emit(Resource.Success(members))
             // Insert data to local db
             dbRepository.insertMembers(
