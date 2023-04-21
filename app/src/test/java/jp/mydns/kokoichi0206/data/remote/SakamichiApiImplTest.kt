@@ -32,7 +32,7 @@ class SakamichiApiImplTest {
     fun `get_members success`() = runBlocking {
         // Arrange
         val response = MockResponse()
-            .setBody("{\"members\":[{\"user_id\":0,\"user_name\":\"名前 です\",\"birthday\":\"12/26/1997\",\"height\":\"157.5cm\",\"blood_type\":\"Type O\",\"generation\":\"1st generation\",\"blog_url\":\"https://hinatazaka46.com/s/official/diary/member/list?ima=0000\\u0026ct=2\",\"img_url\":\"https://kokoichi0206.mydns.jp/imgs/hinata/namae.jpeg\"}]}")
+            .setBody("{\"members\":[{\"id\":0,\"name\":\"名前 です\",\"birthday\":\"12/26/1997\",\"height\":\"157.5cm\",\"blood_type\":\"Type O\",\"generation\":\"1st generation\",\"blog_url\":\"https://hinatazaka46.com/s/official/diary/member/list?ima=0000\\u0026ct=2\",\"img_url\":\"https://kokoichi0206.mydns.jp/imgs/hinata/namae.jpeg\"}]}")
             .setResponseCode(HttpURLConnection.HTTP_OK)
         mockWebServer.enqueue(response)
         val expected = listOf(

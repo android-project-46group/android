@@ -9,6 +9,7 @@ import com.google.common.truth.Truth.assertThat
 import junit.framework.Assert.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -42,7 +43,7 @@ class QuizRecordDaoTest {
     }
 
     @Test
-    fun getRecordsByGroup() = runBlockingTest {
+    fun getRecordsByGroup() = runTest {
         // Arrange
         val record = jp.mydns.kokoichi0206.model.QuizRecord(
             groupName = "NOGIZAKA",
