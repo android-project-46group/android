@@ -17,7 +17,7 @@ android {
         targetSdk build_versions.target_sdk
 
         versionCode 10200
-        versionName "1.2.0"
+        versionName "1.2.1"
 
         testApplicationId "jp.mydns.kokoichi0206.sakamichiapp.test"
         testInstrumentationRunner "jp.mydns.kokoichi0206.sakamichiapp.HiltTestRunner"
