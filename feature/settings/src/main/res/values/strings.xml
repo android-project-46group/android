@@ -21,6 +21,9 @@
     <string name="my_fave">推しメン機能</string>
     <string name="my_fave_set_member">推しメンを設定する</string>
     <string name="my_fave_confirm">登録確認</string>
+    <string name="my_fave_confirm_name">%sを推しメンに登録しますか？</string>
+    <string name="my_fave_confirm_confirm">決定する</string>
+    <string name="my_fave_confirm_cancel">もどる</string>
 
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">クイズ正解数</string>

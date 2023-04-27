@@ -48,6 +48,7 @@ import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 fun FaveSettingScreen(
     navController: NavHostController,
     uiState: SettingsUiState,
+    onConfirmClicked: (Member) -> Unit = {},
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -129,6 +130,11 @@ fun FaveSettingScreen(
         ) {
             Text(
                 modifier = Modifier
+                    .clickable {
+                        selected?.let {
+                            onConfirmClicked(it)
+                        }
+                    }
                     .background(uiState.themeType.subColor)
                     .padding(horizontal = 64.dp, vertical = 4.dp),
                 text = stringResource(id = R.string.my_fave_confirm),

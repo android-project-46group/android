@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -165,17 +168,31 @@ fun SettingsRouting(
                 uiState = uiState,
             )
         }
+
         composable(SettingScreen.MyFaveScreen.route) {
             FaveScreen(
                 navController = navController,
                 uiState = uiState,
             )
         }
+        var selected = uiState.fave
         composable(SettingScreen.MyFaveSettingScreen.route) {
             FaveSettingScreen(
                 navController = navController,
                 uiState = uiState,
+                onConfirmClicked = {
+                    selected = it
+                    navController.navigate(SettingScreen.MyFaveSettingConfirmScreen.route)
+                }
             )
+        }
+        composable(SettingScreen.MyFaveSettingConfirmScreen.route) {
+            selected?.let {
+                FaveSettingConfirmScreen(
+                    uiState = uiState,
+                    selected = it,
+                )
+            }
         }
     }
 }
