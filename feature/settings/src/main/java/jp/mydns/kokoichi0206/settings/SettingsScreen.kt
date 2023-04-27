@@ -96,6 +96,7 @@ fun SettingsRouting(
             SettingNavigation.SetTheme,
             SettingNavigation.ShareApp,
             SettingNavigation.AboutApp,
+            SettingNavigation.MyFave,
         )
 
         composable(
@@ -164,6 +165,9 @@ fun SettingsRouting(
                 uiState = uiState,
             )
         }
+        composable(SettingScreen.MyFaveScreen.route) {
+            FaveScreen()
+        }
     }
 }
 
@@ -208,6 +212,11 @@ sealed class SettingNavigation(
     object AboutApp : SettingNavigation(
         name = R.string.setting_about_app,
         route = SettingScreen.AboutAppScreen.route
+    )
+
+    object MyFave : SettingNavigation(
+        name = R.string.my_fave,
+        route = SettingScreen.MyFaveScreen.route
     )
 }
 

@@ -18,6 +18,7 @@
     <string name="setting_set_theme_color">テーマカラー設定</string>
     <string name="setting_share_app">このアプリをシェアする</string>
     <string name="setting_about_app">アプリについて</string>
+    <string name="my_fave">推しメン機能</string>
 
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">クイズ正解数</string>
