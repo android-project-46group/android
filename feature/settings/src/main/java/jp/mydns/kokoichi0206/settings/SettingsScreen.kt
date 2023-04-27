@@ -166,7 +166,10 @@ fun SettingsRouting(
             )
         }
         composable(SettingScreen.MyFaveScreen.route) {
-            FaveScreen()
+            FaveScreen(
+                navController = navController,
+                uiState = uiState,
+            )
         }
     }
 }
