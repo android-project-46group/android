@@ -20,6 +20,7 @@
     <string name="setting_about_app">About this app</string>
     <string name="my_fave">Favorite members</string>
     <string name="my_fave_set_member">Set favorite member</string>
+    <string name="my_fave_confirm">Confirm</string>
 
     <!--    Strings for QuizResultsScreen-->
     <string name="quiz_result_screen_title">Number of correct answers</string>

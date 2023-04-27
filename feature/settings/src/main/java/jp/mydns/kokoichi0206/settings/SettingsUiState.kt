@@ -13,6 +13,7 @@ data class SettingsUiState(
     val userId: String = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     val appName: String = "my.app",
     val fave: Member? = null,
+    val allMembers: List<Member> = mutableListOf(),
 )
 
 data class Record(

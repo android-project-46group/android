@@ -13,4 +13,5 @@ sealed class SettingScreen(val route: String) {
     object ShareAppScreen : SettingScreen("share_app")
     object AboutAppScreen : SettingScreen("about_app")
     object MyFaveScreen : SettingScreen("my_fave")
+    object MyFaveSettingScreen : SettingScreen("my_fave_setting")
 }

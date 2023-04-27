@@ -171,6 +171,12 @@ fun SettingsRouting(
                 uiState = uiState,
             )
         }
+        composable(SettingScreen.MyFaveSettingScreen.route) {
+            FaveSettingScreen(
+                navController = navController,
+                uiState = uiState,
+            )
+        }
     }
 }
 

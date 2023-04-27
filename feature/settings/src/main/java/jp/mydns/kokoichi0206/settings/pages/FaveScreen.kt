@@ -33,6 +33,7 @@ import coil.compose.AsyncImage
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.feature.settings.R
 import jp.mydns.kokoichi0206.model.Member
+import jp.mydns.kokoichi0206.settings.SettingScreen
 import jp.mydns.kokoichi0206.settings.SettingsUiState
 import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 
@@ -98,7 +99,9 @@ fun FaveScreen(
         Text(
             modifier = Modifier
                 .background(uiState.themeType.subColor)
-                .clickable { }
+                .clickable {
+                    navController.navigate(SettingScreen.MyFaveSettingScreen.route)
+                }
                 .padding(16.dp),
             text = context.resources.getString(R.string.my_fave_set_member),
             fontSize = 24.sp,

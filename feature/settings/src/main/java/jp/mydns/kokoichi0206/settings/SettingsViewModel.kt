@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.mydns.kokoichi0206.common.BuildConfigWrapper
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.Resource
 import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
+import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 import jp.mydns.kokoichi0206.domain.usecase.other_api.ReportIssueUseCase
 import jp.mydns.kokoichi0206.domain.usecase.other_api.UpdateBlogUseCase
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
@@ -15,12 +17,14 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val membersUseCase: GetMembersUseCase,
     private val updateBlogUseCase: UpdateBlogUseCase,
     private val reportIssueUseCase: ReportIssueUseCase,
     private val recordUseCase: RecordUseCases,
@@ -32,6 +36,23 @@ class SettingsViewModel @Inject constructor(
 
     init {
         getAccuracy()
+
+        _uiState.update {
+            it.copy(allMembers = emptyList())
+        }
+
+        GroupName.values().forEach { group ->
+            membersUseCase(group.name.lowercase()).onEach { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val new = _uiState.value.allMembers + result.data!!
+                        _uiState.update { it.copy(allMembers = new) }
+                    }
+
+                    else -> {}
+                }
+            }.launchIn(viewModelScope)
+        }
     }
 
     fun getAccuracy() {
@@ -131,4 +152,5 @@ class SettingsViewModel @Inject constructor(
     fun setThemeType(type: ThemeType) {
         _uiState.update { it.copy(themeType = type) }
     }
+
 }
