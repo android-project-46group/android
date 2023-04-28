@@ -1,5 +1,6 @@
 package jp.mydns.kokoichi0206.settings.pages
 
+import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -72,6 +73,8 @@ fun FaveScreen(
         )
     }
 
+    val context = LocalContext.current
+
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
@@ -79,11 +82,15 @@ fun FaveScreen(
                 imgUri = it
 
                 onImageSelected(uri)
+
+                context.contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION,
+                )
             }
         },
     )
 
-    val context = LocalContext.current
 
     val size = 240.dp
 
