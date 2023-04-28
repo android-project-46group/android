@@ -1,6 +1,9 @@
 package jp.mydns.kokoichi0206.settings.pages
 
 import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,8 +44,14 @@ import jp.mydns.kokoichi0206.settings.components.SettingTopBar
 @Composable
 fun FaveScreen(
     navController: NavHostController,
+    onFaveNavigated: () -> Unit = {},
+    onImageSelected: (Uri) -> Unit = {},
     uiState: SettingsUiState,
 ) {
+    LaunchedEffect(true) {
+        onFaveNavigated()
+    }
+
     // Top Bar
     Box(
         modifier = Modifier
@@ -56,15 +66,22 @@ fun FaveScreen(
         )
     }
 
-    val member = uiState.fave
-
     var imgUri by remember {
-        mutableStateOf<Uri?>(null)
+        mutableStateOf<Uri?>(
+            uiState.faveURI ?: if (uiState.fave == null) null else Uri.parse(uiState.fave.imgUrl)
+        )
     }
 
-    member?.let {
-        imgUri = Uri.parse(member.imgUrl)
-    }
+    val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri ->
+            uri?.let {
+                imgUri = it
+
+                onImageSelected(uri)
+            }
+        },
+    )
 
     val context = LocalContext.current
 
@@ -81,7 +98,12 @@ fun FaveScreen(
                 .border(
                     width = 3.dp,
                     color = Color.Gray.copy(alpha = 0.3f),
-                ),
+                )
+                .clickable {
+                    singlePhotoPickerLauncher.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                },
             model = imgUri,
             contentDescription = "my fave's picture",
             contentScale = ContentScale.Crop,
@@ -90,7 +112,7 @@ fun FaveScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = member?.name ?: "46",
+            text = uiState.fave?.name ?: "46",
             fontSize = 36.sp,
         )
 
@@ -125,8 +147,8 @@ fun FaveScreenPreview() {
 
     CustomSakaTheme {
         FaveScreen(
-            navController,
-            uiState,
+            navController = navController,
+            uiState = uiState,
         )
     }
 }

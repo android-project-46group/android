@@ -1,6 +1,7 @@
 package jp.mydns.kokoichi0206.settings
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +13,7 @@ import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 import jp.mydns.kokoichi0206.domain.usecase.other_api.ReportIssueUseCase
 import jp.mydns.kokoichi0206.domain.usecase.other_api.UpdateBlogUseCase
 import jp.mydns.kokoichi0206.domain.usecase.quiz_record.RecordUseCases
+import jp.mydns.kokoichi0206.model.Member
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,7 +38,9 @@ class SettingsViewModel @Inject constructor(
 
     init {
         getAccuracy()
+    }
 
+    fun initAllMembers() {
         _uiState.update {
             it.copy(allMembers = emptyList())
         }
@@ -130,6 +134,59 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    fun writeFaveName(
+        context: Context,
+        faveName: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            async {
+                DataStoreManager.writeString(
+                    context,
+                    DataStoreManager.KEY_FAVE_NAME,
+                    faveName,
+                )
+            }
+        }
+    }
+
+    fun writeFaveUri(
+        context: Context,
+        faveUri: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            async {
+                DataStoreManager.writeString(
+                    context,
+                    DataStoreManager.KEY_FAVE_URI,
+                    faveUri,
+                )
+            }
+        }
+    }
+
+    fun readFavesFromDataStore(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val name = async {
+                DataStoreManager.readString(context, DataStoreManager.KEY_FAVE_NAME)
+            }
+            val uri = async {
+                DataStoreManager.readString(context, DataStoreManager.KEY_FAVE_URI)
+            }
+            uri.await().let { str ->
+                Uri.parse(str)?.let { uri ->
+                    _uiState.update { it.copy(faveURI = uri) }
+                }
+            }
+
+            val na = name.await()
+
+            _uiState.value.allMembers
+                .firstOrNull { it.name == na }?.let { member ->
+                    _uiState.update { it.copy(fave = member) }
+                }
+        }
+    }
+
     fun readVersion() {
         _uiState.update { it.copy(version = buildConfigWrapper.VERSION) }
     }
@@ -153,4 +210,14 @@ class SettingsViewModel @Inject constructor(
         _uiState.update { it.copy(themeType = type) }
     }
 
+    fun selected(
+        context: Context,
+        member: Member
+    ) {
+        _uiState.update { it.copy(fave = member, faveURI = Uri.parse(member.imgUrl)) }
+        member.imgUrl?.let {
+            writeFaveUri(context, it)
+        }
+        writeFaveName(context, member.name)
+    }
 }
