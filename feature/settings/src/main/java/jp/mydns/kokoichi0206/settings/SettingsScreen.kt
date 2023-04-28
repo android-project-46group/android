@@ -207,8 +207,10 @@ fun SettingsRouting(
                     selected = it,
                     onConfirmClicked = {
                         onConfirmClicked(it)
-                        navController.navigate(SettingScreen.MyFaveScreen.route)
-                    }
+                    },
+                    onCancelClicked = {
+                        navController.popBackStack()
+                    },
                 )
             }
         }
