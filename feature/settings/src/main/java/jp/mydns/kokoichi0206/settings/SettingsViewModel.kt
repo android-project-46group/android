@@ -210,13 +210,22 @@ class SettingsViewModel @Inject constructor(
         _uiState.update { it.copy(themeType = type) }
     }
 
-    fun selected(
+    fun imageSelected(
         context: Context,
-        member: Member
+        uri: Uri,
     ) {
-        _uiState.update { it.copy(fave = member, faveURI = Uri.parse(member.imgUrl)) }
-        member.imgUrl?.let {
-            writeFaveUri(context, it)
+        _uiState.update { it.copy(faveURI = uri) }
+        writeFaveUri(context, uri.toString())
+    }
+
+    fun memberSelected(
+        context: Context,
+        member: Member,
+    ) {
+        val uri = Uri.parse(member.imgUrl)
+        _uiState.update { it.copy(fave = member, faveURI = uri) }
+        uri?.let {
+            writeFaveUri(context, it.toString())
         }
         writeFaveName(context, member.name)
     }
