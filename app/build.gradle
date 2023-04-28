@@ -8,6 +8,10 @@ plugins {
 
 def applicationName = "SakamichiApp"
 
+def versionMajor = 1
+def versionMinor = 3
+def versionPatch = 0
+
 android {
     compileSdk build_versions.target_sdk
 
@@ -16,8 +20,8 @@ android {
         minSdk build_versions.min_sdk
         targetSdk build_versions.target_sdk
 
-        versionCode 10200
-        versionName "1.2.1"
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         testApplicationId "jp.mydns.kokoichi0206.sakamichiapp.test"
         testInstrumentationRunner "jp.mydns.kokoichi0206.sakamichiapp.HiltTestRunner"
