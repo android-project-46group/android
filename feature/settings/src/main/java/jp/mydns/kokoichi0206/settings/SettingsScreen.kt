@@ -89,8 +89,19 @@ fun SettingsRouting(
         modifier = Modifier.fillMaxSize(),
         startDestination = SettingScreen.SettingTopScreen.route,
         enterTransition = {
+            val direction =
+                if (
+                    (initialState.destination.route == SettingScreen.MyFaveSettingConfirmScreen.route && targetState.destination.route == SettingScreen.MyFaveSettingScreen.route) ||
+                    (initialState.destination.route == SettingScreen.MyFaveSettingScreen.route && targetState.destination.route == SettingScreen.MyFaveScreen.route) ||
+                    (initialState.destination.route == SettingScreen.MyFaveSettingConfirmScreen.route && targetState.destination.route == SettingScreen.MyFaveScreen.route)
+                ) {
+                    AnimatedContentScope.SlideDirection.Right
+                } else {
+                    // Default
+                    AnimatedContentScope.SlideDirection.Left
+                }
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                direction,
                 animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
             ) + fadeIn(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
         },
@@ -207,6 +218,10 @@ fun SettingsRouting(
                     selected = it,
                     onConfirmClicked = {
                         onConfirmClicked(it)
+
+                        // back to setting screen
+                        navController.navigateUp()
+                        navController.navigateUp()
                     },
                     onCancelClicked = {
                         navController.popBackStack()
