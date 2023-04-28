@@ -1,25 +1,24 @@
 package jp.mydns.kokoichi0206.settings
 
+import android.net.Uri
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.feature.settings.R
+import jp.mydns.kokoichi0206.model.Member
 import jp.mydns.kokoichi0206.settings.pages.*
 
 @ExperimentalAnimationApi
@@ -36,6 +35,8 @@ fun SettingsScreen(
         viewModel.readAppName()
         viewModel.readUserID(context)
         viewModel.readThemeFromDataStore(context)
+        viewModel.initAllMembers()
+        viewModel.readFavesFromDataStore(context)
     }
 
     CustomSakaTheme {
@@ -54,7 +55,16 @@ fun SettingsScreen(
             setThemeType = { type ->
                 viewModel.setThemeType(type)
                 viewModel.writeTheme(context, type.name)
-            }
+            },
+            onFaveNavigated = {
+                viewModel.readFavesFromDataStore(context)
+            },
+            onImageSelected = {
+                viewModel.writeFaveUri(context, it.toString())
+            },
+            onConfirmClicked = {
+                viewModel.selected(context, it)
+            },
         )
     }
 }
@@ -68,6 +78,9 @@ fun SettingsRouting(
     onUpdateClicked: () -> Unit = {},
     reportIssue: (String) -> Unit = {},
     setThemeType: (ThemeType) -> Unit = {},
+    onFaveNavigated: () -> Unit = {},
+    onImageSelected: (Uri) -> Unit = {},
+    onConfirmClicked: (Member) -> Unit = {},
 ) {
     val navController = rememberAnimatedNavController()
 
@@ -76,8 +89,19 @@ fun SettingsRouting(
         modifier = Modifier.fillMaxSize(),
         startDestination = SettingScreen.SettingTopScreen.route,
         enterTransition = {
+            val direction =
+                if (
+                    (initialState.destination.route == SettingScreen.MyFaveSettingConfirmScreen.route && targetState.destination.route == SettingScreen.MyFaveSettingScreen.route) ||
+                    (initialState.destination.route == SettingScreen.MyFaveSettingScreen.route && targetState.destination.route == SettingScreen.MyFaveScreen.route) ||
+                    (initialState.destination.route == SettingScreen.MyFaveSettingConfirmScreen.route && targetState.destination.route == SettingScreen.MyFaveScreen.route)
+                ) {
+                    AnimatedContentScope.SlideDirection.Right
+                } else {
+                    // Default
+                    AnimatedContentScope.SlideDirection.Left
+                }
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                direction,
                 animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
             ) + fadeIn(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
         },
@@ -96,6 +120,7 @@ fun SettingsRouting(
             SettingNavigation.SetTheme,
             SettingNavigation.ShareApp,
             SettingNavigation.AboutApp,
+            SettingNavigation.MyFave,
         )
 
         composable(
@@ -164,6 +189,46 @@ fun SettingsRouting(
                 uiState = uiState,
             )
         }
+
+        composable(SettingScreen.MyFaveScreen.route) {
+            FaveScreen(
+                navController = navController,
+                onFaveNavigated = onFaveNavigated,
+                onImageSelected = {
+                    onImageSelected(it)
+                },
+                uiState = uiState,
+            )
+        }
+        var selected = uiState.fave
+        composable(SettingScreen.MyFaveSettingScreen.route) {
+            FaveSettingScreen(
+                navController = navController,
+                uiState = uiState,
+                onConfirmClicked = {
+                    selected = it
+                    navController.navigate(SettingScreen.MyFaveSettingConfirmScreen.route)
+                }
+            )
+        }
+        composable(SettingScreen.MyFaveSettingConfirmScreen.route) {
+            selected?.let {
+                FaveSettingConfirmScreen(
+                    uiState = uiState,
+                    selected = it,
+                    onConfirmClicked = {
+                        onConfirmClicked(it)
+
+                        // back to setting screen
+                        navController.navigateUp()
+                        navController.navigateUp()
+                    },
+                    onCancelClicked = {
+                        navController.popBackStack()
+                    },
+                )
+            }
+        }
     }
 }
 
@@ -208,6 +273,11 @@ sealed class SettingNavigation(
     object AboutApp : SettingNavigation(
         name = R.string.setting_about_app,
         route = SettingScreen.AboutAppScreen.route
+    )
+
+    object MyFave : SettingNavigation(
+        name = R.string.my_fave,
+        route = SettingScreen.MyFaveScreen.route
     )
 }
 

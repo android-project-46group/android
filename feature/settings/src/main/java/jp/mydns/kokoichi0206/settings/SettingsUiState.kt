@@ -1,9 +1,11 @@
 package jp.mydns.kokoichi0206.settings
 
 import android.content.Context
+import android.net.Uri
 import androidx.compose.ui.graphics.Color
 import jp.mydns.kokoichi0206.common.datamanager.DataStoreManager
 import jp.mydns.kokoichi0206.common.ui.theme.*
+import jp.mydns.kokoichi0206.model.Member
 
 data class SettingsUiState(
     val records: MutableList<Record> = mutableListOf(),
@@ -11,6 +13,9 @@ data class SettingsUiState(
     val version: String = "1.0.0",
     val userId: String = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     val appName: String = "my.app",
+    val fave: Member? = null,
+    val faveURI: Uri? = null,
+    val allMembers: List<Member> = mutableListOf(),
 )
 
 data class Record(
