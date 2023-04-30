@@ -60,10 +60,10 @@ fun SettingsScreen(
                 viewModel.readFavesFromDataStore(context)
             },
             onImageSelected = {
-                viewModel.writeFaveUri(context, it.toString())
+                viewModel.imageSelected(context, it)
             },
             onConfirmClicked = {
-                viewModel.selected(context, it)
+                viewModel.memberSelected(context, it)
             },
         )
     }
