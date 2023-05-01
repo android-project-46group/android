@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.GroupNameInMemberList
 import jp.mydns.kokoichi0206.common.TestTags
 
 /**
@@ -32,6 +33,51 @@ fun GroupBar(
             .testTag(TestTags.GROUP_BAR),
     ) {
         for (groupName: GroupName in GroupName.values()) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable {
+                        onclick(groupName)
+                    },
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Change text color if the group is selected.
+                Text(
+                    text = groupName.jname + "46",
+                    color = if (groupName == selectedGroupName) {
+                        MaterialTheme.colors.primary
+                    } else {
+                        Color.Gray
+                    },
+                    fontSize = 20.sp,
+                )
+                // Draw a double line if the group is selected.
+                if (groupName == selectedGroupName) {
+                    CustomDevider(MaterialTheme.colors.secondary, 1.dp)
+                    CustomDevider(MaterialTheme.colors.background, 1.dp)
+                    CustomDevider(MaterialTheme.colors.secondary, 1.dp)
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Group selection bar in member list screen (including all).
+ */
+@Composable
+fun GroupBarInMemberList(
+    selectedGroupName: GroupNameInMemberList,
+    onclick: (GroupNameInMemberList) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag(TestTags.GROUP_BAR),
+    ) {
+        for (groupName in GroupNameInMemberList.values()) {
             Column(
                 modifier = Modifier
                     .weight(1f)

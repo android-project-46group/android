@@ -18,7 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.GroupNameInMemberList
 import jp.mydns.kokoichi0206.common.components.GroupBar
+import jp.mydns.kokoichi0206.common.components.GroupBarInMemberList
 import jp.mydns.kokoichi0206.member_list.components.SkeletonMemberScreen
 import jp.mydns.kokoichi0206.member_list.components.SortBar
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
@@ -86,7 +88,7 @@ fun MainView(
     uiState: MemberListUiState,
     onRefresh: () -> Unit = {},
     onPersonClick: (Member) -> Unit = {},
-    onGroupClicked: (GroupName) -> Unit = {},
+    onGroupClicked: (GroupNameInMemberList) -> Unit = {},
     onSortClicked: (MemberListSortKeys) -> Unit = {},
     onSortTypeClicked: () -> Unit = {},
     onNarrowClilcked: (NarrowKeys) -> Unit = {},
@@ -94,7 +96,7 @@ fun MainView(
     Column(
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
-        GroupBar(
+        GroupBarInMemberList(
             selectedGroupName = uiState.groupName,
             onclick = { gn ->
                 onGroupClicked(gn)

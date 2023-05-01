@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.GroupNameInMemberList
 import jp.mydns.kokoichi0206.common.Resource
 import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
 import kotlinx.coroutines.flow.*
@@ -32,35 +33,72 @@ open class MemberListViewModel @Inject constructor(
      *
      * @param groupName group name (one of the GroupName enum)
      */
-    fun getMembers(groupName: GroupName, force: Boolean = false) {
-        _uiState.update { it.copy(isLoading = true, error = "") }
-        getMembersUseCase(groupName.name.lowercase(), force).onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _apiState.value =
-                        MemberListApiState(
-                            members = result.data!!
-                                .toMutableList()
-                                .onEach {
-                                    it.group = groupName.jname
+    fun getMembers(groupName: GroupNameInMemberList, force: Boolean = false) {
+        _uiState.update { it.copy(isLoading = true, error = "", visibleMembers = mutableListOf()) }
+
+        when (groupName) {
+            GroupNameInMemberList.All -> {
+                GroupName.values().forEach { group ->
+                    getMembersUseCase(group.name.lowercase()).onEach { result ->
+                        when (result) {
+                            is Resource.Success -> {
+                                val new = _uiState.value.visibleMembers + result.data!!
+                                setVisibleMembers(new.toMutableList())
+                                _uiState.update { it.copy(isLoading = false) }
+                            }
+
+                            is Resource.Error -> {
+                                _apiState.value = MemberListApiState(
+                                    error = result.message ?: "An unexpected error occurred."
+                                )
+                                _uiState.update {
+                                    it.copy(
+                                        isLoading = false,
+                                        error = result.message ?: "An unexpected error occurred."
+                                    )
                                 }
-                        )
-                    _uiState.update { it.copy(isLoading = false) }
-                    setVisibleMembers(_apiState.value.members)
-                }
-                is Resource.Error -> {
-                    _apiState.value = MemberListApiState(
-                        error = result.message ?: "An unexpected error occurred."
-                    )
-                    _uiState.update {
-                        it.copy(isLoading = false, error = result.message ?: "An unexpected error occurred.")
-                    }
-                }
-                is Resource.Loading -> {
-                    _apiState.value = MemberListApiState(isLoading = true)
+                            }
+
+                            is Resource.Loading -> {
+                                _apiState.value = MemberListApiState(isLoading = true)
+                            }
+                        }
+                    }.launchIn(viewModelScope)
                 }
             }
-        }.launchIn(viewModelScope)
+
+            else -> {
+                getMembersUseCase(groupName.name.lowercase(), force).onEach { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _apiState.value =
+                                MemberListApiState(
+                                    members = result.data!!
+                                        .toMutableList()
+                                        .onEach {
+                                            it.group = groupName.jname
+                                        }
+                                )
+                            _uiState.update { it.copy(isLoading = false) }
+                            setVisibleMembers(_apiState.value.members)
+                        }
+
+                        is Resource.Error -> {
+                            _apiState.value = MemberListApiState(
+                                error = result.message ?: "An unexpected error occurred."
+                            )
+                            _uiState.update {
+                                it.copy(isLoading = false, error = result.message ?: "An unexpected error occurred.")
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            _apiState.value = MemberListApiState(isLoading = true)
+                        }
+                    }
+                }.launchIn(viewModelScope)
+            }
+        }
     }
 
     /**
@@ -72,6 +110,7 @@ open class MemberListViewModel @Inject constructor(
             SortOrderType.ASCENDING -> {
                 sortMembersAscending(uiState.value.sortKey)
             }
+
             SortOrderType.DESCENDING -> {
                 sortMembersDescending(uiState.value.sortKey)
             }
@@ -88,21 +127,27 @@ open class MemberListViewModel @Inject constructor(
             MemberListSortKeys.NAME -> {
                 _uiState.value.visibleMembers.sortBy { it.name }
             }
+
             MemberListSortKeys.GENERATION -> {
                 _uiState.value.visibleMembers.sortBy { it.generation }
             }
+
             MemberListSortKeys.BLOOD_TYPE -> {
                 _uiState.value.visibleMembers.sortBy { it.bloodType }
             }
+
             MemberListSortKeys.BIRTHDAY -> {
                 _uiState.value.visibleMembers.sortBy { jp.mydns.kokoichi0206.common.calcBirthdayOrder(it.birthday) }
             }
+
             MemberListSortKeys.MONTH_DAY -> {
                 _uiState.value.visibleMembers.sortBy { jp.mydns.kokoichi0206.common.calcMonthDayOrder(it.birthday) }
             }
+
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortBy { it.height }
             }
+
             else -> {}
         }
     }
@@ -117,21 +162,27 @@ open class MemberListViewModel @Inject constructor(
             MemberListSortKeys.NAME -> {
                 _uiState.value.visibleMembers.sortByDescending { it.name }
             }
+
             MemberListSortKeys.GENERATION -> {
                 _uiState.value.visibleMembers.sortByDescending { it.generation }
             }
+
             MemberListSortKeys.BLOOD_TYPE -> {
                 _uiState.value.visibleMembers.sortByDescending { it.bloodType }
             }
+
             MemberListSortKeys.BIRTHDAY -> {
                 _uiState.value.visibleMembers.sortByDescending { jp.mydns.kokoichi0206.common.calcBirthdayOrder(it.birthday) }
             }
+
             MemberListSortKeys.MONTH_DAY -> {
                 _uiState.value.visibleMembers.sortByDescending { jp.mydns.kokoichi0206.common.calcMonthDayOrder(it.birthday) }
             }
+
             MemberListSortKeys.HEIGHT -> {
                 _uiState.value.visibleMembers.sortByDescending { it.height }
             }
+
             else -> {}
         }
     }
@@ -168,6 +219,7 @@ open class MemberListViewModel @Inject constructor(
         val visibleMemberType = when (type) {
             MemberListSortKeys.BLOOD_TYPE, MemberListSortKeys.GENERATION ->
                 VisibleMemberStyle.LINES
+
             else ->
                 VisibleMemberStyle.DEFAULT
         }
@@ -194,7 +246,7 @@ open class MemberListViewModel @Inject constructor(
         resetOptions()
     }
 
-    fun setGroupName(groupName: GroupName) {
+    fun setGroupName(groupName: GroupNameInMemberList) {
         _uiState.update { it.copy(groupName = groupName) }
     }
 

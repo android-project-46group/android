@@ -5,6 +5,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.GroupNameInMemberList
 
 @Composable
 fun CustomSakaTheme(
@@ -17,6 +18,7 @@ fun CustomSakaTheme(
             GroupName.NOGIZAKA.jname -> nogiColors
             GroupName.SAKURAZAKA.jname -> sakuraColors
             GroupName.HINATAZAKA.jname -> hinataColors
+            GroupNameInMemberList.All.jname -> mixedColors
             else -> nogiColors
         },
         typography = Typography,
@@ -42,6 +44,13 @@ private val hinataColors = lightColors(
 private val sakuraColors = lightColors(
     primary = BaseColorS,
     secondary = SubColorS,
+    background = Color.White,
+    primaryVariant = Color.White,
+)
+
+private val mixedColors = lightColors(
+    primary = BaseColorMix,
+    secondary = SubColorMix,
     background = Color.White,
     primaryVariant = Color.White,
 )
