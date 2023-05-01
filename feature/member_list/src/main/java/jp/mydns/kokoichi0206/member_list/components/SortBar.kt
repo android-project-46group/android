@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.getGenerationLooper
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceHuge
 import jp.mydns.kokoichi0206.common.ui.theme.SpaceSmall
@@ -172,14 +173,7 @@ fun SortBar(
                 )
             }
             DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                val maxIndex = when (uiState.groupName) {
-                    GroupName.SAKURAZAKA ->
-                        2
-                    GroupName.HINATAZAKA ->
-                        3
-                    else ->
-                        4
-                }
+                val maxIndex = getGenerationLooper(uiState.groupName.jname).size
 
                 NarrowKeys.values().forEachIndexed { index, nKey ->
                     if (index <= maxIndex) {
