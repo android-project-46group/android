@@ -1,7 +1,7 @@
 package jp.mydns.kokoichi0206.member_list
 
 import android.content.Context
-import jp.mydns.kokoichi0206.common.GroupName
+import jp.mydns.kokoichi0206.common.GroupNameInMemberList
 import jp.mydns.kokoichi0206.feature.member_list.R
 import jp.mydns.kokoichi0206.model.Member
 
@@ -13,7 +13,7 @@ data class MemberListUiState(
     var loaded: Boolean = false,
     var isLoading: Boolean = false,
     var error: String = "",
-    var groupName: GroupName = GroupName.NOGIZAKA,
+    var groupName: GroupNameInMemberList = GroupNameInMemberList.NOGIZAKA,
     var visibleStyle: VisibleMemberStyle = VisibleMemberStyle.DEFAULT,
     var sortKey: MemberListSortKeys = MemberListSortKeys.NONE,
     var sortType: SortOrderType = SortOrderType.ASCENDING,

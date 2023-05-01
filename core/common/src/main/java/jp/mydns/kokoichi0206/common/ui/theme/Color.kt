@@ -14,6 +14,9 @@ val SubColorS = Color(0x99F19DB5)
 val BaseColorN = Color(0xFF742581)
 val SubColorN = Color(0x99742581)
 
+val BaseColorMix = Color(0xFFA083B5)
+val SubColorMix = Color(0x99A083B5)
+
 // Keyaki
 val BaseColorK = Color(0xFF77c059)
 val SubColorK = Color(0x99b9df90)
