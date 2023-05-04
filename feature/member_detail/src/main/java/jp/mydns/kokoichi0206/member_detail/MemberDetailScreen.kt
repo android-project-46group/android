@@ -1,19 +1,23 @@
 package jp.mydns.kokoichi0206.member_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
-import jp.mydns.kokoichi0206.member_detail.Infos
-import jp.mydns.kokoichi0206.member_detail.MemberDetailViewModel
-import jp.mydns.kokoichi0206.member_detail.MemberImage
 import jp.mydns.kokoichi0206.model.Member
 
 /**
@@ -21,7 +25,7 @@ import jp.mydns.kokoichi0206.model.Member
  */
 @Composable
 fun MemberDetailScreen(
-    member: jp.mydns.kokoichi0206.model.Member,
+    member: Member,
     viewModel: MemberDetailViewModel = hiltViewModel()
 ) {
     viewModel.setMember(member = member)
@@ -37,18 +41,17 @@ fun MemberDetailScreen(
 fun MainDetailView(
     uiState: MemberDetailUiState,
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
+            .verticalScroll(rememberScrollState())
     ) {
-        Column() {
-            Box(modifier = Modifier.weight(1f)) {
-                MemberImage(uiState = uiState)
-            }
-            Box(modifier = Modifier.weight(1f)) {
-                Infos(uiState = uiState)
-            }
+        Box(modifier = Modifier.size(400.dp)) {
+            MemberImage(uiState = uiState)
+        }
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Infos(uiState = uiState)
         }
     }
 }
