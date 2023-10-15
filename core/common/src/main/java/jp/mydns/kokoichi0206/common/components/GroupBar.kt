@@ -71,13 +71,14 @@ fun GroupBarInMemberList(
     selectedGroupName: GroupNameInMemberList,
     onclick: (GroupNameInMemberList) -> Unit,
     modifier: Modifier = Modifier,
+    items: Array<GroupNameInMemberList>,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .testTag(TestTags.GROUP_BAR),
     ) {
-        for (groupName in GroupNameInMemberList.values()) {
+        items.forEach { groupName ->
             Column(
                 modifier = Modifier
                     .weight(1f)
