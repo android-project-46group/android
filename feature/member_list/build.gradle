@@ -40,6 +40,7 @@ dependencies {
     implementation deps.compose.lifecycle_viewmodel
     implementation deps.compose.navigation
     implementation deps.accompanist.flowlayout
+    implementation 'androidx.compose.foundation:foundation:1.5.3'
 
     // Coroutines
     implementation deps.coroutines.core
