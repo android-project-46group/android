@@ -9,7 +9,11 @@ import jp.mydns.kokoichi0206.common.GroupName
 import jp.mydns.kokoichi0206.common.GroupNameInMemberList
 import jp.mydns.kokoichi0206.common.Resource
 import jp.mydns.kokoichi0206.domain.usecase.get_members.GetMembersUseCase
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 /**
@@ -35,6 +39,7 @@ open class MemberListViewModel @Inject constructor(
      */
     fun getMembers(groupName: GroupNameInMemberList, force: Boolean = false) {
         _uiState.update { it.copy(isLoading = true, error = "", visibleMembers = mutableListOf()) }
+        _apiState.value = MemberListApiState()
 
         when (groupName) {
             GroupNameInMemberList.All -> {
@@ -45,6 +50,7 @@ open class MemberListViewModel @Inject constructor(
                                 val new = _uiState.value.visibleMembers + result.data!!
                                 setVisibleMembers(new.toMutableList())
                                 _uiState.update { it.copy(isLoading = false) }
+                                _apiState.value.members += result.data!!
                             }
 
                             is Resource.Error -> {
@@ -59,9 +65,7 @@ open class MemberListViewModel @Inject constructor(
                                 }
                             }
 
-                            is Resource.Loading -> {
-                                _apiState.value = MemberListApiState(isLoading = true)
-                            }
+                            is Resource.Loading -> {}
                         }
                     }.launchIn(viewModelScope)
                 }
