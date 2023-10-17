@@ -16,7 +16,7 @@ versions.test = "1.4.0"
 versions.navigation_testing = "2.5.3"
 versions.junit = "4.13.2"
 versions.liifecycle_vm_compose = "2.6.0-alpha03"
-versions.navigation_compose = "2.6.0-alpha03"
+versions.navigation_compose = "2.7.4"
 versions.accompanist_flowlayout = "0.17.0"
 
 versions.retrofit = "2.9.0"
@@ -47,7 +47,6 @@ versions.mockk = "1.12.0"
 versions.assertj = "3.21.0"
 versions.espresso = "3.4.0"
 versions.ac_systemuicontroller = "0.17.0"
-versions.ac_navigation_animation = "0.26.5-rc"
 versions.ac_swiperefresh = "0.27.0"
 versions.datastore = "1.0.0"
 versions.jdbc = "3.36.0"
@@ -153,7 +152,6 @@ deps.espresso = espresso
 def accompanist = [:]
 accompanist.flowlayout = "com.google.accompanist:accompanist-flowlayout:$versions.accompanist_flowlayout"
 accompanist.systemuicontroller = "com.google.accompanist:accompanist-systemuicontroller:$versions.ac_systemuicontroller"
-accompanist.animation = "com.google.accompanist:accompanist-navigation-animation:$versions.ac_navigation_animation"
 accompanist.swiperefresh = "com.google.accompanist:accompanist-swiperefresh:$versions.ac_swiperefresh"
 
 deps.accompanist = accompanist

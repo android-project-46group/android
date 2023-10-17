@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import jp.mydns.kokoichi0206.common.Constants
 import jp.mydns.kokoichi0206.common.ui.theme.CustomSakaTheme
 import jp.mydns.kokoichi0206.feature.settings.R
@@ -82,9 +82,9 @@ fun SettingsRouting(
     onImageSelected: (Uri) -> Unit = {},
     onConfirmClicked: (Member) -> Unit = {},
 ) {
-    val navController = rememberAnimatedNavController()
+    val navController = rememberNavController()
 
-    AnimatedNavHost(
+    NavHost(
         navController,
         modifier = Modifier.fillMaxSize(),
         startDestination = SettingScreen.SettingTopScreen.route,
@@ -95,10 +95,10 @@ fun SettingsRouting(
                     (initialState.destination.route == SettingScreen.MyFaveSettingScreen.route && targetState.destination.route == SettingScreen.MyFaveScreen.route) ||
                     (initialState.destination.route == SettingScreen.MyFaveSettingConfirmScreen.route && targetState.destination.route == SettingScreen.MyFaveScreen.route)
                 ) {
-                    AnimatedContentScope.SlideDirection.Right
+                    AnimatedContentTransitionScope.SlideDirection.Right
                 } else {
                     // Default
-                    AnimatedContentScope.SlideDirection.Left
+                    AnimatedContentTransitionScope.SlideDirection.Left
                 }
             slideIntoContainer(
                 direction,
@@ -107,7 +107,7 @@ fun SettingsRouting(
         },
         popExitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
             ) + fadeOut(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
         },
@@ -127,13 +127,13 @@ fun SettingsRouting(
             route = SettingScreen.SettingTopScreen.route,
             exitTransition = {
                 slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Left,
+                    AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
                 ) + fadeOut(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
             },
             popEnterTransition = {
                 slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Right,
+                    AnimatedContentTransitionScope.SlideDirection.Right,
                     animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS)
                 ) + fadeIn(animationSpec = tween(Constants.NAVIGATION_DURATION_MILLIS))
             }
