@@ -10,7 +10,7 @@ def applicationName = "SakamichiApp"
 
 def versionMajor = 1
 def versionMinor = 4
-def versionPatch = 1
+def versionPatch = 2
 
 android {
     compileSdk build_versions.target_sdk
