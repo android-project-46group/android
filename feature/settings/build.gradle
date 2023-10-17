@@ -54,9 +54,6 @@ dependencies {
     // Inject
     implementation deps.hilt.android
 
-    // Animated navigation
-    implementation deps.accompanist.animation
-
     // DataStore
     implementation deps.datastore.preferences
     // optional - RxJava3 support
